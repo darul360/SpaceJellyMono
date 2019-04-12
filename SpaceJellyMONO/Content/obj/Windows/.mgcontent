@@ -4,9 +4,6 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/EditionBOOTCAMP2019/source/repos/SpaceJellyMONO/SpaceJellyMONO/Content/tree.fbx</File>
+    <File>C:/Users/EditionBOOTCAMP2019/Documents/GitHub/SpaceJellyMono/SpaceJellyMONO/Content/Floor.FBX</File>
   </SourceFiles>
-  <DestFiles>
-    <File xsi:nil="true" />
-  </DestFiles>
 </SourceFileCollection>

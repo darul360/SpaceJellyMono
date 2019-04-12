@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/EditionBOOTCAMP2019/source/repos/SpaceJellyMONO/SpaceJellyMONO/Content/tree.fbx</SourceFile>
-  <SourceTime>2018-07-19T22:37:30+02:00</SourceTime>
-  <DestFile>C:/Users/EditionBOOTCAMP2019/source/repos/SpaceJellyMONO/SpaceJellyMONO/Content/bin/Windows/Content/tree.xnb</DestFile>
-  <DestTime>2019-04-09T17:09:41.860862+02:00</DestTime>
+  <SourceFile>C:/Users/EditionBOOTCAMP2019/Documents/GitHub/SpaceJellyMono/SpaceJellyMONO/Content/Floor.FBX</SourceFile>
+  <SourceTime>2019-04-13T00:40:15.8728511+02:00</SourceTime>
+  <DestFile>C:/Users/EditionBOOTCAMP2019/Documents/GitHub/SpaceJellyMono/SpaceJellyMONO/Content/bin/Windows/Floor.xnb</DestFile>
+  <DestTime>2019-04-13T00:41:07.9017888+02:00</DestTime>
   <Importer>FbxImporter</Importer>
-  <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
+  <ImporterTime>2017-03-01T16:05:36+01:00</ImporterTime>
   <Processor>ModelProcessor</Processor>
-  <ProcessorTime>2018-12-08T17:35:54+01:00</ProcessorTime>
+  <ProcessorTime>2017-03-01T16:05:36+01:00</ProcessorTime>
   <Parameters>
     <Key>ColorKeyColor</Key>
     <Value>0,0,0,0</Value>

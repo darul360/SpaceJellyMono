@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
 
 namespace SpaceJellyMONO
 {
@@ -35,8 +36,8 @@ namespace SpaceJellyMONO
             protected override void Initialize()
             {
                 base.Initialize();
-                cameraTarget = new Vector3(0.0f, 0.0f, 0.0f);
-                cameraPostion = new Vector3(0.0f, 0.0f, -100.0f);
+                cameraTarget = new Vector3(0.0f, 0.0f, 143.0f);
+                cameraPostion = new Vector3(0.0f, 100.0f,0.0f);
                 /*--Tworzenie jakby trójkąta kamery, trójkąta widoku--*/
                 //Obrazek       Szerokość matrycy
                 projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), GraphicsDevice.DisplayMode.AspectRatio, 1.0f, 1000.0f);
@@ -51,7 +52,7 @@ namespace SpaceJellyMONO
             protected override void LoadContent()
             {
                 spriteBatch = new SpriteBatch(GraphicsDevice);
-                model = Content.Load<Model>("tree");
+                model = Content.Load<Model>("Floor");
 
             }
 
@@ -101,16 +102,7 @@ namespace SpaceJellyMONO
                 {
                     cameraPostion.Z -= 1f;
                 }
-                if (Keyboard.GetState().IsKeyDown(Keys.Space))
-                {
-                    orbit = !orbit;
-                }
-                if (orbit)
-                {
-                    Matrix rotationMatrix = Matrix.CreateRotationY(MathHelper.ToRadians(1f));
-                    cameraPostion = Vector3.Transform(cameraPostion, rotationMatrix);
-                }
-                view = Matrix.CreateLookAt(cameraPostion, cameraTarget, Vector3.Up);
+                view = Matrix.CreateLookAt(cameraPostion, cameraTarget, Vector3.Down);
                 base.Update(gameTime);
             }
 
