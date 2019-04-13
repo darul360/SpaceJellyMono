@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace SpaceJellyMONO
 {
@@ -22,7 +23,7 @@ namespace SpaceJellyMONO
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.IsFullScreen = false;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferHeight = 1020;
             graphics.PreferredBackBufferWidth = 1920;
             this.IsMouseVisible = true;
             }
@@ -36,7 +37,7 @@ namespace SpaceJellyMONO
             effect = new BasicEffect(GraphicsDevice);
 
             /*-----MODELE-----*/
-            modelLoader = new ModelLoader("Floor", camera, this, 0.2f, 0.01f);
+            modelLoader = new ModelLoader("Floor", camera, this, 0.2f, 0.01f, new Vector3(10,1,8));
 
             base.Initialize();
             }
@@ -55,12 +56,22 @@ namespace SpaceJellyMONO
             {
             
             }
+        protected override void Update(GameTime gameTime)
+        {
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
 
-            /// <summary>
-            /// This is called when the game should draw itself.
-            /// </summary>
-            /// <param name="gameTime">Provides a snapshot of timing values.</param>
-            protected override void Draw(GameTime gameTime)
+            // TODO: Add your update logic here
+
+            modelLoader.update();
+
+            base.Update(gameTime);
+        }
+        /// <summary>
+        /// This is called when the game should draw itself.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Draw(GameTime gameTime)
             {
                 GraphicsDevice.Clear(Color.CornflowerBlue);
                 basicFloor.Draw(camera, effect);
