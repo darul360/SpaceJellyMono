@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System.Diagnostics;
 
 namespace SpaceJellyMONO
 {
@@ -15,62 +14,47 @@ namespace SpaceJellyMONO
             Camera camera;
             BasicFloorGenerate basicFloor;
             BasicEffect effect;
+            ModelLoader modelLoader;
+        
 
             public Game1()
             {
-                graphics = new GraphicsDeviceManager(this);
-                Content.RootDirectory = "Content";
+            graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
             graphics.IsFullScreen = false;
             graphics.PreferredBackBufferHeight = 1080;
             graphics.PreferredBackBufferWidth = 1920;
             this.IsMouseVisible = true;
-        }
+            }
 
-            /// <summary>
-            /// Allows the game to perform any initialization it needs to before starting to run.
-            /// This is where it can query for any required services and load any non-graphic
-            /// related content.  Calling base.Initialize will enumerate through any components
-            /// and initialize them as well.
-            /// </summary>
             protected override void Initialize()
             {
+            /*-----KAMERA-----*/
             camera = new Camera(this, new Vector3(10f, 3f, 5f), new Vector3(0.8f,0,0), 5f,graphics);
             Components.Add(camera);
             basicFloor = new BasicFloorGenerate(GraphicsDevice, 20, 20);
             effect = new BasicEffect(GraphicsDevice);
 
+            /*-----MODELE-----*/
+            modelLoader = new ModelLoader("Floor", camera, this);
+
             base.Initialize();
             }
 
-            /// <summary>
-            /// LoadContent will be called once per game and is the place to load
-            /// all of your content.
-            /// </summary>
             protected override void LoadContent()
             {
                 spriteBatch = new SpriteBatch(GraphicsDevice);
             }
 
-            /// <summary>
-            /// UnloadContent will be called once per game and is the place to unload
-            /// game-specific content.
-            /// </summary>
+            public ContentManager exportContentManager()
+            {
+                return base.Content;
+            }
+            
             protected override void UnloadContent()
             {
-                // TODO: Unload any non ContentManager content here
+            
             }
-
-            /// <summary>
-            /// Allows the game to run logic such as updating the world,
-            /// checking for collisions, gathering input, and playing audio.
-            /// </summary>
-            /// <param name="gameTime">Provides a snapshot of timing values.</param>
-            //protected override void Update(GameTime gameTime)
-            //{
-            //    if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            //        Exit();
-  
-            //}
 
             /// <summary>
             /// This is called when the game should draw itself.
@@ -79,8 +63,10 @@ namespace SpaceJellyMONO
             protected override void Draw(GameTime gameTime)
             {
                 GraphicsDevice.Clear(Color.CornflowerBlue);
-            basicFloor.Draw(camera, effect);
-                base.Draw(gameTime);
+                basicFloor.Draw(camera, effect);
+                modelLoader.draw();
+            
+            base.Draw(gameTime);
             }
         }
 

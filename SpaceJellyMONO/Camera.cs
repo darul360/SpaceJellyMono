@@ -92,12 +92,13 @@ namespace SpaceJellyMONO
             Vector3 moveVec = Vector3.Zero;
             KeyboardState ks = Keyboard.GetState();
             MouseState current_mouse = Mouse.GetState();
+            
             if (current_mouse.Y <50.0f)
             {
                 moveVec.Z = 1;
             }
 
-            if (current_mouse.Y>1030.0f)
+            if (current_mouse.Y> gdm.PreferredBackBufferHeight-50.0f)
             {
                 Debug.WriteLine("działam");
                 moveVec.Z = -1;
@@ -106,7 +107,7 @@ namespace SpaceJellyMONO
             {
                 moveVec.X = 1;
             }
-            if (current_mouse.X>1870.0f)
+            if (current_mouse.X>gdm.PreferredBackBufferWidth-50.0f)
             {
                 moveVec.X = -1;
             }
@@ -121,9 +122,7 @@ namespace SpaceJellyMONO
             {
                 Game.Exit();
             }
-            
-            //Vector2 pos = new Vector2(current_mouse.X, );
-            Debug.WriteLine(current_mouse.X + " " + current_mouse.Y);
+
             base.Update(gameTime);
         }
     }
