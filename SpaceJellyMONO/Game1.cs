@@ -12,14 +12,9 @@ namespace SpaceJellyMONO
         {
             GraphicsDeviceManager graphics;
             SpriteBatch spriteBatch;
-            Vector3 cameraTarget;
-            Vector3 cameraPostion;
-            /*---SECTION OF CONVERTING 3D OBJECT TO 2D */
-            Matrix projection;      /*--RZUTOWANIE 3D NA 2D--*/
-            Matrix view;            /*--POSITION OF VIRTUAL CAMERA--*/
-            Matrix worldMatrix;     /*--POSITION OF OBJECT--*/
-            bool orbit;
-            Model model;
+            Camera camera;
+            BasicFloorGenerate basicFloor;
+            BasicEffect effect;
 
             public Game1()
             {
@@ -35,14 +30,11 @@ namespace SpaceJellyMONO
             /// </summary>
             protected override void Initialize()
             {
+            camera = new Camera(this, new Vector3(10f, 3f, 5f), new Vector3(0.8f,0,0), 5f);
+            Components.Add(camera);
+            basicFloor = new BasicFloorGenerate(GraphicsDevice, 20, 20);
+            effect = new BasicEffect(GraphicsDevice);
                 base.Initialize();
-                cameraTarget = new Vector3(0.0f, 0.0f, 143.0f);
-                cameraPostion = new Vector3(0.0f, 100.0f,0.0f);
-                /*--Tworzenie jakby trójkąta kamery, trójkąta widoku--*/
-                //Obrazek       Szerokość matrycy
-                projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), GraphicsDevice.DisplayMode.AspectRatio, 1.0f, 1000.0f);
-                view = Matrix.CreateLookAt(cameraPostion, cameraTarget, Vector3.Up);
-                worldMatrix = Matrix.CreateWorld(cameraTarget, Vector3.Forward, Vector3.Up);
             }
 
             /// <summary>
@@ -52,8 +44,6 @@ namespace SpaceJellyMONO
             protected override void LoadContent()
             {
                 spriteBatch = new SpriteBatch(GraphicsDevice);
-                model = Content.Load<Model>("Floor");
-
             }
 
             /// <summary>
@@ -70,41 +60,12 @@ namespace SpaceJellyMONO
             /// checking for collisions, gathering input, and playing audio.
             /// </summary>
             /// <param name="gameTime">Provides a snapshot of timing values.</param>
-            protected override void Update(GameTime gameTime)
-            {
-                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                    Exit();
-                if (Keyboard.GetState().IsKeyDown(Keys.Right))
-                {
-                    cameraPostion.X += 1f;
-                    cameraTarget.X += 1f;
-                }
-                if (Keyboard.GetState().IsKeyDown(Keys.Left))
-                {
-                    cameraPostion.X -= 1f;
-                    cameraTarget.X -= 1f;
-                }
-                if (Keyboard.GetState().IsKeyDown(Keys.Up))
-                {
-                    cameraPostion.Y -= 1f;
-                    cameraTarget.Y -= 1f;
-                }
-                if (Keyboard.GetState().IsKeyDown(Keys.Down))
-                {
-                    cameraPostion.Y += 1f;
-                    cameraTarget.Y += 1f;
-                }
-                if (Keyboard.GetState().IsKeyDown(Keys.Q))
-                {
-                    cameraPostion.Z += 1f;
-                }
-                if (Keyboard.GetState().IsKeyDown(Keys.E))
-                {
-                    cameraPostion.Z -= 1f;
-                }
-                view = Matrix.CreateLookAt(cameraPostion, cameraTarget, Vector3.Down);
-                base.Update(gameTime);
-            }
+            //protected override void Update(GameTime gameTime)
+            //{
+            //    if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            //        Exit();
+  
+            //}
 
             /// <summary>
             /// This is called when the game should draw itself.
@@ -112,18 +73,8 @@ namespace SpaceJellyMONO
             /// <param name="gameTime">Provides a snapshot of timing values.</param>
             protected override void Draw(GameTime gameTime)
             {
-                GraphicsDevice.Clear(Color.Black);
-                foreach (ModelMesh mesh in model.Meshes)
-                {
-                    foreach (BasicEffect effect in mesh.Effects)
-                    {
-                        effect.View = view;
-                        effect.Projection = projection;
-                        effect.World = worldMatrix;
-                        mesh.Draw();
-
-                    }
-                }
+                GraphicsDevice.Clear(Color.CornflowerBlue);
+            basicFloor.Draw(camera, effect);
                 base.Draw(gameTime);
             }
         }
