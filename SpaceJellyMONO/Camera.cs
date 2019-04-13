@@ -90,7 +90,6 @@ namespace SpaceJellyMONO
         {
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
             Vector3 moveVec = Vector3.Zero;
-            KeyboardState ks = Keyboard.GetState();
             MouseState current_mouse = Mouse.GetState();
             
             if (current_mouse.Y <50.0f)
@@ -118,10 +117,7 @@ namespace SpaceJellyMONO
                 moveVec *= dt * cameraSpeed;
                 Move(moveVec);
             }
-            if (ks.IsKeyDown(Keys.Escape))
-            {
-                Game.Exit();
-            }
+
 
             base.Update(gameTime);
         }

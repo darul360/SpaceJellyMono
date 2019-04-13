@@ -36,7 +36,7 @@ namespace SpaceJellyMONO
             effect = new BasicEffect(GraphicsDevice);
 
             /*-----MODELE-----*/
-            modelLoader = new ModelLoader("Floor", camera, this);
+            modelLoader = new ModelLoader("Floor", camera, this, 0.2f, 0.01f);
 
             base.Initialize();
             }
@@ -64,7 +64,8 @@ namespace SpaceJellyMONO
             {
                 GraphicsDevice.Clear(Color.CornflowerBlue);
                 basicFloor.Draw(camera, effect);
-                modelLoader.draw();
+
+            modelLoader.draw();
             
             base.Draw(gameTime);
             }
