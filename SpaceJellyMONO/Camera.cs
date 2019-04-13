@@ -15,6 +15,7 @@ namespace SpaceJellyMONO
         private Vector3 cameraRot;
         private float cameraSpeed;
         private Vector3 cameraLookAt;
+        private GraphicsDeviceManager gdm;
 
         public Vector3 Position
         {
@@ -49,8 +50,9 @@ namespace SpaceJellyMONO
             }
         }
 
-        public Camera(Game game,Vector3 position,Vector3 rotation,float speed) : base(game)
+        public Camera(Game game,Vector3 position,Vector3 rotation,float speed, GraphicsDeviceManager graphicsDeviceManager) : base(game)
         {
+            gdm = graphicsDeviceManager;
             cameraSpeed = speed;
             Projection = Matrix.CreatePerspectiveFieldOfView(
                 MathHelper.PiOver4,
@@ -89,21 +91,22 @@ namespace SpaceJellyMONO
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
             Vector3 moveVec = Vector3.Zero;
             KeyboardState ks = Keyboard.GetState();
-            if (ks.IsKeyDown(Keys.Up))
+            MouseState current_mouse = Mouse.GetState();
+            if (current_mouse.Y <50.0f)
             {
                 moveVec.Z = 1;
             }
 
-            if (ks.IsKeyDown(Keys.Down))
+            if (current_mouse.Y>1030.0f)
             {
                 Debug.WriteLine("działam");
                 moveVec.Z = -1;
             }
-            if (ks.IsKeyDown(Keys.Left))
+            if (current_mouse.X < 50.0f)
             {
                 moveVec.X = 1;
             }
-            if (ks.IsKeyDown(Keys.Right))
+            if (current_mouse.X>1870.0f)
             {
                 moveVec.X = -1;
             }
@@ -114,7 +117,13 @@ namespace SpaceJellyMONO
                 moveVec *= dt * cameraSpeed;
                 Move(moveVec);
             }
-
+            if (ks.IsKeyDown(Keys.Escape))
+            {
+                Game.Exit();
+            }
+            
+            //Vector2 pos = new Vector2(current_mouse.X, );
+            Debug.WriteLine(current_mouse.X + " " + current_mouse.Y);
             base.Update(gameTime);
         }
     }

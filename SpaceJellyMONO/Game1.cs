@@ -20,7 +20,11 @@ namespace SpaceJellyMONO
             {
                 graphics = new GraphicsDeviceManager(this);
                 Content.RootDirectory = "Content";
-            }
+            graphics.IsFullScreen = false;
+            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1920;
+            this.IsMouseVisible = true;
+        }
 
             /// <summary>
             /// Allows the game to perform any initialization it needs to before starting to run.
@@ -30,11 +34,12 @@ namespace SpaceJellyMONO
             /// </summary>
             protected override void Initialize()
             {
-            camera = new Camera(this, new Vector3(10f, 3f, 5f), new Vector3(0.8f,0,0), 5f);
+            camera = new Camera(this, new Vector3(10f, 3f, 5f), new Vector3(0.8f,0,0), 5f,graphics);
             Components.Add(camera);
             basicFloor = new BasicFloorGenerate(GraphicsDevice, 20, 20);
             effect = new BasicEffect(GraphicsDevice);
-                base.Initialize();
+
+            base.Initialize();
             }
 
             /// <summary>
