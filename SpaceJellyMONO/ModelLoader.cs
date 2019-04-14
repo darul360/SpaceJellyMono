@@ -14,11 +14,10 @@ namespace SpaceJellyMONO
         private Camera camera;
         private Game1 mainClass;
         private float rotationAngle,scale;
-        private Matrix worldMatrix;
         private float moveZ,moveX;
 
         public BoundingBox box;
-        float size = 10;
+        float size = 7;
 
         public ModelLoader(String path,Camera camera,Game1 game1,float YrotationAngle,float scale, Vector3 translation):base(game1)
         {
@@ -34,33 +33,48 @@ namespace SpaceJellyMONO
         }
 
 
-        public void update()
+        public void update(BoundingBox referenceBox)
         {
-            Debug.WriteLine(moveX + " " + moveZ);
             KeyboardState ks = Keyboard.GetState();
             if (ks.IsKeyDown(Keys.NumPad8))
             {
-                translation = new Vector3(moveX, 1, moveZ);
                 moveZ += 0.2f;
             }
 
             if (ks.IsKeyDown(Keys.NumPad2))
             {
-                translation = new Vector3(moveX, 1, moveZ);
+                //translation = new Vector3(moveX, 1, moveZ);
                 moveZ -= 0.2f;
             }
 
             if (ks.IsKeyDown(Keys.NumPad6))
             {
-                translation = new Vector3(moveX, 1, moveZ);
+                //translation = new Vector3(moveX, 1, moveZ);
                 moveX -= 0.2f;
             }
 
             if (ks.IsKeyDown(Keys.NumPad4))
             {
-                translation = new Vector3(moveX, 1, moveZ);
+               // translation = new Vector3(moveX, 1, moveZ);
                 moveX += 0.2f;
             }
+
+            bool collisionX = processCollisions(referenceBox, moveX, moveZ);
+            bool collisionZ = processCollisions(referenceBox, moveX, moveZ);
+            if (collisionX)
+            {
+                Debug.WriteLine("collisionX"+moveX+" "+moveZ);
+                moveX += 0;
+            }
+            if (collisionZ)
+            {
+                Debug.WriteLine("collisionY");
+                moveZ += 0;
+            }
+
+            translation = new Vector3(moveX, 1, moveZ);
+            
+
         }
 
 
@@ -76,7 +90,7 @@ namespace SpaceJellyMONO
 
         public bool processCollisions(BoundingBox otherBox, float DX, float DZ)
         {
-            box = new BoundingBox();
+            box = new BoundingBox(new Vector3(translation.X - size / 2 + DX, translation.Y, translation.Z - size / 2 + DZ), new Vector3(translation.X + size / 2 + DX, translation.Y + size, translation.Z + size / 2 + DZ));
             if (box.Intersects(otherBox))
             {
                 return true;

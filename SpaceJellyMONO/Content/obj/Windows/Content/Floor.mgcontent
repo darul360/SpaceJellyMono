@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>D:/projekty/SpaceJellyMono/SpaceJellyMONO/Content/Floor.FBX</SourceFile>
-  <SourceTime>2019-04-13T13:54:16.4381426+02:00</SourceTime>
+  <SourceTime>2019-04-14T16:12:19.4429297+02:00</SourceTime>
   <DestFile>D:/projekty/SpaceJellyMono/SpaceJellyMONO/Content/bin/Windows/Content/Floor.xnb</DestFile>
-  <DestTime>2019-04-13T16:18:07.7933124+02:00</DestTime>
+  <DestTime>2019-04-14T16:17:06.8208025+02:00</DestTime>
   <Importer>FbxImporter</Importer>
   <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
   <Processor>ModelProcessor</Processor>

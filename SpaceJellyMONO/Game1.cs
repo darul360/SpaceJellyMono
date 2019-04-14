@@ -16,6 +16,7 @@ namespace SpaceJellyMONO
             BasicFloorGenerate basicFloor;
             BasicEffect effect;
             ModelLoader modelLoader;
+            private ReferencePoint referencePoint;
         
 
             public Game1()
@@ -38,6 +39,7 @@ namespace SpaceJellyMONO
 
             /*-----MODELE-----*/
             modelLoader = new ModelLoader("Floor", camera, this, 0.2f, 0.01f, new Vector3(10,1,8));
+            referencePoint = new ReferencePoint("Floor",this, new Vector3(12,1,8),0.4f,0.01f);
 
             base.Initialize();
             }
@@ -63,7 +65,7 @@ namespace SpaceJellyMONO
 
             // TODO: Add your update logic here
 
-            modelLoader.update();
+            modelLoader.update(referencePoint.box);
 
             base.Update(gameTime);
         }
@@ -77,7 +79,9 @@ namespace SpaceJellyMONO
                 basicFloor.Draw(camera, effect);
 
             modelLoader.draw();
-            
+            referencePoint.draw(camera);
+
+
             base.Draw(gameTime);
             }
         }
