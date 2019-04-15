@@ -22,7 +22,7 @@ namespace SpaceJellyMONO
 
 
         public BoundingBox box;
-        float size = 1;
+        float size = 0.8f;
 
         public ModelLoader(String path,Camera camera,Game1 game1,float YrotationAngle,float scale, Vector3 translation):base(game1)
         {
@@ -73,71 +73,36 @@ namespace SpaceJellyMONO
             Vector3[] tempBBLocation = new Vector3[8];
             tempBBLocation = referenceBox.GetCorners();
 
-            Debug.WriteLine(backWallCenter(verticies).Z - frontWallCenter(tempBBLocation).Z);
-            if (backWallCenter(verticies).Z -frontWallCenter(tempBBLocation).Z <= 0.05f && two == false && three == false && four == false)
+            Debug.WriteLine(rightWalllCenter(tempBBLocation).X + "  "+ leftWalllCenter(verticies).X +" " + collisionX);
+
+            #region ZCollisions
+            if (frontWallCenter(verticies).Z < backWallCenter(tempBBLocation).Z+0.02f)
             {
-                if (collisionZ == true)
-                {
-                    one = true;
-                }
-                if (ks.IsKeyDown(Keys.NumPad8))
-                {
-                    one = false;
-                }
-                if (Math.Abs(backWallCenter(tempBBLocation).X - frontWallCenter(verticies).X) >= size)
-                {
-                      one = false;
-                }
+                if (collisionZ) { two = true; collisionX = false; }
+                if (!collisionZ) two = false;
             }
 
-            if (backWallCenter(tempBBLocation).Z - frontWallCenter(verticies).Z <= 0.05f && one == false && three == false && four == false)
+            if (backWallCenter(verticies).Z > frontWallCenter(tempBBLocation).Z - 0.02f)
             {
-                if (collisionZ == true)
-                {
-                    two = true;
-                }
-                if (ks.IsKeyDown(Keys.NumPad2))
-                {
-                    two = false;
-                }
-                if (Math.Abs(frontWallCenter(tempBBLocation).X - backWallCenter(verticies).X) >= size)
-                {
-                    two = false;
-                }
+                if (collisionZ) { one = true; collisionX = false; }
+                if (!collisionZ)  one = false;
+            }
+            #endregion
+
+            #region XCollisions
+            if(rightWalllCenter(tempBBLocation).X + 0.02f > leftWalllCenter(verticies).X)
+            {
+                if (collisionX) { three = true; collisionZ = false; }
+                if (!collisionX) three = false;
             }
 
-            if (leftWalllCenter(tempBBLocation).X - rightWalllCenter(verticies).X <= 0.05f && one == false && two == false && four == false)
+            if(leftWalllCenter(tempBBLocation).X -0.02f < rightWalllCenter(verticies).X)
             {
-                if (collisionX == true)
-                {
-                    three = true;
-                }
-                if (ks.IsKeyDown(Keys.NumPad6))
-                {
-                    three = false;
-                }
-                if (Math.Abs(leftWalllCenter(tempBBLocation).Z - rightWalllCenter(verticies).Z) >= size)
-                {
-                        three = false;
-                }
+                if(collisionX) { four = true; collisionZ = false; }
+                if (!collisionX) four = false;
             }
 
-            if (leftWalllCenter(verticies).X-rightWalllCenter(tempBBLocation).X <= 0.05f && one == false && three == false && two == false)
-            {
-                if (collisionX == true)
-                {
-                    four = true;
-                }
-                if (ks.IsKeyDown(Keys.NumPad4))
-                {
-                    four = false;
-                }
-                if (Math.Abs(rightWalllCenter(tempBBLocation).Z - leftWalllCenter(verticies).Z) >= size)
-                {
-                        four = false;
-                }
-            }
-
+            #endregion
 
 
 

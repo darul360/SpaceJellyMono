@@ -18,7 +18,7 @@ namespace SpaceJellyMONO
         private float rotationAngle, scale;
 
         public BoundingBox box;
-        float size = 1;
+        float size = 0.8f;
 
         public DrawBoxCollider drawBoxCollider;
 

@@ -90,10 +90,12 @@ namespace SpaceJellyMONO
         {
             Initialize(boundingBoxVerticies);
             effect = new BasicEffect(graphicsDevice);
+            graphicsDevice.BlendState = BlendState.AlphaBlend;
             effect.View = camera.View;
             effect.Projection = camera.Projection;
             effect.TextureEnabled = true;
             effect.Texture = checkerboardTexture;
+            effect.Alpha = 0.5f;
 
             foreach (var pass in effect.CurrentTechnique.Passes)
             {
