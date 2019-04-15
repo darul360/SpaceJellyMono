@@ -15,9 +15,11 @@ namespace SpaceJellyMONO
         private Game1 mainClass;
         private float rotationAngle,scale;
         private float moveZ,moveX;
+        private DrawBoxCollider drawPlane;
+
 
         public BoundingBox box;
-        float size = 7;
+        float size = 1;
 
         public ModelLoader(String path,Camera camera,Game1 game1,float YrotationAngle,float scale, Vector3 translation):base(game1)
         {
@@ -29,7 +31,9 @@ namespace SpaceJellyMONO
             this.translation = translation;
             moveZ = translation.Z;
             moveX = translation.X;
-            box = new BoundingBox(new Vector3(translation.X - size/2, translation.Y, translation.Z -size/2), new Vector3(translation.X + size / 2, translation.Y + size, translation.Z + size / 2));
+            box = new BoundingBox(new Vector3(translation.X - size / 2, translation.Y, translation.Z - size / 2), new Vector3(translation.X + size / 2, translation.Y + size, translation.Z + size / 2));
+            drawPlane = new DrawBoxCollider(game1.GraphicsDevice, game1);
+
         }
 
 
@@ -43,49 +47,33 @@ namespace SpaceJellyMONO
 
             if (ks.IsKeyDown(Keys.NumPad2))
             {
-                //translation = new Vector3(moveX, 1, moveZ);
                 moveZ -= 0.2f;
             }
 
             if (ks.IsKeyDown(Keys.NumPad6))
             {
-                //translation = new Vector3(moveX, 1, moveZ);
                 moveX -= 0.2f;
             }
 
             if (ks.IsKeyDown(Keys.NumPad4))
             {
-               // translation = new Vector3(moveX, 1, moveZ);
                 moveX += 0.2f;
             }
 
-            bool collisionX = processCollisions(referenceBox, moveX, moveZ);
-            bool collisionZ = processCollisions(referenceBox, moveX, moveZ);
-            if (collisionX)
-            {
-                Debug.WriteLine("collisionX"+moveX+" "+moveZ);
-                moveX += 0;
-            }
-            if (collisionZ)
-            {
-                Debug.WriteLine("collisionY");
-                moveZ += 0;
-            }
+            bool collisionX = processCollisions(referenceBox, moveX, 0);
+            bool collisionZ = processCollisions(referenceBox, 0, moveZ);
+            //if (collisionX)
+            //{
+            //    Debug.WriteLine("collisionX"+moveX+" "+moveZ);
+            //    moveX += 0;
+            //}
+            //if (collisionZ)
+            //{
+            //    Debug.WriteLine("collisionY");
+            //    moveZ += 0;
+            //}
 
             translation = new Vector3(moveX, 1, moveZ);
-            
-
-        }
-
-
-        private Matrix createTranslation()
-        {
-            return Matrix.CreateTranslation(translation);
-        }
-
-        private Matrix getWorld()
-        {
-            return Matrix.CreateScale(scale) * Matrix.CreateRotationY(3 * rotationAngle) * createTranslation();
         }
 
         public bool processCollisions(BoundingBox otherBox, float DX, float DZ)
@@ -101,6 +89,7 @@ namespace SpaceJellyMONO
 
         public void draw()
         {
+            Vector3[] verticies = box.GetCorners();
 
             model = mainClass.exportContentManager().Load<Model>(modelPath);
             foreach (ModelMesh modelMesh in model.Meshes)
@@ -108,11 +97,13 @@ namespace SpaceJellyMONO
                 foreach(BasicEffect basicEffect in modelMesh.Effects)
                 {
                     basicEffect.View = camera.View;
-                    basicEffect.World = getWorld();
+                    basicEffect.World = Matrix.CreateScale(scale) * Matrix.CreateRotationY(3 * rotationAngle) * Matrix.CreateTranslation(translation);  
                     basicEffect.Projection = camera.Projection;
                     basicEffect.EnableDefaultLighting();
                 }
                 modelMesh.Draw();
+                drawPlane.Draw(camera, verticies);
+                Debug.WriteLine(verticies[0]);
             }
 
         }

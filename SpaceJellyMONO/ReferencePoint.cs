@@ -18,7 +18,9 @@ namespace SpaceJellyMONO
         private float rotationAngle, scale;
 
         public BoundingBox box;
-        float size = 7;
+        float size = 1;
+
+        private DrawBoxCollider drawPlane;
 
         public ReferencePoint(String path, Game1 game1, Vector3 pos, float YrotationAngle, float scale)
         {
@@ -29,10 +31,12 @@ namespace SpaceJellyMONO
             this.rotationAngle = YrotationAngle;
             this.scale = scale;
             box = new BoundingBox(new Vector3(pos.X - size / 2, pos.Y, pos.Z - size / 2), new Vector3(pos.X + size / 2, pos.Y + size, pos.Z + size / 2));
+            drawPlane = new DrawBoxCollider(game1.GraphicsDevice,game1);
         }
 
         public void draw(Camera camera)
         {
+            Vector3[] verticies = box.GetCorners();
 
             model = mainClass.exportContentManager().Load<Model>(modelPath);
             foreach (ModelMesh modelMesh in model.Meshes)
@@ -45,6 +49,7 @@ namespace SpaceJellyMONO
                     basicEffect.EnableDefaultLighting();
                 }
                 modelMesh.Draw();
+                drawPlane.Draw(camera, verticies);
             }
 
         }
