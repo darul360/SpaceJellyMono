@@ -20,7 +20,7 @@ namespace SpaceJellyMONO
         public BoundingBox box;
         float size = 1;
 
-        private DrawBoxCollider drawPlane;
+        public DrawBoxCollider drawBoxCollider;
 
         public ReferencePoint(String path, Game1 game1, Vector3 pos, float YrotationAngle, float scale)
         {
@@ -31,7 +31,7 @@ namespace SpaceJellyMONO
             this.rotationAngle = YrotationAngle;
             this.scale = scale;
             box = new BoundingBox(new Vector3(pos.X - size / 2, pos.Y, pos.Z - size / 2), new Vector3(pos.X + size / 2, pos.Y + size, pos.Z + size / 2));
-            drawPlane = new DrawBoxCollider(game1.GraphicsDevice,game1);
+            drawBoxCollider = new DrawBoxCollider(game1.GraphicsDevice,game1,"texture2.jpg");
         }
 
         public void draw(Camera camera)
@@ -49,7 +49,7 @@ namespace SpaceJellyMONO
                     basicEffect.EnableDefaultLighting();
                 }
                 modelMesh.Draw();
-                drawPlane.Draw(camera, verticies);
+                drawBoxCollider.Draw(camera, verticies);
             }
 
         }
