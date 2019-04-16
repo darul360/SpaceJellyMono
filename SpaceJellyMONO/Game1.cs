@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace SpaceJellyMONO
 {
@@ -71,6 +72,10 @@ namespace SpaceJellyMONO
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            var keyboardState = Keyboard.GetState();
+            if (keyboardState.IsKeyDown(Keys.Escape))
+                Exit();
         }
         /// <summary>
         /// This is called when the game should draw itself.
