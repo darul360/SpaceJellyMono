@@ -4,7 +4,7 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>D:/projekty/SpaceJellyMono/SpaceJellyMONO/Content/Floor.FBX</File>
+    <File>C:/Users/Łukasz/Documents/GitHub/SpaceJellyMono/SpaceJellyMONO/Content/Floor.FBX</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

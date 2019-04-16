@@ -73,7 +73,6 @@ namespace SpaceJellyMONO
             Vector3[] tempBBLocation = new Vector3[8];
             tempBBLocation = referenceBox.GetCorners();
 
-            Debug.WriteLine(rightWalllCenter(tempBBLocation).X + "  "+ leftWalllCenter(verticies).X +" " + collisionX);
 
             #region ZCollisions
             if (frontWallCenter(verticies).Z < backWallCenter(tempBBLocation).Z+0.02f)
@@ -88,7 +87,7 @@ namespace SpaceJellyMONO
                 if (!collisionZ)  one = false;
             }
             #endregion
-
+            Debug.WriteLine(rightWalllCenter(tempBBLocation).X + 0.02f + " " + leftWalllCenter(verticies).X);
             #region XCollisions
             if(rightWalllCenter(tempBBLocation).X + 0.02f > leftWalllCenter(verticies).X)
             {
@@ -122,12 +121,14 @@ namespace SpaceJellyMONO
 
         public Vector3 leftWalllCenter(Vector3[] boundingBoxVerticies)
         {
-            return new Vector3((boundingBoxVerticies[0].X + boundingBoxVerticies[7].X) / 2, (boundingBoxVerticies[0].Y + boundingBoxVerticies[7].Y) / 2, (boundingBoxVerticies[0].Z + boundingBoxVerticies[7].Z) / 2);
+            return new Vector3((boundingBoxVerticies[1].X + boundingBoxVerticies[6].X) / 2, (boundingBoxVerticies[1].Y + boundingBoxVerticies[6].Y) / 2, (boundingBoxVerticies[1].Z + boundingBoxVerticies[6].Z) / 2);
+
         }
 
         public Vector3 rightWalllCenter(Vector3[] boundingBoxVerticies)
         {
-            return new Vector3((boundingBoxVerticies[1].X + boundingBoxVerticies[6].X) / 2, (boundingBoxVerticies[1].Y + boundingBoxVerticies[6].Y) / 2, (boundingBoxVerticies[1].Z + boundingBoxVerticies[6].Z) / 2);
+            return new Vector3((boundingBoxVerticies[0].X + boundingBoxVerticies[7].X) / 2, (boundingBoxVerticies[0].Y + boundingBoxVerticies[7].Y) / 2, (boundingBoxVerticies[0].Z + boundingBoxVerticies[7].Z) / 2);
+
         }
         #endregion
 
