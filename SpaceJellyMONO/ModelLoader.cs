@@ -41,7 +41,7 @@ namespace SpaceJellyMONO
 
         public void draw()
         {
-            Debug.WriteLine(moveX + " " + moveZ);
+            //Debug.WriteLine(moveX + " " + moveZ);
             KeyboardState ks = Keyboard.GetState();
             if (ks.IsKeyDown(Keys.NumPad8))
             {

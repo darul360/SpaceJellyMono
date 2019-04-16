@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -15,7 +16,10 @@ namespace SpaceJellyMONO
             BasicFloorGenerate basicFloor;
             BasicEffect effect;
             ModelLoader modelLoader;
-        
+            Model jelly;
+            BasicAnimation jumpAnimation;
+
+
 
             public Game1()
             {
@@ -38,12 +42,21 @@ namespace SpaceJellyMONO
             /*-----MODELE-----*/
             modelLoader = new ModelLoader("Floor", camera, this, 0.2f, 0.01f);
 
+            jumpAnimation = new BasicAnimation(this, Matrix.CreateScale(0.2f) * Matrix.CreateTranslation(new Vector3(10f, 0f, 8f)), Matrix.CreateScale(0.8f,1.4f,0.8f), Matrix.Identity, Matrix.CreateTranslation(new Vector3(0f, 2f, 0f)));
+            Components.Add(jumpAnimation);
+
             base.Initialize();
             }
 
             protected override void LoadContent()
             {
                 spriteBatch = new SpriteBatch(GraphicsDevice);
+                jelly = Content.Load<Model>("Jelly");
+
+            foreach (ModelMesh mesh in jelly.Meshes)
+                foreach (BasicEffect effect in mesh.Effects)
+                    effect.EnableDefaultLighting();
+                        
             }
 
             public ContentManager exportContentManager()
@@ -55,19 +68,25 @@ namespace SpaceJellyMONO
             {
             
             }
-
-            /// <summary>
-            /// This is called when the game should draw itself.
-            /// </summary>
-            /// <param name="gameTime">Provides a snapshot of timing values.</param>
-            protected override void Draw(GameTime gameTime)
+        protected override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
+        /// <summary>
+        /// This is called when the game should draw itself.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Draw(GameTime gameTime)
             {
                 GraphicsDevice.Clear(Color.CornflowerBlue);
                 basicFloor.Draw(camera, effect);
+                
+                jelly.Draw(jumpAnimation.position, camera.View, camera.Projection);
 
-            modelLoader.draw();
+            //modelLoader.draw();
             
             base.Draw(gameTime);
+            
             }
         }
 
