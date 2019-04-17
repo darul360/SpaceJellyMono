@@ -1,6 +1,10 @@
-﻿namespace ECS
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ECS.Components
 {
-    public abstract class Component
+    public class Component
     {
     }
 }

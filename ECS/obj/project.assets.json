@@ -50,6 +50,7 @@
       "path": "netstandard.library/2.0.3",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "build/netstandard2.0/NETStandard.Library.targets",
@@ -185,11 +186,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\SpaceJellyMono\\ECS\\ECS.csproj",
+      "projectUniqueName": "C:\\Users\\patry\\Desktop\\SpaceJellyMono\\ECS\\ECS.csproj",
       "projectName": "ECS",
-      "projectPath": "E:\\SpaceJellyMono\\ECS\\ECS.csproj",
+      "projectPath": "C:\\Users\\patry\\Desktop\\SpaceJellyMono\\ECS\\ECS.csproj",
       "packagesPath": "C:\\Users\\patry\\.nuget\\packages\\",
-      "outputPath": "E:\\SpaceJellyMono\\ECS\\obj\\",
+      "outputPath": "C:\\Users\\patry\\Desktop\\SpaceJellyMono\\ECS\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

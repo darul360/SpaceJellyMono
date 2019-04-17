@@ -18,7 +18,7 @@ namespace ECS.Entities
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            
         }
 
         public void Initialize()
