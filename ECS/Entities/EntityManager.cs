@@ -21,10 +21,6 @@ namespace ECS.Entities
             
         }
 
-        public void Initialize()
-        {
-
-        }
 
         public void Update(GameTime gameTime)
         {
@@ -63,6 +59,11 @@ namespace ECS.Entities
         public void RemoveEntity(Entity entity)
         {
             RemovedEntiesBuffer.Add(entity);
+        }
+
+        public void Initialize(World world)
+        {
+            throw new NotImplementedException();
         }
     }
 }

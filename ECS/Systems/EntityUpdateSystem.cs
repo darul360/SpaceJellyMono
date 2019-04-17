@@ -15,10 +15,6 @@ namespace ECS.Systems
 
         }
 
-        public void Initialize()
-        {
-
-        }
 
         public void Update(GameTime gameTime)
         {
@@ -36,7 +32,7 @@ namespace ECS.Systems
         public abstract void Process(Entity entity, GameTime gameTime);
         public virtual void End() { }
 
-        public void AddEntityIfApplicable(Entity entity)
+        private bool isEntityAplicable(Entity entity)
         {
             bool aplicableEntity = true;
             foreach (Type aplicableComponentType in AplicableTypes)
@@ -55,10 +51,32 @@ namespace ECS.Systems
                 }
             }
 
-            if (aplicableEntity)
+            return aplicableEntity;
+        }
+        public void AddEntityIfApplicable(Entity entity)
+        {
+            if (isEntityAplicable(entity))
             {
                 AplicableEntities.Add(entity);
             }
+        }
+
+        public void RemoveEntityIfNotApplicable(Entity entity)
+        {
+            if (!isEntityAplicable(entity))
+            {
+                AplicableEntities.Remove(entity);
+            }
+        }
+
+        public void RemoveEntity(Entity entity)
+        {
+            AplicableEntities.Remove(entity);
+        }
+
+        public void Initialize(World world)
+        {
+          
         }
     }
 }

@@ -6,6 +6,6 @@ namespace ECS
 {
     public interface ISystem : IDisposable
     {
-         void Initialize();
+         void Initialize(World world);
     }
 }
