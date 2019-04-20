@@ -16,11 +16,12 @@ namespace SpaceJellyMONO
             Camera camera;
             BasicFloorGenerate basicFloor;
             BasicEffect effect;
-            ModelLoader modelLoader;
+            ModelLoader modelLoader,modelLoader2;
             Model jelly;
             BasicAnimation jumpAnimation;
             private ReferencePoint referencePoint;
-        
+            public GameObjectsRepository gameObjectsRepository;
+
             public Game1()
             {
             graphics = new GraphicsDeviceManager(this);
@@ -29,6 +30,7 @@ namespace SpaceJellyMONO
             graphics.PreferredBackBufferHeight = 1020;
             graphics.PreferredBackBufferWidth = 1920;
             this.IsMouseVisible = true;
+            this.gameObjectsRepository = new GameObjectsRepository();
             }
 
             protected override void Initialize()
@@ -40,8 +42,8 @@ namespace SpaceJellyMONO
             effect = new BasicEffect(GraphicsDevice);
 
             /*-----MODELE-----*/
-            modelLoader = new ModelLoader("Floor", camera, this, 0.2f, 0.01f, new Vector3(10,1,8));
-            referencePoint = new ReferencePoint("Floor",this, new Vector3(12,1,8),0.4f,0.01f);
+            modelLoader = new ModelLoader("Jelly", camera, this, new Vector3(10, 0, 8),-1.65f,0.6f,0, 0.3f,true);
+            modelLoader2 = new ModelLoader("Floor", camera, this, new Vector3(14, 0, 8),0, 0.2f,0, 0.01f,false);
 
             jumpAnimation = new BasicAnimation(this, Matrix.CreateScale(0.2f) * Matrix.CreateTranslation(new Vector3(10f, 0f, 8f)), Matrix.CreateScale(0.8f,1.4f,0.8f), Matrix.Identity, Matrix.CreateTranslation(new Vector3(0f, 2f, 0f)));
             Components.Add(jumpAnimation);
@@ -76,8 +78,7 @@ namespace SpaceJellyMONO
 
             // TODO: Add your update logic here
 
-            modelLoader.update(referencePoint.box);
-
+            modelLoader.update();
             base.Update(gameTime);
         }
 
@@ -89,8 +90,7 @@ namespace SpaceJellyMONO
                 jelly.Draw(jumpAnimation.position, camera.View, camera.Projection);
 
             modelLoader.draw();
-            referencePoint.draw(camera);
-
+            modelLoader2.draw();
             base.Draw(gameTime);
             
             }
