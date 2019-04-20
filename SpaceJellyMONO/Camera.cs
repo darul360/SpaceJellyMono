@@ -99,7 +99,6 @@ namespace SpaceJellyMONO
 
             if (current_mouse.Y> gdm.PreferredBackBufferHeight-50.0f)
             {
-                Debug.WriteLine("działam");
                 moveVec.Z = -1;
             }
             if (current_mouse.X < 50.0f)
