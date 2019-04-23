@@ -16,7 +16,7 @@ namespace SpaceJellyMONO.GameObjectComponents
         {
             this.modelLoader = modelLoader;
             this.size = size;
-            this.drawBoxCollider = new DrawBoxCollider(modelLoader.mainClass.GraphicsDevice, modelLoader.mainClass, "texture2.jpg");
+            this.drawBoxCollider = new DrawBoxCollider(modelLoader.mainClass.GraphicsDevice, modelLoader.mainClass);
         }
 
         public void DrawBoxCollider()

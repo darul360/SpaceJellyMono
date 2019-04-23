@@ -31,7 +31,7 @@ namespace SpaceJellyMONO
             this.rotationAngle = YrotationAngle;
             this.scale = scale;
             box = new BoundingBox(new Vector3(pos.X - size / 2, pos.Y, pos.Z - size / 2), new Vector3(pos.X + size / 2, pos.Y + size, pos.Z + size / 2));
-            drawBoxCollider = new DrawBoxCollider(game1.GraphicsDevice,game1,"texture2.jpg");
+            drawBoxCollider = new DrawBoxCollider(game1.GraphicsDevice,game1);
         }
 
         public void draw(Camera camera)

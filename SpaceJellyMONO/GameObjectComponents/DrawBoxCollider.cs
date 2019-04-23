@@ -13,13 +13,10 @@ namespace SpaceJellyMONO
         private Texture2D checkerboardTexture;
 
 
-        public DrawBoxCollider(GraphicsDevice graphicsDevice,Game1 game,string material) :base(game)
+        public DrawBoxCollider(GraphicsDevice graphicsDevice,Game1 game) :base(game)
         {           
             this.graphicsDevice = graphicsDevice;
-            using (var stream = TitleContainer.OpenStream(material))
-            {
-                checkerboardTexture = Texture2D.FromStream(this.graphicsDevice, stream);
-            }
+            checkerboardTexture = game.exportContentManager().Load<Texture2D>("diffuse3");
         }
         
         public void Initialize(Vector3[] boundingBoxVerticies)
