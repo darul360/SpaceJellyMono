@@ -34,6 +34,7 @@ namespace SpaceJellyMONO
                 if (ks.IsKeyDown(Keys.NumPad8))
                 {
                     moveZ += 0.01f;
+                    Debug.WriteLine(modelLoader.mainClass.gameObjectsRepository.getRepo().Count); 
                 }
 
                 if (ks.IsKeyDown(Keys.NumPad2))
@@ -54,7 +55,6 @@ namespace SpaceJellyMONO
 
                 transform.Translation = new Vector3(moveX, transform.Translation.Y, moveZ);
 
-                bool collision = false;
                 foreach(GameObject temp in modelLoader.mainClass.gameObjectsRepository.getRepo())
                 {
                     if(ProcessCollisions(temp))

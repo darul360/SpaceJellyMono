@@ -9,6 +9,7 @@ namespace SpaceJellyMONO.GameObjectComponents
 {
     class Circle : Collider
     {
+        //public CylinderPrimitive cylinder = new CylinderPrimitive()
         public float radius;
         public Circle(GameObject parent, float radius) : base(parent)
         {
@@ -26,7 +27,7 @@ namespace SpaceJellyMONO.GameObjectComponents
 
         public override void DrawCollider()
         {
-            cylinder = new CylinderPrimitive(GraphicsDevice);
+          //  cylinder.Draw()
         }
     }
 }
