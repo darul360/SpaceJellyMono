@@ -44,11 +44,15 @@
     <Compile Include="BasicAnimation.cs" />
     <Compile Include="BasicFloorGenerate.cs" />
     <Compile Include="Camera.cs" />
-    <Compile Include="GameObjectComponents\Collider.cs" />
+    <Compile Include="Collision\Circle.cs" />
+    <Compile Include="Collision\Collider.cs" />
+    <Compile Include="GameObjectComponents\CylinderPrimitive.cs" />
     <Compile Include="GameObjectComponents\DrawBoxCollider.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="GameObjectComponents\GeometricPrimitive.cs" />
+    <Compile Include="GameObjectComponents\VertexPositionNormal.cs" />
     <Compile Include="Repositories\GameObjectsRepository.cs" />
-    <Compile Include="ModelLoader.cs" />
+    <Compile Include="GameObject.cs" />
     <Compile Include="GameObjectComponents\MoveObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

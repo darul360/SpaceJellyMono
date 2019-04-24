@@ -16,7 +16,7 @@ namespace SpaceJellyMONO
             Camera camera;
             BasicFloorGenerate basicFloor;
             BasicEffect effect;
-            ModelLoader modelLoader,modelLoader2;
+            GameObject modelLoader,modelLoader2;
             Model jelly;
             BasicAnimation jumpAnimation;
             private ReferencePoint referencePoint;
@@ -42,8 +42,8 @@ namespace SpaceJellyMONO
             effect = new BasicEffect(GraphicsDevice);
 
             /*-----MODELE-----*/
-            modelLoader = new ModelLoader("Jelly", camera, this, new Vector3(10, 0, 8),-1.65f,0.6f,0, 0.3f,true);
-            modelLoader2 = new ModelLoader("Floor", camera, this, new Vector3(14, 0, 8),0, 0.2f,0, 0.01f,false);
+            modelLoader = new GameObject("Jelly", camera, this, new Vector3(10, 0, 8),-1.65f,0.6f,0, 0.3f,true);
+            modelLoader2 = new GameObject("Floor", camera, this, new Vector3(14, 0, 8),0, 0.2f,0, 0.01f,false);
 
             jumpAnimation = new BasicAnimation(this, Matrix.CreateScale(0.2f) * Matrix.CreateTranslation(new Vector3(10f, 0f, 8f)), Matrix.CreateScale(0.8f,1.4f,0.8f), Matrix.Identity, Matrix.CreateTranslation(new Vector3(0f, 2f, 0f)));
             Components.Add(jumpAnimation);
