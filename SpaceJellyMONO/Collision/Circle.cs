@@ -20,21 +20,21 @@ namespace SpaceJellyMONO.GameObjectComponents
             this.radius = radius;
             colliderTYPE = Type.circle;
             deviceManager = parent.mainClass.GraphicsDevice;
-            cylinder = new CylinderPrimitive(deviceManager, 5, 2, 20);
+            cylinder = new CylinderPrimitive(deviceManager, 0.5f , radius*2, 20);
             cam = parent.camera;
         }
         public override bool Intersect(Collider other)
         {
             switch(other.colliderTYPE)
             {
-                case Type.circle : return ((other.parent.transform.Translation - parent.transform.Translation).Length() < (((Circle)other).radius - radius)); break;
-                default : return false;
+                case Type.circle : return ((other.parent.transform.Translation - parent.transform.Translation).Length() < (((Circle)other).radius + radius)); break;
+                default : return false; break;
             }
         }
 
         public override void DrawCollider()
         {
-           // cylinder.Draw(parent.transform.World(), cam.View, cam.Projection, new Color(0, 0, 225));
+            cylinder.Draw(parent.transform.World(), cam.View, cam.Projection, new Color(0, 0, 225));
         }
     }
 }

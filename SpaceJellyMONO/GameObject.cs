@@ -26,15 +26,15 @@ namespace SpaceJellyMONO
 
             this.transform = new Transform(this, translation,rotationAngleX,rotationAngleY,rotationAngleZ,scale);
             this.moveObject = new MoveObject(this, isMovingActive);
-            this.collider = new Circle(this, 10.8f);
+            this.collider = new Circle(this, scale*1.0f);
 
             game1.gameObjectsRepository.AddToRepo(this);
         }
 
 
-        public void update()
+        public void update(float deltatime)
         {
-            moveObject.Move();
+            moveObject.Move(deltatime);
         }
                                   
         public void draw()

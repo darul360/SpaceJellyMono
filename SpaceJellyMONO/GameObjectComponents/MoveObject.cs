@@ -10,9 +10,7 @@ namespace SpaceJellyMONO
         private GameObject modelLoader;
         private float moveZ, moveX;
         private Transform transform;
-        private Vector3[] tempBBLocation = new Vector3[8];
         private bool isMovingActive;
-        bool collision;
 
 
         public MoveObject(GameObject modelLoader, bool isMovingActive)
@@ -24,32 +22,32 @@ namespace SpaceJellyMONO
             this.moveZ = this.transform.Translation.Z;
         }
 
-        public void Move()
+        public void Move(float deltatime)
         {
             //Debug.WriteLine(one + " " + two + " " + three + " " + four+" col"+collision);
             if (isMovingActive)
             {
-                Vector3 lastPosition = transform.Translation;
+                bool collision = false;
+                Vector3 lastPosition = new Vector3(transform.Translation.X, transform.Translation.Y, transform.Translation.Z);
                 KeyboardState ks = Keyboard.GetState();
                 if (ks.IsKeyDown(Keys.NumPad8))
                 {
-                    moveZ += 0.01f;
-                    Debug.WriteLine(modelLoader.mainClass.gameObjectsRepository.getRepo().Count); 
+                    moveZ += 0.01f * deltatime;
                 }
 
                 if (ks.IsKeyDown(Keys.NumPad2))
                 {
-                    moveZ -= 0.01f;
+                    moveZ -= 0.01f * deltatime;
                 }
 
                 if (ks.IsKeyDown(Keys.NumPad6))
                 {
-                    moveX -= 0.01f;
+                    moveX -= 0.01f * deltatime;
                 }
 
                 if (ks.IsKeyDown(Keys.NumPad4))
                 {
-                    moveX += 0.01f;
+                    moveX += 0.01f * deltatime;
                 }
 
 
@@ -57,11 +55,13 @@ namespace SpaceJellyMONO
 
                 foreach(GameObject temp in modelLoader.mainClass.gameObjectsRepository.getRepo())
                 {
-                    if(ProcessCollisions(temp))
+                    if(temp != modelLoader)
                     {
-                        collision = true;
+                        if (ProcessCollisions(temp))
+                        {
+                            collision = true;
+                        }
                     }
-                    
                 }
 
                 if (collision)
