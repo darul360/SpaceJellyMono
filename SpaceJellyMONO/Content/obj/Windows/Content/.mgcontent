@@ -4,9 +4,15 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/Łukasz/Documents/GitHub/SpaceJellyMono/SpaceJellyMONO/Content/Floor.FBX</File>
+    <File>C:/Users/Lukel/source/repos/SpaceJellyMono/SpaceJellyMONO/Content/diffuse3.png</File>
+    <File>C:/Users/Lukel/source/repos/SpaceJellyMono/SpaceJellyMONO/Content/Floor.FBX</File>
+    <File>C:/Users/Lukel/source/repos/SpaceJellyMono/SpaceJellyMONO/Content/Jelly.FBX</File>
+    <File>C:/Users/Lukel/source/repos/SpaceJellyMono/SpaceJellyMONO/Content/Jelly2.FBX</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

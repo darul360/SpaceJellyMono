@@ -9,6 +9,10 @@ namespace SpaceJellyMONO
     {
         public Model model;
         public Transform transform;
+        public Transform parentTransform;
+
+        public Matrix WorldTransform { get { return transform.World() * parentTransform.World(); } }
+
         public MoveObject moveObject;
         public Collider collider;
         public Game1 mainClass;
@@ -24,7 +28,7 @@ namespace SpaceJellyMONO
             this.isMovingActive = isMovingActive;
             model = mainClass.exportContentManager().Load<Model>(modelPath);
 
-            this.transform = new Transform(this, translation,rotationAngleX,rotationAngleY,rotationAngleZ,scale);
+            this.transform = new Transform(translation,rotationAngleX,rotationAngleY,rotationAngleZ,scale);
             this.moveObject = new MoveObject(this, isMovingActive);
             this.collider = new Collider(this, 0.8f);
 
@@ -53,6 +57,21 @@ namespace SpaceJellyMONO
                 collider.DrawBoxCollider();
             }
 
+        }
+        public void Draw(Matrix view, Matrix projection)
+        {
+            foreach (ModelMesh modelMesh in model.Meshes)
+            {
+                foreach (BasicEffect basicEffect in modelMesh.Effects)
+                {
+                    basicEffect.View = view;
+                    basicEffect.World = WorldTransform;
+                    basicEffect.Projection = projection;
+                    basicEffect.EnableDefaultLighting();
+                }
+                modelMesh.Draw();
+                collider.DrawBoxCollider();
+            }
         }
     }
 }

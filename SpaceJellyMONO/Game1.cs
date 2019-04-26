@@ -11,6 +11,7 @@ namespace SpaceJellyMONO
         /// </summary>
         public class Game1 : Game
         {
+            public Scene scene;
             GraphicsDeviceManager graphics;
             SpriteBatch spriteBatch;
             Camera camera;
@@ -45,8 +46,7 @@ namespace SpaceJellyMONO
             modelLoader = new ModelLoader("Jelly", camera, this, new Vector3(10, 0, 8),-1.65f,0.6f,0, 0.3f,true);
             modelLoader2 = new ModelLoader("Floor", camera, this, new Vector3(14, 0, 8),0, 0.2f,0, 0.01f,false);
 
-            jumpAnimation = new BasicAnimation(this, Matrix.CreateScale(0.2f) * Matrix.CreateTranslation(new Vector3(10f, 0f, 8f)), Matrix.CreateScale(0.8f,1.4f,0.8f), Matrix.Identity, Matrix.CreateTranslation(new Vector3(0f, 2f, 0f)));
-            Components.Add(jumpAnimation);
+            jumpAnimation = new BasicAnimation(Matrix.CreateScale(0.2f) * Matrix.CreateTranslation(new Vector3(10f, 0f, 8f)), Matrix.CreateScale(0.8f,1.4f,0.8f), Matrix.Identity, Matrix.CreateTranslation(new Vector3(0f, 2f, 0f)));
 
             base.Initialize();
             }
@@ -77,7 +77,7 @@ namespace SpaceJellyMONO
                 Exit();
 
             // TODO: Add your update logic here
-
+            jumpAnimation.Update(gameTime.ElapsedGameTime);
             modelLoader.update();
             base.Update(gameTime);
         }

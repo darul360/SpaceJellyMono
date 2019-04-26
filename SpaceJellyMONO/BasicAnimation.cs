@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace SpaceJellyMONO
 {
-    class BasicAnimation : GameComponent
+    class BasicAnimation
     {
         public Matrix position;
 
@@ -25,21 +25,22 @@ namespace SpaceJellyMONO
         int currentKeyFrame = 1;
         TimeSpan timeBetweenFrames = TimeSpan.FromMilliseconds(5);
 
-        public BasicAnimation(Game game, Matrix initialPosition, Matrix scaleMatrix, Matrix rotationMatrix, Matrix translationMatrix) : base(game)
+        public BasicAnimation(Matrix initialPosition, Matrix scaleMatrix, Matrix rotationMatrix, Matrix translationMatrix)
         {
             position = initialPosition;
 
             scaleTransform = scaleMatrix;
             rotationTransform = rotationMatrix;
             translationTransform = translationMatrix;
+
+            keyFrameTransform = Matrix.Lerp(Matrix.Identity, translationTransform * rotationTransform * scaleTransform, (float)1 / numberOfKeyFrames);
         }
-        public override void Update(GameTime gameTime)
+        public void Update(TimeSpan time)
         {
-            base.Update(gameTime);
 
             if (currentKeyFrame != numberOfKeyFrames)
             {
-                if (gameTime.ElapsedGameTime >= timeBetweenFrames)
+                if (time >= timeBetweenFrames)
                 {
                     position = keyFrameTransform * position;
                     currentKeyFrame++;
@@ -60,13 +61,6 @@ namespace SpaceJellyMONO
             {
                 currentKeyFrame = 1;
             }
-
-        }
-        public override void Initialize()
-        {
-            base.Initialize();
-
-            keyFrameTransform = Matrix.Lerp(Matrix.Identity, translationTransform * rotationTransform * scaleTransform, (float)1 / numberOfKeyFrames);
 
         }
         private void InvertTransforms()
