@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,8 +14,7 @@ namespace SpaceJellyMONO
             public Scene scene;
             GraphicsDeviceManager graphics;
             SpriteBatch spriteBatch;
-            public Camera camera;
-            Selector selector;
+            Camera camera;
             BasicFloorGenerate basicFloor;
             BasicEffect effect;
             ModelLoader modelLoader,modelLoader2;
@@ -25,7 +23,7 @@ namespace SpaceJellyMONO
             private ReferencePoint referencePoint;
             public GameObjectsRepository gameObjectsRepository;
 
-        public Game1()
+            public Game1()
             {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -41,7 +39,6 @@ namespace SpaceJellyMONO
             /*-----KAMERA-----*/
             camera = new Camera(this, new Vector3(10f, 3f, 5f), new Vector3(0.8f,0,0), 5f,graphics);
             Components.Add(camera);
-            Components.Add(new Selector(this));
             basicFloor = new BasicFloorGenerate(GraphicsDevice, 20, 20);
             effect = new BasicEffect(GraphicsDevice);
 
@@ -59,7 +56,6 @@ namespace SpaceJellyMONO
                 spriteBatch = new SpriteBatch(GraphicsDevice);
                 jelly = Content.Load<Model>("Jelly");
 
-
             foreach (ModelMesh mesh in jelly.Meshes)
                 foreach (BasicEffect effect in mesh.Effects)
                     effect.EnableDefaultLighting();
@@ -71,9 +67,10 @@ namespace SpaceJellyMONO
                 return base.Content;
             }
             
-            protected override void UnloadContent() { }
-   
-
+            protected override void UnloadContent()
+            {
+            
+           }
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -82,14 +79,14 @@ namespace SpaceJellyMONO
             // TODO: Add your update logic here
             jumpAnimation.Update(gameTime.ElapsedGameTime);
             modelLoader.update();
-
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
             {
                 GraphicsDevice.Clear(Color.CornflowerBlue);
-                basicFloor.Draw(camera, effect);              
+                basicFloor.Draw(camera, effect);
+                
                 jelly.Draw(jumpAnimation.position, camera.View, camera.Projection);
 
             modelLoader.draw();

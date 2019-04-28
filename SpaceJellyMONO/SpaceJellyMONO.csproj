@@ -56,7 +56,6 @@
     <Compile Include="ReferencePoint.cs" />
     <Compile Include="GameObjectComponents\Transform.cs" />
     <Compile Include="Scene.cs" />
-    <Compile Include="Selector.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

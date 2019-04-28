@@ -28,6 +28,7 @@ namespace SpaceJellyMONO
 
         public void Move()
         {
+            Debug.WriteLine(one + " " + two + " " + three + " " + four+" col"+collision);
             if (isMovingActive)
             {
                 KeyboardState ks = Keyboard.GetState();
@@ -55,6 +56,7 @@ namespace SpaceJellyMONO
                      collision = ProcessCollisions(findClosest());
                      tempBBLocation = findClosest().collider.box.GetCorners();
 
+                Debug.WriteLine(frontWallCenter(modelLoader.collider.box.GetCorners()).Z +" "+ backWallCenter(tempBBLocation).Z);
 
                 #region XCollisions
                 if (rightWalllCenter(tempBBLocation).X + 0.02f > leftWalllCenter(modelLoader.collider.box.GetCorners()).X && two == false && one == false && four == false)
@@ -74,7 +76,7 @@ namespace SpaceJellyMONO
                 #region ZCollisions
                 if (frontWallCenter(modelLoader.collider.box.GetCorners()).Z < backWallCenter(tempBBLocation).Z + 0.02f && three == false && one == false && four == false)
                 {
-                    if (collision) { two = true; one = false; three = false; four = false; }
+                    if (collision) { two = true; one = false; three = false; four = false; Debug.WriteLine("mhm"); }
                     if (!collision) two = false;
                 }
 
