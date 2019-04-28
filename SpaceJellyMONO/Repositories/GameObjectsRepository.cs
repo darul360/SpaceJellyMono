@@ -5,12 +5,12 @@ namespace SpaceJellyMONO
 {
     public class GameObjectsRepository
     {
-        List<ModelLoader> repository = new List<ModelLoader>();
+        List<GameObject> repository = new List<GameObject>();
 
         public GameObjectsRepository() { }
-        public void AddToRepo(ModelLoader modelLoader) { repository.Add(modelLoader); }
-        public void RemoveFromRepo(ModelLoader modelLoader) { repository.Remove(modelLoader); }
-        public List<ModelLoader> getRepo() { return repository; }
+        public void AddToRepo(GameObject modelLoader) { repository.Add(modelLoader); }
+        public void RemoveFromRepo(GameObject modelLoader) { repository.Remove(modelLoader); }
+        public List<GameObject> getRepo() { return repository; }
         
     }
 }

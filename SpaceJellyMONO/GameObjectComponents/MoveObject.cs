@@ -7,143 +7,77 @@ namespace SpaceJellyMONO
 {
     public class MoveObject
     {
-        private ModelLoader modelLoader;
+        private GameObject modelLoader;
         private float moveZ, moveX;
         private Transform transform;
-        private Vector3[] tempBBLocation = new Vector3[8];
-        private bool one, two, three, four;
         private bool isMovingActive;
-        bool collision;
 
 
-        public MoveObject(ModelLoader modelLoader, bool isMovingActive)
+        public MoveObject(GameObject modelLoader, bool isMovingActive)
         {
             this.isMovingActive = isMovingActive;
             this.modelLoader = modelLoader;
             this.transform = modelLoader.transform;
             this.moveX = this.transform.Translation.X;
             this.moveZ = this.transform.Translation.Z;
-            one = false; two = false; three = false; four = false;
         }
 
-        public void Move()
+        public void Move(float deltatime)
         {
-            Debug.WriteLine(one + " " + two + " " + three + " " + four+" col"+collision);
+            //Debug.WriteLine(one + " " + two + " " + three + " " + four+" col"+collision);
             if (isMovingActive)
             {
+                bool collision = false;
+                Vector3 lastPosition = new Vector3(transform.Translation.X, transform.Translation.Y, transform.Translation.Z);
                 KeyboardState ks = Keyboard.GetState();
-                if (ks.IsKeyDown(Keys.NumPad8) && two == false)
+                if (ks.IsKeyDown(Keys.NumPad8))
                 {
-                    moveZ += 0.01f;
+                    moveZ += 0.01f * deltatime;
                 }
 
-                if (ks.IsKeyDown(Keys.NumPad2) && one == false)
+                if (ks.IsKeyDown(Keys.NumPad2))
                 {
-                    moveZ -= 0.01f;
+                    moveZ -= 0.01f * deltatime;
                 }
 
-                if (ks.IsKeyDown(Keys.NumPad6) && four == false)
+                if (ks.IsKeyDown(Keys.NumPad6))
                 {
-                    moveX -= 0.01f;
+                    moveX -= 0.01f * deltatime;
                 }
 
-                if (ks.IsKeyDown(Keys.NumPad4) && three == false)
+                if (ks.IsKeyDown(Keys.NumPad4))
                 {
-                    moveX += 0.01f;
+                    moveX += 0.01f * deltatime;
                 }
 
-                
-                     collision = ProcessCollisions(findClosest());
-                     tempBBLocation = findClosest().collider.box.GetCorners();
-
-                Debug.WriteLine(frontWallCenter(modelLoader.collider.box.GetCorners()).Z +" "+ backWallCenter(tempBBLocation).Z);
-
-                #region XCollisions
-                if (rightWalllCenter(tempBBLocation).X + 0.02f > leftWalllCenter(modelLoader.collider.box.GetCorners()).X && two == false && one == false && four == false)
-                {
-                    if (collision) { three = true; one = false;two = false;four = false; }
-                    if (!collision) three = false;
-                }
-
-                if (leftWalllCenter(tempBBLocation).X - 0.02f < rightWalllCenter(modelLoader.collider.box.GetCorners()).X && two == false && one == false && three == false)
-                {
-                    if (collision) { four = true; one = false; two = false; three = false; }
-                    if (!collision) four = false;
-                }
-
-                #endregion
-
-                #region ZCollisions
-                if (frontWallCenter(modelLoader.collider.box.GetCorners()).Z < backWallCenter(tempBBLocation).Z + 0.02f && three == false && one == false && four == false)
-                {
-                    if (collision) { two = true; one = false; three = false; four = false; Debug.WriteLine("mhm"); }
-                    if (!collision) two = false;
-                }
-
-                if (backWallCenter(modelLoader.collider.box.GetCorners()).Z > frontWallCenter(tempBBLocation).Z -0.02f && three == false && two == false && four == false)
-                {
-                    if (collision) { one = true; three = false; two = false; four = false; }
-                    if (!collision) one = false;
-                }
-                #endregion
 
                 transform.Translation = new Vector3(moveX, transform.Translation.Y, moveZ);
-            }
-        }
 
-        #region InputBoundingBoxCenter
-        public Vector3 frontWallCenter(Vector3[] boundingBoxVerticies)
-        {
-            return new Vector3((boundingBoxVerticies[1].X + boundingBoxVerticies[3].X) / 2, (boundingBoxVerticies[1].Y + boundingBoxVerticies[3].Y) / 2, (boundingBoxVerticies[1].Z + boundingBoxVerticies[3].Z) / 2);
-        }
-
-        public Vector3 backWallCenter(Vector3[] boundingBoxVerticies)
-        {
-            return new Vector3((boundingBoxVerticies[4].X + boundingBoxVerticies[6].X) / 2, (boundingBoxVerticies[4].Y + boundingBoxVerticies[6].Y) / 2, (boundingBoxVerticies[4].Z + boundingBoxVerticies[6].Z) / 2);
-        }
-
-        public Vector3 leftWalllCenter(Vector3[] boundingBoxVerticies)
-        {
-            return new Vector3((boundingBoxVerticies[1].X + boundingBoxVerticies[6].X) / 2, (boundingBoxVerticies[1].Y + boundingBoxVerticies[6].Y) / 2, (boundingBoxVerticies[1].Z + boundingBoxVerticies[6].Z) / 2);
-
-        }
-
-        public Vector3 rightWalllCenter(Vector3[] boundingBoxVerticies)
-        {
-            return new Vector3((boundingBoxVerticies[0].X + boundingBoxVerticies[7].X) / 2, (boundingBoxVerticies[0].Y + boundingBoxVerticies[7].Y) / 2, (boundingBoxVerticies[0].Z + boundingBoxVerticies[7].Z) / 2);
-
-        }
-        #endregion
-
-
-        public bool ProcessCollisions(ModelLoader modelLoader2)
-        {
-            if (modelLoader.collider.box.Intersects(modelLoader2.collider.box))
-            {
-                return true;
-            }
-            else
-                return false;
-
-        }
-
-        public ModelLoader findClosest()
-        {
-            float minDist = 100.0f;
-            int index = 0;
-
-            for (int i=0; i < modelLoader.mainClass.gameObjectsRepository.getRepo().Count; i++)
-            {
-                if(modelLoader.mainClass.gameObjectsRepository.getRepo()[i] != modelLoader)
+                foreach(GameObject temp in modelLoader.mainClass.gameObjectsRepository.getRepo())
                 {
-                    if (Vector3.Distance(modelLoader.mainClass.gameObjectsRepository.getRepo()[i].transform.Translation, modelLoader.transform.Translation) < minDist)
+                    if(temp != modelLoader)
                     {
-                        minDist = Vector3.Distance(modelLoader.mainClass.gameObjectsRepository.getRepo()[i].transform.Translation, modelLoader.transform.Translation);
-                        index = i;
+                        if (ProcessCollisions(temp))
+                        {
+                            collision = true;
+                        }
                     }
                 }
+
+                if (collision)
+                {
+                    Debug.WriteLine("collision!");
+                    transform.Translation = lastPosition;
+                }
+                
             }
-            return modelLoader.mainClass.gameObjectsRepository.getRepo()[index];
+        }
+
+
+
+        public bool ProcessCollisions(GameObject modelLoader2)
+        {
+            return modelLoader.collider.Intersect(modelLoader2.collider);
         }
 
     }

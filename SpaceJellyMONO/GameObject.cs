@@ -5,7 +5,7 @@ using SpaceJellyMONO.GameObjectComponents;
 
 namespace SpaceJellyMONO
 {
-    public class ModelLoader : GameComponent
+    public class GameObject : GameComponent
     {
         public Model model;
         public Transform transform;
@@ -16,7 +16,7 @@ namespace SpaceJellyMONO
         private String modelPath;
         private bool isMovingActive;
 
-        public ModelLoader(String path,Camera camera,Game1 game1, Vector3 translation, float rotationAngleX,float rotationAngleY,float rotationAngleZ,float scale,bool isMovingActive):base(game1)
+        public GameObject(String path,Camera camera,Game1 game1, Vector3 translation, float rotationAngleX,float rotationAngleY,float rotationAngleZ,float scale,bool isMovingActive):base(game1)
         {
             this.modelPath = path;
             this.camera = camera;
@@ -26,15 +26,15 @@ namespace SpaceJellyMONO
 
             this.transform = new Transform(this, translation,rotationAngleX,rotationAngleY,rotationAngleZ,scale);
             this.moveObject = new MoveObject(this, isMovingActive);
-            this.collider = new Collider(this, 0.8f);
+            this.collider = new Circle(this, scale*1.0f);
 
             game1.gameObjectsRepository.AddToRepo(this);
         }
 
 
-        public void update()
+        public void update(float deltatime)
         {
-            moveObject.Move();
+            moveObject.Move(deltatime);
         }
                                   
         public void draw()
@@ -50,7 +50,7 @@ namespace SpaceJellyMONO
                     basicEffect.EnableDefaultLighting();
                 }
                 modelMesh.Draw();
-                collider.DrawBoxCollider();
+                collider.DrawCollider();
             }
 
         }
