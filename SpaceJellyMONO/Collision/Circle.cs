@@ -34,7 +34,10 @@ namespace SpaceJellyMONO.GameObjectComponents
 
         public override void DrawCollider()
         {
-            cylinder.Draw(parent.transform.World(), cam.View, cam.Projection, new Color(0, 0, 225));
+            if(parent.isObjectSelected)
+                cylinder.Draw(parent.transform.World(), cam.View, cam.Projection, new Color(255, 0, 0));
+            else
+                cylinder.Draw(parent.transform.World(), cam.View, cam.Projection, new Color(0, 0, 255));
         }
     }
 }

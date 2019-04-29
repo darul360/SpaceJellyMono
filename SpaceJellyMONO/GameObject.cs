@@ -17,6 +17,7 @@ namespace SpaceJellyMONO
         private String modelPath;
         private bool isMovingActive;
         public bool isObjectSelected = false;
+        public float scale;
 
         public GameObject(String path,Camera camera,Game1 game1, Vector3 translation, float rotationAngleX,float rotationAngleY,float rotationAngleZ,float scale,bool isMovingActive):base(game1)
         {
@@ -27,7 +28,8 @@ namespace SpaceJellyMONO
             model = mainClass.exportContentManager().Load<Model>(modelPath);
 
             this.transform = new Transform(this, translation,rotationAngleX,rotationAngleY,rotationAngleZ,scale);
-            this.moveObject = new MoveObject(this, isMovingActive);
+            this.scale = scale;
+            this.moveObject = new MoveObject(this, isMovingActive,0.005f);
             this.collider = new Circle(this, scale*1.0f);
 
             game1.gameObjectsRepository.AddToRepo(this);
