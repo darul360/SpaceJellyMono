@@ -27,7 +27,7 @@ namespace SpaceJellyMONO
             base.Initialize();
         }
 
-        private void ChangeSelectedObjectsState(bool state, Vector3 startPoint, Vector3 stopPoint)
+        private void ChangeSelectedObjectsState(Vector3 startPoint, Vector3 stopPoint)
         {
             foreach (GameObject model in game.gameObjectsRepository.getRepo())
             {
@@ -35,21 +35,46 @@ namespace SpaceJellyMONO
                 {
                     if (startPoint.Z > stopPoint.Z)
                     {
-                        if ((model.transform.Translation.X >= startPoint.X && model.transform.Translation.X <= stopPoint.X) && (model.transform.Translation.Z >= startPoint.Z && model.transform.Translation.Z <= stopPoint.Z))
+                        if ((model.transform.Translation.X >= stopPoint.X && model.transform.Translation.X <= startPoint.X) && (model.transform.Translation.Z >= stopPoint.Z && model.transform.Translation.Z <= startPoint.Z))
                         {
-                            /*TODO*/
+                            model.isObjectSelected = true;
                         }
+                        else model.isObjectSelected = false;
                     }
-                    else
+                    if(startPoint.Z < stopPoint.Z)
                     {
-
+                        if ((model.transform.Translation.X >= stopPoint.X && model.transform.Translation.X <= startPoint.X) && (model.transform.Translation.Z >= startPoint.Z && model.transform.Translation.Z <= stopPoint.Z))
+                        {
+                            model.isObjectSelected = true;
+                        }
                     }
                 }
 
                 if (startPoint.X < stopPoint.X)
                 {
-
+                    if (startPoint.Z > stopPoint.Z)
+                    {
+                        if ((model.transform.Translation.X >= startPoint.X && model.transform.Translation.X <= stopPoint.X) && (model.transform.Translation.Z >= stopPoint.Z && model.transform.Translation.Z <= startPoint.Z))
+                        {
+                            model.isObjectSelected = true;
+                        }
+                        else model.isObjectSelected = false;
+                    }
+                    if (startPoint.Z < stopPoint.Z)
+                    {
+                        if ((model.transform.Translation.X >= startPoint.X && model.transform.Translation.X <= stopPoint.X) && (model.transform.Translation.Z >= startPoint.Z && model.transform.Translation.Z <= stopPoint.Z))
+                        {
+                            model.isObjectSelected = true;
+                        }
+                    }
                 }
+            }
+        }
+        private void DeselectAll()
+        {
+            foreach (GameObject model in game.gameObjectsRepository.getRepo())
+            {
+                model.isObjectSelected = false;
             }
         }
 
@@ -127,12 +152,14 @@ namespace SpaceJellyMONO
             if (mouseState.LeftButton == ButtonState.Pressed && isFirstPointSelected == false)
             {
                 startPoint = FindWhereClicked();
+                DeselectAll();
                 isFirstPointSelected = true;
             }
             if (mouseState.LeftButton == ButtonState.Pressed && isFirstPointSelected == true)
             {
                 endPoint = FindWhereClicked();
                 DrawRect(startPoint, endPoint);
+                ChangeSelectedObjectsState(startPoint, endPoint);
             }
             if (mouseState.LeftButton == ButtonState.Released)
             {

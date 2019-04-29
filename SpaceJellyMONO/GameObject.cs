@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceJellyMONO.GameObjectComponents;
 
 namespace SpaceJellyMONO
 {
-    public class GameObject : GameComponent
+    public class GameObject : DrawableGameComponent
     {
         public Model model;
         public Transform transform;
@@ -15,6 +16,7 @@ namespace SpaceJellyMONO
         public Camera camera;
         private String modelPath;
         private bool isMovingActive;
+        public bool isObjectSelected = false;
 
         public GameObject(String path,Camera camera,Game1 game1, Vector3 translation, float rotationAngleX,float rotationAngleY,float rotationAngleZ,float scale,bool isMovingActive):base(game1)
         {
@@ -36,8 +38,8 @@ namespace SpaceJellyMONO
         {
             moveObject.Move(deltatime);
         }
-                                  
-        public void draw()
+
+        public override void Draw(GameTime gameTime)
         {
 
             foreach (ModelMesh modelMesh in model.Meshes)
@@ -51,6 +53,8 @@ namespace SpaceJellyMONO
                 }
                 modelMesh.Draw();
                 collider.DrawCollider();
+               // if (isObjectSelected) Debug.WriteLine("I am selected" +" "+ modelPath);
+               // if (!isObjectSelected) Debug.WriteLine("I am not selected"+" "+ modelPath);
             }
 
         }

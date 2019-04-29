@@ -20,7 +20,6 @@ namespace SpaceJellyMONO
             GameObject modelLoader,modelLoader2;
             Model jelly;
             BasicAnimation jumpAnimation;
-            private ReferencePoint referencePoint;
             public GameObjectsRepository gameObjectsRepository;
 
             public Game1()
@@ -45,10 +44,13 @@ namespace SpaceJellyMONO
             /*-----MODELE-----*/
             modelLoader = new GameObject("Jelly", camera, this, new Vector3(10, 0, 8),0f,0f,0, 1.0f,true);
             modelLoader2 = new GameObject("Jelly", camera, this, new Vector3(13, 0, 8), 0f, 0f, 0, 1.0f, false);
-            jumpAnimation = new BasicAnimation(this, Matrix.CreateScale(0.2f) * Matrix.CreateTranslation(new Vector3(10f, 0f, 8f)), Matrix.CreateScale(0.8f,1.4f,0.8f), Matrix.Identity, Matrix.CreateTranslation(new Vector3(0f, 2f, 0f)));
-            Components.Add(jumpAnimation);
+            Components.Add(new BasicAnimation(this, Matrix.CreateScale(0.2f) * Matrix.CreateTranslation(new Vector3(10f, 0f, 8f)), Matrix.CreateScale(0.8f, 1.4f, 0.8f), Matrix.Identity, Matrix.CreateTranslation(new Vector3(0f, 2f, 0f))));
             Components.Add(new Selector(this));
 
+            foreach (GameObject obj in gameObjectsRepository.getRepo())
+            {
+                Components.Add(obj);
+            }
             base.Initialize();
             }
 
@@ -78,7 +80,7 @@ namespace SpaceJellyMONO
                 Exit();
 
             // TODO: Add your update logic here
-            //Debug.WriteLine(1000.0f/gameTime.ElapsedGameTime.TotalMilliseconds); //fps counter ultra dupa mnnbhgugnd
+           // Debug.WriteLine(1000.0f/gameTime.ElapsedGameTime.TotalMilliseconds); //fps counter ultra dupa mnnbhgugnd
             modelLoader.update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
             base.Update(gameTime);
         }
@@ -90,10 +92,6 @@ namespace SpaceJellyMONO
                 
                 //jelly.Draw(jumpAnimation.position, camera.View, camera.Projection);
 
-            foreach(GameObject obj in gameObjectsRepository.getRepo())
-            {
-                obj.draw();
-            }
 
             base.Draw(gameTime);
             
