@@ -39,7 +39,6 @@ namespace SpaceJellyMONO
                         {
                             model.isObjectSelected = true;
                         }
-                        else model.isObjectSelected = false;
                     }
                     if(startPoint.Z < stopPoint.Z)
                     {
@@ -58,7 +57,6 @@ namespace SpaceJellyMONO
                         {
                             model.isObjectSelected = true;
                         }
-                        else model.isObjectSelected = false;
                     }
                     if (startPoint.Z < stopPoint.Z)
                     {
