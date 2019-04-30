@@ -5,7 +5,7 @@ using SpaceJellyMONO.GameObjectComponents;
 
 namespace SpaceJellyMONO
 {
-    public class ModelLoader : GameComponent
+    public class GameObject : GameComponent
     {
         public Model model;
         public Transform transform;
@@ -20,7 +20,7 @@ namespace SpaceJellyMONO
         private String modelPath;
         private bool isMovingActive;
 
-        public ModelLoader(String path,Camera camera,Game1 game1, Vector3 translation, float rotationAngleX,float rotationAngleY,float rotationAngleZ,float scale,bool isMovingActive):base(game1)
+        public GameObject(String path,Camera camera,Game1 game1, Vector3 translation, float rotationAngleX,float rotationAngleY,float rotationAngleZ,float scale,bool isMovingActive):base(game1)
         {
             this.modelPath = path;
             this.camera = camera;

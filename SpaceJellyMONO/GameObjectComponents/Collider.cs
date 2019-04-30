@@ -5,14 +5,14 @@ namespace SpaceJellyMONO.GameObjectComponents
     public class Collider
     {
         public BoundingBox box;
-        private ModelLoader modelLoader;
+        private GameObject modelLoader;
         private DrawBoxCollider drawBoxCollider;
         private Vector3 translation;
         private Vector3[] veticies = new Vector3[8];
         private float size;
 
 
-        public Collider(ModelLoader modelLoader,float size)
+        public Collider(GameObject modelLoader,float size)
         {
             this.modelLoader = modelLoader;
             this.size = size;

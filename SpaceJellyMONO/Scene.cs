@@ -13,9 +13,9 @@ namespace SpaceJellyMONO
 
         private Transform rootTransform;
 
-        private Dictionary<int, ModelLoader> sceneObjects;
-        public Dictionary<int, ModelLoader> SceneObjects { get { return SceneObjects; }}
-        public void AddSceneObject(int objectId, ModelLoader objectToAdd)
+        private Dictionary<int, GameObject> sceneObjects;
+        public Dictionary<int, GameObject> SceneObjects { get { return SceneObjects; }}
+        public void AddSceneObject(int objectId, GameObject objectToAdd)
         {
             objectToAdd.parentTransform = rootTransform;
             sceneObjects.Add(objectId, objectToAdd);

@@ -7,7 +7,7 @@ namespace SpaceJellyMONO
 {
     public class MoveObject
     {
-        private ModelLoader modelLoader;
+        private GameObject modelLoader;
         private float moveZ, moveX;
         private Transform transform;
         private Vector3[] tempBBLocation = new Vector3[8];
@@ -16,7 +16,7 @@ namespace SpaceJellyMONO
         bool collision;
 
 
-        public MoveObject(ModelLoader modelLoader, bool isMovingActive)
+        public MoveObject(GameObject modelLoader, bool isMovingActive)
         {
             this.isMovingActive = isMovingActive;
             this.modelLoader = modelLoader;
@@ -116,7 +116,7 @@ namespace SpaceJellyMONO
         #endregion
 
 
-        public bool ProcessCollisions(ModelLoader modelLoader2)
+        public bool ProcessCollisions(GameObject modelLoader2)
         {
             if (modelLoader.collider.box.Intersects(modelLoader2.collider.box))
             {
@@ -127,7 +127,7 @@ namespace SpaceJellyMONO
 
         }
 
-        public ModelLoader findClosest()
+        public GameObject findClosest()
         {
             float minDist = 100.0f;
             int index = 0;

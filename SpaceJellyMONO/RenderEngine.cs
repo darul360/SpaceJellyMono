@@ -31,7 +31,7 @@ namespace SpaceJellyMONO
         {
             if(SceneToRender != null)
             {
-                foreach(ModelLoader gameObject in SceneToRender.SceneObjects.Values)
+                foreach(GameObject gameObject in SceneToRender.SceneObjects.Values)
                 {
                     gameObject.Draw(SceneToRender.Camera.View, SceneToRender.Camera.Projection);
                 }
