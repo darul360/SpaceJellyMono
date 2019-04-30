@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,16 +12,14 @@ namespace SpaceJellyMONO
         /// </summary>
         public class Game1 : Game
         {
-            public Scene scene;
             GraphicsDeviceManager graphics;
             SpriteBatch spriteBatch;
-            Camera camera;
+            public Camera camera;
             BasicFloorGenerate basicFloor;
             BasicEffect effect;
-            ModelLoader modelLoader,modelLoader2;
+            GameObject modelLoader,modelLoader2;
             Model jelly;
             BasicAnimation jumpAnimation;
-            private ReferencePoint referencePoint;
             public GameObjectsRepository gameObjectsRepository;
 
             public Game1()
@@ -43,11 +42,15 @@ namespace SpaceJellyMONO
             effect = new BasicEffect(GraphicsDevice);
 
             /*-----MODELE-----*/
-            modelLoader = new ModelLoader("Jelly", camera, this, new Vector3(10, 0, 8),-1.65f,0.6f,0, 0.3f,true);
-            modelLoader2 = new ModelLoader("Floor", camera, this, new Vector3(14, 0, 8),0, 0.2f,0, 0.01f,false);
+            modelLoader = new GameObject("Jelly", camera, this, new Vector3(10, 0, 8),0f,0f,0, 1.0f,true);
+            modelLoader2 = new GameObject("Jelly", camera, this, new Vector3(13, 0, 8), 0f, 0f, 0, 1.0f, false);
+            Components.Add(new BasicAnimation(this, Matrix.CreateScale(0.2f) * Matrix.CreateTranslation(new Vector3(10f, 0f, 8f)), Matrix.CreateScale(0.8f, 1.4f, 0.8f), Matrix.Identity, Matrix.CreateTranslation(new Vector3(0f, 2f, 0f))));
+            Components.Add(new Selector(this));
 
-            jumpAnimation = new BasicAnimation(Matrix.CreateScale(0.2f) * Matrix.CreateTranslation(new Vector3(10f, 0f, 8f)), Matrix.CreateScale(0.8f,1.4f,0.8f), Matrix.Identity, Matrix.CreateTranslation(new Vector3(0f, 2f, 0f)));
-
+            foreach (GameObject obj in gameObjectsRepository.getRepo())
+            {
+                Components.Add(obj);
+            }
             base.Initialize();
             }
 
@@ -77,8 +80,8 @@ namespace SpaceJellyMONO
                 Exit();
 
             // TODO: Add your update logic here
-            jumpAnimation.Update(gameTime.ElapsedGameTime);
-            modelLoader.update();
+           // Debug.WriteLine(1000.0f/gameTime.ElapsedGameTime.TotalMilliseconds); //fps counter ultra dupa mnnbhgugnd
+            modelLoader.update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
             base.Update(gameTime);
         }
 
@@ -87,10 +90,9 @@ namespace SpaceJellyMONO
                 GraphicsDevice.Clear(Color.CornflowerBlue);
                 basicFloor.Draw(camera, effect);
                 
-                jelly.Draw(jumpAnimation.position, camera.View, camera.Projection);
+                //jelly.Draw(jumpAnimation.position, camera.View, camera.Projection);
 
-            modelLoader.draw();
-            modelLoader2.draw();
+
             base.Draw(gameTime);
             
             }

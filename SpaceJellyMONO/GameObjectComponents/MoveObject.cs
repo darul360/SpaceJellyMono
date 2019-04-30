@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace SpaceJellyMONO
@@ -10,140 +12,122 @@ namespace SpaceJellyMONO
         private GameObject modelLoader;
         private float moveZ, moveX;
         private Transform transform;
-        private Vector3[] tempBBLocation = new Vector3[8];
-        private bool one, two, three, four;
-        private bool isMovingActive;
-        bool collision;
+        private bool isMovingActive, activate = false;
+        private Vector2 direction;
+        private Vector3 lastPosition;
+        Vector3 lastClickedPos = new Vector3(0, 0, 0);
+        float Velocity;
+        bool collision = false;
 
-
-        public MoveObject(GameObject modelLoader, bool isMovingActive)
+        public MoveObject(GameObject modelLoader, bool isMovingActive,float velocity)
         {
             this.isMovingActive = isMovingActive;
             this.modelLoader = modelLoader;
             this.transform = modelLoader.transform;
             this.moveX = this.transform.Translation.X;
             this.moveZ = this.transform.Translation.Z;
-            one = false; two = false; three = false; four = false;
+            this.Velocity = velocity;
         }
 
-        public void Move()
+        private Vector3 FindWhereClicked()
         {
-            Debug.WriteLine(one + " " + two + " " + three + " " + four+" col"+collision);
-            if (isMovingActive)
+            GraphicsDevice graphicsDevice = modelLoader.mainClass.GraphicsDevice;
+            MouseState mouseState = Mouse.GetState();
+
+            Vector3 nearSource = new Vector3((float)mouseState.X, (float)mouseState.Y, 0f);
+            Vector3 farSource = new Vector3((float)mouseState.X, (float)mouseState.Y, 1f);
+            Vector3 nearPoint = graphicsDevice.Viewport.Unproject(nearSource, modelLoader.camera.Projection, modelLoader.camera.View, Matrix.Identity);
+            Vector3 farPoint = graphicsDevice.Viewport.Unproject(farSource, modelLoader.camera.Projection, modelLoader.camera.View, Matrix.Identity);
+
+            Vector3 direction = farPoint - nearPoint;
+            direction.Normalize();
+
+            Ray ray = new Ray(nearPoint, direction);
+
+            Vector3 n = new Vector3(0f, 1f, 0f);
+            Plane p = new Plane(n, 0f);
+
+            float denominator = Vector3.Dot(p.Normal, ray.Direction);
+            float numerator = Vector3.Dot(p.Normal, ray.Position) + p.D;
+            float t = -(numerator / denominator);
+
+            Vector3 pickedPosition = nearPoint + direction * t;
+
+            return pickedPosition;
+        }
+
+        private void mover(float deltatime,Vector3 lp)
+        {
+
+            direction = new Vector2(lp.X, lp.Z) - new Vector2(transform.Translation.X, transform.Translation.Z);
+            direction.Normalize();
+
+            if (Math.Abs(lp.X-transform.Translation.X)>0.2f && Math.Abs(lp.Z-transform.Translation.Z)>0.2f)
             {
-                KeyboardState ks = Keyboard.GetState();
-                if (ks.IsKeyDown(Keys.NumPad8) && two == false)
+                    moveX += direction.X * deltatime * Velocity;
+                    moveZ += direction.Y * deltatime * Velocity;
+                    transform.Translation = new Vector3(moveX, transform.Translation.Y, moveZ);
+            }
+            else activate = false;
+        }
+
+        private void CheckCollisions()
+        {
+            foreach (GameObject temp in modelLoader.mainClass.gameObjectsRepository.getRepo())
+            {
+                if (temp != modelLoader)
                 {
-                    moveZ += 0.01f;
+                    if (ProcessCollisions(temp))
+                    {
+                        collision = true;
+                    }
+                    else
+                    {
+                        collision = false;
+                    }
+                    Debug.WriteLine(collision);
                 }
-
-                if (ks.IsKeyDown(Keys.NumPad2) && one == false)
-                {
-                    moveZ -= 0.01f;
-                }
-
-                if (ks.IsKeyDown(Keys.NumPad6) && four == false)
-                {
-                    moveX -= 0.01f;
-                }
-
-                if (ks.IsKeyDown(Keys.NumPad4) && three == false)
-                {
-                    moveX += 0.01f;
-                }
-
-                
-                     collision = ProcessCollisions(findClosest());
-                     tempBBLocation = findClosest().collider.box.GetCorners();
-
-                Debug.WriteLine(frontWallCenter(modelLoader.collider.box.GetCorners()).Z +" "+ backWallCenter(tempBBLocation).Z);
-
-                #region XCollisions
-                if (rightWalllCenter(tempBBLocation).X + 0.02f > leftWalllCenter(modelLoader.collider.box.GetCorners()).X && two == false && one == false && four == false)
-                {
-                    if (collision) { three = true; one = false;two = false;four = false; }
-                    if (!collision) three = false;
-                }
-
-                if (leftWalllCenter(tempBBLocation).X - 0.02f < rightWalllCenter(modelLoader.collider.box.GetCorners()).X && two == false && one == false && three == false)
-                {
-                    if (collision) { four = true; one = false; two = false; three = false; }
-                    if (!collision) four = false;
-                }
-
-                #endregion
-
-                #region ZCollisions
-                if (frontWallCenter(modelLoader.collider.box.GetCorners()).Z < backWallCenter(tempBBLocation).Z + 0.02f && three == false && one == false && four == false)
-                {
-                    if (collision) { two = true; one = false; three = false; four = false; Debug.WriteLine("mhm"); }
-                    if (!collision) two = false;
-                }
-
-                if (backWallCenter(modelLoader.collider.box.GetCorners()).Z > frontWallCenter(tempBBLocation).Z -0.02f && three == false && two == false && four == false)
-                {
-                    if (collision) { one = true; three = false; two = false; four = false; }
-                    if (!collision) one = false;
-                }
-                #endregion
-
-                transform.Translation = new Vector3(moveX, transform.Translation.Y, moveZ);
             }
         }
 
-        #region InputBoundingBoxCenter
-        public Vector3 frontWallCenter(Vector3[] boundingBoxVerticies)
+        public void Move(float deltatime)
         {
-            return new Vector3((boundingBoxVerticies[1].X + boundingBoxVerticies[3].X) / 2, (boundingBoxVerticies[1].Y + boundingBoxVerticies[3].Y) / 2, (boundingBoxVerticies[1].Z + boundingBoxVerticies[3].Z) / 2);
+            if (isMovingActive)
+            {
+                CheckCollisions();
+
+                if (collision == false)
+                {
+                    lastPosition = new Vector3(moveX, transform.Translation.Y, moveZ);
+                }
+                    MouseState mouseState = Mouse.GetState();
+                    if (modelLoader.isObjectSelected)
+                    {
+                        if (mouseState.RightButton == ButtonState.Pressed)
+                        {
+                            activate = true;
+                            lastClickedPos = FindWhereClicked();
+                        }
+                    }
+
+                    if (activate)
+                    {
+                        mover(deltatime, lastClickedPos);
+                    }
+                
+
+                if (collision)
+                {
+                    transform.Translation = lastPosition;
+                    CheckCollisions();
+                }
+            }
         }
-
-        public Vector3 backWallCenter(Vector3[] boundingBoxVerticies)
-        {
-            return new Vector3((boundingBoxVerticies[4].X + boundingBoxVerticies[6].X) / 2, (boundingBoxVerticies[4].Y + boundingBoxVerticies[6].Y) / 2, (boundingBoxVerticies[4].Z + boundingBoxVerticies[6].Z) / 2);
-        }
-
-        public Vector3 leftWalllCenter(Vector3[] boundingBoxVerticies)
-        {
-            return new Vector3((boundingBoxVerticies[1].X + boundingBoxVerticies[6].X) / 2, (boundingBoxVerticies[1].Y + boundingBoxVerticies[6].Y) / 2, (boundingBoxVerticies[1].Z + boundingBoxVerticies[6].Z) / 2);
-
-        }
-
-        public Vector3 rightWalllCenter(Vector3[] boundingBoxVerticies)
-        {
-            return new Vector3((boundingBoxVerticies[0].X + boundingBoxVerticies[7].X) / 2, (boundingBoxVerticies[0].Y + boundingBoxVerticies[7].Y) / 2, (boundingBoxVerticies[0].Z + boundingBoxVerticies[7].Z) / 2);
-
-        }
-        #endregion
-
+        
 
         public bool ProcessCollisions(GameObject modelLoader2)
         {
-            if (modelLoader.collider.box.Intersects(modelLoader2.collider.box))
-            {
-                return true;
-            }
-            else
-                return false;
-
-        }
-
-        public GameObject findClosest()
-        {
-            float minDist = 100.0f;
-            int index = 0;
-
-            for (int i=0; i < modelLoader.mainClass.gameObjectsRepository.getRepo().Count; i++)
-            {
-                if(modelLoader.mainClass.gameObjectsRepository.getRepo()[i] != modelLoader)
-                {
-                    if (Vector3.Distance(modelLoader.mainClass.gameObjectsRepository.getRepo()[i].transform.Translation, modelLoader.transform.Translation) < minDist)
-                    {
-                        minDist = Vector3.Distance(modelLoader.mainClass.gameObjectsRepository.getRepo()[i].transform.Translation, modelLoader.transform.Translation);
-                        index = i;
-                    }
-                }
-            }
-            return modelLoader.mainClass.gameObjectsRepository.getRepo()[index];
+            return modelLoader.collider.Intersect(modelLoader2.collider);
         }
 
     }

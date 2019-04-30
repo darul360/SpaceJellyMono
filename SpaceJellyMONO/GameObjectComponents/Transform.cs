@@ -6,6 +6,7 @@ namespace SpaceJellyMONO
 {
     public class Transform
     {
+        private GameObject modelLoader;
         private float scale, yRotation,xRotation,zRotation;
         private Vector3 translation;
 
@@ -38,7 +39,7 @@ namespace SpaceJellyMONO
 
         /*===================================*/
 
-        public Transform(Vector3 translation, float xRotation,float yRotation,float zRotation, float scale)
+        public Transform(GameObject modelLoader, Vector3 translation, float xRotation,float yRotation,float zRotation, float scale)
         {
             this.Translation = translation;
             this.YRotation = yRotation;

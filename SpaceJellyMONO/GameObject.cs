@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceJellyMONO.GameObjectComponents;
 
 namespace SpaceJellyMONO
 {
-    public class GameObject : GameComponent
+    public class GameObject : DrawableGameComponent
     {
         public Model model;
         public Transform transform;
@@ -19,6 +20,8 @@ namespace SpaceJellyMONO
         public Camera camera;
         private String modelPath;
         private bool isMovingActive;
+        public bool isObjectSelected = false;
+        public float scale;
 
         public GameObject(String path,Camera camera,Game1 game1, Vector3 translation, float rotationAngleX,float rotationAngleY,float rotationAngleZ,float scale,bool isMovingActive):base(game1)
         {
@@ -27,21 +30,20 @@ namespace SpaceJellyMONO
             this.mainClass = game1;
             this.isMovingActive = isMovingActive;
             model = mainClass.exportContentManager().Load<Model>(modelPath);
-
-            this.transform = new Transform(translation,rotationAngleX,rotationAngleY,rotationAngleZ,scale);
-            this.moveObject = new MoveObject(this, isMovingActive);
-            this.collider = new Collider(this, 0.8f);
-
+            this.transform = new Transform(this, translation,rotationAngleX,rotationAngleY,rotationAngleZ,scale);
+            this.scale = scale;
+            this.moveObject = new MoveObject(this, isMovingActive,0.005f);
+            this.collider = new Circle(this, scale*1.0f);
             game1.gameObjectsRepository.AddToRepo(this);
         }
 
 
-        public void update()
+        public void update(float deltatime)
         {
-            moveObject.Move();
+            moveObject.Move(deltatime);
         }
-                                  
-        public void draw()
+
+        public override void Draw(GameTime gameTime)
         {
 
             foreach (ModelMesh modelMesh in model.Meshes)
@@ -54,7 +56,9 @@ namespace SpaceJellyMONO
                     basicEffect.EnableDefaultLighting();
                 }
                 modelMesh.Draw();
-                collider.DrawBoxCollider();
+                collider.DrawCollider();
+               // if (isObjectSelected) Debug.WriteLine("I am selected" +" "+ modelPath);
+               // if (!isObjectSelected) Debug.WriteLine("I am not selected"+" "+ modelPath);
             }
 
         }
