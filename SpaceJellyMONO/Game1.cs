@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SkinnedModel;
+using System;
 
 namespace SpaceJellyMONO
 {
@@ -17,10 +19,8 @@ namespace SpaceJellyMONO
             public Camera camera;
             BasicFloorGenerate basicFloor;
             BasicEffect effect;
-            GameObject modelLoader,modelLoader2;
-            Model jelly;
-            BasicAnimation jumpAnimation;
             public GameObjectsRepository gameObjectsRepository;
+            public Scene scene;
 
             public Game1()
             {
@@ -31,10 +31,12 @@ namespace SpaceJellyMONO
             graphics.PreferredBackBufferWidth = 1920;
             this.IsMouseVisible = true;
             this.gameObjectsRepository = new GameObjectsRepository();
-            }
+        }
 
             protected override void Initialize()
             {
+            //TargetElapsedTime = new TimeSpan(TargetElapsedTime.Ticks / 2);
+            //IsFixedTimeStep = false;
             /*-----KAMERA-----*/
             camera = new Camera(this, new Vector3(10f, 3f, 5f), new Vector3(0.8f,0,0), 5f,graphics);
             Components.Add(camera);
@@ -42,27 +44,23 @@ namespace SpaceJellyMONO
             effect = new BasicEffect(GraphicsDevice);
 
             /*-----MODELE-----*/
-            modelLoader = new GameObject("Jelly", camera, this, new Vector3(10, 0, 8),0f,0f,0, 1.0f,true);
-            modelLoader2 = new GameObject("Jelly", camera, this, new Vector3(13, 0, 8), 0f, 0f, 0, 1.0f, false);
-            Components.Add(new BasicAnimation(this, Matrix.CreateScale(0.2f) * Matrix.CreateTranslation(new Vector3(10f, 0f, 8f)), Matrix.CreateScale(0.8f, 1.4f, 0.8f), Matrix.Identity, Matrix.CreateTranslation(new Vector3(0f, 2f, 0f))));
-            Components.Add(new Selector(this));
+            scene = new Scene(camera, new Transform(new Vector3(0f, 0f, 0f), 0f, 0f, 0f, 1f));
 
-            foreach (GameObject obj in gameObjectsRepository.getRepo())
-            {
-                Components.Add(obj);
-            }
+            Components.Add(new Selector(this));
+            Components.Add(new RenderEngine(this));
+
             base.Initialize();
             }
 
             protected override void LoadContent()
             {
                 spriteBatch = new SpriteBatch(GraphicsDevice);
-                jelly = Content.Load<Model>("Jelly");
 
-            foreach (ModelMesh mesh in jelly.Meshes)
-                foreach (BasicEffect effect in mesh.Effects)
-                    effect.EnableDefaultLighting();
-                        
+                scene.AddSceneObject("zarlok_001", new GameObject("zarlok_poprawiony", camera, this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.05f, false));
+                scene.AddSceneObject("galaretka_001", new GameObject("Jelly", camera, this, new Vector3(10f, 0f, 8f), 0f, 0f, 0f, 0.5f, true));
+                scene.AddSceneObject("galaretka_002", new GameObject("Jelly", camera, this, new Vector3(9f, 0, 8f), 0f, 0f, 0f, 0.1f, true));
+
+                scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
             }
 
             public ContentManager exportContentManager()
@@ -81,17 +79,19 @@ namespace SpaceJellyMONO
 
             // TODO: Add your update logic here
            // Debug.WriteLine(1000.0f/gameTime.ElapsedGameTime.TotalMilliseconds); //fps counter ultra dupa mnnbhgugnd
-            modelLoader.update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
+            foreach(GameObject gameObject in scene.SceneObjects.Values)
+            {
+                gameObject.update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
+                gameObject.Update(gameTime);
+            }
             base.Update(gameTime);
+
         }
 
         protected override void Draw(GameTime gameTime)
             {
                 GraphicsDevice.Clear(Color.CornflowerBlue);
                 basicFloor.Draw(camera, effect);
-                
-                //jelly.Draw(jumpAnimation.position, camera.View, camera.Projection);
-
 
             base.Draw(gameTime);
             

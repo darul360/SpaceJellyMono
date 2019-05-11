@@ -47,10 +47,18 @@ namespace SpaceJellyMONO
             this.ZRotation = zRotation;
             this.Scale = scale;
         }
-
+        public Transform(Vector3 translation, float xRotation, float yRotation, float zRotation, float scale)
+        {
+            this.Translation = translation;
+            this.YRotation = yRotation;
+            this.XRotation = xRotation;
+            this.ZRotation = zRotation;
+            this.Scale = scale;
+        }
         public Matrix World()
         {
-             return  Matrix.CreateScale(Scale) *Matrix.CreateRotationX(XRotation)*Matrix.CreateRotationY(YRotation)*Matrix.CreateRotationZ(ZRotation) * Matrix.CreateTranslation(Translation);
+            Matrix rotation = Matrix.CreateRotationX(XRotation) * Matrix.CreateRotationY(YRotation) * Matrix.CreateRotationZ(ZRotation);
+            return Matrix.CreateScale(Scale) * rotation * Matrix.CreateTranslation(Translation);
         }
     }
 }

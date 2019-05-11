@@ -59,8 +59,8 @@
     <Compile Include="ReferencePoint.cs" />
     <Compile Include="GameObjectComponents\Transform.cs" />
     <Compile Include="Selector.cs" />
-	<Compile Include="Scene.cs" />
-	<Compile Include="RenderEngine.cs" />
+    <Compile Include="Scene.cs" />
+    <Compile Include="RenderEngine.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -78,6 +78,12 @@
     <None Include="Content\Floor.FBX" />
     <None Include="Content\Jelly.FBX" />
     <None Include="Content\Jelly2.FBX" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SkinnedModel\SkinnedModel.csproj">
+      <Project>{61fc9c2f-4366-4346-9f43-7a35776decc0}</Project>
+      <Name>SkinnedModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

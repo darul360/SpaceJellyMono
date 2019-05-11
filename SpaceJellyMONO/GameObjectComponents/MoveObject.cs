@@ -85,7 +85,7 @@ namespace SpaceJellyMONO
                     {
                         collision = false;
                     }
-                    Debug.WriteLine(collision);
+                    //Debug.WriteLine(collision);
                 }
             }
         }

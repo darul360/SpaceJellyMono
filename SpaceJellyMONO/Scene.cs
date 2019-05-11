@@ -13,9 +13,9 @@ namespace SpaceJellyMONO
 
         private Transform rootTransform;
 
-        private Dictionary<int, GameObject> sceneObjects;
-        public Dictionary<int, GameObject> SceneObjects { get { return SceneObjects; }}
-        public void AddSceneObject(int objectId, GameObject objectToAdd)
+        private Dictionary<string, GameObject> sceneObjects;
+        public Dictionary<string, GameObject> SceneObjects { get { return sceneObjects; }}
+        public void AddSceneObject(string objectId, GameObject objectToAdd)
         {
             objectToAdd.parentTransform = rootTransform;
             sceneObjects.Add(objectId, objectToAdd);
@@ -25,6 +25,7 @@ namespace SpaceJellyMONO
         {
             this.camera = camera;
             this.rootTransform = rootTransform;
+            sceneObjects = new Dictionary<string, GameObject>();
         }
     }
 }

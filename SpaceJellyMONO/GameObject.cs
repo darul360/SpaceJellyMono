@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceJellyMONO.GameObjectComponents;
+using SkinnedModel;
 
 namespace SpaceJellyMONO
 {
@@ -12,7 +13,7 @@ namespace SpaceJellyMONO
         public Transform transform;
         public Transform parentTransform;
 
-        public Matrix WorldTransform { get { return transform.World() * parentTransform.World(); } }
+        public Matrix WorldTransform { get { return parentTransform.World() * transform.World(); } }
 
         public MoveObject moveObject;
         public Collider collider;
@@ -22,6 +23,8 @@ namespace SpaceJellyMONO
         private bool isMovingActive;
         public bool isObjectSelected = false;
         public float scale;
+
+        private AnimationPlayer skinnedAnimationPlayer = null;
 
         public GameObject(String path,Camera camera,Game1 game1, Vector3 translation, float rotationAngleX,float rotationAngleY,float rotationAngleZ,float scale,bool isMovingActive):base(game1)
         {
@@ -35,12 +38,20 @@ namespace SpaceJellyMONO
             this.moveObject = new MoveObject(this, isMovingActive,0.005f);
             this.collider = new Circle(this, scale*1.0f);
             game1.gameObjectsRepository.AddToRepo(this);
-        }
 
+            SkinningData skinningDataValue = model.Tag as SkinningData;
+            if(skinningDataValue != null)
+                skinnedAnimationPlayer = new AnimationPlayer(skinningDataValue);
+        }
 
         public void update(float deltatime)
         {
             moveObject.Move(deltatime);
+        }
+        public override void Update(GameTime gameTime)
+        {
+            skinnedAnimationPlayer?.Update(gameTime.ElapsedGameTime, WorldTransform);
+            base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
@@ -48,14 +59,29 @@ namespace SpaceJellyMONO
 
             foreach (ModelMesh modelMesh in model.Meshes)
             {
-                foreach(BasicEffect basicEffect in modelMesh.Effects)
-                {
-                    basicEffect.View = camera.View;
-                    basicEffect.World = transform.World();  
-                    basicEffect.Projection = camera.Projection;
-                    basicEffect.EnableDefaultLighting();
-                }
-                modelMesh.Draw();
+                    foreach (Effect effect in modelMesh.Effects)
+                    {
+                        if (effect is BasicEffect)
+                        {
+                            BasicEffect basicEffect = (BasicEffect)effect;
+                            basicEffect.World = WorldTransform;
+                            basicEffect.View = camera.View;
+                            basicEffect.Projection = camera.Projection;
+                            basicEffect.EnableDefaultLighting();
+                            basicEffect.PreferPerPixelLighting = true;
+                        }
+                        if (effect is SkinnedEffect)
+                        {
+                            SkinnedEffect skinnedEffect = (SkinnedEffect)effect;
+                            skinnedEffect.SetBoneTransforms(skinnedAnimationPlayer.GetSkinTransforms());
+                            skinnedEffect.View = camera.View;
+                            skinnedEffect.Projection = camera.Projection;
+
+                            skinnedEffect.EnableDefaultLighting();
+                            skinnedEffect.PreferPerPixelLighting = true;
+                        }
+                        modelMesh.Draw();
+                    }
                 collider.DrawCollider();
                // if (isObjectSelected) Debug.WriteLine("I am selected" +" "+ modelPath);
                // if (!isObjectSelected) Debug.WriteLine("I am not selected"+" "+ modelPath);
@@ -64,18 +90,47 @@ namespace SpaceJellyMONO
         }
         public void Draw(Matrix view, Matrix projection)
         {
-            foreach (ModelMesh modelMesh in model.Meshes)
+            foreach (ModelMesh mesh in model.Meshes)
             {
-                foreach (BasicEffect basicEffect in modelMesh.Effects)
+                foreach (Effect effect in mesh.Effects)
                 {
-                    basicEffect.View = view;
-                    basicEffect.World = WorldTransform;
-                    basicEffect.Projection = projection;
-                    basicEffect.EnableDefaultLighting();
+                    if (effect is BasicEffect)
+                    {
+                        BasicEffect basicEffect = (BasicEffect)effect;
+                        basicEffect.World = WorldTransform;
+                        basicEffect.View = view;
+                        basicEffect.Projection = projection;
+                        basicEffect.EnableDefaultLighting();
+                        basicEffect.PreferPerPixelLighting = true;
+                    }
+                    if (effect is SkinnedEffect)
+                    {
+                        SkinnedEffect skinnedEffect = (SkinnedEffect)effect;
+                        skinnedEffect.SetBoneTransforms(skinnedAnimationPlayer.GetSkinTransforms());
+                        skinnedEffect.View = view;
+                        skinnedEffect.Projection = projection;
+
+                        skinnedEffect.EnableDefaultLighting();
+                        skinnedEffect.PreferPerPixelLighting = true;
+                        skinnedEffect.SpecularPower = 300f;
+                    }
                 }
-                modelMesh.Draw();
-                collider.DrawBoxCollider();
+                mesh.Draw();
+                collider.DrawCollider();
             }
+        }
+        public void StartAnimationClip(string clipName, int tempFrames, bool toggleRepeat)
+        {
+            if (this.skinnedAnimationPlayer == null)
+                throw new NullReferenceException("This GameObject does not have animation.");
+
+            skinnedAnimationPlayer.TemporaryFrames = tempFrames;
+            skinnedAnimationPlayer.ToggleRepeat = toggleRepeat;
+            skinnedAnimationPlayer.StartClip(clipName);
+        }
+        public void SetParent(GameObject parentObject)
+        {
+            parentTransform = parentObject.transform;
         }
     }
 }
