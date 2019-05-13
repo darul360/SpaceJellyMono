@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FSM
+namespace SpaceJellyMONO.FSM
 {
     public class FinateStateMachineBuilder
     {
@@ -11,24 +11,32 @@ namespace FSM
         public FinateStateMachineBuilder AddState(State state)
         {
             states.Add(state);
+            if (startState is null)
+            {
+                startState = state;
+            }
             return this;
         }
 
-        public FinateStateMachineBuilder AddTransion(State startState, Transition transition)
+        public FinateStateMachineBuilder AddTransion(State startState, State targetSate, Func<bool> condition)
         {
-            if (!states.Contains(startState){
+            if (!states.Contains(startState))
+            {
                 throw new Exception("start sate must be on state list");
             }
 
-            if (!states.Contains(transition.TargetState){
+            if (!states.Contains(targetSate))
+            {
                 throw new Exception("transition must be on state list");
             }
-            if (startState is null)
-            {
-                this.startState = startState;
-            }
 
-            startState.transisions.Add(transition);
+
+            startState.transisions.Add(
+                new Transition
+                {
+                    TargetState = targetSate,
+                    ChangeStateCondtion = condition
+                });
             return this;
         }
 

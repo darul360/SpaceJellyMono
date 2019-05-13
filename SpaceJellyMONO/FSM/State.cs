@@ -11,6 +11,5 @@ namespace SpaceJellyMONO.FSM
         public abstract void OnEnter();
         public abstract void OnUpdate(GameTime gameTime, GameObject gameObject);
         public abstract void OnExit();
-
     }
 }

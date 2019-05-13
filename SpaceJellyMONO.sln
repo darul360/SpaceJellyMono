@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceJellyMONO", "SpaceJell
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkinnedModel", "SkinnedModel\SkinnedModel.csproj", "{61FC9C2F-4366-4346-9F43-7A35776DECC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSM", "FSM\FSM.csproj", "{BBCB69BB-BADF-452E-B290-57C804192E8E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,14 +29,6 @@ Global
 		{61FC9C2F-4366-4346-9F43-7A35776DECC0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{61FC9C2F-4366-4346-9F43-7A35776DECC0}.Release|x86.ActiveCfg = Release|Any CPU
 		{61FC9C2F-4366-4346-9F43-7A35776DECC0}.Release|x86.Build.0 = Release|Any CPU
-		{BBCB69BB-BADF-452E-B290-57C804192E8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BBCB69BB-BADF-452E-B290-57C804192E8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BBCB69BB-BADF-452E-B290-57C804192E8E}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{BBCB69BB-BADF-452E-B290-57C804192E8E}.Debug|x86.Build.0 = Debug|Any CPU
-		{BBCB69BB-BADF-452E-B290-57C804192E8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BBCB69BB-BADF-452E-B290-57C804192E8E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BBCB69BB-BADF-452E-B290-57C804192E8E}.Release|x86.ActiveCfg = Release|Any CPU
-		{BBCB69BB-BADF-452E-B290-57C804192E8E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

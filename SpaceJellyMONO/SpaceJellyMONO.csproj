@@ -46,6 +46,13 @@
     <Compile Include="Camera.cs" />
     <Compile Include="Collision\Circle.cs" />
     <Compile Include="Collision\Collider.cs" />
+    <Compile Include="FSM\FinateStateMachine.cs" />
+    <Compile Include="FSM\FinateStateMachineBuilder.cs" />
+    <Compile Include="FSM\State.cs" />
+    <Compile Include="FSM\States\MoveLeft.cs" />
+    <Compile Include="FSM\States\MoveRigth.cs" />
+    <Compile Include="FSM\Transition.cs" />
+    <Compile Include="FSM\Conditions\trueAfter500Frames.cs" />
     <Compile Include="GameObjectComponents\CylinderPrimitive.cs" />
     <Compile Include="GameObjectComponents\DrawBoxCollider.cs" />
     <Compile Include="Game1.cs" />
@@ -85,6 +92,7 @@
       <Name>SkinnedModel</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

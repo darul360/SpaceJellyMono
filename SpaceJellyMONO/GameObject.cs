@@ -53,9 +53,10 @@ namespace SpaceJellyMONO
         public override void Update(GameTime gameTime)
         {
             skinnedAnimationPlayer?.Update(gameTime.ElapsedGameTime, WorldTransform);
+            finateSatemachine?.Update(gameTime, this);
             base.Update(gameTime);
 
-            finateSatemachine?.Update(gameTime, this);
+
         }
 
         public override void Draw(GameTime gameTime)

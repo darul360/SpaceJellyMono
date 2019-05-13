@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace SpaceJellyMONO.FSM
 {
-    public abstract class Transition
+    public class Transition
     {
         public State TargetState;
 
-        public abstract bool ChangeState();
+        public Func<bool> ChangeStateCondtion;
     }
 }

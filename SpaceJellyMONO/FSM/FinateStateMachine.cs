@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SpaceJellyMONO;
+using System;
 
 namespace SpaceJellyMONO.FSM
 {
@@ -17,10 +18,11 @@ namespace SpaceJellyMONO.FSM
             currentState.OnUpdate(gameTime, gameObject);
             foreach (Transition transition in currentState.transisions)
             {
-                if (transition.ChangeState())
+                if (transition.ChangeStateCondtion())
                 {
                     currentState = transition.TargetState;
                     currentState.OnExit();
+                    Console.WriteLine("State change");
                     return;
                 }
             }
