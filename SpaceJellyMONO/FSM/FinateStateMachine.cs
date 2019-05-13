@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using SpaceJellyMONO;
 
-namespace FSM
+namespace SpaceJellyMONO.FSM
 {
     public class FinateStateMachine
     {
@@ -11,9 +12,9 @@ namespace FSM
             currentState?.OnEnter();
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, GameObject gameObject)
         {
-            currentState.OnUpdate();
+            currentState.OnUpdate(gameTime, gameObject);
             foreach (Transition transition in currentState.transisions)
             {
                 if (transition.ChangeState())
