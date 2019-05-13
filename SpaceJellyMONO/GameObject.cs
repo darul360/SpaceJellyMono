@@ -137,5 +137,11 @@ namespace SpaceJellyMONO
         {
             parentTransform = parentObject.transform;
         }
+
+        public override void Initialize()
+        {
+            base.Initialize();
+            finateSatemachine.Initialize();
+        }
     }
 }
