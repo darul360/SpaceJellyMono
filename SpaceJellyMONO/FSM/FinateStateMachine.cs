@@ -22,7 +22,6 @@ namespace SpaceJellyMONO.FSM
                 {
                     currentState = transition.TargetState;
                     currentState.OnExit();
-                    Console.WriteLine("State change");
                     return;
                 }
             }
