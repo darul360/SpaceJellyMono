@@ -13,7 +13,7 @@ namespace SpaceJellyMONO.FSM.Trans
         public bool ChangeState()
         {
 
-            Console.WriteLine(frameCounter);
+            //Console.WriteLine(frameCounter);
             frameCounter++;
             if (frameCounter > 500)
             {

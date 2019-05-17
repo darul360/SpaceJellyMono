@@ -58,14 +58,16 @@ namespace SpaceJellyMONO
 
         private void mover(float deltatime,Vector3 lp)
         {
-
+            Velocity= 0.005f;
             direction = new Vector2(lp.X, lp.Z) - new Vector2(transform.Translation.X, transform.Translation.Z);
             direction.Normalize();
 
+            Vector2 UnitSpeed = direction * Velocity;
+
             if (Math.Abs(lp.X-transform.Translation.X)>0.2f && Math.Abs(lp.Z-transform.Translation.Z)>0.2f)
             {
-                    moveX += direction.X * deltatime * Velocity;
-                    moveZ += direction.Y * deltatime * Velocity;
+                    moveX += UnitSpeed.X * deltatime ;
+                    moveZ += UnitSpeed.Y * deltatime ;
                     transform.Translation = new Vector3(moveX, transform.Translation.Y, moveZ);
             }
             else activate = false;
@@ -80,10 +82,13 @@ namespace SpaceJellyMONO
                     if (ProcessCollisions(temp))
                     {
                         collision = true;
+                        Debug.WriteLine(collision);
+                        Velocity = 0.0005f;
                     }
                     else
                     {
                         collision = false;
+                        Velocity = 0.00f;
                     }
                     //Debug.WriteLine(collision);
                 }
@@ -100,6 +105,7 @@ namespace SpaceJellyMONO
                 {
                     lastPosition = new Vector3(moveX, transform.Translation.Y, moveZ);
                 }
+                
                     MouseState mouseState = Mouse.GetState();
                     if (modelLoader.isObjectSelected)
                     {
@@ -118,8 +124,9 @@ namespace SpaceJellyMONO
 
                 if (collision)
                 {
-                    transform.Translation = lastPosition;
-                    CheckCollisions();
+                    //transform.Translation = lastPosition;
+                    activate = false;
+                    collision = false;
                 }
             }
         }
