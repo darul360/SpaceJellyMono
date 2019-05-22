@@ -5,69 +5,64 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SpaceJellyMONO.GameObjectComponents;
 
 namespace SpaceJellyMONO
 {
     public class BasicFloorGenerate
     {
         private int fWidth, fHeight;
-        private VertexBuffer floorBuffer;
         private GraphicsDevice device;
-        private Color[] floorColors = new Color[2] { Color.BlueViolet, Color.Brown };
 
-        public BasicFloorGenerate(GraphicsDevice device,int width,int height)
+        private bool[,] coordinatesOfPoints;
+        private CylinderPrimitive [,] cylinders;
+
+        public BasicFloorGenerate(GraphicsDevice device,int width,int height, SpriteBatch spriteBatch)
         {
             this.device = device;
             this.fWidth = width;
             this.fHeight = height;
+            coordinatesOfPoints = new bool[fWidth,fHeight];
+            cylinders = new CylinderPrimitive[fWidth,fHeight];
+            for (int i = 0; i < fHeight; i++)
+            {
+                for(int j = 0; j < fWidth; j++)
+                {
+                    coordinatesOfPoints[i,j] = false;
+                }
+            }
+
             BuildFloorBuffer();
         }
 
         public void BuildFloorBuffer()
         {
-            List<VertexPositionColor> vertexPositionColors = new List<VertexPositionColor>();
-            int counter = 0;
-            for(int i = 0; i < fWidth; i++)
+
+            for (int i = 0; i < fHeight; i++)
             {
-                for(int j = 0; j < fHeight; j++)
+                for (int j = 0; j < fWidth; j++)
                 {
-                    counter++;
-                    foreach(VertexPositionColor vertex in FloorTile(i, j, floorColors[counter % 2]))
-                    {
-                        vertexPositionColors.Add(vertex);
-                    }
+                    cylinders[i,j] = new CylinderPrimitive(device, 0.5f, 0.2f, 20);
                 }
             }
-            floorBuffer = new VertexBuffer(device, VertexPositionColor.VertexDeclaration, vertexPositionColors.Count, BufferUsage.None);
-            floorBuffer.SetData<VertexPositionColor>(vertexPositionColors.ToArray());
         }
 
-        private List<VertexPositionColor> FloorTile(int xOffset,int zOffset,Color tileColor)
+        public Matrix world(Vector3 vector)
         {
-            List<VertexPositionColor> vertices = new List<VertexPositionColor>();
-            vertices.Add(new VertexPositionColor(new Vector3(0 + xOffset, 0, 0 + zOffset), tileColor));
-            vertices.Add(new VertexPositionColor(new Vector3(1 + xOffset, 0, 0 + zOffset), tileColor));
-            vertices.Add(new VertexPositionColor(new Vector3(0 + xOffset, 0, 1 + zOffset), tileColor));
-            vertices.Add(new VertexPositionColor(new Vector3(1 + xOffset, 0, 0 + zOffset), tileColor));
-            vertices.Add(new VertexPositionColor(new Vector3(1 + xOffset, 0, 1 + zOffset), tileColor));
-            vertices.Add(new VertexPositionColor(new Vector3(0 + xOffset, 0, 1 + zOffset), tileColor));
-            return vertices;
+            return Matrix.CreateScale(1.0f) * Matrix.CreateTranslation(vector);
         }
 
         public void Draw(Camera camera,BasicEffect basicEffect)
         {
-            basicEffect.VertexColorEnabled = true;
-            basicEffect.View = camera.View;
-            basicEffect.Projection = camera.Projection;
-            basicEffect.World = Matrix.Identity;
-
-            foreach(EffectPass pass in basicEffect.CurrentTechnique.Passes)
+            for (int i = 0; i < fHeight; i++)
             {
-                pass.Apply();
-                device.SetVertexBuffer(floorBuffer);
-                device.DrawPrimitives(PrimitiveType.TriangleList, 0, floorBuffer.VertexCount / 3);
-
+                for (int j = 0; j < fWidth; j++)
+                {
+                    //Matrix matrix = Matrix.CreateWorld(world(new Vector3(i,0,j)).Translation, Vector3.Forward, Vector3.Up);
+                    //cylinders[i, j].Draw(matrix, camera.View, camera.Projection, new Color(255, 0, 0));
+                }
             }
+            
         }
 
     }

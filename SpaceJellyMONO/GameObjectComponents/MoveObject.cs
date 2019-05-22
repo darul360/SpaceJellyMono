@@ -56,6 +56,27 @@ namespace SpaceJellyMONO
             return pickedPosition;
         }
 
+        private void SpreadWorkers()
+        {
+            Vector3 tempTrans;
+            foreach (GameObject temp in modelLoader.mainClass.gameObjectsRepository.getRepo())
+            {
+                if (temp.isObjectSelected && temp.isPrimary)
+                {
+                    tempTrans = new Vector3(temp.transform.Translation.X, 0, temp.transform.Translation.Z);
+                }
+            }
+
+            foreach (GameObject temp in modelLoader.mainClass.gameObjectsRepository.getRepo())
+            {
+                if (temp.isObjectSelected && !temp.isPrimary)
+                {
+                   // temp.transform.Translation = new Vector3(tempTrans.X + 3, 0, tempTrans.Z);
+                }
+            }
+
+        }
+
         private void mover(float deltatime,Vector3 lp)
         {
             Velocity= 0.005f;
@@ -63,14 +84,18 @@ namespace SpaceJellyMONO
             direction.Normalize();
 
             Vector2 UnitSpeed = direction * Velocity;
+            //lp.Normalize();
 
-            if (Math.Abs(lp.X-transform.Translation.X)>0.2f && Math.Abs(lp.Z-transform.Translation.Z)>0.2f)
+            if (Math.Abs(lp.X - transform.Translation.X) < 0.1f && Math.Abs(lp.Z - transform.Translation.Z) < 0.1f)
             {
-                    moveX += UnitSpeed.X * deltatime ;
-                    moveZ += UnitSpeed.Y * deltatime ;
-                    transform.Translation = new Vector3(moveX, transform.Translation.Y, moveZ);
+               // activate = false;
+                SpreadWorkers();
             }
-            else activate = false;
+            else {
+                moveX += UnitSpeed.X * deltatime;
+                moveZ += UnitSpeed.Y * deltatime;
+                transform.Translation = new Vector3(moveX, transform.Translation.Y, moveZ);
+            }
         }
 
         private void CheckCollisions()
@@ -82,13 +107,10 @@ namespace SpaceJellyMONO
                     if (ProcessCollisions(temp))
                     {
                         collision = true;
-                        Debug.WriteLine(collision);
-                        Velocity = 0.0005f;
                     }
                     else
                     {
                         collision = false;
-                        Velocity = 0.00f;
                     }
                     //Debug.WriteLine(collision);
                 }
@@ -113,6 +135,14 @@ namespace SpaceJellyMONO
                         {
                             activate = true;
                             lastClickedPos = FindWhereClicked();
+                            Grid grid = new Grid(20, 20);
+                        Point point = new Point((int)transform.Translation.X, (int)transform.Translation.Z);
+                        Point point1 = new Point((int)lastClickedPos.X, (int)lastClickedPos.Z);
+                         foreach(Point p in grid.Pathfind(point, point))
+                            {
+                            Debug.WriteLine(p.X + " " + p.Y);
+                            }
+                       
                         }
                     }
 
@@ -124,8 +154,8 @@ namespace SpaceJellyMONO
 
                 if (collision)
                 {
-                    //transform.Translation = lastPosition;
-                    activate = false;
+
+                    //activate = false;
                     collision = false;
                 }
             }

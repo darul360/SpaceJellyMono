@@ -38,6 +38,7 @@ namespace SpaceJellyMONO
                         if ((model.transform.Translation.X >= stopPoint.X && model.transform.Translation.X <= startPoint.X) && (model.transform.Translation.Z >= stopPoint.Z && model.transform.Translation.Z <= startPoint.Z))
                         {
                             model.isObjectSelected = true;
+                            selectPrimary(model);
                         }
                     }
                     if(startPoint.Z < stopPoint.Z)
@@ -45,6 +46,7 @@ namespace SpaceJellyMONO
                         if ((model.transform.Translation.X >= stopPoint.X && model.transform.Translation.X <= startPoint.X) && (model.transform.Translation.Z >= startPoint.Z && model.transform.Translation.Z <= stopPoint.Z))
                         {
                             model.isObjectSelected = true;
+                            selectPrimary(model);
                         }
                     }
                 }
@@ -56,6 +58,7 @@ namespace SpaceJellyMONO
                         if ((model.transform.Translation.X >= startPoint.X && model.transform.Translation.X <= stopPoint.X) && (model.transform.Translation.Z >= stopPoint.Z && model.transform.Translation.Z <= startPoint.Z))
                         {
                             model.isObjectSelected = true;
+                            selectPrimary(model);
                         }
                     }
                     if (startPoint.Z < stopPoint.Z)
@@ -63,11 +66,23 @@ namespace SpaceJellyMONO
                         if ((model.transform.Translation.X >= startPoint.X && model.transform.Translation.X <= stopPoint.X) && (model.transform.Translation.Z >= startPoint.Z && model.transform.Translation.Z <= stopPoint.Z))
                         {
                             model.isObjectSelected = true;
+                            selectPrimary(model);
                         }
                     }
                 }
             }
         }
+
+        private void selectPrimary(GameObject model2)
+        {
+            int i = 0;
+            foreach(GameObject model in game.gameObjectsRepository.getRepo())
+            {
+                if (model.isObjectSelected) i++;
+            }
+            if (i == 0) model2.isPrimary = true;
+        }
+
         private void DeselectAll()
         {
             foreach (GameObject model in game.gameObjectsRepository.getRepo())

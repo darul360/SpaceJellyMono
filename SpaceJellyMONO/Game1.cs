@@ -39,7 +39,7 @@ namespace SpaceJellyMONO
             /*-----KAMERA-----*/
             camera = new Camera(this, new Vector3(10f, 3f, 5f), new Vector3(0.8f, 0, 0), 5f, graphics);
             Components.Add(camera);
-            basicFloor = new BasicFloorGenerate(GraphicsDevice, 20, 20);
+            basicFloor = new BasicFloorGenerate(GraphicsDevice, 20, 20,spriteBatch);
             effect = new BasicEffect(GraphicsDevice);
 
             /*-----MODELE-----*/
@@ -73,7 +73,7 @@ namespace SpaceJellyMONO
             };
             scene.AddSceneObject("galaretka_001", jelly1);
             scene.AddSceneObject("galaretka_002", new GameObject("Jelly", camera, this, new Vector3(9f, 0, 8f), 0f, 0f, 0f, 0.5f, true));
-
+            scene.AddSceneObject("galaretka_003", new GameObject("Jelly", camera, this, new Vector3(11f, 0, 8f), 0f, 0f, 0f, 0.5f, true));
             scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
         }
 

@@ -23,6 +23,8 @@ namespace SpaceJellyMONO
         private bool isMovingActive;
         public bool isObjectSelected = false;
         public float scale;
+        public bool isPrimary = false;
+
 
         public FinateStateMachine finateSatemachine;
 

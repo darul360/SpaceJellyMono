@@ -58,6 +58,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="GameObjectComponents\GeometricPrimitive.cs" />
     <Compile Include="GameObjectComponents\VertexPositionNormal.cs" />
+    <Compile Include="Grid.cs" />
     <Compile Include="Repositories\GameObjectsRepository.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameObjectComponents\MoveObject.cs" />
