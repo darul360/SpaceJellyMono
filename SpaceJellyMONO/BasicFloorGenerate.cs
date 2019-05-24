@@ -58,8 +58,8 @@ namespace SpaceJellyMONO
             {
                 for (int j = 0; j < fWidth; j++)
                 {
-                    //Matrix matrix = Matrix.CreateWorld(world(new Vector3(i,0,j)).Translation, Vector3.Forward, Vector3.Up);
-                    //cylinders[i, j].Draw(matrix, camera.View, camera.Projection, new Color(255, 0, 0));
+                    Matrix matrix = Matrix.CreateWorld(world(new Vector3(i,0,j)).Translation, Vector3.Forward, Vector3.Up);
+                    cylinders[i, j].Draw(matrix, camera.View, camera.Projection, new Color(255, 0, 0));
                 }
             }
             

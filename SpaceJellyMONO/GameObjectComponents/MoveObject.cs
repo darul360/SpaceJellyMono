@@ -58,7 +58,7 @@ namespace SpaceJellyMONO
 
         private void SpreadWorkers()
         {
-            Vector3 tempTrans;
+            Vector3 tempTrans = new Vector3();
             foreach (GameObject temp in modelLoader.mainClass.gameObjectsRepository.getRepo())
             {
                 if (temp.isObjectSelected && temp.isPrimary)
@@ -67,11 +67,31 @@ namespace SpaceJellyMONO
                 }
             }
 
-            foreach (GameObject temp in modelLoader.mainClass.gameObjectsRepository.getRepo())
+            for (int i=0;i<modelLoader.mainClass.gameObjectsRepository.getRepo().Count;i++)
             {
-                if (temp.isObjectSelected && !temp.isPrimary)
+                if (modelLoader.mainClass.gameObjectsRepository.getRepo()[i].isObjectSelected && !modelLoader.mainClass.gameObjectsRepository.getRepo()[i].isPrimary && i==0)
                 {
-                   // temp.transform.Translation = new Vector3(tempTrans.X + 3, 0, tempTrans.Z);
+                    modelLoader.mainClass.gameObjectsRepository.getRepo()[i].transform.Translation = new Vector3(tempTrans.X + 1, 0, tempTrans.Z);
+                }
+                Random r = new Random();
+                Random g = new Random();
+                double nextValue =(r.NextDouble() * (2 + 2) - 2);
+                double nextValue2 = (r.NextDouble() * (2 + 2) - 2);
+                do
+                {
+                    nextValue = (r.NextDouble() * (2 + 2) - 2);
+                } while (nextValue > -0.1 && nextValue < 0.1);
+
+                do
+                {
+                    nextValue2 = (r.NextDouble() * (2 + 2) - 2);
+                } while (nextValue2 > -0.1 && nextValue2 < 0.1);
+
+
+
+                if (modelLoader.mainClass.gameObjectsRepository.getRepo()[i].isObjectSelected && !modelLoader.mainClass.gameObjectsRepository.getRepo()[i].isPrimary && i != 0)
+                {
+                    modelLoader.mainClass.gameObjectsRepository.getRepo()[i].transform.Translation = new Vector3(modelLoader.mainClass.gameObjectsRepository.getRepo()[i].transform.Translation.X + (float)nextValue, 0, modelLoader.mainClass.gameObjectsRepository.getRepo()[i].transform.Translation.Z + (float)nextValue2);
                 }
             }
 
@@ -84,12 +104,11 @@ namespace SpaceJellyMONO
             direction.Normalize();
 
             Vector2 UnitSpeed = direction * Velocity;
-            //lp.Normalize();
 
             if (Math.Abs(lp.X - transform.Translation.X) < 0.1f && Math.Abs(lp.Z - transform.Translation.Z) < 0.1f)
             {
-               // activate = false;
                 SpreadWorkers();
+                activate = false;
             }
             else {
                 moveX += UnitSpeed.X * deltatime;
@@ -102,8 +121,6 @@ namespace SpaceJellyMONO
         {
             foreach (GameObject temp in modelLoader.mainClass.gameObjectsRepository.getRepo())
             {
-                if (temp != modelLoader)
-                {
                     if (ProcessCollisions(temp))
                     {
                         collision = true;
@@ -112,8 +129,6 @@ namespace SpaceJellyMONO
                     {
                         collision = false;
                     }
-                    //Debug.WriteLine(collision);
-                }
             }
         }
 
@@ -135,14 +150,7 @@ namespace SpaceJellyMONO
                         {
                             activate = true;
                             lastClickedPos = FindWhereClicked();
-                            Grid grid = new Grid(20, 20);
-                        Point point = new Point((int)transform.Translation.X, (int)transform.Translation.Z);
-                        Point point1 = new Point((int)lastClickedPos.X, (int)lastClickedPos.Z);
-                         foreach(Point p in grid.Pathfind(point, point))
-                            {
-                            Debug.WriteLine(p.X + " " + p.Y);
-                            }
-                       
+
                         }
                     }
 
@@ -154,9 +162,8 @@ namespace SpaceJellyMONO
 
                 if (collision)
                 {
-
                     //activate = false;
-                    collision = false;
+                    //collision = false;
                 }
             }
         }

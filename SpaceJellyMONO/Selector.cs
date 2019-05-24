@@ -78,9 +78,10 @@ namespace SpaceJellyMONO
             int i = 0;
             foreach(GameObject model in game.gameObjectsRepository.getRepo())
             {
-                if (model.isObjectSelected) i++;
+                if (model.isPrimary) i++;
             }
             if (i == 0) model2.isPrimary = true;
+
         }
 
         private void DeselectAll()
@@ -88,6 +89,7 @@ namespace SpaceJellyMONO
             foreach (GameObject model in game.gameObjectsRepository.getRepo())
             {
                 model.isObjectSelected = false;
+                model.isPrimary = false;
             }
         }
 

@@ -39,7 +39,7 @@ namespace SpaceJellyMONO
             /*-----KAMERA-----*/
             camera = new Camera(this, new Vector3(10f, 3f, 5f), new Vector3(0.8f, 0, 0), 5f, graphics);
             Components.Add(camera);
-            basicFloor = new BasicFloorGenerate(GraphicsDevice, 20, 20,spriteBatch);
+            basicFloor = new BasicFloorGenerate(GraphicsDevice, 80, 80,spriteBatch);
             effect = new BasicEffect(GraphicsDevice);
 
             /*-----MODELE-----*/
