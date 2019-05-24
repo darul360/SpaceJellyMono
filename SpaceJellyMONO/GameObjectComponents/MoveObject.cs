@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -58,19 +59,61 @@ namespace SpaceJellyMONO
 
         private void mover(float deltatime,Vector3 lp)
         {
-            Velocity= 0.005f;
+            Velocity = 0.005f;
             direction = new Vector2(lp.X, lp.Z) - new Vector2(transform.Translation.X, transform.Translation.Z);
             direction.Normalize();
 
             Vector2 UnitSpeed = direction * Velocity;
 
-            if (Math.Abs(lp.X-transform.Translation.X)>0.2f && Math.Abs(lp.Z-transform.Translation.Z)>0.2f)
+            if (Math.Abs(lp.X - transform.Translation.X) < 0.1f && Math.Abs(lp.Z - transform.Translation.Z) < 0.1f)
             {
-                    moveX += UnitSpeed.X * deltatime ;
-                    moveZ += UnitSpeed.Y * deltatime ;
-                    transform.Translation = new Vector3(moveX, transform.Translation.Y, moveZ);
+                activate = false;
             }
-            else activate = false;
+            else
+            {
+                moveX += UnitSpeed.X * deltatime;
+                moveZ += UnitSpeed.Y * deltatime;
+                transform.Translation = new Vector3(moveX, transform.Translation.Y, moveZ);
+            }
+        }
+
+        public void Move(float deltatime, SoundEffect effect)
+        {
+            if (isMovingActive)
+            {
+                CheckCollisions();
+
+                if (collision == false)
+                {
+                    lastPosition = new Vector3(moveX, transform.Translation.Y, moveZ);
+                }
+
+                MouseState mouseState = Mouse.GetState();
+                if (modelLoader.isObjectSelected)
+                {
+                    if (mouseState.RightButton == ButtonState.Pressed)
+                    {
+                        activate = true;
+                        lastClickedPos = FindWhereClicked();
+                    }
+                }
+
+                
+
+                if (activate)
+                {
+                    mover(deltatime, lastClickedPos);
+                }
+
+                if (collision)
+                {
+                    //transform.Translation = lastPosition;
+                    activate = false;
+                    collision = false;
+                    effect.Play();
+                }
+
+            }
         }
 
         private void CheckCollisions()
@@ -83,53 +126,17 @@ namespace SpaceJellyMONO
                     {
                         collision = true;
                         Debug.WriteLine(collision);
-                        Velocity = 0.0005f;
+                        Velocity = 0.000f;
                     }
                     else
                     {
                         collision = false;
-                        Velocity = 0.00f;
+                        Velocity = 0.005f;
                     }
-                    //Debug.WriteLine(collision);
                 }
             }
         }
 
-        public void Move(float deltatime)
-        {
-            if (isMovingActive)
-            {
-                CheckCollisions();
-
-                if (collision == false)
-                {
-                    lastPosition = new Vector3(moveX, transform.Translation.Y, moveZ);
-                }
-                
-                    MouseState mouseState = Mouse.GetState();
-                    if (modelLoader.isObjectSelected)
-                    {
-                        if (mouseState.RightButton == ButtonState.Pressed)
-                        {
-                            activate = true;
-                            lastClickedPos = FindWhereClicked();
-                        }
-                    }
-
-                    if (activate)
-                    {
-                        mover(deltatime, lastClickedPos);
-                    }
-                
-
-                if (collision)
-                {
-                    //transform.Translation = lastPosition;
-                    activate = false;
-                    collision = false;
-                }
-            }
-        }
         
 
         public bool ProcessCollisions(GameObject modelLoader2)

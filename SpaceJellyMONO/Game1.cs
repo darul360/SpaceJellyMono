@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -20,6 +21,9 @@ namespace SpaceJellyMONO
         BasicEffect effect;
         public GameObjectsRepository gameObjectsRepository;
         public Scene scene;
+
+        //sound
+        SoundEffect soundEffect;
 
         public Game1()
         {
@@ -55,6 +59,8 @@ namespace SpaceJellyMONO
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            soundEffect = Content.Load<SoundEffect>("jellybounce");
+
             State right = new MoveRigth();
             State left = new MoveLeft();
             FinateStateMachine move =
@@ -72,7 +78,9 @@ namespace SpaceJellyMONO
                 finateSatemachine = move
             };
             scene.AddSceneObject("galaretka_001", jelly1);
-            scene.AddSceneObject("galaretka_002", new GameObject("Jelly", camera, this, new Vector3(9f, 0, 8f), 0f, 0f, 0f, 0.5f, true));
+            scene.AddSceneObject("galaretka_002", new GameObject("Jelly", camera, this, new Vector3(8f, 0, 8f), 0f, 0f, 0f, 0.5f, true));
+            scene.AddSceneObject("galaretka_003", new GameObject("Jelly", camera, this, new Vector3(6f, 0, 8f), 0f, 0f, 0f, 0.5f, true));
+            scene.AddSceneObject("galaretka_004", new GameObject("Jelly", camera, this, new Vector3(4f, 0, 8f), 0f, 0f, 0f, 0.5f, true));
 
             scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
         }
@@ -95,7 +103,7 @@ namespace SpaceJellyMONO
             // Debug.WriteLine(1000.0f/gameTime.ElapsedGameTime.TotalMilliseconds); //fps counter ultra dupa mnnbhgugnd
             foreach (GameObject gameObject in scene.SceneObjects.Values)
             {
-                gameObject.update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
+                gameObject.update((float)gameTime.ElapsedGameTime.TotalMilliseconds, soundEffect);
                 gameObject.Update(gameTime);
             }
             base.Update(gameTime);

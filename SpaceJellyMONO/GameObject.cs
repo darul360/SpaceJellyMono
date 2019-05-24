@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using SkinnedModel;
 using SpaceJellyMONO.FSM;
@@ -38,7 +39,7 @@ namespace SpaceJellyMONO
             transform = new Transform(this, translation, rotationAngleX, rotationAngleY, rotationAngleZ, scale);
             this.scale = scale;
             moveObject = new MoveObject(this, isMovingActive, 0.005f);
-            collider = new Circle(this, scale * 1.0f);
+            collider = new Circle(this, scale * 0.5f);
             game1.gameObjectsRepository.AddToRepo(this);
 
             SkinningData skinningDataValue = model.Tag as SkinningData;
@@ -46,9 +47,9 @@ namespace SpaceJellyMONO
                 skinnedAnimationPlayer = new AnimationPlayer(skinningDataValue);
         }
 
-        public void update(float deltatime)
+        public void update(float deltatime, SoundEffect effect)
         {
-            moveObject.Move(deltatime);
+            moveObject.Move(deltatime, effect);
         }
         public override void Update(GameTime gameTime)
         {
