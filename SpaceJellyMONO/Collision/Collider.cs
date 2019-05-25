@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 namespace SpaceJellyMONO.GameObjectComponents
 {
-    public enum Type {circle, plane, rectangle};
+    public enum Type {circle, plane, rectangle, circlePath};
     public class Collider
     {
         public GameObject parent;

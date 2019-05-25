@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SpaceJellyMONO.Collision;
+using SpaceJellyMONO.GameObjectComponents;
+using SpaceJellyMONO.Repositories;
 
 namespace SpaceJellyMONO
 {
@@ -15,11 +18,15 @@ namespace SpaceJellyMONO
         private GraphicsDevice device;
         private Color[] floorColors = new Color[2] { Color.BlueViolet, Color.Brown };
 
+        //private CirclePath[,] cylinders;
+
         public BasicFloorGenerate(GraphicsDevice device,int width,int height)
         {
             this.device = device;
             this.fWidth = width;
             this.fHeight = height;
+            PathCollidersRepository.cylinders = new CirclePath[fWidth, fHeight];
+
             BuildFloorBuffer();
         }
 
@@ -31,6 +38,7 @@ namespace SpaceJellyMONO
             {
                 for(int j = 0; j < fHeight; j++)
                 {
+                    PathCollidersRepository.cylinders[i, j] = new CirclePath(null, 0.5f, new Vector3(i,0,j));
                     counter++;
                     foreach(VertexPositionColor vertex in FloorTile(i, j, floorColors[counter % 2]))
                     {
@@ -67,8 +75,16 @@ namespace SpaceJellyMONO
                 device.SetVertexBuffer(floorBuffer);
                 device.DrawPrimitives(PrimitiveType.TriangleList, 0, floorBuffer.VertexCount / 3);
 
+                //for (int i = 0; i < fHeight; i++)
+                //{
+                //    for (int j = 0; j < fWidth; j++)
+                //    {
+                //        Matrix matrix = Matrix.CreateWorld(new Vector3(i, 0, j), Vector3.Forward, Vector3.Up);
+                //        cylinders[i, j].Draw(matrix, camera.View, camera.Projection, new Color(255, 0, 0));
+                //    }
+                //}
             }
-        }
+            }
 
     }
 }

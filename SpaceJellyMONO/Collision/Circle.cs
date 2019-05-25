@@ -23,6 +23,7 @@ namespace SpaceJellyMONO.GameObjectComponents
             cylinder = new CylinderPrimitive(deviceManager, 0.5f , radius*2, 20);
             cam = parent.camera;
         }
+
         public override bool Intersect(Collider other)
         {
             switch(other.colliderTYPE)

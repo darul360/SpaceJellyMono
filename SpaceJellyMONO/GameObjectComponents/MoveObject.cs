@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SpaceJellyMONO.PathFinding;
+using SpaceJellyMONO.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -130,6 +131,22 @@ namespace SpaceJellyMONO
         {
             foreach (GameObject temp in modelLoader.mainClass.gameObjectsRepository.getRepo())
             {
+                for (int i = 0; i < 20; i++)
+                {
+                    for (int j = 0; j < 20; j++)
+                    {
+                        if (PathCollidersRepository.cylinders[i, j].Intersect(temp.collider))
+                        {
+                            collision = true;
+                            Debug.WriteLine("Dupa");
+                        }
+                        else
+                        {
+                            collision = false;
+                        }
+                    }
+                }
+
                 if (temp != modelLoader)
                 {
                     if (ProcessCollisions(temp))

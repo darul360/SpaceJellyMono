@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using SpaceJellyMONO.FSM;
 using SpaceJellyMONO.FSM.States;
 using SpaceJellyMONO.FSM.Trans;
+using SpaceJellyMONO.Repositories;
 
 namespace SpaceJellyMONO
 {

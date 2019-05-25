@@ -42,8 +42,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BasicAnimation.cs" />
-    <Compile Include="BasicFloorGenerate.cs" />
-    <Compile Include="Camera.cs" />
+    <Compile Include="Collision\CirclePath.cs" />
+    <Compile Include="Repositories\PathCollidersRepository.cs" />
+    <Compile Include="World\BasicFloorGenerate.cs" />
+    <Compile Include="World\Camera.cs" />
     <Compile Include="Collision\Circle.cs" />
     <Compile Include="Collision\Collider.cs" />
     <Compile Include="FSM\FinateStateMachine.cs" />
@@ -64,10 +66,9 @@
     <Compile Include="GameObjectComponents\MoveObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReferencePoint.cs" />
     <Compile Include="GameObjectComponents\Transform.cs" />
     <Compile Include="Selector.cs" />
-    <Compile Include="Scene.cs" />
+    <Compile Include="World\Scene.cs" />
     <Compile Include="RenderEngine.cs" />
   </ItemGroup>
   <ItemGroup>
