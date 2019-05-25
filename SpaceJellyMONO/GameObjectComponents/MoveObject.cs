@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SpaceJellyMONO.PathFinding;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -63,11 +64,20 @@ namespace SpaceJellyMONO
             direction = new Vector2(lp.X, lp.Z) - new Vector2(transform.Translation.X, transform.Translation.Z);
             direction.Normalize();
 
+
+            
+
+
             Vector2 UnitSpeed = direction * Velocity;
 
             if (Math.Abs(lp.X - transform.Translation.X) < 0.1f && Math.Abs(lp.Z - transform.Translation.Z) < 0.1f)
             {
+                FindPath fp = new FindPath(100, 100);
+                Debug.WriteLine(fp.findPath().Count + "++++++++++++");
+                foreach (Vector2 vec in fp.findPath())
+                    Debug.WriteLine(vec.X + " " + vec.Y);
                 activate = false;
+
             }
             else
             {
