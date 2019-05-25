@@ -14,7 +14,7 @@ namespace SpaceJellyMONO
         private GameObject modelLoader;
         private float moveZ, moveX;
         private Transform transform;
-        private bool isGameObjectMovable;
+        private bool isGameObjectMovable, active = false;
         Vector3 lastClickedPos = new Vector3(0, 0, 0);
         List<Vector2> route;
         float Velocity;
@@ -55,29 +55,46 @@ namespace SpaceJellyMONO
             return pickedPosition;
         }
 
-        private void mover(float deltatime)
+        private void moveToPoint(float deltatime)
         {
-            Velocity = 0.005f;
-
-            for (int i = 0; i < route.Count; i++)
+            int i = 0;
+            do
             {
-                Vector2 direction = new Vector2(route[i].X, route[i].Y) - new Vector2(transform.Translation.X, transform.Translation.Z);
+                Vector2 direction = route[i] - new Vector2(transform.Translation.X, transform.Translation.Z);
                 direction.Normalize();
                 moveX = transform.Translation.X;
                 moveZ = transform.Translation.Z;
 
-                Vector2 UnitSpeed = direction * Velocity;
-
-                float distance = Vector2.Distance(route[i], new Vector2(transform.Translation.X, transform.Translation.Z));
-                do {
-
-                    moveX += UnitSpeed.X * deltatime;
-                    moveZ += UnitSpeed.Y * deltatime;
+                do
+                {
+                    moveX += direction.X  * 0.001f;
+                    moveZ += direction.Y  * 0.001f;
                     transform.Translation = new Vector3(moveX, 0, moveZ);
-                } while (distance > 0.2f);
+                    
+                } while (Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) > 0.1f);
+                transform.Translation = new Vector3(route[i].X, 0, route[i].Y);
 
-            }
+                i++;
 
+
+
+                //Vector2 direction = new Vector2(route[i].X, route[i].Y) - new Vector2(transform.Translation.X, transform.Translation.Z);
+                //direction.Normalize();
+                //moveX = transform.Translation.X;
+                //moveZ = transform.Translation.Z;
+
+                //Vector2 UnitSpeed = direction * Velocity;
+
+                //float distance = Vector2.Distance(route[i], new Vector2(transform.Translation.X, transform.Translation.Z));
+                //do {
+
+                //    moveX += UnitSpeed.X * deltatime;
+                //    moveZ += UnitSpeed.Y * deltatime;
+                //    transform.Translation = new Vector3(moveX, 0, moveZ);
+                //} while (distance > 0.2f);
+
+            } while (i < route.Count);
+            active = false;
         
             
         }
@@ -94,7 +111,7 @@ namespace SpaceJellyMONO
                     {
                         lastClickedPos = FindWhereClicked();
                         route = modelLoader.mainClass.findPath.findPath((int)transform.Translation.X, (int)transform.Translation.Z, (int)lastClickedPos.X, (int)lastClickedPos.Z);
-                        mover(deltatime);
+                        moveToPoint(deltatime);
                     }
                     lastMouseState = currentState;
                 }
