@@ -58,7 +58,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="GameObjectComponents\GeometricPrimitive.cs" />
     <Compile Include="GameObjectComponents\VertexPositionNormal.cs" />
-    <Compile Include="Grid.cs" />
+    <Compile Include="PathFinding\FindPath.cs" />
     <Compile Include="Repositories\GameObjectsRepository.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameObjectComponents\MoveObject.cs" />
@@ -74,8 +74,19 @@
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="RoyT.AStar, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RoyT.AStar.2.1.0\lib\netstandard1.0\RoyT.AStar.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
@@ -86,6 +97,7 @@
     <None Include="Content\Floor.FBX" />
     <None Include="Content\Jelly.FBX" />
     <None Include="Content\Jelly2.FBX" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SkinnedModel\SkinnedModel.csproj">

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using SkinnedModel;
 using SpaceJellyMONO.FSM;
@@ -20,27 +21,25 @@ namespace SpaceJellyMONO
         public Game1 mainClass;
         public Camera camera;
         private string modelPath;
-        private bool isMovingActive;
+        private bool isGameObjectMovable;
         public bool isObjectSelected = false;
         public float scale;
-        public bool isPrimary = false;
-
 
         public FinateStateMachine finateSatemachine;
 
         private AnimationPlayer skinnedAnimationPlayer = null;
 
-        public GameObject(string path, Camera camera, Game1 game1, Vector3 translation, float rotationAngleX, float rotationAngleY, float rotationAngleZ, float scale, bool isMovingActive) : base(game1)
+        public GameObject(string path, Camera camera, Game1 game1, Vector3 translation, float rotationAngleX, float rotationAngleY, float rotationAngleZ, float scale, bool isMovable) : base(game1)
         {
             modelPath = path;
             this.camera = camera;
             mainClass = game1;
-            this.isMovingActive = isMovingActive;
+            this.isGameObjectMovable = isMovable;
             model = mainClass.exportContentManager().Load<Model>(modelPath);
             transform = new Transform(this, translation, rotationAngleX, rotationAngleY, rotationAngleZ, scale);
             this.scale = scale;
-            moveObject = new MoveObject(this, isMovingActive, 0.005f);
-            collider = new Circle(this, scale * 1.0f);
+            moveObject = new MoveObject(this, isMovable, 0.005f);
+            collider = new Circle(this, scale * 0.5f);
             game1.gameObjectsRepository.AddToRepo(this);
 
             SkinningData skinningDataValue = model.Tag as SkinningData;
@@ -48,9 +47,9 @@ namespace SpaceJellyMONO
                 skinnedAnimationPlayer = new AnimationPlayer(skinningDataValue);
         }
 
-        public void update(float deltatime)
+        public void update(float deltatime, SoundEffect effect)
         {
-            moveObject.Move(deltatime);
+            moveObject.Move(deltatime, effect);
         }
         public override void Update(GameTime gameTime)
         {
