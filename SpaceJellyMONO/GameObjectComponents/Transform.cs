@@ -59,7 +59,6 @@ namespace SpaceJellyMONO
         public Matrix World()
         {
             Matrix rotation = Matrix.CreateRotationX(XRotation) * Matrix.CreateRotationY(YRotation) * Matrix.CreateRotationZ(ZRotation);
-            Debug.WriteLine("working");
             return Matrix.CreateScale(Scale) * rotation * Matrix.CreateTranslation(Translation);
             
         }

@@ -32,8 +32,8 @@ namespace SpaceJellyMONO
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.IsFullScreen = false;
-            graphics.PreferredBackBufferHeight = 1020;
-            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 800;
             IsMouseVisible = true;
             gameObjectsRepository = new GameObjectsRepository();
         }

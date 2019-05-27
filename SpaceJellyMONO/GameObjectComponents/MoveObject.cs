@@ -21,7 +21,7 @@ namespace SpaceJellyMONO
         List<Vector2> route;
         float Velocity;
         private MouseState lastMouseState = new MouseState();
-        int counter = 0;
+        int i = 1;
 
         public MoveObject(GameObject modelLoader, bool isMovingActive, float velocity)
         {
@@ -61,30 +61,26 @@ namespace SpaceJellyMONO
 
         private void moveToPoint(float deltatime)
         {
-            for (int i = 1; i < route.Count; i++)
-            {
+
+             if (Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) <= 0.05f && i < route.Count -1)
+                    {
+                //transform.translation.X = route[i].X;
+                //transform.translation.Z = route[i].Y;
+                i++;
+                    }
+
+            
                 Vector2 direction = route[i] - new Vector2(transform.Translation.X, transform.Translation.Z);
                 direction.Normalize();
                 moveX = transform.Translation.X;
                 moveZ = transform.Translation.Z;
                 
 
-                while (Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) > 0.1f) 
-                {
                     moveX += direction.X * deltatime * 0.001f;
                     moveZ += direction.Y * deltatime * 0.001f;
                     modelLoader.transform.translation.X = moveX;
                     modelLoader.transform.translation.Z = moveZ;
                     Debug.WriteLine(i+ " "+direction + " " + modelLoader.transform.translation.X + " " + modelLoader.transform.translation.Z);
-                    if (Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) <= 0.12f)
-                    {
-                        transform.translation.X = route[i].X;
-                        transform.translation.Z = route[i].Y;
-                        break;
-                    }
-                } 
-                
-            }
         }
 
 
@@ -99,21 +95,15 @@ namespace SpaceJellyMONO
                          lastMouseState.RightButton == ButtonState.Released)
                     {
                         lastClickedPos = FindWhereClicked();
-                        route = modelLoader.mainClass.findPath.findPath((int)transform.Translation.X, (int)transform.Translation.Z, (int)lastClickedPos.X, (int)lastClickedPos.Z);
-                        Task moveTeask = new Task(() =>
-                        {
-                            moveToPoint(deltatime);
-                        });
-
-                        moveTeask.Start()
+                        route = modelLoader.mainClass.findPath.findPath((int)transform.Translation.X, (int)transform.Translation.Z, (int)Math.Round(lastClickedPos.X), (int)Math.Round(lastClickedPos.Z));
+                        i = 1;
                     }
+                    if (route != null)
+                    moveToPoint(deltatime);
                     lastMouseState = currentState;
+                    Debug.WriteLine(FindWhereClicked().ToString());
                 }
             }
         }
-
     }
 }
-
-
-
