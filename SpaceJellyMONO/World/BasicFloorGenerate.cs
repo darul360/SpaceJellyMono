@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ using SpaceJellyMONO.Repositories;
 
 namespace SpaceJellyMONO
 {
-    public class BasicFloorGenerate
+    public class BasicFloorGenerate: DrawableGameComponent
     {
         private int fWidth, fHeight;
         private GraphicsDevice device;
@@ -19,12 +20,16 @@ namespace SpaceJellyMONO
         private Color[] floorColors = new Color[2] { Color.BlueViolet, Color.Brown };
         private bool[,] coordinatesOfPoints;
         private CylinderPrimitive[,] cylinders;
+        private Game1 game1;
+        BasicEffect basicEffect;
 
-        public BasicFloorGenerate(GraphicsDevice device, int width, int height, SpriteBatch spriteBatch)
+        public BasicFloorGenerate(GraphicsDevice device, int width, int height, SpriteBatch spriteBatch,Game1 game1):base(game1)
         {
+            this.game1 = game1;
             this.device = device;
             this.fWidth = width;
             this.fHeight = height;
+            basicEffect = new BasicEffect(game1.GraphicsDevice);
             PathCollidersRepository.cylinders = new CirclePath[fWidth, fHeight];
             coordinatesOfPoints = new bool[fWidth, fHeight];
             cylinders = new CylinderPrimitive[fWidth, fHeight];
@@ -53,7 +58,7 @@ namespace SpaceJellyMONO
                     {
                         vertexPositionColors.Add(vertex);
                     }
-                    cylinders[i, j] = new CylinderPrimitive(device, 0.5f, 0.2f, 20);
+                    //cylinders[i, j] = new CylinderPrimitive(device, 0.5f, 0.2f, 20);
                 }
             }
             floorBuffer = new VertexBuffer(device, VertexPositionColor.VertexDeclaration, vertexPositionColors.Count, BufferUsage.None);
@@ -77,11 +82,29 @@ namespace SpaceJellyMONO
             return Matrix.CreateScale(1.0f) * Matrix.CreateTranslation(vector);
         }
 
-        public void Draw(Camera camera, BasicEffect basicEffect)
+        public override void Update(GameTime gameTime)
+        {
+            for (int i = 0; i < fHeight; i++)
+            {
+                for (int j = 0; j < fWidth; j++)
+                {
+                    foreach (GameObject go in game1.gameObjectsRepository.getRepo())
+                    {
+                        if(PathCollidersRepository.cylinders[i, j].Intersect(go.collider))
+                        {
+                            game1.findPath.setBlockCell(i, j);
+                        }
+                    }
+                }
+            }
+        }
+
+
+        public override void Draw(GameTime gameTime)
         {
             basicEffect.VertexColorEnabled = true;
-            basicEffect.View = camera.View;
-            basicEffect.Projection = camera.Projection;
+            basicEffect.View = game1.camera.View;
+            basicEffect.Projection = game1.camera.Projection;
             basicEffect.World = Matrix.Identity;
 
 
@@ -96,8 +119,7 @@ namespace SpaceJellyMONO
             {
                 for (int j = 0; j < fWidth; j++)
                 {
-                    Matrix matrix = Matrix.CreateWorld(world(new Vector3(i, 0, j)).Translation, Vector3.Forward, Vector3.Up);
-                    cylinders[i, j].Draw(matrix, camera.View, camera.Projection, new Color(255, 0, 0));
+                    //cylinders[i, j].Draw(matrix, camera.View, camera.Projection, new Color(255, 0, 0));
                 }
             }
 

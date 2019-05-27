@@ -47,12 +47,11 @@ namespace SpaceJellyMONO
             /*-----KAMERA-----*/
             camera = new Camera(this, new Vector3(10f, 3f, 5f), new Vector3(0.8f, 0, 0), 5f, graphics);
             Components.Add(camera);
-            basicFloor = new BasicFloorGenerate(GraphicsDevice, 20, 20,spriteBatch);
             effect = new BasicEffect(GraphicsDevice);
 
             /*-----MODELE-----*/
             scene = new Scene(camera, new Transform(new Vector3(0f, 0f, 0f), 0f, 0f, 0f, 1f));
-
+            Components.Add(new BasicFloorGenerate(GraphicsDevice, 100, 100, spriteBatch, this));
             Components.Add(new Selector(this));
             Components.Add(new RenderEngine(this));
 
@@ -117,8 +116,6 @@ namespace SpaceJellyMONO
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            basicFloor.Draw(camera, effect);
-
             base.Draw(gameTime);
 
         }

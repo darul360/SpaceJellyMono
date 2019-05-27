@@ -65,9 +65,7 @@ namespace SpaceJellyMONO
 
              if (Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) <= 0.05f && i < route.Count -1)
              {
-                if (i == route.Count - 1)
-                    transform.Translation = new Vector3(route[i].X, 0, route[i].Y);
-                i++;
+                  i++;
              }
 
 
