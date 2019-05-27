@@ -6,6 +6,8 @@ using SpaceJellyMONO.PathFinding;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SpaceJellyMONO
 {
@@ -19,11 +21,13 @@ namespace SpaceJellyMONO
         List<Vector2> route;
         float Velocity;
         private MouseState lastMouseState = new MouseState();
+        int counter = 0;
 
         public MoveObject(GameObject modelLoader, bool isMovingActive, float velocity)
         {
             this.isGameObjectMovable = isMovingActive;
             this.modelLoader = modelLoader;
+            Debug.WriteLine(modelLoader);
             this.transform = modelLoader.transform;
             this.Velocity = velocity;
         }
@@ -57,47 +61,32 @@ namespace SpaceJellyMONO
 
         private void moveToPoint(float deltatime)
         {
-            int i = 0;
-            do
+            for (int i = 1; i < route.Count; i++)
             {
                 Vector2 direction = route[i] - new Vector2(transform.Translation.X, transform.Translation.Z);
                 direction.Normalize();
                 moveX = transform.Translation.X;
                 moveZ = transform.Translation.Z;
+                
 
-                do
+                while (Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) > 0.1f) 
                 {
-                    moveX += direction.X  * 0.001f;
-                    moveZ += direction.Y  * 0.001f;
-                    transform.Translation = new Vector3(moveX, 0, moveZ);
-                    
-                } while (Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) > 0.1f);
-                transform.Translation = new Vector3(route[i].X, 0, route[i].Y);
-
-                i++;
-
-
-
-                //Vector2 direction = new Vector2(route[i].X, route[i].Y) - new Vector2(transform.Translation.X, transform.Translation.Z);
-                //direction.Normalize();
-                //moveX = transform.Translation.X;
-                //moveZ = transform.Translation.Z;
-
-                //Vector2 UnitSpeed = direction * Velocity;
-
-                //float distance = Vector2.Distance(route[i], new Vector2(transform.Translation.X, transform.Translation.Z));
-                //do {
-
-                //    moveX += UnitSpeed.X * deltatime;
-                //    moveZ += UnitSpeed.Y * deltatime;
-                //    transform.Translation = new Vector3(moveX, 0, moveZ);
-                //} while (distance > 0.2f);
-
-            } while (i < route.Count);
-            active = false;
-        
-            
+                    moveX += direction.X * deltatime * 0.001f;
+                    moveZ += direction.Y * deltatime * 0.001f;
+                    modelLoader.transform.translation.X = moveX;
+                    modelLoader.transform.translation.Z = moveZ;
+                    Debug.WriteLine(i+ " "+direction + " " + modelLoader.transform.translation.X + " " + modelLoader.transform.translation.Z);
+                    if (Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) <= 0.12f)
+                    {
+                        transform.translation.X = route[i].X;
+                        transform.translation.Z = route[i].Y;
+                        break;
+                    }
+                } 
+                
+            }
         }
+
 
         public void Move(float deltatime, SoundEffect effect)
         {
@@ -111,7 +100,12 @@ namespace SpaceJellyMONO
                     {
                         lastClickedPos = FindWhereClicked();
                         route = modelLoader.mainClass.findPath.findPath((int)transform.Translation.X, (int)transform.Translation.Z, (int)lastClickedPos.X, (int)lastClickedPos.Z);
-                        moveToPoint(deltatime);
+                        Task moveTeask = new Task(() =>
+                        {
+                            moveToPoint(deltatime);
+                        });
+
+                        moveTeask.Start()
                     }
                     lastMouseState = currentState;
                 }
@@ -120,3 +114,6 @@ namespace SpaceJellyMONO
 
     }
 }
+
+
+

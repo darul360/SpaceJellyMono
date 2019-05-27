@@ -89,8 +89,7 @@ namespace SpaceJellyMONO
                     modelMesh.Draw();
                 }
                 collider.DrawCollider();
-                // if (isObjectSelected) Debug.WriteLine("I am selected" +" "+ modelPath);
-                // if (!isObjectSelected) Debug.WriteLine("I am not selected"+" "+ modelPath);
+
             }
 
         }
