@@ -21,7 +21,7 @@ namespace SpaceJellyMONO
         public Game1 mainClass;
         public Camera camera;
         private string modelPath;
-        private bool isMovingActive;
+        private bool isGameObjectMovable;
         public bool isObjectSelected = false;
         public float scale;
 
@@ -29,16 +29,16 @@ namespace SpaceJellyMONO
 
         private AnimationPlayer skinnedAnimationPlayer = null;
 
-        public GameObject(string path, Camera camera, Game1 game1, Vector3 translation, float rotationAngleX, float rotationAngleY, float rotationAngleZ, float scale, bool isMovingActive) : base(game1)
+        public GameObject(string path, Camera camera, Game1 game1, Vector3 translation, float rotationAngleX, float rotationAngleY, float rotationAngleZ, float scale, bool isMovable) : base(game1)
         {
             modelPath = path;
             this.camera = camera;
             mainClass = game1;
-            this.isMovingActive = isMovingActive;
+            this.isGameObjectMovable = isMovable;
             model = mainClass.exportContentManager().Load<Model>(modelPath);
             transform = new Transform(this, translation, rotationAngleX, rotationAngleY, rotationAngleZ, scale);
             this.scale = scale;
-            moveObject = new MoveObject(this, isMovingActive, 0.005f);
+            moveObject = new MoveObject(this, isMovable, 0.005f);
             collider = new Circle(this, scale * 0.5f);
             game1.gameObjectsRepository.AddToRepo(this);
 
@@ -89,8 +89,7 @@ namespace SpaceJellyMONO
                     modelMesh.Draw();
                 }
                 collider.DrawCollider();
-                // if (isObjectSelected) Debug.WriteLine("I am selected" +" "+ modelPath);
-                // if (!isObjectSelected) Debug.WriteLine("I am not selected"+" "+ modelPath);
+
             }
 
         }

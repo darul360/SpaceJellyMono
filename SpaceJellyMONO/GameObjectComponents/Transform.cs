@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
 
 namespace SpaceJellyMONO
 {
@@ -8,7 +9,7 @@ namespace SpaceJellyMONO
     {
         private GameObject modelLoader;
         private float scale, yRotation,xRotation,zRotation;
-        private Vector3 translation;
+        public Vector3 translation;
 
         /*===================================*/
 
@@ -59,6 +60,7 @@ namespace SpaceJellyMONO
         {
             Matrix rotation = Matrix.CreateRotationX(XRotation) * Matrix.CreateRotationY(YRotation) * Matrix.CreateRotationZ(ZRotation);
             return Matrix.CreateScale(Scale) * rotation * Matrix.CreateTranslation(Translation);
+            
         }
     }
 }

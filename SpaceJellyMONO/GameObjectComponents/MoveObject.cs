@@ -7,6 +7,8 @@ using SpaceJellyMONO.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SpaceJellyMONO
 {
@@ -15,20 +17,19 @@ namespace SpaceJellyMONO
         private GameObject modelLoader;
         private float moveZ, moveX;
         private Transform transform;
-        private bool isMovingActive, activate = false;
-        private Vector2 direction;
-        private Vector3 lastPosition;
+        private bool isGameObjectMovable, active = false;
         Vector3 lastClickedPos = new Vector3(0, 0, 0);
+        List<Vector2> route;
         float Velocity;
-        bool collision = false;
+        private MouseState lastMouseState = new MouseState();
+        int i = 1;
 
-        public MoveObject(GameObject modelLoader, bool isMovingActive,float velocity)
+        public MoveObject(GameObject modelLoader, bool isMovingActive, float velocity)
         {
-            this.isMovingActive = isMovingActive;
+            this.isGameObjectMovable = isMovingActive;
             this.modelLoader = modelLoader;
+            Debug.WriteLine(modelLoader);
             this.transform = modelLoader.transform;
-            this.moveX = this.transform.Translation.X;
-            this.moveZ = this.transform.Translation.Z;
             this.Velocity = velocity;
         }
 
@@ -59,117 +60,51 @@ namespace SpaceJellyMONO
             return pickedPosition;
         }
 
-        private void mover(float deltatime,Vector3 lp)
+        private void moveToPoint(float deltatime)
         {
-            Velocity = 0.005f;
-            direction = new Vector2(lp.X, lp.Z) - new Vector2(transform.Translation.X, transform.Translation.Z);
-            direction.Normalize();
 
+             if (Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) <= 0.05f && i < route.Count -1)
+                    {
+                //transform.translation.X = route[i].X;
+                //transform.translation.Z = route[i].Y;
+                i++;
+                    }
 
             
+                Vector2 direction = route[i] - new Vector2(transform.Translation.X, transform.Translation.Z);
+                direction.Normalize();
+                moveX = transform.Translation.X;
+                moveZ = transform.Translation.Z;
+                
 
-
-            Vector2 UnitSpeed = direction * Velocity;
-
-            if (Math.Abs(lp.X - transform.Translation.X) < 0.1f && Math.Abs(lp.Z - transform.Translation.Z) < 0.1f)
-            {
-                FindPath fp = new FindPath(100, 100);
-                Debug.WriteLine(fp.findPath().Count + "++++++++++++");
-                foreach (Vector2 vec in fp.findPath())
-                    Debug.WriteLine(vec.X + " " + vec.Y);
-                activate = false;
-
-            }
-            else
-            {
-                moveX += UnitSpeed.X * deltatime;
-                moveZ += UnitSpeed.Y * deltatime;
-                transform.Translation = new Vector3(moveX, transform.Translation.Y, moveZ);
-            }
+                    moveX += direction.X * deltatime * 0.001f;
+                    moveZ += direction.Y * deltatime * 0.001f;
+                    modelLoader.transform.translation.X = moveX;
+                    modelLoader.transform.translation.Z = moveZ;
+                    Debug.WriteLine(i+ " "+direction + " " + modelLoader.transform.translation.X + " " + modelLoader.transform.translation.Z);
         }
+
 
         public void Move(float deltatime, SoundEffect effect)
         {
-            if (isMovingActive)
+            if (isGameObjectMovable)
             {
-                CheckCollisions();
-
-                if (collision == false)
-                {
-                    lastPosition = new Vector3(moveX, transform.Translation.Y, moveZ);
-                }
-
-                MouseState mouseState = Mouse.GetState();
                 if (modelLoader.isObjectSelected)
                 {
-                    if (mouseState.RightButton == ButtonState.Pressed)
+                    MouseState currentState = Mouse.GetState();
+                    if (currentState.RightButton == ButtonState.Pressed &&
+                         lastMouseState.RightButton == ButtonState.Released)
                     {
-                        activate = true;
                         lastClickedPos = FindWhereClicked();
+                        route = modelLoader.mainClass.findPath.findPath((int)transform.Translation.X, (int)transform.Translation.Z, (int)Math.Round(lastClickedPos.X), (int)Math.Round(lastClickedPos.Z));
+                        i = 1;
                     }
-                }
-
-                
-
-                if (activate)
-                {
-                    mover(deltatime, lastClickedPos);
-                }
-
-                if (collision)
-                {
-                    //transform.Translation = lastPosition;
-                    activate = false;
-                    collision = false;
-                    effect.Play();
-                }
-
-            }
-        }
-
-        private void CheckCollisions()
-        {
-            foreach (GameObject temp in modelLoader.mainClass.gameObjectsRepository.getRepo())
-            {
-                for (int i = 0; i < 20; i++)
-                {
-                    for (int j = 0; j < 20; j++)
-                    {
-                        if (PathCollidersRepository.cylinders[i, j].Intersect(temp.collider))
-                        {
-                            collision = true;
-                            Debug.WriteLine("Dupa");
-                        }
-                        else
-                        {
-                            collision = false;
-                        }
-                    }
-                }
-
-                if (temp != modelLoader)
-                {
-                    if (ProcessCollisions(temp))
-                    {
-                        collision = true;
-                        Debug.WriteLine(collision);
-                        Velocity = 0.000f;
-                    }
-                    else
-                    {
-                        collision = false;
-                        Velocity = 0.005f;
-                    }
+                    if (route != null)
+                    moveToPoint(deltatime);
+                    lastMouseState = currentState;
+                    Debug.WriteLine(FindWhereClicked().ToString());
                 }
             }
         }
-
-        
-
-        public bool ProcessCollisions(GameObject modelLoader2)
-        {
-            return modelLoader.collider.Intersect(modelLoader2.collider);
-        }
-
     }
 }

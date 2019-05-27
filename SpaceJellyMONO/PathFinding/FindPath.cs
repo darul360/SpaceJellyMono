@@ -14,7 +14,7 @@ namespace SpaceJellyMONO.PathFinding
 
         public FindPath(int width,int height)
         {
-            grid = new Grid(100, 100, 1.0f);
+            grid = new Grid(width, height, 1.0f);
             setBlockCell(5,5);
         }
 
@@ -30,9 +30,9 @@ namespace SpaceJellyMONO.PathFinding
         }
 
     
-        public List<Vector2> findPath()
+        public List<Vector2> findPath(int startX,int startZ,int stopX,int stopZ)
         {
-            Position[] path = grid.GetPath(new Position(0, 0), new Position(99, 99));
+            Position[] path = grid.GetPath(new Position(startX, startZ), new Position(stopX, stopZ));
             List<Vector2> localList = new List<Vector2>();
             foreach (Position p in path)
                 localList.Add(new Vector2(p.X, p.Y));
