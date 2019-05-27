@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using SpaceJellyMONO.FSM;
 using SpaceJellyMONO.FSM.States;
 using SpaceJellyMONO.FSM.Trans;
+using SpaceJellyMONO.PathFinding;
 using SpaceJellyMONO.Repositories;
 
 namespace SpaceJellyMONO
@@ -22,6 +23,7 @@ namespace SpaceJellyMONO
         BasicEffect effect;
         public GameObjectsRepository gameObjectsRepository;
         public Scene scene;
+        public FindPath findPath;
 
         //sound
         SoundEffect soundEffect;
@@ -35,6 +37,7 @@ namespace SpaceJellyMONO
             graphics.PreferredBackBufferWidth = 1920;
             IsMouseVisible = true;
             gameObjectsRepository = new GameObjectsRepository();
+            findPath = new FindPath(100, 100);
         }
 
         protected override void Initialize()
@@ -44,7 +47,7 @@ namespace SpaceJellyMONO
             /*-----KAMERA-----*/
             camera = new Camera(this, new Vector3(10f, 3f, 5f), new Vector3(0.8f, 0, 0), 5f, graphics);
             Components.Add(camera);
-            basicFloor = new BasicFloorGenerate(GraphicsDevice, 20, 20);
+            basicFloor = new BasicFloorGenerate(GraphicsDevice, 20, 20,spriteBatch);
             effect = new BasicEffect(GraphicsDevice);
 
             /*-----MODELE-----*/

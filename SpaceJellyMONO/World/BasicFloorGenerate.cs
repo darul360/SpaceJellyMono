@@ -15,6 +15,7 @@ namespace SpaceJellyMONO
     {
         private int fWidth, fHeight;
         private GraphicsDevice device;
+        private VertexBuffer floorBuffer;
         private Color[] floorColors = new Color[2] { Color.BlueViolet, Color.Brown };
         private bool[,] coordinatesOfPoints;
         private CylinderPrimitive[,] cylinders;
@@ -39,20 +40,36 @@ namespace SpaceJellyMONO
 
         public void BuildFloorBuffer()
         {
+            List<VertexPositionColor> vertexPositionColors = new List<VertexPositionColor>();
+            int counter = 0;
 
             for (int i = 0; i < fHeight; i++)
             {
                 for (int j = 0; j < fWidth; j++)
                 {
-                    PathCollidersRepository.cylinders[i, j] = new CirclePath(null, 0.5f, new Vector3(i,0,j));
+                    PathCollidersRepository.cylinders[i, j] = new CirclePath(null, 0.5f, new Vector3(i, 0, j));
                     counter++;
-                    foreach(VertexPositionColor vertex in FloorTile(i, j, floorColors[counter % 2]))
+                    foreach (VertexPositionColor vertex in FloorTile(i, j, floorColors[counter % 2]))
                     {
                         vertexPositionColors.Add(vertex);
                     }
                     cylinders[i, j] = new CylinderPrimitive(device, 0.5f, 0.2f, 20);
                 }
             }
+            floorBuffer = new VertexBuffer(device, VertexPositionColor.VertexDeclaration, vertexPositionColors.Count, BufferUsage.None);
+            floorBuffer.SetData<VertexPositionColor>(vertexPositionColors.ToArray());
+        }
+
+        private List<VertexPositionColor> FloorTile(int xOffset, int zOffset, Color tileColor)
+        {
+            List<VertexPositionColor> vertices = new List<VertexPositionColor>();
+            vertices.Add(new VertexPositionColor(new Vector3(0 + xOffset, 0, 0 + zOffset), tileColor));
+            vertices.Add(new VertexPositionColor(new Vector3(1 + xOffset, 0, 0 + zOffset), tileColor));
+            vertices.Add(new VertexPositionColor(new Vector3(0 + xOffset, 0, 1 + zOffset), tileColor));
+            vertices.Add(new VertexPositionColor(new Vector3(1 + xOffset, 0, 0 + zOffset), tileColor));
+            vertices.Add(new VertexPositionColor(new Vector3(1 + xOffset, 0, 1 + zOffset), tileColor));
+            vertices.Add(new VertexPositionColor(new Vector3(0 + xOffset, 0, 1 + zOffset), tileColor));
+            return vertices;
         }
 
         public Matrix world(Vector3 vector)
@@ -62,22 +79,21 @@ namespace SpaceJellyMONO
 
         public void Draw(Camera camera, BasicEffect basicEffect)
         {
-            for (int i = 0; i < fHeight; i++)
+            basicEffect.VertexColorEnabled = true;
+            basicEffect.View = camera.View;
+            basicEffect.Projection = camera.Projection;
+            basicEffect.World = Matrix.Identity;
+
+
+            foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
             {
                 pass.Apply();
                 device.SetVertexBuffer(floorBuffer);
                 device.DrawPrimitives(PrimitiveType.TriangleList, 0, floorBuffer.VertexCount / 3);
+            }
 
-                //for (int i = 0; i < fHeight; i++)
-                //{
-                //    for (int j = 0; j < fWidth; j++)
-                //    {
-                //        Matrix matrix = Matrix.CreateWorld(new Vector3(i, 0, j), Vector3.Forward, Vector3.Up);
-                //        cylinders[i, j].Draw(matrix, camera.View, camera.Projection, new Color(255, 0, 0));
-                //    }
-                //}
-            }
-            }
+            for (int i = 0; i < fHeight; i++)
+            {
                 for (int j = 0; j < fWidth; j++)
                 {
                     Matrix matrix = Matrix.CreateWorld(world(new Vector3(i, 0, j)).Translation, Vector3.Forward, Vector3.Up);
@@ -85,6 +101,8 @@ namespace SpaceJellyMONO
                 }
             }
 
+
         }
     }
+    
 }

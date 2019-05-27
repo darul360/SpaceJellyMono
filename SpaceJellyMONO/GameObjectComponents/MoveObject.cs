@@ -64,14 +64,16 @@ namespace SpaceJellyMONO
         {
 
              if (Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) <= 0.05f && i < route.Count -1)
-                    {
-                //transform.translation.X = route[i].X;
-                //transform.translation.Z = route[i].Y;
+             {
+                if (i == route.Count - 1)
+                    transform.Translation = new Vector3(route[i].X, 0, route[i].Y);
                 i++;
-                    }
+             }
 
-            
-                Vector2 direction = route[i] - new Vector2(transform.Translation.X, transform.Translation.Z);
+
+
+
+            Vector2 direction = route[i] - new Vector2(transform.Translation.X, transform.Translation.Z);
                 direction.Normalize();
                 moveX = transform.Translation.X;
                 moveZ = transform.Translation.Z;
