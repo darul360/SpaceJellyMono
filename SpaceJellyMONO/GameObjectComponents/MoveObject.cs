@@ -62,13 +62,12 @@ namespace SpaceJellyMONO
 
         private void moveToPoint(float deltatime)
         {
+             unlockCells();
 
              if (Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) <= 0.05f && i < route.Count -1)
              {
                   i++;
              }
-
-
 
 
             Vector2 direction = route[i] - new Vector2(transform.Translation.X, transform.Translation.Z);
@@ -81,7 +80,24 @@ namespace SpaceJellyMONO
                     moveZ += direction.Y * deltatime * 0.001f;
                     modelLoader.transform.translation.X = moveX;
                     modelLoader.transform.translation.Z = moveZ;
-                    Debug.WriteLine(i+ " "+direction + " " + modelLoader.transform.translation.X + " " + modelLoader.transform.translation.Z);
+        }
+
+
+        public  void unlockCells()
+        {
+            for (int i = 0; i < modelLoader.mainClass.gridW; i++)
+            {
+                for (int j = 0; j < modelLoader.mainClass.gridH; j++)
+                {
+                    foreach (GameObject go in modelLoader.mainClass.gameObjectsRepository.getRepo())
+                    {
+                        if (!PathCollidersRepository.cylinders[i, j].Intersect(go.collider))
+                        {
+                            modelLoader.mainClass.findPath.unblockCell(i, j);
+                        }
+                    }
+                }
+            }
         }
 
 
@@ -102,7 +118,6 @@ namespace SpaceJellyMONO
                     if (route != null)
                     moveToPoint(deltatime);
                     lastMouseState = currentState;
-                    Debug.WriteLine(FindWhereClicked().ToString());
                 }
             }
         }

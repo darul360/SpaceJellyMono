@@ -19,11 +19,12 @@ namespace SpaceJellyMONO
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         public Camera camera;
-        BasicFloorGenerate basicFloor;
         BasicEffect effect;
         public GameObjectsRepository gameObjectsRepository;
         public Scene scene;
         public FindPath findPath;
+        public int gridW, gridH;
+
 
         //sound
         SoundEffect soundEffect;
@@ -37,7 +38,10 @@ namespace SpaceJellyMONO
             graphics.PreferredBackBufferWidth = 1920;
             IsMouseVisible = true;
             gameObjectsRepository = new GameObjectsRepository();
-            findPath = new FindPath(100, 100);
+            gridW = 100;
+            gridH = 100;
+            findPath = new FindPath(gridW, gridH);
+
         }
 
         protected override void Initialize()
@@ -51,7 +55,7 @@ namespace SpaceJellyMONO
 
             /*-----MODELE-----*/
             scene = new Scene(camera, new Transform(new Vector3(0f, 0f, 0f), 0f, 0f, 0f, 1f));
-            Components.Add(new BasicFloorGenerate(GraphicsDevice, 100, 100, spriteBatch, this));
+            Components.Add(new BasicFloorGenerate(GraphicsDevice, gridW, gridH, spriteBatch, this));
             Components.Add(new Selector(this));
             Components.Add(new RenderEngine(this));
 

@@ -24,9 +24,14 @@ namespace SpaceJellyMONO.PathFinding
 
         }
         
-        public void setCellCost()
+        public void unblockCell(int x,int y)
         {
-            grid.SetCellCost(new Position(5, 5), 300.0f);
+            grid.UnblockCell(new Position(x, y));
+        }
+
+        public float getCellCost(int x, int y)
+        {
+            return grid.GetCellCost(new Position(x, y));
         }
 
     

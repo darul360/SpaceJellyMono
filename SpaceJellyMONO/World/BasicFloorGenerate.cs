@@ -84,20 +84,22 @@ namespace SpaceJellyMONO
 
         public override void Update(GameTime gameTime)
         {
-            for (int i = 0; i < fHeight; i++)
-            {
-                for (int j = 0; j < fWidth; j++)
+
+                for (int i = 0; i < fHeight; i++)
                 {
-                    foreach (GameObject go in game1.gameObjectsRepository.getRepo())
-                    {
-                        if(PathCollidersRepository.cylinders[i, j].Intersect(go.collider))
+                        for (int j = 0; j < fWidth; j++)
                         {
-                            game1.findPath.setBlockCell(i, j);
-                        }
+                            foreach (GameObject go in game1.gameObjectsRepository.getRepo())
+                            {
+                                if (PathCollidersRepository.cylinders[i, j].Intersect(go.collider))
+                                {
+                                    game1.findPath.setBlockCell(i, j);
+                                }
                     }
                 }
             }
         }
+    
 
 
         public override void Draw(GameTime gameTime)
