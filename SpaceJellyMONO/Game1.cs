@@ -80,14 +80,14 @@ namespace SpaceJellyMONO
 
             scene.AddSceneObject("zarlok_001", new GameObject("zarlok_poprawiony", camera, this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.05f, false));
 
-            GameObject jelly1 = new GameObject("Jelly", camera, this, new Vector3(10f, 0f, 8f), 0f, 0f, 0f, 0.5f, true)
+            GameObject jelly1 = new GameObject("Jelly", camera, this, new Vector3(10f, 0f, 8f), -1.57f, 0f, 0f, 0.5f, true)
             {
                 finateSatemachine = move
             };
             scene.AddSceneObject("galaretka_001", jelly1);
-            scene.AddSceneObject("galaretka_002", new GameObject("Jelly", camera, this, new Vector3(8f, 0, 8f), 0f, 0f, 0f, 0.5f, true));
-            scene.AddSceneObject("galaretka_003", new GameObject("Jelly", camera, this, new Vector3(6f, 0, 8f), 0f, 0f, 0f, 0.5f, true));
-            scene.AddSceneObject("galaretka_004", new GameObject("Jelly", camera, this, new Vector3(4f, 0, 8f), 0f, 0f, 0f, 0.5f, true));
+            scene.AddSceneObject("galaretka_002", new GameObject("Jelly", camera, this, new Vector3(8f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true));
+            scene.AddSceneObject("galaretka_003", new GameObject("Jelly", camera, this, new Vector3(6f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true));
+            scene.AddSceneObject("galaretka_004", new GameObject("Jelly", camera, this, new Vector3(4f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true));
 
             scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
         }

@@ -23,6 +23,7 @@ namespace SpaceJellyMONO
         float Velocity;
         private MouseState lastMouseState = new MouseState();
         int i = 1;
+        bool isFinalPointReached;
 
         public MoveObject(GameObject modelLoader, bool isMovingActive, float velocity)
         {
@@ -63,9 +64,15 @@ namespace SpaceJellyMONO
         private void moveToPoint(float deltatime)
         {
              unlockCells();
-
+            if(route.Count !=0)
              if (Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) <= 0.05f && i < route.Count -1)
              {
+                    if (i == route.Count - 1)
+                    {
+                        isFinalPointReached = true;
+                        transform.translation.X = route[i].X;
+                        transform.translation.Z = route[i].Y;
+                    }
                   i++;
              }
 
@@ -114,11 +121,14 @@ namespace SpaceJellyMONO
                         lastClickedPos = FindWhereClicked();
                         route = modelLoader.mainClass.findPath.findPath((int)transform.Translation.X, (int)transform.Translation.Z, (int)Math.Round(lastClickedPos.X), (int)Math.Round(lastClickedPos.Z));
                         i = 1;
+                        isFinalPointReached = false;
                     }
                     if (route != null)
                     moveToPoint(deltatime);
                     lastMouseState = currentState;
                 }
+                if (isFinalPointReached == false && route !=null && transform.translation.X != route[route.Count-1].X && transform.translation.Z != route[i].Y)
+                    moveToPoint(deltatime);
             }
         }
     }
