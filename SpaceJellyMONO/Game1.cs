@@ -49,7 +49,7 @@ namespace SpaceJellyMONO
             //TargetElapsedTime = new TimeSpan(TargetElapsedTime.Ticks / 2);
             //IsFixedTimeStep = false;
             /*-----KAMERA-----*/
-            camera = new Camera(this, new Vector3(10f, 8f, 5f), new Vector3(0.8f, 0, 0), 5f, graphics);
+            camera = new Camera(this, new Vector3(10f, 8f, 5f), new Vector3(0.8f, 0, 0), 10f, graphics);
             Components.Add(camera);
             effect = new BasicEffect(GraphicsDevice);
 
