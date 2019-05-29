@@ -44,7 +44,6 @@ namespace SpaceJellyMONO
                 if (route.Count != 0)
                     if (Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) <= 0.05f && i < route.Count - 1)
                     {
-
                         unlockCells();
                         i++;
                     }

@@ -27,6 +27,7 @@ namespace SpaceJellyMONO
         public ClickCooridantes clickCooridantes;
         public int gridW, gridH;
         public BasicFloorGenerate basicFloorGenerate;
+        public ContinueBuilding continueBuilding;
 
 
         //sound
@@ -59,6 +60,8 @@ namespace SpaceJellyMONO
             /*-----MODELE-----*/
             scene = new Scene(camera, new Transform(new Vector3(0f, 0f, 0f), 0f, 0f, 0f, 1f));
             basicFloorGenerate = new BasicFloorGenerate(GraphicsDevice, gridW, gridH, spriteBatch, this);
+            continueBuilding = new ContinueBuilding(this);
+            Components.Add(continueBuilding);
             Components.Add(basicFloorGenerate);
             Components.Add(new Selector(this));
             Components.Add(new RenderEngine(this));

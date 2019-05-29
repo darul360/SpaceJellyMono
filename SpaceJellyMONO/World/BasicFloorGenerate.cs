@@ -91,7 +91,7 @@ namespace SpaceJellyMONO
                 {
                     foreach (GameObject go in game1.gameObjectsRepository.getRepo())
                     {
-                        if (PathCollidersRepository.cylinders[i, j].Intersect(go.collider) && go.GameTag != "baseBuilding")
+                        if (PathCollidersRepository.cylinders[i, j].Intersect(go.collider) && go.GameTag != "baseBuilding" && go.GameTag != "firstPartOfBuilding")
                         {
                             game1.findPath.setBlockCell(i, j);
                         }

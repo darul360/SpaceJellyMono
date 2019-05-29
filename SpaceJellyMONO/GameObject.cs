@@ -20,11 +20,13 @@ namespace SpaceJellyMONO
         public Collider collider;
         public Game1 mainClass;
         public Camera camera;
-        private string modelPath;
+        public bool buildingFlag = false;
+        public string modelPath;
         private bool isGameObjectMovable;
         public bool isObjectSelected = false;
         public float scale;
         private string gameTag;
+        public string sceneID;
 
         public FinateStateMachine finateSatemachine;
 
@@ -115,6 +117,11 @@ namespace SpaceJellyMONO
                         basicEffect.Projection = projection;
                         basicEffect.EnableDefaultLighting();
                         basicEffect.PreferPerPixelLighting = true;
+                        if (buildingFlag)
+                        {
+                            GraphicsDevice.BlendState = BlendState.AlphaBlend;
+                            basicEffect.Alpha = 0.5f;
+                        }
                     }
                     if (effect is SkinnedEffect)
                     {

@@ -26,6 +26,12 @@ namespace SpaceJellyMONO
             sceneObjects.Remove(key);
         }
 
+        public string FindKeyOfObject(GameObject go)
+        {
+            string myKey = SceneObjects.FirstOrDefault(x => x.Value == go).Key;
+            return myKey;
+        }
+
         public Scene(Camera camera, Transform rootTransform)
         {
             this.camera = camera;
