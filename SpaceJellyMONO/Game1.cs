@@ -7,6 +7,7 @@ using SpaceJellyMONO.BuildingSystem;
 using SpaceJellyMONO.FSM;
 using SpaceJellyMONO.FSM.States;
 using SpaceJellyMONO.FSM.Trans;
+using SpaceJellyMONO.GameObjectComponents;
 using SpaceJellyMONO.PathFinding;
 using SpaceJellyMONO.Repositories;
 using SpaceJellyMONO.World;
@@ -92,10 +93,9 @@ namespace SpaceJellyMONO
                 finateSatemachine = move
             };
             scene.AddSceneObject("galaretka_001", jelly1);
-            scene.AddSceneObject("galaretka_002", new GameObject("Jelly", this, new Vector3(8f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true,"worker"));
+            scene.AddSceneObject("galaretka_002", new Jelly("Jelly", this, new Vector3(8f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true,"worker", 15f));
             scene.AddSceneObject("galaretka_003", new GameObject("Jelly", this, new Vector3(6f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker"));
             scene.AddSceneObject("galaretka_004", new GameObject("Jelly", this, new Vector3(4f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker"));
-
             scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
         }
 

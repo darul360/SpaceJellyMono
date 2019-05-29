@@ -44,6 +44,8 @@
     <Compile Include="BasicAnimation.cs" />
     <Compile Include="BuildingSystem\BaseBuildingBuilder.cs" />
     <Compile Include="Collision\CirclePath.cs" />
+    <Compile Include="GameObjectComponents\Enemy.cs" />
+    <Compile Include="GameObjectComponents\Jelly.cs" />
     <Compile Include="Repositories\PathCollidersRepository.cs" />
     <Compile Include="World\BasicFloorGenerate.cs" />
     <Compile Include="World\Camera.cs" />

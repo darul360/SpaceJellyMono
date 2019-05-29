@@ -55,7 +55,7 @@ namespace SpaceJellyMONO
                 skinnedAnimationPlayer = new AnimationPlayer(skinningDataValue);
         }
 
-        public void update(float deltatime, SoundEffect effect)
+        virtual public void update(float deltatime, SoundEffect effect)
         {
             moveObject.Move(deltatime, effect);
         }
@@ -64,8 +64,6 @@ namespace SpaceJellyMONO
             skinnedAnimationPlayer?.Update(gameTime.ElapsedGameTime, WorldTransform);
             finateSatemachine?.Update(gameTime, this);
             base.Update(gameTime);
-
-
         }
 
         public override void Draw(GameTime gameTime)
@@ -151,5 +149,8 @@ namespace SpaceJellyMONO
             base.Initialize();
             finateSatemachine.Initialize();
         }
+
+        virtual public void TakeDmg(float dmg) { }
+        virtual public float GetDmg() { return 0; }
     }
 }
