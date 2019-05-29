@@ -10,6 +10,8 @@ using SpaceJellyMONO.FSM.Trans;
 using SpaceJellyMONO.PathFinding;
 using SpaceJellyMONO.Repositories;
 using SpaceJellyMONO.World;
+using System.Diagnostics;
+using System.Linq;
 
 namespace SpaceJellyMONO
 {
@@ -24,6 +26,7 @@ namespace SpaceJellyMONO
         public FindPath findPath;
         public ClickCooridantes clickCooridantes;
         public int gridW, gridH;
+        public BasicFloorGenerate basicFloorGenerate;
 
 
         //sound
@@ -55,7 +58,8 @@ namespace SpaceJellyMONO
 
             /*-----MODELE-----*/
             scene = new Scene(camera, new Transform(new Vector3(0f, 0f, 0f), 0f, 0f, 0f, 1f));
-            Components.Add(new BasicFloorGenerate(GraphicsDevice, gridW, gridH, spriteBatch, this));
+            basicFloorGenerate = new BasicFloorGenerate(GraphicsDevice, gridW, gridH, spriteBatch, this);
+            Components.Add(basicFloorGenerate);
             Components.Add(new Selector(this));
             Components.Add(new RenderEngine(this));
             clickCooridantes = new ClickCooridantes(this);
@@ -110,7 +114,7 @@ namespace SpaceJellyMONO
                 Exit();
 
             // TODO: Add your update logic here
-            // Debug.WriteLine(1000.0f/gameTime.ElapsedGameTime.TotalMilliseconds); //fps counter ultra dupa mnnbhgugnd
+             Debug.WriteLine(1000.0f/gameTime.ElapsedGameTime.TotalMilliseconds); 
             foreach (GameObject gameObject in scene.SceneObjects.Values)
             {
                 gameObject.update((float)gameTime.ElapsedGameTime.TotalMilliseconds, soundEffect);

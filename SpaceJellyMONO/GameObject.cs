@@ -46,7 +46,7 @@ namespace SpaceJellyMONO
             transform = new Transform(this, translation, rotationAngleX, rotationAngleY, rotationAngleZ, scale);
             this.scale = scale;
             moveObject = new MoveObject(this, isMovable, 0.005f);
-            collider = new Circle(this, scale * 0.5f);
+            collider = new Circle(this, scale * 0.9f);
             game1.gameObjectsRepository.AddToRepo(this);
             GameTag = tag;
 

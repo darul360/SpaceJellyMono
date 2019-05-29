@@ -14,7 +14,6 @@ namespace SpaceJellyMONO.BuildingSystem
     public class BaseBuildingBuilder: DrawableGameComponent
     {
         private Game1 game1;
-        private Collider collider;
         private GameObject gameObject;
         private MouseState lastMouseState = new MouseState();
         private bool isCreated = false;
@@ -29,7 +28,6 @@ namespace SpaceJellyMONO.BuildingSystem
             Vector3 integerValues = new Vector3((int)Math.Round(clickLocation.X), (int)Math.Round(clickLocation.Y), (int)Math.Round(clickLocation.Z));
             gameObject = new GameObject("wood-pile", game1, integerValues, 30f, 0f, 0f, 0.009f, false,"worker");
             gameObject.GameTag = "baseBuilding";
-            collider = new Collider(gameObject);
             game1.scene.AddSceneObject("baseBuilding", gameObject);
 
         }
@@ -56,16 +54,18 @@ namespace SpaceJellyMONO.BuildingSystem
 
             if (isCreated)
             {
-                foreach(GameObject gameObject in game1.gameObjectsRepository.getRepo())
+                foreach (GameObject gameObject in game1.gameObjectsRepository.getRepo())
                 {
-                    if (gameObject.collider.Intersect(gameObject.collider)){
-                        if(gameObject.GameTag == "worker")
-                             Debug.WriteLine("budowanie");
+                    if (gameObject.collider.Intersect(gameObject.collider))
+                    {
+                        if (gameObject.GameTag == "worker")
+                        {
+                        }
+
                     }
-
                 }
-            }
 
+            }
         }
 
         public override void Draw(GameTime gameTime)

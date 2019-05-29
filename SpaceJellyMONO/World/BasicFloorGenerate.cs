@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SpaceJellyMONO.Collision;
 using SpaceJellyMONO.GameObjectComponents;
 using SpaceJellyMONO.Repositories;
+using System.Linq;
 
 namespace SpaceJellyMONO
 {
@@ -82,22 +83,27 @@ namespace SpaceJellyMONO
             return Matrix.CreateScale(1.0f) * Matrix.CreateTranslation(vector);
         }
 
+        public void updateGrid()
+        {
+            for (int i = 0; i < fHeight; i++)
+            {
+                for (int j = 0; j < fWidth; j++)
+                {
+                    foreach (GameObject go in game1.gameObjectsRepository.getRepo())
+                    {
+                        if (PathCollidersRepository.cylinders[i, j].Intersect(go.collider) && go.GameTag != "baseBuilding")
+                        {
+                            game1.findPath.setBlockCell(i, j);
+                        }
+                    }
+                }
+            }
+        }
+
         public override void Update(GameTime gameTime)
         {
 
-                for (int i = 0; i < fHeight; i++)
-                {
-                        for (int j = 0; j < fWidth; j++)
-                        {
-                            foreach (GameObject go in game1.gameObjectsRepository.getRepo())
-                            {
-                                if (PathCollidersRepository.cylinders[i, j].Intersect(go.collider) && go.GameTag != "baseBuilding")
-                                {
-                                    game1.findPath.setBlockCell(i, j);
-                                }
-                            }
-                        }
-                }
+                
         }
     
 

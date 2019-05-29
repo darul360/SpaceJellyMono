@@ -90,6 +90,7 @@ namespace SpaceJellyMONO
                     if (currentState.RightButton == ButtonState.Pressed &&
                          lastMouseState.RightButton == ButtonState.Released)
                     {
+                        modelLoader.mainClass.basicFloorGenerate.updateGrid();
                         lastClickedPos = modelLoader.mainClass.clickCooridantes.FindWhereClicked();
                         route = modelLoader.mainClass.findPath.findPath((int)transform.Translation.X, (int)transform.Translation.Z, (int)Math.Round(lastClickedPos.X), (int)Math.Round(lastClickedPos.Z));
                         i = 1;
