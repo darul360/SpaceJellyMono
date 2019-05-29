@@ -9,6 +9,7 @@ using SpaceJellyMONO.FSM.States;
 using SpaceJellyMONO.FSM.Trans;
 using SpaceJellyMONO.PathFinding;
 using SpaceJellyMONO.Repositories;
+using SpaceJellyMONO.ResourcesGathering;
 using SpaceJellyMONO.World;
 using System.Diagnostics;
 using System.Linq;
@@ -17,10 +18,10 @@ namespace SpaceJellyMONO
 {
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        public GraphicsDeviceManager graphics;
+        public SpriteBatch spriteBatch;
         public Camera camera;
-        BasicEffect effect;
+        public BasicEffect effect;
         public GameObjectsRepository gameObjectsRepository;
         public Scene scene;
         public FindPath findPath;
@@ -28,10 +29,8 @@ namespace SpaceJellyMONO
         public int gridW, gridH;
         public BasicFloorGenerate basicFloorGenerate;
         public ContinueBuilding continueBuilding;
-
-
-        //sound
-        SoundEffect soundEffect;
+        public WriteStats writeStats;
+        public SoundEffect soundEffect;
 
         public Game1()
         {
@@ -60,24 +59,26 @@ namespace SpaceJellyMONO
             /*-----MODELE-----*/
             scene = new Scene(camera, new Transform(new Vector3(0f, 0f, 0f), 0f, 0f, 0f, 1f));
             basicFloorGenerate = new BasicFloorGenerate(GraphicsDevice, gridW, gridH, spriteBatch, this);
+            clickCooridantes = new ClickCooridantes(this);
             continueBuilding = new ContinueBuilding(this);
+            writeStats = new WriteStats(this);
             Components.Add(continueBuilding);
             Components.Add(basicFloorGenerate);
+            Components.Add(clickCooridantes);
             Components.Add(new Selector(this));
             Components.Add(new RenderEngine(this));
-            clickCooridantes = new ClickCooridantes(this);
-            Components.Add(clickCooridantes);
             Components.Add(new BaseBuildingBuilder(this));
+            Components.Add(new WaterGathering(this));
+            Components.Add(writeStats);
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
 
             soundEffect = Content.Load<SoundEffect>("jellybounce");
-
+            spriteBatch = new SpriteBatch(GraphicsDevice);
             State right = new MoveRigth();
             State left = new MoveLeft();
             FinateStateMachine move =

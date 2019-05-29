@@ -182,3 +182,10 @@
 /processorParam:TextureFormat=Compressed
 /build:WaterPump.FBX
 
+#begin WaterCounter.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:WaterCounter.spritefont
+

@@ -46,6 +46,7 @@
     <Compile Include="BuildingSystem\ContinueBuilding.cs" />
     <Compile Include="Collision\CirclePath.cs" />
     <Compile Include="Repositories\PathCollidersRepository.cs" />
+    <Compile Include="ResourcesGathering\WaterGathering.cs" />
     <Compile Include="World\BasicFloorGenerate.cs" />
     <Compile Include="World\Camera.cs" />
     <Compile Include="Collision\Circle.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="World\ClickCooridantes.cs" />
     <Compile Include="World\Scene.cs" />
     <Compile Include="RenderEngine.cs" />
+    <Compile Include="World\WriteStats.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
