@@ -13,6 +13,7 @@ namespace SpaceJellyMONO.PathFinding
         Grid grid;
         int widht;
         int height;
+        Game1 game1;
 
         public FindPath(int width,int height)
         {
@@ -41,7 +42,9 @@ namespace SpaceJellyMONO.PathFinding
         public bool checkIfPositionIsBlocked(int i,int j)
         {
             if (grid.GetCellCost(new Position(i, j)) == float.PositiveInfinity)
+            {
                 return true;
+            }
             return false;
 
         }

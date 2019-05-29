@@ -17,7 +17,7 @@ namespace SpaceJellyMONO
         private GameObject modelLoader;
         private float moveZ, moveX;
         private Transform transform;
-        private bool isGameObjectMovable, active = false;
+        private bool isGameObjectMovable;
         Vector3 lastClickedPos = new Vector3(0, 0, 0);
         List<Vector2> route;
         float Velocity;
@@ -35,30 +35,29 @@ namespace SpaceJellyMONO
         }
         private void moveToPoint(float deltatime)
         {
-             unlockCells();
-            if(route.Count !=0)
-             if (Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) <= 0.05f && i < route.Count -1)
-             {
-                    if (i == route.Count - 1)
+            if (i == route.Count - 1 && Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) <= 0.02f)
+            {
+                isFinalPointReached = true;
+            }
+            if (isFinalPointReached == false)
+            {
+                if (route.Count != 0)
+                    if (Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) <= 0.05f && i < route.Count - 1)
                     {
-                        isFinalPointReached = true;
-                        transform.translation.X = route[i].X;
-                        transform.translation.Z = route[i].Y;
+
+                        unlockCells();
+                        i++;
                     }
-                  i++;
-             }
 
-
-            Vector2 direction = route[i] - new Vector2(transform.Translation.X, transform.Translation.Z);
+                Vector2 direction = route[i] - new Vector2(transform.Translation.X, transform.Translation.Z);
                 direction.Normalize();
                 moveX = transform.Translation.X;
                 moveZ = transform.Translation.Z;
-                
-
-                    moveX += direction.X * deltatime * 0.001f;
-                    moveZ += direction.Y * deltatime * 0.001f;
-                    modelLoader.transform.translation.X = moveX;
-                    modelLoader.transform.translation.Z = moveZ;
+                moveX += direction.X * deltatime * 0.001f;
+                moveZ += direction.Y * deltatime * 0.001f;
+                modelLoader.transform.translation.X = moveX;
+                modelLoader.transform.translation.Z = moveZ;
+            }
         }
 
 
@@ -68,9 +67,9 @@ namespace SpaceJellyMONO
             {
                 for (int j = 0; j < modelLoader.mainClass.gridH; j++)
                 {
-                    foreach (GameObject go in modelLoader.mainClass.gameObjectsRepository.getRepo())
+                    for (int k = 0; k < modelLoader.mainClass.gameObjectsRepository.getRepo().Count; k++)
                     {
-                        if (!PathCollidersRepository.cylinders[i, j].Intersect(go.collider))
+                        if (!PathCollidersRepository.cylinders[i, j].Intersect(modelLoader.mainClass.gameObjectsRepository.getRepo()[k].collider))
                         {
                             modelLoader.mainClass.findPath.unblockCell(i, j);
                         }

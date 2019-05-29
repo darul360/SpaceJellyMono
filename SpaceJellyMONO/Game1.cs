@@ -114,7 +114,7 @@ namespace SpaceJellyMONO
                 Exit();
 
             // TODO: Add your update logic here
-             Debug.WriteLine(1000.0f/gameTime.ElapsedGameTime.TotalMilliseconds); 
+             //Debug.WriteLine(1000.0f/gameTime.ElapsedGameTime.TotalMilliseconds);  FPS COUNTER
             foreach (GameObject gameObject in scene.SceneObjects.Values)
             {
                 gameObject.update((float)gameTime.ElapsedGameTime.TotalMilliseconds, soundEffect);
