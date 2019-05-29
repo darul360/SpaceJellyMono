@@ -33,34 +33,6 @@ namespace SpaceJellyMONO
             this.transform = modelLoader.transform;
             this.Velocity = velocity;
         }
-
-        private Vector3 FindWhereClicked()
-        {
-            GraphicsDevice graphicsDevice = modelLoader.mainClass.GraphicsDevice;
-            MouseState mouseState = Mouse.GetState();
-
-            Vector3 nearSource = new Vector3((float)mouseState.X, (float)mouseState.Y, 0f);
-            Vector3 farSource = new Vector3((float)mouseState.X, (float)mouseState.Y, 1f);
-            Vector3 nearPoint = graphicsDevice.Viewport.Unproject(nearSource, modelLoader.camera.Projection, modelLoader.camera.View, Matrix.Identity);
-            Vector3 farPoint = graphicsDevice.Viewport.Unproject(farSource, modelLoader.camera.Projection, modelLoader.camera.View, Matrix.Identity);
-
-            Vector3 direction = farPoint - nearPoint;
-            direction.Normalize();
-
-            Ray ray = new Ray(nearPoint, direction);
-
-            Vector3 n = new Vector3(0f, 1f, 0f);
-            Plane p = new Plane(n, 0f);
-
-            float denominator = Vector3.Dot(p.Normal, ray.Direction);
-            float numerator = Vector3.Dot(p.Normal, ray.Position) + p.D;
-            float t = -(numerator / denominator);
-
-            Vector3 pickedPosition = nearPoint + direction * t;
-
-            return pickedPosition;
-        }
-
         private void moveToPoint(float deltatime)
         {
              unlockCells();
@@ -118,7 +90,7 @@ namespace SpaceJellyMONO
                     if (currentState.RightButton == ButtonState.Pressed &&
                          lastMouseState.RightButton == ButtonState.Released)
                     {
-                        lastClickedPos = FindWhereClicked();
+                        lastClickedPos = modelLoader.mainClass.clickCooridantes.FindWhereClicked();
                         route = modelLoader.mainClass.findPath.findPath((int)transform.Translation.X, (int)transform.Translation.Z, (int)Math.Round(lastClickedPos.X), (int)Math.Round(lastClickedPos.Z));
                         i = 1;
                         isFinalPointReached = false;

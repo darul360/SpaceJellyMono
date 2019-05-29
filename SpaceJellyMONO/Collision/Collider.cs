@@ -14,6 +14,7 @@ namespace SpaceJellyMONO.GameObjectComponents
         }
 
         public virtual bool Intersect(Collider other) { return false; }
-        public virtual void DrawCollider() { }
+        public virtual void DrawCollider() {
+        }
     }
 }

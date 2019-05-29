@@ -21,6 +21,11 @@ namespace SpaceJellyMONO
             sceneObjects.Add(objectId, objectToAdd);
         }
 
+        public void DeleteSceneObject(String key)
+        {
+            sceneObjects.Remove(key);
+        }
+
         public Scene(Camera camera, Transform rootTransform)
         {
             this.camera = camera;

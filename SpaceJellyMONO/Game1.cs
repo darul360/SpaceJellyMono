@@ -3,17 +3,16 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SpaceJellyMONO.BuildingSystem;
 using SpaceJellyMONO.FSM;
 using SpaceJellyMONO.FSM.States;
 using SpaceJellyMONO.FSM.Trans;
 using SpaceJellyMONO.PathFinding;
 using SpaceJellyMONO.Repositories;
+using SpaceJellyMONO.World;
 
 namespace SpaceJellyMONO
 {
-    /// <summary>
-    /// This is the main type for your game.
-    /// </summary>
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
@@ -23,6 +22,7 @@ namespace SpaceJellyMONO
         public GameObjectsRepository gameObjectsRepository;
         public Scene scene;
         public FindPath findPath;
+        public ClickCooridantes clickCooridantes;
         public int gridW, gridH;
 
 
@@ -58,6 +58,9 @@ namespace SpaceJellyMONO
             Components.Add(new BasicFloorGenerate(GraphicsDevice, gridW, gridH, spriteBatch, this));
             Components.Add(new Selector(this));
             Components.Add(new RenderEngine(this));
+            clickCooridantes = new ClickCooridantes(this);
+            Components.Add(clickCooridantes);
+            Components.Add(new BaseBuildingBuilder(this));
 
             base.Initialize();
         }
@@ -78,16 +81,16 @@ namespace SpaceJellyMONO
                 .AddTransion(right, left, new TrueAfter100Frames().ChangeState)
                 .Build();
 
-            scene.AddSceneObject("zarlok_001", new GameObject("zarlok_poprawiony", camera, this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.05f, false));
+            scene.AddSceneObject("zarlok_001", new GameObject("zarlok_poprawiony", this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.05f, false,"enemy"));
 
-            GameObject jelly1 = new GameObject("Jelly", camera, this, new Vector3(10f, 0f, 8f), -1.57f, 0f, 0f, 0.5f, true)
+            GameObject jelly1 = new GameObject("Jelly", this, new Vector3(10f, 0f, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker")
             {
                 finateSatemachine = move
             };
             scene.AddSceneObject("galaretka_001", jelly1);
-            scene.AddSceneObject("galaretka_002", new GameObject("Jelly", camera, this, new Vector3(8f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true));
-            scene.AddSceneObject("galaretka_003", new GameObject("Jelly", camera, this, new Vector3(6f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true));
-            scene.AddSceneObject("galaretka_004", new GameObject("Jelly", camera, this, new Vector3(4f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true));
+            scene.AddSceneObject("galaretka_002", new GameObject("Jelly", this, new Vector3(8f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true,"worker"));
+            scene.AddSceneObject("galaretka_003", new GameObject("Jelly", this, new Vector3(6f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker"));
+            scene.AddSceneObject("galaretka_004", new GameObject("Jelly", this, new Vector3(4f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker"));
 
             scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
         }

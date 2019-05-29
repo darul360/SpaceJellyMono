@@ -24,15 +24,22 @@ namespace SpaceJellyMONO
         private bool isGameObjectMovable;
         public bool isObjectSelected = false;
         public float scale;
+        private string gameTag;
 
         public FinateStateMachine finateSatemachine;
 
         private AnimationPlayer skinnedAnimationPlayer = null;
 
-        public GameObject(string path, Camera camera, Game1 game1, Vector3 translation, float rotationAngleX, float rotationAngleY, float rotationAngleZ, float scale, bool isMovable) : base(game1)
+        public String GameTag
+        {
+            get { return gameTag;  }
+            set { gameTag = value; }
+        }
+
+        public GameObject(string path,Game1 game1, Vector3 translation, float rotationAngleX, float rotationAngleY, float rotationAngleZ, float scale, bool isMovable,string tag) : base(game1)
         {
             modelPath = path;
-            this.camera = camera;
+            this.camera = game1.camera;
             mainClass = game1;
             this.isGameObjectMovable = isMovable;
             model = mainClass.exportContentManager().Load<Model>(modelPath);
@@ -41,6 +48,7 @@ namespace SpaceJellyMONO
             moveObject = new MoveObject(this, isMovable, 0.005f);
             collider = new Circle(this, scale * 0.5f);
             game1.gameObjectsRepository.AddToRepo(this);
+            GameTag = tag;
 
             SkinningData skinningDataValue = model.Tag as SkinningData;
             if (skinningDataValue != null)
