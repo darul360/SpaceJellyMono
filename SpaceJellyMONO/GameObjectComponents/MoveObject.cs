@@ -92,9 +92,12 @@ namespace SpaceJellyMONO
                     {
                         modelLoader.mainClass.basicFloorGenerate.updateGrid();
                         lastClickedPos = modelLoader.mainClass.clickCooridantes.FindWhereClicked();
-                        route = modelLoader.mainClass.findPath.findPath((int)transform.Translation.X, (int)transform.Translation.Z, (int)Math.Round(lastClickedPos.X), (int)Math.Round(lastClickedPos.Z));
-                        i = 1;
-                        isFinalPointReached = false;
+                        if (!modelLoader.mainClass.findPath.checkIfPositionIsBlocked((int)Math.Round(lastClickedPos.X), (int)Math.Round(lastClickedPos.Z)))
+                        {
+                            route = modelLoader.mainClass.findPath.findPath((int)transform.Translation.X, (int)transform.Translation.Z, (int)Math.Round(lastClickedPos.X), (int)Math.Round(lastClickedPos.Z));
+                            i = 1;
+                            isFinalPointReached = false;
+                        }
                     }
                     if (route != null)
                     moveToPoint(deltatime);

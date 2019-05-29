@@ -11,9 +11,13 @@ namespace SpaceJellyMONO.PathFinding
     public class FindPath
     {
         Grid grid;
+        int widht;
+        int height;
 
         public FindPath(int width,int height)
         {
+            this.widht = width;
+            this.height = height;
             grid = new Grid(width, height, 1.0f);
             setBlockCell(5,5);
         }
@@ -32,6 +36,14 @@ namespace SpaceJellyMONO.PathFinding
         public float getCellCost(int x, int y)
         {
             return grid.GetCellCost(new Position(x, y));
+        }
+
+        public bool checkIfPositionIsBlocked(int i,int j)
+        {
+            if (grid.GetCellCost(new Position(i, j)) == float.PositiveInfinity)
+                return true;
+            return false;
+
         }
 
     
