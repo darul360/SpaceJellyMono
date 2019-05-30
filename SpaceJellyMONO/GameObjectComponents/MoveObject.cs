@@ -90,8 +90,10 @@ namespace SpaceJellyMONO
                     {
                         collision = true;
                         Debug.WriteLine(collision);
-                        if (temp.GetType() == typeof(Enemy) && modelLoader.GetType() == typeof(Jelly))
+                        if (modelLoader.GetType() == typeof(Jelly))
                             temp.TakeDmg(modelLoader.GetDmg());
+                        Debug.WriteLine(temp.GetHp());
+
                     }
                     else
                     {
@@ -108,6 +110,7 @@ namespace SpaceJellyMONO
 
         public void Move(float deltatime, SoundEffect effect)
         {
+            CheckCollisions();
             if (isGameObjectMovable)
             {
                 if (modelLoader.isObjectSelected)

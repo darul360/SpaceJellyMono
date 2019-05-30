@@ -152,5 +152,7 @@ namespace SpaceJellyMONO
 
         virtual public void TakeDmg(float dmg) { }
         virtual public float GetDmg() { return 0; }
+        virtual public float GetHp() { return 0; }
+
     }
 }
