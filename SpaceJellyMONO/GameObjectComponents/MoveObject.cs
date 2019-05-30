@@ -26,6 +26,9 @@ namespace SpaceJellyMONO
         int i = 1;
         bool isFinalPointReached;
         bool collision = false;
+        float timer = 1000f;
+        const float TIMER = 1000;
+        
 
         public MoveObject(GameObject modelLoader, bool isMovingActive, float velocity)
         {
@@ -80,8 +83,10 @@ namespace SpaceJellyMONO
             }
         }
 
-        private void CheckCollisions()
+        private void CheckCollisions(float deltatime)
         {
+            float elapsed = deltatime;
+            timer -= elapsed;
             foreach (GameObject temp in modelLoader.mainClass.gameObjectsRepository.getRepo())
             {
                 if (temp != modelLoader)
@@ -89,11 +94,15 @@ namespace SpaceJellyMONO
                     if (ProcessCollisions(temp))
                     {
                         collision = true;
-                        Debug.WriteLine(collision);
-                        if (modelLoader.GetType() == typeof(Jelly))
-                            temp.TakeDmg(modelLoader.GetDmg());
-                        Debug.WriteLine(temp.GetHp());
-
+                        //Debug.WriteLine(collision);
+                        
+                            if (modelLoader.GetType() == typeof(Jelly))
+                            if (timer < 0)
+                            {
+                                temp.TakeDmg(modelLoader.GetDmg());
+                            Debug.WriteLine(temp.GetHp());
+                            timer = TIMER;
+                        }
                     }
                     else
                     {
@@ -110,7 +119,7 @@ namespace SpaceJellyMONO
 
         public void Move(float deltatime, SoundEffect effect)
         {
-            CheckCollisions();
+            CheckCollisions(deltatime);
             if (isGameObjectMovable)
             {
                 if (modelLoader.isObjectSelected)

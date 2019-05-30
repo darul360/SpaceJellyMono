@@ -88,7 +88,7 @@ namespace SpaceJellyMONO
 
             scene.AddSceneObject("zarlok_001", new GameObject("zarlok_poprawiony", this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.05f, false,"enemy"));
 
-            GameObject jelly1 = new GameObject("Jelly", this, new Vector3(10f, 0f, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker")
+            GameObject jelly1 = new Jelly("Jelly", this, new Vector3(10f, 0f, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker")
             {
                 finateSatemachine = move
             };
