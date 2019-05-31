@@ -32,6 +32,7 @@ namespace SpaceJellyMONO
         public ContinueBuilding continueBuilding;
         public WriteStats writeStats;
         public SoundEffect soundEffect;
+        public ResourcesStatistics resourcesStatistics;
 
         public Game1()
         {
@@ -46,6 +47,7 @@ namespace SpaceJellyMONO
             gridW = 100;
             gridH = 100;
             findPath = new FindPath(gridW, gridH);
+            resourcesStatistics = new ResourcesStatistics();
 
         }
 

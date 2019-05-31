@@ -51,6 +51,7 @@ namespace SpaceJellyMONO.ResourcesGathering
             {
                 string tempKey = game1.scene.FindKeyOfObject(gameObject);
                 game1.scene.DeleteSceneObject(tempKey);
+                game1.powderSourcesRepository.RemoveFromRepo(gameObject);
                 gameObject = null;
             }
         }
