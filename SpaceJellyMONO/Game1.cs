@@ -23,6 +23,7 @@ namespace SpaceJellyMONO
         public Camera camera;
         public BasicEffect effect;
         public GameObjectsRepository gameObjectsRepository;
+        public PowderSourcesRepository powderSourcesRepository;
         public Scene scene;
         public FindPath findPath;
         public ClickCooridantes clickCooridantes;
@@ -41,6 +42,7 @@ namespace SpaceJellyMONO
             graphics.PreferredBackBufferWidth = 1920;
             IsMouseVisible = true;
             gameObjectsRepository = new GameObjectsRepository();
+            powderSourcesRepository = new PowderSourcesRepository();
             gridW = 100;
             gridH = 100;
             findPath = new FindPath(gridW, gridH);
@@ -70,6 +72,8 @@ namespace SpaceJellyMONO
             Components.Add(new BaseBuildingBuilder(this));
             Components.Add(new WaterGathering(this));
             Components.Add(writeStats);
+            Components.Add(new DrawPowderSources(this, 30));
+            Components.Add(new GatherResources(this));
 
             base.Initialize();
         }

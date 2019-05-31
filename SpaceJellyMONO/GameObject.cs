@@ -22,7 +22,7 @@ namespace SpaceJellyMONO
         public Camera camera;
         public bool buildingFlag = false;
         public string modelPath;
-        private bool isGameObjectMovable;
+        public bool isGameObjectMovable;
         public bool isObjectSelected = false;
         public float scale;
         private string gameTag;
@@ -49,8 +49,11 @@ namespace SpaceJellyMONO
             this.scale = scale;
             moveObject = new MoveObject(this, isMovable, 0.005f);
             collider = new Circle(this, scale * 0.9f);
-            game1.gameObjectsRepository.AddToRepo(this);
             GameTag = tag;
+            if (GameTag != "bluePowder")
+                game1.gameObjectsRepository.AddToRepo(this);
+            else
+                game1.powderSourcesRepository.AddToRepo(this);
 
             SkinningData skinningDataValue = model.Tag as SkinningData;
             if (skinningDataValue != null)

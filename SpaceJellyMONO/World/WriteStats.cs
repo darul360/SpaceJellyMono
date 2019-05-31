@@ -22,10 +22,12 @@ namespace SpaceJellyMONO.World
         }
         public override void Draw(GameTime gameTime)
         {
+
             spriteBatch.Begin();
             spriteBatch.DrawString(font, "Water :" + waterCounter.ToString(), new Vector2(0, 0), Color.Black);
             spriteBatch.End();
             base.Draw(gameTime);
+               
         }
     }
 }

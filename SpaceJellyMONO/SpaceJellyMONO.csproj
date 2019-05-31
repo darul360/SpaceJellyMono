@@ -46,6 +46,8 @@
     <Compile Include="BuildingSystem\ContinueBuilding.cs" />
     <Compile Include="Collision\CirclePath.cs" />
     <Compile Include="Repositories\PathCollidersRepository.cs" />
+    <Compile Include="Repositories\PowderSourcesRepository.cs" />
+    <Compile Include="ResourcesGathering\GatherResources.cs" />
     <Compile Include="ResourcesGathering\WaterGathering.cs" />
     <Compile Include="World\BasicFloorGenerate.cs" />
     <Compile Include="World\Camera.cs" />
@@ -72,6 +74,7 @@
     <Compile Include="GameObjectComponents\Transform.cs" />
     <Compile Include="Selector.cs" />
     <Compile Include="World\ClickCooridantes.cs" />
+    <Compile Include="World\DrawPowderSources.cs" />
     <Compile Include="World\Scene.cs" />
     <Compile Include="RenderEngine.cs" />
     <Compile Include="World\WriteStats.cs" />
