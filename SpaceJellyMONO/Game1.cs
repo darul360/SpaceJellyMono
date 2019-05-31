@@ -20,6 +20,9 @@ namespace SpaceJellyMONO
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        public Texture2D healthTexture;
+        public Rectangle helathRectangle;
+        public SpriteBatch spriteBatch2;
         public Camera camera;
         BasicEffect effect;
         public GameObjectsRepository gameObjectsRepository;
@@ -28,7 +31,6 @@ namespace SpaceJellyMONO
         public ClickCooridantes clickCooridantes;
         public int gridW, gridH;
         public BasicFloorGenerate basicFloorGenerate;
-
 
         //sound
         SoundEffect soundEffect;
@@ -53,7 +55,7 @@ namespace SpaceJellyMONO
             //TargetElapsedTime = new TimeSpan(TargetElapsedTime.Ticks / 2);
             //IsFixedTimeStep = false;
             /*-----KAMERA-----*/
-            camera = new Camera(this, new Vector3(10f, 8f, 5f), new Vector3(0.8f, 0, 0), 10f, graphics);
+            camera = new Camera(this, new Vector3(10f, 8f, 0f), new Vector3(0.8f, 0, 0), 10f, graphics);
             Components.Add(camera);
             effect = new BasicEffect(GraphicsDevice);
 
@@ -86,7 +88,7 @@ namespace SpaceJellyMONO
                 .AddTransion(right, left, new TrueAfter100Frames().ChangeState)
                 .Build();
 
-            scene.AddSceneObject("zarlok_001", new GameObject("zarlok_poprawiony", this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.05f, false,"enemy"));
+            scene.AddSceneObject("zarlok_001", new Enemy("zarlok_poprawiony", this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.05f, false,"enemy"));
 
             GameObject jelly1 = new Jelly("Jelly", this, new Vector3(10f, 0f, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker")
             {
@@ -127,6 +129,7 @@ namespace SpaceJellyMONO
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
             base.Draw(gameTime);
 
         }

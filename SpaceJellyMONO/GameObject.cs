@@ -5,6 +5,7 @@ using SkinnedModel;
 using SpaceJellyMONO.FSM;
 using SpaceJellyMONO.GameObjectComponents;
 using System;
+using System.Diagnostics;
 
 namespace SpaceJellyMONO
 {
@@ -25,10 +26,13 @@ namespace SpaceJellyMONO
         public bool isObjectSelected = false;
         public float scale;
         private string gameTag;
+        Texture2D healthTexture;
+        Rectangle helathRectangle;
+        SpriteBatch spriteBatch;
 
         public FinateStateMachine finateSatemachine;
 
-        private AnimationPlayer skinnedAnimationPlayer = null;
+        protected AnimationPlayer skinnedAnimationPlayer = null;
 
         public String GameTag
         {
@@ -66,9 +70,19 @@ namespace SpaceJellyMONO
             base.Update(gameTime);
         }
 
+        public void drawHP()
+        {
+            if (healthTexture != null && helathRectangle != null && spriteBatch != null)
+            {
+                spriteBatch.Begin();
+                spriteBatch.Draw(healthTexture, helathRectangle, Color.White);
+                spriteBatch.End();
+            }
+        }
+
         public override void Draw(GameTime gameTime)
         {
-
+            //Debug.WriteLine("gameObject");
             foreach (ModelMesh modelMesh in model.Meshes)
             {
                 foreach (Effect effect in modelMesh.Effects)
@@ -91,13 +105,12 @@ namespace SpaceJellyMONO
 
                         skinnedEffect.EnableDefaultLighting();
                         skinnedEffect.PreferPerPixelLighting = true;
+                        skinnedEffect.SpecularPower = 300f;
                     }
+                    collider.DrawCollider();
                     modelMesh.Draw();
                 }
-                collider.DrawCollider();
-
             }
-
         }
         public void Draw(Matrix view, Matrix projection)
         {
@@ -130,6 +143,7 @@ namespace SpaceJellyMONO
                 collider.DrawCollider();
             }
         }
+
         public void StartAnimationClip(string clipName, int tempFrames, bool toggleRepeat)
         {
             if (skinnedAnimationPlayer == null)
@@ -149,10 +163,8 @@ namespace SpaceJellyMONO
             base.Initialize();
             finateSatemachine.Initialize();
         }
-
         virtual public void TakeDmg(float dmg) { }
         virtual public float GetDmg() { return 0; }
         virtual public float GetHp() { return 0; }
-
     }
 }
