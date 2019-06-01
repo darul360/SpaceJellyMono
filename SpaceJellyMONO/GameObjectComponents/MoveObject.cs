@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SpaceJellyMONO.GameObjectComponents;
 using SpaceJellyMONO.PathFinding;
 using SpaceJellyMONO.Repositories;
 using System;
@@ -24,6 +25,10 @@ namespace SpaceJellyMONO
         private MouseState lastMouseState = new MouseState();
         int i = 1;
         bool isFinalPointReached;
+        bool collision = false;
+        float timer = 1000f;
+        const float TIMER = 1000;
+        
 
         public MoveObject(GameObject modelLoader, bool isMovingActive, float velocity)
         {
@@ -60,7 +65,7 @@ namespace SpaceJellyMONO
         }
 
 
-        public  void unlockCells()
+        public void unlockCells()
         {
             for (int i = 0; i < modelLoader.mainClass.gridW; i++)
             {
@@ -77,9 +82,43 @@ namespace SpaceJellyMONO
             }
         }
 
+        private void CheckCollisions(float deltatime)
+        {
+            float elapsed = deltatime;
+            timer -= elapsed;
+            foreach (GameObject temp in modelLoader.mainClass.gameObjectsRepository.getRepo())
+            {
+                if (temp != modelLoader)
+                {
+                    if (ProcessCollisions(temp))
+                    {
+                        collision = true;
+                        //Debug.WriteLine(collision);
+                        
+                            if (modelLoader.GetType() == typeof(Jelly))
+                            if (timer < 0)
+                            {
+                                temp.TakeDmg(modelLoader.GetDmg());
+                            Debug.WriteLine(temp.GetHp());
+                            timer = TIMER;
+                        }
+                    }
+                    else
+                    {
+                        collision = false;
+                    }
+                }
+            }
+        }
+
+        public bool ProcessCollisions(GameObject modelLoader2)
+        {
+            return modelLoader.collider.Intersect(modelLoader2.collider);
+        }
 
         public void Move(float deltatime, SoundEffect effect)
         {
+            CheckCollisions(deltatime);
             if (isGameObjectMovable)
             {
                 if (modelLoader.isObjectSelected)
@@ -98,10 +137,10 @@ namespace SpaceJellyMONO
                         }
                     }
                     if (route != null)
-                    moveToPoint(deltatime);
+                        moveToPoint(deltatime);
                     lastMouseState = currentState;
                 }
-                if (isFinalPointReached == false && route !=null && transform.translation.X != route[route.Count-1].X && transform.translation.Z != route[i].Y)
+                if (isFinalPointReached == false && route != null && transform.translation.X != route[route.Count - 1].X && transform.translation.Z != route[i].Y)
                     moveToPoint(deltatime);
             }
         }

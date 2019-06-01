@@ -23,17 +23,18 @@ namespace SpaceJellyMONO
         }
         public override void Draw(GameTime gameTime)
         {
-            RenderScene();
+            RenderScene(gameTime);
             //RenderHUD();
             //RenderCursor();
         }
-        private void RenderScene()
+
+        private void RenderScene(GameTime gameTime)
         {
             if(SceneToRender != null)
             {
                 foreach(GameObject gameObject in SceneToRender.SceneObjects.Values)
                 {
-                    gameObject.Draw(SceneToRender.Camera.View, SceneToRender.Camera.Projection);
+                    gameObject.Draw(gameTime);
                 }
             }
 

@@ -72,6 +72,17 @@ namespace SpaceJellyMONO
 
 
         }
+		
+		
+		public void drawHP()
+        {
+            if (healthTexture != null && helathRectangle != null && spriteBatch != null)
+            {
+                spriteBatch.Begin();
+                spriteBatch.Draw(healthTexture, helathRectangle, Color.White);
+                spriteBatch.End();
+            }
+        }
 
         public override void Draw(GameTime gameTime)
         {
@@ -161,5 +172,10 @@ namespace SpaceJellyMONO
             base.Initialize();
             finateSatemachine.Initialize();
         }
+		
+		virtual public void TakeDmg(float dmg) { }
+        virtual public float GetDmg() { return 0; }
+        virtual public float GetHp() { return 0; }
     }
 }
+

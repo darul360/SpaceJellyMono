@@ -7,6 +7,7 @@ using SpaceJellyMONO.BuildingSystem;
 using SpaceJellyMONO.FSM;
 using SpaceJellyMONO.FSM.States;
 using SpaceJellyMONO.FSM.Trans;
+using SpaceJellyMONO.GameObjectComponents;
 using SpaceJellyMONO.PathFinding;
 using SpaceJellyMONO.Repositories;
 using SpaceJellyMONO.ResourcesGathering;
@@ -20,6 +21,9 @@ namespace SpaceJellyMONO
     {
         public GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
+        public Texture2D healthTexture;
+        public Rectangle helathRectangle;
+        public SpriteBatch spriteBatch2;
         public Camera camera;
         public BasicEffect effect;
         public GameObjectsRepository gameObjectsRepository;
@@ -33,6 +37,8 @@ namespace SpaceJellyMONO
         public WriteStats writeStats;
         public SoundEffect soundEffect;
         public ResourcesStatistics resourcesStatistics;
+
+        //sound
 
         public Game1()
         {
@@ -56,7 +62,7 @@ namespace SpaceJellyMONO
             //TargetElapsedTime = new TimeSpan(TargetElapsedTime.Ticks / 2);
             //IsFixedTimeStep = false;
             /*-----KAMERA-----*/
-            camera = new Camera(this, new Vector3(10f, 8f, 5f), new Vector3(0.8f, 0, 0), 10f, graphics);
+            camera = new Camera(this, new Vector3(10f, 8f, 0f), new Vector3(0.8f, 0, 0), 10f, graphics);
             Components.Add(camera);
             effect = new BasicEffect(GraphicsDevice);
 
@@ -95,17 +101,16 @@ namespace SpaceJellyMONO
                 .AddTransion(right, left, new TrueAfter100Frames().ChangeState)
                 .Build();
 
-            scene.AddSceneObject("zarlok_001", new GameObject("zarlok_poprawiony", this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.05f, false,"enemy"));
+            scene.AddSceneObject("zarlok_001", new Enemy("zarlok_poprawiony", this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.05f, false,"enemy"));
 
-            GameObject jelly1 = new GameObject("Jelly", this, new Vector3(10f, 0f, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker")
+            GameObject jelly1 = new Jelly("Jelly", this, new Vector3(10f, 0f, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker")
             {
                 finateSatemachine = move
             };
             scene.AddSceneObject("galaretka_001", jelly1);
-            scene.AddSceneObject("galaretka_002", new GameObject("Jelly", this, new Vector3(8f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true,"worker"));
-            scene.AddSceneObject("galaretka_003", new GameObject("Jelly", this, new Vector3(6f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker"));
-            scene.AddSceneObject("galaretka_004", new GameObject("Jelly", this, new Vector3(4f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker"));
-
+            scene.AddSceneObject("galaretka_002", new Jelly("Jelly", this, new Vector3(8f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true,"worker"));
+            scene.AddSceneObject("galaretka_003", new Jelly("Jelly", this, new Vector3(6f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker"));
+            scene.AddSceneObject("galaretka_004", new Jelly("Jelly", this, new Vector3(4f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker"));
             scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
         }
 
@@ -137,6 +142,7 @@ namespace SpaceJellyMONO
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
             base.Draw(gameTime);
 
         }
