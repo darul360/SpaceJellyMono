@@ -112,9 +112,11 @@ namespace SpaceJellyMONO
                 finateSatemachine = move
             };
             scene.AddSceneObject("galaretka_001", jelly1);
-            scene.AddSceneObject("galaretka_002", new Jelly("Jelly", this, new Vector3(8f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true,"worker"));
+            scene.AddSceneObject("galaretka_002", new Jelly("jumping", this, new Vector3(8f, 0, 8f), 0, 0f, 0f, 0.01f, true,"worker"));
             scene.AddSceneObject("galaretka_003", new Jelly("Jelly", this, new Vector3(6f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker"));
             scene.AddSceneObject("galaretka_004", new Jelly("Jelly", this, new Vector3(4f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker"));
+            scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
+            scene.SceneObjects["galaretka_002"].StartAnimationClip("Take 001", 20, true);
             //scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
 
 
