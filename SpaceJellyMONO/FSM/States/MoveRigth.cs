@@ -7,14 +7,12 @@ namespace SpaceJellyMONO.FSM.States
     {
         protected virtual float getXMultipler => 1.001f;
 
-        public override void OnEnter()
+        public override void OnEnter(GameObject gameObject)
         {
-            Console.WriteLine("Enter");
         }
 
-        public override void OnExit()
+        public override void OnExit(GameObject gameObject)
         {
-            Console.WriteLine("Exit");
         }
 
         public override void OnUpdate(GameTime gameTime, GameObject gameObject)

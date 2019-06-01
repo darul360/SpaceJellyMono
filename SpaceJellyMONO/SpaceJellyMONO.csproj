@@ -45,6 +45,7 @@
     <Compile Include="BuildingSystem\BaseBuildingBuilder.cs" />
     <Compile Include="BuildingSystem\ContinueBuilding.cs" />
     <Compile Include="Collision\CirclePath.cs" />
+    <Compile Include="FSM\States\Animate.cs" />
     <Compile Include="Repositories\PathCollidersRepository.cs" />
     <Compile Include="Repositories\PowderSourcesRepository.cs" />
     <Compile Include="ResourcesGathering\GatherResources.cs" />

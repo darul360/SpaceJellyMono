@@ -101,7 +101,11 @@ namespace SpaceJellyMONO
                 .AddTransion(right, left, new TrueAfter100Frames().ChangeState)
                 .Build();
 
-            scene.AddSceneObject("zarlok_001", new Enemy("zarlok_poprawiony", this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.05f, false,"enemy"));
+            FinateStateMachine aniamteZarlok = new FinateStateMachineBuilder()
+                .AddState(new Animate("Take 001", 20, true))
+                .Build();
+
+            scene.AddSceneObject("zarlok_001", new Enemy("zarlok_poprawiony", this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.05f, false, "enemy") { finateSatemachine = aniamteZarlok});
 
             GameObject jelly1 = new Jelly("Jelly", this, new Vector3(10f, 0f, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker")
             {
@@ -111,7 +115,15 @@ namespace SpaceJellyMONO
             scene.AddSceneObject("galaretka_002", new Jelly("Jelly", this, new Vector3(8f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true,"worker"));
             scene.AddSceneObject("galaretka_003", new Jelly("Jelly", this, new Vector3(6f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker"));
             scene.AddSceneObject("galaretka_004", new Jelly("Jelly", this, new Vector3(4f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker"));
-            scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
+            //scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
+
+
+            //init kurwa
+            foreach (GameObject gameObject in scene.SceneObjects.Values)
+            {
+                gameObject.Initialize();
+            }
+
         }
 
         public ContentManager exportContentManager()
