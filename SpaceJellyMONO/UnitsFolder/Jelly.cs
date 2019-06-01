@@ -13,7 +13,7 @@ namespace SpaceJellyMONO.GameObjectComponents
     class Jelly : Unit
     {
         float hp=200;
-        float dmg=5;
+        float dmg=50;
         //healthBar
         Texture2D healthTexture;
         Rectangle helathRectangle;
