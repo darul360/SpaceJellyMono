@@ -30,7 +30,7 @@ namespace SpaceJellyMONO
 
         public FinateStateMachine finateSatemachine;
 
-        private AnimationPlayer skinnedAnimationPlayer = null;
+        protected AnimationPlayer skinnedAnimationPlayer = null;
 
         public String GameTag
         {
@@ -60,7 +60,7 @@ namespace SpaceJellyMONO
                 skinnedAnimationPlayer = new AnimationPlayer(skinningDataValue);
         }
 
-        public void update(float deltatime, SoundEffect effect)
+        virtual public void update(float deltatime, SoundEffect effect)
         {
             moveObject.Move(deltatime, effect);
         }
@@ -73,16 +73,6 @@ namespace SpaceJellyMONO
 
         }
 		
-		
-		public void drawHP()
-        {
-            if (healthTexture != null && helathRectangle != null && spriteBatch != null)
-            {
-                spriteBatch.Begin();
-                spriteBatch.Draw(healthTexture, helathRectangle, Color.White);
-                spriteBatch.End();
-            }
-        }
 
         public override void Draw(GameTime gameTime)
         {
@@ -99,6 +89,11 @@ namespace SpaceJellyMONO
                         basicEffect.Projection = camera.Projection;
                         basicEffect.EnableDefaultLighting();
                         basicEffect.PreferPerPixelLighting = true;
+                        if (buildingFlag)
+                        {
+                            GraphicsDevice.BlendState = BlendState.AlphaBlend;
+                            basicEffect.Alpha = 0.5f;
+                        }
                     }
                     if (effect is SkinnedEffect)
                     {
@@ -109,11 +104,12 @@ namespace SpaceJellyMONO
 
                         skinnedEffect.EnableDefaultLighting();
                         skinnedEffect.PreferPerPixelLighting = true;
+                        skinnedEffect.SpecularPower = 300f;
                     }
-                    modelMesh.Draw();
+                    
                 }
                 collider.DrawCollider();
-
+                modelMesh.Draw();
             }
 
         }
