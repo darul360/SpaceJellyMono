@@ -50,7 +50,7 @@ namespace SpaceJellyMONO
             moveObject = new MoveObject(this, isMovable, 0.005f);
             collider = new Circle(this, scale * 0.9f);
             GameTag = tag;
-            if (GameTag != "bluePowder")
+            if (GameTag != "bluePowder" && GameTag != "yellowPowder")
                 game1.gameObjectsRepository.AddToRepo(this);
             else
                 game1.powderSourcesRepository.AddToRepo(this);

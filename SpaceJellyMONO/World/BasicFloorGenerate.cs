@@ -93,7 +93,7 @@ namespace SpaceJellyMONO
                     {
                         if (PathCollidersRepository.cylinders[i, j].Intersect(go.collider) 
                             && go.GameTag != "baseBuilding" && go.GameTag != "firstPartOfBuilding"
-                            && go.GameTag != "bluePowder")
+                            && go.GameTag != "bluePowder" && go.GameTag != "yellowPowder")
                         {
                             game1.findPath.setBlockCell(i, j);
                         }

@@ -38,7 +38,7 @@ namespace SpaceJellyMONO.ResourcesGathering
                 numberOfWaterPumps = countWaterPumps();
                 if (numberOfWaterPumps != 0)
                 {
-                    game.writeStats.waterCounter += 1 * numberOfWaterPumps;
+                    game.resourcesStatistics.waterStats += 1 * numberOfWaterPumps;
                 }
                 timer = TIMER;   //Reset Timer
             }

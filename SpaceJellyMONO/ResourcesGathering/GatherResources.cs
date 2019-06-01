@@ -37,7 +37,10 @@ namespace SpaceJellyMONO.ResourcesGathering
                             Debug.WriteLine(timer);
                                 if (timer < 0)
                                 {
-                                    game1.writeStats.waterCounter += 15;
+                                if(powderSource.GameTag == "bluePowder")
+                                    game1.resourcesStatistics.bluePowderStats += 10;
+                                if(powderSource.GameTag == "yellowPowder")
+                                    game1.resourcesStatistics.yellowPowderStats += 10;
                                     timer = TIMER;
                                     worker.isGameObjectMovable = true;
                                     gameObject = powderSource;

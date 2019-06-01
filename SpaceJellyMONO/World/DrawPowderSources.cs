@@ -25,8 +25,17 @@ namespace SpaceJellyMONO.World
             Random random = new Random();
             for(int i=0;i<this.numberOfSources;i++)
             {
-                GameObject gameObject = new GameObject("stones", game1, new Vector3(random.Next(50), 0, random.Next(50)), 0, 0, 0, 0.5f, false, "bluePowder");
-                game1.scene.AddSceneObject("bluePowder" + i.ToString(), gameObject);
+                if (i % 2 == 0)
+                {
+                    GameObject gameObject = new GameObject("blueStones", game1, new Vector3(random.Next(50), 0, random.Next(50)), 0, 0, 0, 0.5f, false, "bluePowder");
+                    game1.scene.AddSceneObject("bluePowder" + i.ToString(), gameObject);
+                }
+
+                else
+                {
+                    GameObject gameObject = new GameObject("yellowStones", game1, new Vector3(random.Next(50), 0, random.Next(50)), 0, 0, 0, 0.5f, false, "yellowPowder");
+                    game1.scene.AddSceneObject("yellowPowder" + i.ToString(), gameObject);
+                }
             }
             isGenerated = true;
         }
