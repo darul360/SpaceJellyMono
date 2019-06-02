@@ -89,6 +89,25 @@
 /processorParam:Quality=Best
 /build:jellybounce.wav
 
+#begin jumping.FBX
+/importer:FbxImporter
+/processor:SkinnedModelProcessor
+/processorParam:DefaultEffect=SkinnedEffect
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=1
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:jumping.FBX
+
 #begin Red.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -137,13 +156,13 @@
 /processorParam:GenerateTangentFrames=False
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:ResizeTexturesToPowerOfTwo=True
 /processorParam:RotationX=0
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
+/processorParam:TextureFormat=DxtCompressed
 /build:WaterPump.FBX
 
 #begin wood-pile.FBX
@@ -164,6 +183,25 @@
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wood-pile.FBX
+
+#begin yellowChangePlatform.FBX
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=True
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=1
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=DxtCompressed
+/build:yellowChangePlatform.FBX
 
 #begin yellowStones.FBX
 /importer:FbxImporter
@@ -202,42 +240,4 @@
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:zarlok_poprawiony.fbx
-
-#begin floor.FBX
-/importer:FbxImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=True
-/processorParam:RotationX=0
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=1
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=DxtCompressed
-/build:floor.FBX
-
-#begin yellowChangePlatform.FBX
-/importer:FbxImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=True
-/processorParam:RotationX=0
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=1
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=DxtCompressed
-/build:yellowChangePlatform.FBX
 

@@ -104,22 +104,22 @@ namespace SpaceJellyMONO
             FinateStateMachine aniamteZarlok = new FinateStateMachineBuilder()
                 .AddState(new Animate("Take 001", 20, true))
                 .Build();
-            scene.AddSceneObject("podloga", new GameObject("floor", this, new Vector3(46.3f, -0.1f, 48.5f), 1.571f, 0, 0, 1.05f, false, "floor"));
+            //scene.AddSceneObject("podloga", new GameObject("floor", this, new Vector3(46.3f, -0.1f, 48.5f), 1.571f, 0, 0, 1.05f, false, "floor"));
 
-            scene.AddSceneObject("zarlok_001", new Enemy("zarlok_poprawiony", this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.05f, false, "enemy") { finateSatemachine = aniamteZarlok});
+            scene.AddSceneObject("zarlok_001", new Enemy("zarlok_poprawiony", this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.05f, true, "enemy") { finateSatemachine = aniamteZarlok});
 
             GameObject jelly1 = new Jelly("Jelly", this, new Vector3(10f, 0f, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker")
             {
                 finateSatemachine = move
             };
             scene.AddSceneObject("galaretka_001", jelly1);
-            scene.AddSceneObject("galaretka_002", new Jelly("Jelly", this, new Vector3(8f, 0, 8f), 0, 0f, 0f, 0.01f, true,"worker"));
+            scene.AddSceneObject("galaretka_002", new Jelly("jumping", this, new Vector3(8f, 0, 8f), 0f, 0f, 0f, 0.01f, true,"worker"));
             scene.AddSceneObject("galaretka_003", new Jelly("Jelly", this, new Vector3(6f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker"));
             scene.AddSceneObject("galaretka_004", new Jelly("Jelly", this, new Vector3(4f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker"));
             GameObject gameObject2 = new GameObject("yellowChangePlatform", this, new Vector3(14f, 0, 8f), -1.57f, 0f, 0f, 0.03f, false, "platform");
             scene.AddSceneObject("platform_001", gameObject2);
             scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
-            //scene.SceneObjects["galaretka_002"].StartAnimationClip("Take 001", 20, true);
+            scene.SceneObjects["galaretka_002"].StartAnimationClip("Take 001", 20, true);
             //scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
 
             //init kurwa
@@ -163,9 +163,7 @@ namespace SpaceJellyMONO
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
             base.Draw(gameTime);
-
         }
     }
 
