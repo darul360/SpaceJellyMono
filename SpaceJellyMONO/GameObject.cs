@@ -166,7 +166,8 @@ namespace SpaceJellyMONO
         public override void Initialize()
         {
             base.Initialize();
-            finateSatemachine.Initialize();
+            Console.WriteLine("go init");
+            finateSatemachine?.Initialize(this);
         }
 		
 		virtual public void TakeDmg(float dmg) { }

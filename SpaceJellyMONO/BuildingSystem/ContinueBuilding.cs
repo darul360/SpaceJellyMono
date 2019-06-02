@@ -19,7 +19,7 @@ namespace SpaceJellyMONO.BuildingSystem
 
         private void BuildWaterPump(int x,int y,int z)
         {
-            gameObject = new GameObject("WaterPump", game, new Vector3(x, y, z), 4.75f, 7.8f, 0, 0.09f, false, "waterpump");
+            gameObject = new GameObject("WaterPump", game, new Vector3(x, y, z), 4.75f, 7.8f, 0, 0.03f, false, "waterpump");
             game.scene.AddSceneObject("waterPump" + waterPumpCounter.ToString(), gameObject);
         }
 

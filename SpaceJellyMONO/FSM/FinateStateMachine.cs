@@ -8,9 +8,9 @@ namespace SpaceJellyMONO.FSM
     {
         State currentState;
 
-        public void Initialize()
+        public void Initialize(GameObject gameObject)
         {
-            currentState?.OnEnter();
+            currentState?.OnEnter(gameObject);
         }
 
         public void Update(GameTime gameTime, GameObject gameObject)
@@ -21,7 +21,7 @@ namespace SpaceJellyMONO.FSM
                 if (transition.ChangeStateCondtion())
                 {
                     currentState = transition.TargetState;
-                    currentState.OnExit();
+                    currentState.OnExit(gameObject);
                     return;
                 }
             }

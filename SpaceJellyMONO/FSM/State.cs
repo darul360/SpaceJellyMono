@@ -8,8 +8,8 @@ namespace SpaceJellyMONO.FSM
     {
         public HashSet<Transition> transisions = new HashSet<Transition>();
 
-        public abstract void OnEnter();
+        public abstract void OnEnter(GameObject gameObject);
         public abstract void OnUpdate(GameTime gameTime, GameObject gameObject);
-        public abstract void OnExit();
+        public abstract void OnExit(GameObject gameObject);
     }
 }
