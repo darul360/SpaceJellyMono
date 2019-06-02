@@ -69,6 +69,16 @@ namespace SpaceJellyMONO
 
             }
         }
+        public void Draw(Matrix World, Matrix View, Matrix Projection, List<Effect> effects)
+        {
+            foreach(Effect effect in effects)
+            {
+                if(effect is BasicEffect)
+                {
+
+                }
+            }
+        }
 
     }
 }
