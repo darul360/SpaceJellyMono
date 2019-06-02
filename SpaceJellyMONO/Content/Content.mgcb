@@ -83,6 +83,18 @@
 /processorParam:TextureFormat=Compressed
 /build:Jelly.FBX
 
+#begin jelly_texture.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:jelly_texture.png
+
 #begin Jelly2.FBX
 /importer:FbxImporter
 /processor:ModelProcessor

@@ -107,8 +107,20 @@ namespace SpaceJellyMONO
             {
                 finateSatemachine = move
             };
+            Texture2D jellyTexture = Content.Load<Texture2D>("jelly_texture"); //wczytanie nowej teksury z Content Manager'a
             scene.AddSceneObject("galaretka_001", jelly1);
             scene.AddSceneObject("galaretka_002", new Jelly("jumping", this, new Vector3(8f, 0, 8f), 0, 0f, 0f, 0.01f, true,"worker"));
+            
+            foreach(ModelMesh mesh in scene.SceneObjects["galaretka_002"].model.Meshes)
+            {
+                foreach(Effect effect in mesh.Effects)
+                {
+                    SkinnedEffect skinnedEffect = effect as SkinnedEffect;
+                    if (skinnedEffect != null)
+                        skinnedEffect.Texture = jellyTexture;
+                }
+            } //Ustawiam teksture recznie wewnatrz efektu.
+
             scene.AddSceneObject("galaretka_003", new Jelly("Jelly", this, new Vector3(6f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker"));
             scene.AddSceneObject("galaretka_004", new Jelly("Jelly", this, new Vector3(4f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker"));
             scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
