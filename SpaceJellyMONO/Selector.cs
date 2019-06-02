@@ -114,23 +114,23 @@ namespace SpaceJellyMONO
             if ((start.X > end.X && start.Z < end.Z) || (start.X < end.X && start.Z > end.Z))
             {
 
-                verticies[0].Position = new Vector3(start.X, 0.001f, start.Z);
-                verticies[1].Position = new Vector3(start.X, 0.001f, end.Z);
-                verticies[2].Position = new Vector3(end.X, 0.001f, start.Z);
-                verticies[3].Position = new Vector3(start.X, 0.001f, end.Z);
-                verticies[4].Position = new Vector3(end.X, 0.001f, end.Z);
-                verticies[5].Position = new Vector3(end.X, 0.001f, start.Z);
+                verticies[0].Position = new Vector3(start.X, 3, start.Z);
+                verticies[1].Position = new Vector3(start.X, 3, end.Z);
+                verticies[2].Position = new Vector3(end.X, 3, start.Z);
+                verticies[3].Position = new Vector3(start.X, 3, end.Z);
+                verticies[4].Position = new Vector3(end.X, 3, end.Z);
+                verticies[5].Position = new Vector3(end.X, 3, start.Z);
             }
 
             else
             {
                 verticies = new VertexPositionTexture[6];
-                verticies[0].Position = new Vector3(start.X, 0.001f, start.Z);
-                verticies[1].Position = new Vector3(end.X, 0.001f, start.Z);
-                verticies[2].Position = new Vector3(start.X, 0.001f, end.Z);
-                verticies[3].Position = new Vector3(end.X, 0.001f, start.Z);
-                verticies[4].Position = new Vector3(end.X, 0.001f, end.Z);
-                verticies[5].Position = new Vector3(start.X, 0.001f, end.Z);
+                verticies[0].Position = new Vector3(start.X,3, start.Z);
+                verticies[1].Position = new Vector3(end.X,3, start.Z);
+                verticies[2].Position = new Vector3(start.X, 3, end.Z);
+                verticies[3].Position = new Vector3(end.X, 3, start.Z);
+                verticies[4].Position = new Vector3(end.X, 3, end.Z);
+                verticies[5].Position = new Vector3(start.X, 3, end.Z);
             }
 
 
@@ -170,7 +170,9 @@ namespace SpaceJellyMONO
 
         public override void Draw(GameTime gameTime)
         {
+           
             drawRect();
+            base.Draw(gameTime);
         }
     }
 }

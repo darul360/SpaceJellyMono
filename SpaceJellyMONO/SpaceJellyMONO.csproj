@@ -53,6 +53,7 @@
     <Compile Include="UnitsFolder\Enemy.cs" />
     <Compile Include="UnitsFolder\Jelly.cs" />
     <Compile Include="UnitsFolder\Unit.cs" />
+    <Compile Include="UnitsFolder\Warrior.cs" />
     <Compile Include="World\BasicFloorGenerate.cs" />
     <Compile Include="World\Camera.cs" />
     <Compile Include="Collision\Circle.cs" />
