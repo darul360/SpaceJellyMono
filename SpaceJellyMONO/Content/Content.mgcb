@@ -20,6 +20,12 @@
 /processorParam:DebugMode=Auto
 /build:custom_effects/Projection.fx
 
+#begin custom_effects/ShadowMap.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:custom_effects/ShadowMap.fx
+
 #begin diffuse3.png
 /importer:TextureImporter
 /processor:TextureProcessor

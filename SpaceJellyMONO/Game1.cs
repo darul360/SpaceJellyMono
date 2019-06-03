@@ -106,7 +106,6 @@ namespace SpaceJellyMONO
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             basicFloor.Draw(camera, effect);
-
             base.Draw(gameTime);
 
         }
