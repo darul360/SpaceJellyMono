@@ -129,8 +129,8 @@ namespace SpaceJellyMONO
 
             scene.AddSceneObject("galaretka_003", new Jelly("Jelly", this, new Vector3(6f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker"));
             scene.AddSceneObject("galaretka_004", new Jelly("Jelly", this, new Vector3(4f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker"));
-            GameObject gameObject2 = new GameObject("yellowChangePlatform", this, new Vector3(14f, 0, 8f), -1.57f, 0f, 0f, 0.03f, false, "platform");
-            scene.AddSceneObject("platform_001", gameObject2);
+            //GameObject gameObject2 = new GameObject("yellowChangePlatform", this, new Vector3(14f, 0, 8f), -1.57f, 0f, 0f, 0.03f, false, "platform");
+            //scene.AddSceneObject("platform_001", gameObject2);
             scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
             scene.SceneObjects["galaretka_002"].StartAnimationClip("Take 001", 20, true);
             //scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
