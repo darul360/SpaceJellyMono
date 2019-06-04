@@ -83,6 +83,7 @@
     <Compile Include="World\ResourcesStatistics.cs" />
     <Compile Include="World\Scene.cs" />
     <Compile Include="RenderEngine.cs" />
+    <Compile Include="World\UI.cs" />
     <Compile Include="World\WriteStats.cs" />
   </ItemGroup>
   <ItemGroup>

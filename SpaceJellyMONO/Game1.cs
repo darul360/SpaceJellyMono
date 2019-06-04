@@ -79,6 +79,7 @@ namespace SpaceJellyMONO
             Components.Add(new RenderEngine(this));
             Components.Add(new BaseBuildingBuilder(this));
             Components.Add(new WaterGathering(this));
+            Components.Add(new UI(this));
             Components.Add(writeStats);
             Components.Add(new DrawPowderSources(this, 30));
             Components.Add(new GatherResources(this));
