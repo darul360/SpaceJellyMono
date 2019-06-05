@@ -24,10 +24,12 @@ namespace SpaceJellyMONO.FSM.States
 
         public override void OnExit(GameObject gameObject)
         {
+
         }
 
         public override void OnUpdate(GameTime gameTime, GameObject gameObject)
         {
+
         }
     }
 }
