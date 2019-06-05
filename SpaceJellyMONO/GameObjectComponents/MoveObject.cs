@@ -23,12 +23,12 @@ namespace SpaceJellyMONO
         List<Vector2> route;
         float Velocity;
         private MouseState lastMouseState = new MouseState();
-        int i = 1;
+        public int i = 1;
         bool isFinalPointReached;
         bool collision = false;
         float timer = 1000f;
         const float TIMER = 1000;
-        
+
 
         public MoveObject(GameObject modelLoader, bool isMovingActive, float velocity)
         {
@@ -38,29 +38,87 @@ namespace SpaceJellyMONO
             this.transform = modelLoader.transform;
             this.Velocity = velocity;
         }
+
+        public int isPrimary()
+        {
+            int counter = 0;
+            foreach (GameObject go in modelLoader.mainClass.gameObjectsRepository.getRepo())
+            {
+                if (go.isPrimary) counter++;
+            }
+            return counter;
+        }
+
+        //public GameObject findPrimary()
+        //{
+            //GameObject temporary = null;
+            //if (isPrimary() == 0)
+            //{
+            //    float min = 100;
+            //    foreach (GameObject go in modelLoader.mainClass.gameObjectsRepository.getRepo())
+            //    {
+            //        if (go.moveObject.route != null)
+            //        {
+            //            if (Vector3.Distance(go.transform.translation, new Vector3(go.moveObject.route[go.moveObject.route.Count - 1].X, 0, go.moveObject.route[go.moveObject.route.Count - 1].Y)) < min)
+            //            {
+            //                min = Vector3.Distance(go.transform.translation, new Vector3(go.moveObject.route[go.moveObject.route.Count - 1].X, 0, go.moveObject.route[go.moveObject.route.Count - 1].Y));
+            //                temporary = go;
+            //            }
+            //        }
+            //    }
+            //    temporary.isPrimary = true;
+            //}
+            //return temporary;
+       //}
+
+        public void spreadObjects(float tempx,float tempy)
+        {
+
+                if (route == null && modelLoader.transform.translation == new Vector3(tempx,0,tempy))
+                {
+
+                    modelLoader.mainClass.basicFloorGenerate.updateGrid();
+                    Random rand = new Random();
+                    int value = rand.Next(-2, 2);
+                    modelLoader.moveObject.route = modelLoader.mainClass.findPath.findPath((int)modelLoader.transform.translation.X, (int)modelLoader.transform.translation.Z, (int)((int)tempx + value), (int)((int)tempy + value));
+                    modelLoader.moveObject.i = 1;
+                    modelLoader.moveObject.isFinalPointReached = false;
+                }
+           
+
+        }
+    
+
+     
         private void moveToPoint(float deltatime)
         {
             if (i == route.Count - 1 && Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) <= 0.02f)
             {
                 isFinalPointReached = true;
+                transform.translation.X = route[i].X;
+                transform.translation.Z = route[i].Y;
+                float tempx,tempy;
+                tempx = route[i].X;
+                tempy = route[i].Y;
+                route = null;
+               //spreadObjects(tempx, tempy);
             }
             if (isFinalPointReached == false)
             {
-                if (route.Count != 0)
                     if (Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) <= 0.05f && i < route.Count - 1)
                     {
                         unlockCells();
                         i++;
                     }
 
-                Vector2 direction = route[i] - new Vector2(transform.Translation.X, transform.Translation.Z);
-                direction.Normalize();
-                moveX = transform.Translation.X;
-                moveZ = transform.Translation.Z;
-                moveX += direction.X * deltatime * 0.001f;
-                moveZ += direction.Y * deltatime * 0.001f;
-                modelLoader.transform.translation.X = moveX;
-                modelLoader.transform.translation.Z = moveZ;
+                    Vector2 direction = route[i] - new Vector2(transform.Translation.X, transform.Translation.Z);
+                    direction.Normalize();
+                    moveX = transform.Translation.X;
+                    moveZ = transform.Translation.Z;
+                    moveX += direction.X * deltatime * 0.001f;
+                    moveZ += direction.Y * deltatime * 0.001f;
+                    modelLoader.transform.translation.X = moveX;
+                    modelLoader.transform.translation.Z = moveZ;
             }
         }
 
@@ -136,12 +194,11 @@ namespace SpaceJellyMONO
                             isFinalPointReached = false;
                         }
                     }
-                    if (route != null)
-                        moveToPoint(deltatime);
                     lastMouseState = currentState;
                 }
-                if (isFinalPointReached == false && route != null && transform.translation.X != route[route.Count - 1].X && transform.translation.Z != route[i].Y)
+                if (route != null)
                     moveToPoint(deltatime);
+
             }
         }
     }

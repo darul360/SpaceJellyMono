@@ -24,13 +24,13 @@
 /processorParam:GenerateTangentFrames=False
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:ResizeTexturesToPowerOfTwo=True
 /processorParam:RotationX=0
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
+/processorParam:TextureFormat=DxtCompressed
 /build:blueStones.FBX
 
 #begin diffuse3.png
@@ -206,13 +206,13 @@
 /processorParam:GenerateTangentFrames=False
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:ResizeTexturesToPowerOfTwo=True
 /processorParam:RotationX=0
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
+/processorParam:TextureFormat=DxtCompressed
 /build:yellowStones.FBX
 
 #begin zarlok_poprawiony.fbx
@@ -245,4 +245,42 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:ui.png
+
+#begin floor.FBX
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=1
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:floor.FBX
+
+#begin baza.FBX
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=1
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:baza.FBX
 

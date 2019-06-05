@@ -20,15 +20,28 @@ namespace SpaceJellyMONO.World
             this.numberOfSources = numberOfSources;
         }
 
+        public bool isLocationBlocked(int x,int y)
+        {
+            foreach(GameObject go in game1.gameObjectsRepository.getRepo())
+            {
+                if (go.transform.translation.X == x && go.transform.translation.Z == y) return true;
+            }
+            return false;
+        }
+
         public void generatePowderSources()
         {
             Random random = new Random();
             for(int i=0;i<this.numberOfSources;i++)
             {
-                    GameObject gameObject = new GameObject("blueStones", game1, new Vector3(random.Next(35), 0, random.Next(35)), 0, 0, 0, 0.5f, false, "bluePowder");
+                int x1 = random.Next(35); int x2 = random.Next(35);
+                do { x1 = random.Next(35); x2 = random.Next(35); } while ((x1 == 0 || x1 == 100) && (x2 ==0 && x2==100) && isLocationBlocked(x1,x2));
+                    GameObject gameObject = new GameObject("blueStones", game1, new Vector3(x1, -0.1f,x2 ), -1.57f, 0, 0, 0.03f, false, "bluePowder");
                     game1.scene.AddSceneObject("bluePowder" + i.ToString(), gameObject);
 
-                    GameObject gameObject2 = new GameObject("yellowStones", game1, new Vector3((float)(random.NextDouble() * (65 - 35) + 35), 0, (float)(random.NextDouble() * (65 - 35) + 35)), 0, 0, 0, 0.5f, false, "yellowPowder");
+                int x3 = (int)(random.NextDouble() * (65 - 35) + 35); int x4 = (int)(random.NextDouble() * (65 - 35) + 35);
+                do { x3 = (int)(random.NextDouble() * (65 - 35) + 35); x4 = (int)(random.NextDouble() * (65 - 35) + 35); } while ((x1 == 0 || x1 == 100) && (x2 == 0 || x2 == 100) && isLocationBlocked(x1, x2));
+                GameObject gameObject2 = new GameObject("yellowStones", game1, new Vector3((float)x3, -0.1f, (float)x4), -1.57f, 0, 0, 0.03f, false, "yellowPowder");
                     game1.scene.AddSceneObject("yellowPowder" + i.ToString(), gameObject2);
             }
             for (int i = 0; i < this.numberOfSources; i++)
@@ -44,6 +57,8 @@ namespace SpaceJellyMONO.World
             {
                 generatePowderSources();
             }
+
+            
             base.Draw(gameTime);
         }
     }

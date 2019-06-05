@@ -80,6 +80,7 @@
     <Compile Include="Selector.cs" />
     <Compile Include="World\ClickCooridantes.cs" />
     <Compile Include="World\DrawPowderSources.cs" />
+    <Compile Include="World\GenerateWorker.cs" />
     <Compile Include="World\ResourcesStatistics.cs" />
     <Compile Include="World\Scene.cs" />
     <Compile Include="RenderEngine.cs" />

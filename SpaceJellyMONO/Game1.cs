@@ -37,7 +37,7 @@ namespace SpaceJellyMONO
         public WriteStats writeStats;
         public SoundEffect soundEffect;
         public ResourcesStatistics resourcesStatistics;
-
+        GameObject flr;
         //sound
 
         public Game1()
@@ -75,15 +75,14 @@ namespace SpaceJellyMONO
             Components.Add(continueBuilding);
             Components.Add(basicFloorGenerate);
             Components.Add(clickCooridantes);
+            Components.Add(new GenerateWorker(this));
             Components.Add(new Selector(this));
             Components.Add(new RenderEngine(this));
             Components.Add(new BaseBuildingBuilder(this));
             Components.Add(new WaterGathering(this));
-            Components.Add(new UI(this));
-            Components.Add(writeStats);
             Components.Add(new DrawPowderSources(this, 30));
             Components.Add(new GatherResources(this));
-
+            Components.Add(writeStats);
             base.Initialize();
         }
 
@@ -105,7 +104,8 @@ namespace SpaceJellyMONO
             FinateStateMachine aniamteZarlok = new FinateStateMachineBuilder()
                 .AddState(new Animate("Take 001", 20, true))
                 .Build();
-            //scene.AddSceneObject("podloga", new GameObject("floor", this, new Vector3(46.3f, -0.1f, 48.5f), 1.571f, 0, 0, 1.05f, false, "floor"));
+             flr= new GameObject("floor", this, new Vector3(50, 0, 50), -1.57f, 0, 0, 1f, false, "floor");
+            scene.AddSceneObject("podloga",flr );
 
             scene.AddSceneObject("zarlok_001", new Enemy("zarlok_poprawiony", this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.05f, true, "enemy") { finateSatemachine = aniamteZarlok});
 
@@ -113,6 +113,7 @@ namespace SpaceJellyMONO
             {
                 finateSatemachine = move
             };
+
             Texture2D jellyTexture = Content.Load<Texture2D>("jelly_texture"); //wczytanie nowej teksury z Content Manager'a
             scene.AddSceneObject("galaretka_001", jelly1);
             scene.AddSceneObject("galaretka_002", new Jelly("jumping", this, new Vector3(8f, 0, 8f), 0, 0f, 0f, 0.01f, true,"worker"));
@@ -128,12 +129,11 @@ namespace SpaceJellyMONO
             } //Ustawiam teksture recznie wewnatrz efektu.
 
             scene.AddSceneObject("galaretka_003", new Jelly("Jelly", this, new Vector3(6f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker"));
-            scene.AddSceneObject("galaretka_004", new Jelly("Jelly", this, new Vector3(4f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker"));
-            //GameObject gameObject2 = new GameObject("yellowChangePlatform", this, new Vector3(14f, 0, 8f), -1.57f, 0f, 0f, 0.03f, false, "platform");
-            //scene.AddSceneObject("platform_001", gameObject2);
+            scene.AddSceneObject("galaretka_004", new Jelly("Jelly2", this, new Vector3(4f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker"));
+            scene.AddSceneObject("baza_001", new GameObject("baza", this, new Vector3(15, 0, 15), -1.57f, 0, 0, 0.005f, false, "baza"));
+
             scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
             scene.SceneObjects["galaretka_002"].StartAnimationClip("Take 001", 20, true);
-            //scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
 
             //init kurwa
             foreach (GameObject gameObject in scene.SceneObjects.Values)
@@ -162,13 +162,11 @@ namespace SpaceJellyMONO
             foreach (GameObject gameObject in scene.SceneObjects.Values)
             {
                 gameObject.update((float)gameTime.ElapsedGameTime.TotalMilliseconds, soundEffect);
-                //if (gameObject.GameTag == "floor")
-                //{
-                //    gameObject.transform.XRotation += 0.0005f;
-                //    Debug.WriteLine(gameObject.transform.XRotation);
-                //}
+                    //flr.transform.XRotation += 0.0005f;
+                   // Debug.WriteLine(gameObject.transform.XRotation);
                 gameObject.Update(gameTime);
             }
+
             base.Update(gameTime);
 
         }

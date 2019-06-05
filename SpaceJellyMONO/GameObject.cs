@@ -27,6 +27,7 @@ namespace SpaceJellyMONO
         public float scale;
         private string gameTag;
         public string sceneID;
+        public bool isPrimary = false;
 
         public FinateStateMachine finateSatemachine;
 
@@ -37,6 +38,7 @@ namespace SpaceJellyMONO
             get { return gameTag;  }
             set { gameTag = value; }
         }
+
 
         public GameObject(string path,Game1 game1, Vector3 translation, float rotationAngleX, float rotationAngleY, float rotationAngleZ, float scale, bool isMovable,string tag) : base(game1)
         {

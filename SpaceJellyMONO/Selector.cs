@@ -38,6 +38,7 @@ namespace SpaceJellyMONO
                         if ((model.transform.Translation.X >= stopPoint.X && model.transform.Translation.X <= startPoint.X) && (model.transform.Translation.Z >= stopPoint.Z && model.transform.Translation.Z <= startPoint.Z))
                         {
                             model.isObjectSelected = true;
+                            setPrimary(model);
                         }
                     }
                     if(startPoint.Z < stopPoint.Z)
@@ -45,6 +46,7 @@ namespace SpaceJellyMONO
                         if ((model.transform.Translation.X >= stopPoint.X && model.transform.Translation.X <= startPoint.X) && (model.transform.Translation.Z >= startPoint.Z && model.transform.Translation.Z <= stopPoint.Z))
                         {
                             model.isObjectSelected = true;
+                            setPrimary(model);
                         }
                     }
                 }
@@ -56,6 +58,7 @@ namespace SpaceJellyMONO
                         if ((model.transform.Translation.X >= startPoint.X && model.transform.Translation.X <= stopPoint.X) && (model.transform.Translation.Z >= stopPoint.Z && model.transform.Translation.Z <= startPoint.Z))
                         {
                             model.isObjectSelected = true;
+                            setPrimary(model);
                         }
                     }
                     if (startPoint.Z < stopPoint.Z)
@@ -63,6 +66,7 @@ namespace SpaceJellyMONO
                         if ((model.transform.Translation.X >= startPoint.X && model.transform.Translation.X <= stopPoint.X) && (model.transform.Translation.Z >= startPoint.Z && model.transform.Translation.Z <= stopPoint.Z))
                         {
                             model.isObjectSelected = true;
+                            setPrimary(model);
                         }
                     }
                 }
@@ -73,7 +77,20 @@ namespace SpaceJellyMONO
             foreach (GameObject model in game.gameObjectsRepository.getRepo())
             {
                 model.isObjectSelected = false;
+                model.isPrimary = false;
             }
+        }
+        private void setPrimary(GameObject go2)
+        {
+            //int counter = 0;
+            //foreach(GameObject go in game.gameObjectsRepository.getRepo())
+            //{
+            //    if (go.isPrimary == true)
+            //        counter++;
+            //}
+
+            //if (counter == 0) go2.isPrimary = true;
+
         }
 
         private Vector3 FindWhereClicked()
@@ -114,23 +131,23 @@ namespace SpaceJellyMONO
             if ((start.X > end.X && start.Z < end.Z) || (start.X < end.X && start.Z > end.Z))
             {
 
-                verticies[0].Position = new Vector3(start.X, 0, start.Z);
-                verticies[1].Position = new Vector3(start.X, 0, end.Z);
-                verticies[2].Position = new Vector3(end.X, 0, start.Z);
-                verticies[3].Position = new Vector3(start.X, 0, end.Z);
-                verticies[4].Position = new Vector3(end.X, 0, end.Z);
-                verticies[5].Position = new Vector3(end.X, 0, start.Z);
+                verticies[0].Position = new Vector3(start.X, 0.3f, start.Z);
+                verticies[1].Position = new Vector3(start.X, 0.1f, end.Z);
+                verticies[2].Position = new Vector3(end.X, 0.1f, start.Z);
+                verticies[3].Position = new Vector3(start.X, 0.1f, end.Z);
+                verticies[4].Position = new Vector3(end.X, 0.1f, end.Z);
+                verticies[5].Position = new Vector3(end.X, 0.1f, start.Z);
             }
 
             else
             {
                 verticies = new VertexPositionTexture[6];
-                verticies[0].Position = new Vector3(start.X,0, start.Z);
-                verticies[1].Position = new Vector3(end.X,0, start.Z);
-                verticies[2].Position = new Vector3(start.X, 0, end.Z);
-                verticies[3].Position = new Vector3(end.X, 0, start.Z);
-                verticies[4].Position = new Vector3(end.X, 0, end.Z);
-                verticies[5].Position = new Vector3(start.X, 0, end.Z);
+                verticies[0].Position = new Vector3(start.X,0.1f, start.Z);
+                verticies[1].Position = new Vector3(end.X,0.1f, start.Z);
+                verticies[2].Position = new Vector3(start.X, 0.1f, end.Z);
+                verticies[3].Position = new Vector3(end.X, 0.1f, start.Z);
+                verticies[4].Position = new Vector3(end.X, 0.1f, end.Z);
+                verticies[5].Position = new Vector3(start.X, 0.1f, end.Z);
             }
 
 
@@ -170,9 +187,9 @@ namespace SpaceJellyMONO
 
         public override void Draw(GameTime gameTime)
         {
-            
-            drawRect();
             base.Draw(gameTime);
+            drawRect();
+            
         }
     }
 }

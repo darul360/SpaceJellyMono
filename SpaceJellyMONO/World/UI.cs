@@ -22,10 +22,11 @@ namespace SpaceJellyMONO
 
         public override void Draw(GameTime gameTime)
         {
+            base.Draw(gameTime);
             spriteBatch.Begin();
             spriteBatch.Draw(texture, new Rectangle(0, 0, 1920, 152), Color.White);
             spriteBatch.End();
-            base.Draw(gameTime);
+            
         }
 
     }
