@@ -20,7 +20,7 @@ namespace SpaceJellyMONO.GameObjectComponents
         SpriteBatch spriteBatch;
         Game1 game1;
 
-        public Jelly(string path, Game1 game1, Vector3 translation, float rotationAngleX, float rotationAngleY, float rotationAngleZ, float scale, bool isMovable, string tag) : base(path, game1, translation, rotationAngleX,rotationAngleY, rotationAngleZ, scale, isMovable, tag)
+        public Jelly(string path, Game1 game1, Vector3 translation, float rotationAngleX, float rotationAngleY, float rotationAngleZ, float scale, bool isMovable, string tag, float colSize) : base(path, game1, translation, rotationAngleX,rotationAngleY, rotationAngleZ, scale, isMovable, tag,colSize)
         {
             healthTexture = game1.exportContentManager().Load<Texture2D>("Red");
             spriteBatch = new SpriteBatch(game1.GraphicsDevice);

@@ -21,7 +21,7 @@ namespace SpaceJellyMONO.BuildingSystem
         {
             Vector3 clickLocation = game1.clickCooridantes.FindWhereClicked();
             Vector3 integerValues = new Vector3((int)Math.Round(clickLocation.X), (int)Math.Round(clickLocation.Y), (int)Math.Round(clickLocation.Z));
-            gameObject = new GameObject("wood-pile", game1, integerValues, 30f, 0f, 0f, 0.009f, false, "baseBuilding");
+            gameObject = new GameObject("wood-pile", game1, integerValues, 30f, 0f, 0f, 0.009f, false, "baseBuilding", 0.009f*0.9f);
             gameObject.buildingFlag = true;
             game1.scene.AddSceneObject("baseBuilding"+ buldingCounter.ToString(), gameObject);
 

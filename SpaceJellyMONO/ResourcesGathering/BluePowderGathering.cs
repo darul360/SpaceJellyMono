@@ -8,13 +8,13 @@ using Microsoft.Xna.Framework;
 
 namespace SpaceJellyMONO.ResourcesGathering
 {
-    public class WaterGathering : GameComponent
+    class BluePowderGathering:GameComponent
     {
         Game1 game;
-        float timer = 10;         
+        float timer = 10;
         const float TIMER = 10;
         int numberOfWaterPumps = 0;
-        public WaterGathering(Game1 game) : base(game)
+        public BluePowderGathering(Game1 game) : base(game)
         {
             this.game = game;
         }
@@ -22,9 +22,9 @@ namespace SpaceJellyMONO.ResourcesGathering
         private int countWaterPumps()
         {
             int counter = 0;
-            foreach(GameObject go in game.gameObjectsRepository.getRepo())
+            foreach (GameObject go in game.gameObjectsRepository.getRepo())
             {
-                if (go.GameTag == "waterpump") counter++;
+                if (go.GameTag == "mine") counter++;
             }
             return counter;
         }
@@ -38,7 +38,7 @@ namespace SpaceJellyMONO.ResourcesGathering
                 numberOfWaterPumps = countWaterPumps();
                 if (numberOfWaterPumps != 0)
                 {
-                    game.resourcesStatistics.waterStats += 3 * numberOfWaterPumps;
+                    game.resourcesStatistics.bluePowderStats += 3 * numberOfWaterPumps;
                 }
                 timer = TIMER;   //Reset Timer
             }

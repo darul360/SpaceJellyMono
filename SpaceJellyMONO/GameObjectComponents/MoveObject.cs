@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using SpaceJellyMONO.GameObjectComponents;
 using SpaceJellyMONO.PathFinding;
 using SpaceJellyMONO.Repositories;
+using SpaceJellyMONO.UnitsFolder;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -153,7 +154,7 @@ namespace SpaceJellyMONO
                         collision = true;
                         //Debug.WriteLine(collision);
                         
-                            if (modelLoader.GetType() == typeof(Jelly))
+                            if (modelLoader.GetType() == typeof(Warrior))
                             if (timer < 0)
                             {
                                 temp.TakeDmg(modelLoader.GetDmg());

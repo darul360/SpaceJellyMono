@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using SpaceJellyMONO.GameObjectComponents;
 
 namespace SpaceJellyMONO.World
 {
@@ -37,9 +38,14 @@ namespace SpaceJellyMONO.World
             if (Vector3.Distance(clickPos, temp.transform.translation) < 1.0f)
                 {
                     Random random = new Random();
-                    GameObject worker = new GameObject("Jelly", game1, new Vector3(temp.transform.translation.X + random.Next(-2, 2), 0, temp.transform.translation.Z + random.Next(-2, 2)), -1.57f, 0, 0, 0.5f, true, "worker");
-                    game1.scene.AddSceneObject("worker_X" + i.ToString(), worker);
-                    i++;
+                    if (game1.resourcesStatistics.bluePowderStats >= 5 && game1.resourcesStatistics.waterStats >= 5)
+                    {
+                        GameObject worker = new Jelly("Jelly", game1, new Vector3(temp.transform.translation.X + random.Next(-2, 2), 0, temp.transform.translation.Z + random.Next(-2, 2)), -1.57f, 0, 0, 0.5f, true, "worker",0.45f);
+                        game1.scene.AddSceneObject("worker_X" + i.ToString(), worker);
+                        game1.resourcesStatistics.bluePowderStats -= 5;
+                        game1.resourcesStatistics.waterStats -= 5;
+                            i++;
+                    }
                 }
             }
             lastMouseState = currentState;

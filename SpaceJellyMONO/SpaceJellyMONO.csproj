@@ -48,6 +48,7 @@
     <Compile Include="FSM\States\Animate.cs" />
     <Compile Include="Repositories\PathCollidersRepository.cs" />
     <Compile Include="Repositories\PowderSourcesRepository.cs" />
+    <Compile Include="ResourcesGathering\BluePowderGathering.cs" />
     <Compile Include="ResourcesGathering\GatherResources.cs" />
     <Compile Include="ResourcesGathering\WaterGathering.cs" />
     <Compile Include="UnitsFolder\Enemy.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GameObjectComponents\Transform.cs" />
     <Compile Include="Selector.cs" />
+    <Compile Include="World\ChangeToWarrior.cs" />
     <Compile Include="World\ClickCooridantes.cs" />
     <Compile Include="World\DrawPowderSources.cs" />
     <Compile Include="World\GenerateWorker.cs" />

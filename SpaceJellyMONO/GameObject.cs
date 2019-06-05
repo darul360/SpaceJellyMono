@@ -40,7 +40,7 @@ namespace SpaceJellyMONO
         }
 
 
-        public GameObject(string path,Game1 game1, Vector3 translation, float rotationAngleX, float rotationAngleY, float rotationAngleZ, float scale, bool isMovable,string tag) : base(game1)
+        public GameObject(string path,Game1 game1, Vector3 translation, float rotationAngleX, float rotationAngleY, float rotationAngleZ, float scale, bool isMovable,string tag,float colSize) : base(game1)
         {
             modelPath = path;
             this.camera = game1.camera;
@@ -50,7 +50,7 @@ namespace SpaceJellyMONO
             transform = new Transform(this, translation, rotationAngleX, rotationAngleY, rotationAngleZ, scale);
             this.scale = scale;
             moveObject = new MoveObject(this, isMovable, 0.005f);
-            collider = new Circle(this, scale * 0.9f);
+            collider = new Circle(this, colSize);
             GameTag = tag;
             if (GameTag != "bluePowder" && GameTag != "yellowPowder")
                 game1.gameObjectsRepository.AddToRepo(this);

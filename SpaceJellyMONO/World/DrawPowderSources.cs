@@ -36,12 +36,12 @@ namespace SpaceJellyMONO.World
             {
                 int x1 = random.Next(35); int x2 = random.Next(35);
                 do { x1 = random.Next(35); x2 = random.Next(35); } while ((x1 == 0 || x1 == 100) && (x2 ==0 && x2==100) && isLocationBlocked(x1,x2));
-                    GameObject gameObject = new GameObject("blueStones", game1, new Vector3(x1, -0.1f,x2 ), -1.57f, 0, 0, 0.03f, false, "bluePowder");
+                    GameObject gameObject = new GameObject("blueStones", game1, new Vector3(x1, -0.1f,x2 ), -1.57f, 0, 0, 0.03f, false, "bluePowder",0.03f*0.9f);
                     game1.scene.AddSceneObject("bluePowder" + i.ToString(), gameObject);
 
                 int x3 = (int)(random.NextDouble() * (65 - 35) + 35); int x4 = (int)(random.NextDouble() * (65 - 35) + 35);
                 do { x3 = (int)(random.NextDouble() * (65 - 35) + 35); x4 = (int)(random.NextDouble() * (65 - 35) + 35); } while ((x1 == 0 || x1 == 100) && (x2 == 0 || x2 == 100) && isLocationBlocked(x1, x2));
-                GameObject gameObject2 = new GameObject("yellowStones", game1, new Vector3((float)x3, -0.1f, (float)x4), -1.57f, 0, 0, 0.03f, false, "yellowPowder");
+                GameObject gameObject2 = new GameObject("yellowStones", game1, new Vector3((float)x3, -0.1f, (float)x4), -1.57f, 0, 0, 0.03f, false, "yellowPowder", 0.03f * 0.9f);
                     game1.scene.AddSceneObject("yellowPowder" + i.ToString(), gameObject2);
             }
             for (int i = 0; i < this.numberOfSources; i++)

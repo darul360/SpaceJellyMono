@@ -16,9 +16,9 @@ namespace SpaceJellyMONO.World
 
         public ResourcesStatistics()
         {
-            this.waterStats = 0;
-            this.bluePowderStats = 0;
-            this.yellowPowderStats = 0;
+            this.waterStats = 10;
+            this.bluePowderStats = 10;
+            this.yellowPowderStats = 10;
             this.redPowderStats = 0;
             this.blackPowderStats = 0;
         }
