@@ -18,8 +18,7 @@ namespace SpaceJellyMONO.FSM.States
 
         public override void OnEnter(GameObject gameObject)
         {
-            Console.WriteLine("Animation Start");
-            gameObject.StartAnimationClip("Take 001", 20, true);
+            gameObject.StartAnimationClip(clipName, tempFrames, toggleRepeat);
         }
 
         public override void OnExit(GameObject gameObject)
