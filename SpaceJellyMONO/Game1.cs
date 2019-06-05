@@ -127,7 +127,7 @@ namespace SpaceJellyMONO
             };
             Texture2D jellyTexture = Content.Load<Texture2D>("jelly_texture"); //wczytanie nowej teksury z Content Manager'a
             scene.AddSceneObject("galaretka_001", jelly1);
-            scene.AddSceneObject("galaretka_002", new Jelly("jellyy", this, new Vector3(8f, 0, 8f), 0f, 0f, 0f, 0.01f, true, "worker") {finateSatemachine = aniamteJelly });
+            scene.AddSceneObject("galaretka_002", new Jelly("jellyy", this, new Vector3(8f, 0, 8f), 0f, 0f, 0f, 0.01f, true, "worker"));
 
             foreach (ModelMesh mesh in scene.SceneObjects["galaretka_002"].model.Meshes)
             {
