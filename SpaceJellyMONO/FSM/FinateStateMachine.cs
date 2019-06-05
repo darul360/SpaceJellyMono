@@ -20,8 +20,9 @@ namespace SpaceJellyMONO.FSM
             {
                 if (transition.ChangeStateCondtion())
                 {
-                    currentState = transition.TargetState;
                     currentState.OnExit(gameObject);
+                    currentState = transition.TargetState;
+                    currentState.OnEnter(gameObject);
                     return;
                 }
             }

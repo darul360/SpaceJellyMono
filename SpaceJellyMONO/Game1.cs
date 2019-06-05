@@ -105,6 +105,18 @@ namespace SpaceJellyMONO
             FinateStateMachine aniamteZarlok = new FinateStateMachineBuilder()
                 .AddState(new Animate("Take 001", 20, true))
                 .Build();
+
+            State JellyJumping = new Animate("jumping", 20, true);
+            State JellyMelting = new Animate("melting", 20, true);
+            State JellyWaitng = new Animate("waiting", 20, true);
+            FinateStateMachine aniamteJelly = new FinateStateMachineBuilder()
+                .AddState(JellyJumping)
+                .AddState(JellyWaitng)
+                .AddState(JellyMelting)
+                .AddTransion(JellyWaitng, JellyJumping, new TrueAfter100Frames().ChangeState)
+                .AddTransion(JellyJumping, JellyWaitng, new TrueAfter100Frames().ChangeState)
+                .Build();
+
             //scene.AddSceneObject("podloga", new GameObject("floor", this, new Vector3(46.3f, -0.1f, 48.5f), 1.571f, 0, 0, 1.05f, false, "floor"));
 
             scene.AddSceneObject("zarlok_001", new Enemy("zarlok_poprawiony", this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.05f, true, "enemy") { finateSatemachine = aniamteZarlok});
@@ -115,7 +127,7 @@ namespace SpaceJellyMONO
             };
             Texture2D jellyTexture = Content.Load<Texture2D>("jelly_texture"); //wczytanie nowej teksury z Content Manager'a
             scene.AddSceneObject("galaretka_001", jelly1);
-            scene.AddSceneObject("galaretka_002", new Jelly("jellyy", this, new Vector3(8f, 0, 8f), 0f, 0f, 0f, 0.01f, true,"worker"));
+            scene.AddSceneObject("galaretka_002", new Jelly("jellyy", this, new Vector3(8f, 0, 8f), 0f, 0f, 0f, 0.01f, true, "worker") {finateSatemachine = aniamteJelly });
 
             foreach (ModelMesh mesh in scene.SceneObjects["galaretka_002"].model.Meshes)
             {

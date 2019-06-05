@@ -34,7 +34,7 @@ namespace SpaceJellyMONO
         {
             this.isGameObjectMovable = isMovingActive;
             this.modelLoader = modelLoader;
-            Debug.WriteLine(modelLoader);
+            //Debug.WriteLine(modelLoader);
             this.transform = modelLoader.transform;
             this.Velocity = velocity;
         }
@@ -99,7 +99,7 @@ namespace SpaceJellyMONO
                             if (timer < 0)
                             {
                                 temp.TakeDmg(modelLoader.GetDmg());
-                            Debug.WriteLine(temp.GetHp());
+                            //Debug.WriteLine(temp.GetHp());
                             timer = TIMER;
                         }
                     }
