@@ -39,14 +39,17 @@ namespace SpaceJellyMONO
             /*-----KAMERA-----*/
             camera = new Camera(this, new Vector3(10f, 3f, 5f), new Vector3(0.8f, 0, 0), 5f, graphics);
             Components.Add(camera);
-            basicFloor = new BasicFloorGenerate(GraphicsDevice, 20, 20);
+            Effect shadowedEffect = Content.Load<Effect>("custom_effects/Shadowed");
+            Texture2D floorTexture = Content.Load<Texture2D>("diffuse3");
+            basicFloor = new BasicFloorGenerate(GraphicsDevice, 20, 20, shadowedEffect, floorTexture);
             effect = new BasicEffect(GraphicsDevice);
 
             /*-----MODELE-----*/
-            scene = new Scene(camera, new Transform(new Vector3(0f, 0f, 0f), 0f, 0f, 0f, 1f));
+            scene = new Scene(new Transform(new Vector3(0f, 0f, 0f), 0f, 0f, 0f, 1f));
 
             Components.Add(new Selector(this));
-            Components.Add(new RenderEngine(this));
+            Effect shadowMapEffect = Content.Load<Effect>("custom_effects/ShadowMap");
+            Components.Add(new RenderEngine(this, camera, basicFloor, 1920, 1080, shadowMapEffect));
 
             base.Initialize();
         }
@@ -105,7 +108,7 @@ namespace SpaceJellyMONO
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            basicFloor.Draw(camera, effect);
+            //basicFloor.Draw(camera, effect);
             base.Draw(gameTime);
 
         }

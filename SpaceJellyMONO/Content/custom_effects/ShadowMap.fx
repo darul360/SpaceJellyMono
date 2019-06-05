@@ -19,9 +19,9 @@ struct VertexShaderOutput
 VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 {
     VertexShaderOutput output = (VertexShaderOutput)0;
-    float4 worldPosition = mul(input.Position, World);
-    float4 viewPosition = mul(worldPosition, View);
-    output.Position = mul(viewPosition, Projection);
+    float4 worldPosition = mul(input.Position, worldMatrix);
+    float4 viewPosition = mul(worldPosition, viewMatrix);
+    output.Position = mul(viewPosition, projectionMatrix);
 	output.Position2D = output.Position.zw;
 	
     return output;
@@ -36,7 +36,7 @@ technique Technique1
 {
     pass Pass1
     {
-		VertexShader = compile vs_2_0 VertexShaderFunction();
-		PixelShader = compile ps_2_0 PixelShaderFunction();
+		VertexShader = compile vs_4_0_level_9_1 VertexShaderFunction();
+		PixelShader = compile ps_4_0_level_9_1 PixelShaderFunction();
     }
 }

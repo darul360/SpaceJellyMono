@@ -20,6 +20,12 @@
 /processorParam:DebugMode=Auto
 /build:custom_effects/Projection.fx
 
+#begin custom_effects/Shadowed.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:custom_effects/Shadowed.fx
+
 #begin custom_effects/ShadowMap.fx
 /importer:EffectImporter
 /processor:EffectProcessor

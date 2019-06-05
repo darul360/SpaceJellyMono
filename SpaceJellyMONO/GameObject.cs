@@ -11,7 +11,8 @@ namespace SpaceJellyMONO
     {
         public Model model;
         public Transform transform;
-        public Transform parentTransform;
+        private Transform parentTransform;
+        public Transform ParentTransform { set { parentTransform = value; } }
 
         public Matrix WorldTransform => parentTransform.World() * transform.World();
 
@@ -124,6 +125,18 @@ namespace SpaceJellyMONO
                 collider.DrawCollider();
             }
         }
+        public void Draw(Matrix view, Matrix Projection, Effect effect)
+        {
+            foreach(ModelMesh mesh in model.Meshes)
+            {
+                foreach (ModelMeshPart meshPart in mesh.MeshParts)
+                {
+                    meshPart.Effect = effect;
+                }
+
+                mesh.Draw();
+            }
+        }
         public void StartAnimationClip(string clipName, int tempFrames, bool toggleRepeat)
         {
             if (skinnedAnimationPlayer == null)
@@ -133,11 +146,6 @@ namespace SpaceJellyMONO
             skinnedAnimationPlayer.ToggleRepeat = toggleRepeat;
             skinnedAnimationPlayer.StartClip(clipName);
         }
-        public void SetParent(GameObject parentObject)
-        {
-            parentTransform = parentObject.transform;
-        }
-
         public override void Initialize()
         {
             base.Initialize();
