@@ -106,7 +106,6 @@ namespace SpaceJellyMONO
                         skinnedEffect.PreferPerPixelLighting = true;
                         skinnedEffect.SpecularPower = 300f;
                     }
-                    
                 }
                 collider.DrawCollider();
                 modelMesh.Draw();

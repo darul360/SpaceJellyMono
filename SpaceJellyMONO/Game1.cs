@@ -45,7 +45,7 @@ namespace SpaceJellyMONO
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.IsFullScreen = false;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferHeight = 1020;
             graphics.PreferredBackBufferWidth = 1920;
             IsMouseVisible = true;
             gameObjectsRepository = new GameObjectsRepository();
@@ -115,11 +115,11 @@ namespace SpaceJellyMONO
             };
             Texture2D jellyTexture = Content.Load<Texture2D>("jelly_texture"); //wczytanie nowej teksury z Content Manager'a
             scene.AddSceneObject("galaretka_001", jelly1);
-            scene.AddSceneObject("galaretka_002", new Jelly("jumping", this, new Vector3(8f, 0, 8f), 0, 0f, 0f, 0.01f, true,"worker"));
-            
-            foreach(ModelMesh mesh in scene.SceneObjects["galaretka_002"].model.Meshes)
+            scene.AddSceneObject("galaretka_002", new Jelly("jellyy", this, new Vector3(8f, 0, 8f), 0f, 0f, 0f, 0.01f, true,"worker"));
+
+            foreach (ModelMesh mesh in scene.SceneObjects["galaretka_002"].model.Meshes)
             {
-                foreach(Effect effect in mesh.Effects)
+                foreach (Effect effect in mesh.Effects)
                 {
                     SkinnedEffect skinnedEffect = effect as SkinnedEffect;
                     if (skinnedEffect != null)
@@ -132,7 +132,7 @@ namespace SpaceJellyMONO
             //GameObject gameObject2 = new GameObject("yellowChangePlatform", this, new Vector3(14f, 0, 8f), -1.57f, 0f, 0f, 0.03f, false, "platform");
             //scene.AddSceneObject("platform_001", gameObject2);
             scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
-            scene.SceneObjects["galaretka_002"].StartAnimationClip("Take 001", 20, true);
+            scene.SceneObjects["galaretka_002"].StartAnimationClip("jumping", 20, true);
             //scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
 
             //init kurwa
