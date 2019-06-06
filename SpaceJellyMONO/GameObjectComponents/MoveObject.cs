@@ -154,7 +154,7 @@ namespace SpaceJellyMONO
                         collision = true;
                         //Debug.WriteLine(collision);
                         
-                            if (modelLoader.GetType() == typeof(Warrior))
+                            if (modelLoader.GetType() == typeof(Warrior) || modelLoader.GetType() == typeof(Enemy))
                             if (timer < 0)
                             {
                                 temp.TakeDmg(modelLoader.GetDmg());

@@ -77,6 +77,7 @@ namespace SpaceJellyMONO
             Components.Add(basicFloorGenerate);
             Components.Add(clickCooridantes);
             Components.Add(new GenerateWorker(this));
+            Components.Add(new RemoveDeadUnits(this));
             Components.Add(new Selector(this));
             Components.Add(new RenderEngine(this));
             Components.Add(new BaseBuildingBuilder(this));
@@ -87,6 +88,7 @@ namespace SpaceJellyMONO
             platform = new GameObject("yellowChangePlatform", this, new Vector3(23, 0, 7), -1.57f, 0, 0, 0.05f, false, "platform", 2); ///adssssssssssssfdsgsgaaaaaaaaaaaaaaaaaaadfds
             Components.Add(new ChangeToWarrior(this, platform));
             Components.Add(writeStats);
+           
             base.Initialize();
         }
 
