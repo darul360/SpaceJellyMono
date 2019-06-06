@@ -137,26 +137,27 @@ namespace SpaceJellyMONO
 
             Texture2D jellyTexture = Content.Load<Texture2D>("jelly_texture"); //wczytanie nowej teksury z Content Manager'a
             scene.AddSceneObject("galaretka_001", jelly1);
-            //scene.AddSceneObject("galaretka_002", new Jelly("jumping", this, new Vector3(8f, 0, 8f), 0f, 0f, 0f, 0.01f, true, "worker") {finateSatemachine = aniamteJelly });
+            //scene.AddSceneObject("galaretka_003", new Jelly("jumping", this, new Vector3(8f, 0, 8f), 0f, 0f, 0f, 0.01f, true, "worker") {finateSatemachine = aniamteJelly });
 
-            //foreach (ModelMesh mesh in scene.SceneObjects["galaretka_002"].model.Meshes)
-            //{
-            //    foreach (Effect effect in mesh.Effects)
-            //    {
-            //        SkinnedEffect skinnedEffect = effect as SkinnedEffect;
-            //        if (skinnedEffect != null)
-            //            skinnedEffect.Texture = jellyTexture;
-            //    }
-            //} //Ustawiam teksture recznie wewnatrz efektu.
+            
 
-            scene.AddSceneObject("galaretka_003", new Jelly("Jelly", this, new Vector3(6f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker",0.6f));
+            scene.AddSceneObject("galaretka_003", new Jelly("jellyy", this, new Vector3(6f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker",0.6f) { finateSatemachine = aniamteJelly });
+            foreach (ModelMesh mesh in scene.SceneObjects["galaretka_003"].model.Meshes)
+            {
+                foreach (Effect effect in mesh.Effects)
+                {
+                    SkinnedEffect skinnedEffect = effect as SkinnedEffect;
+                    if (skinnedEffect != null)
+                        skinnedEffect.Texture = jellyTexture;
+                }
+            } //Ustawiam teksture recznie wewnatrz efektu.
             scene.AddSceneObject("galaretka_004", new Warrior("Jelly2", this, new Vector3(4f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "warrior", 0.6f));
             scene.AddSceneObject("baza_001", new GameObject("baza", this, new Vector3(15, 0, 15), -1.57f, 0, 0, 0.005f, false, "baza",0.005f*0.9f));
             
             scene.AddSceneObject("yellowPlatform", platform);
 
             scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
-           // scene.SceneObjects["galaretka_002"].StartAnimationClip("Take 001", 20, true);
+            //scene.SceneObjects["galaretka_003"].StartAnimationClip("jumping", 20, true);
             //scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
 
             //init kurwa

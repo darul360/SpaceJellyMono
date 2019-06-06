@@ -76,11 +76,10 @@ namespace SkinnedModel
         /// </summary>
         public void StartClip(string clipName)
         {
-            currentClipValue = skinningDataValue.AnimationClips[clipName];
+
+            currentClipValue = RepopulateKeyframeList(skinningDataValue.AnimationClips[clipName]);
             currentTimeValue = TimeSpan.Zero;
             currentKeyframe = 0;
-
-            RepopulateKeyframeList(currentClipValue.Keyframes);
 
             // Initialize bone transforms to the bind pose.
             skinningDataValue.BindPose.CopyTo(boneTransforms, 0);
@@ -143,17 +142,19 @@ namespace SkinnedModel
 
             }
         }
-        private void RepopulateKeyframeList(List<Keyframe> keyframes)
+        private AnimationClip RepopulateKeyframeList(AnimationClip clip)
         {
             List<Keyframe> temp = new List<Keyframe>();
-            for(int i = 0; i < keyframes.Count; i++)
+            for (int i = 0; i < clip.Keyframes.Count; i++)
             {
-                if (keyframes[i].NextKeyframe != null)
-                    for(int j = 1; j < tempFrames; j++)
-                        temp.Add(new Keyframe(keyframes[i], (1f * j) / tempFrames));
+                temp.Add(clip.Keyframes[i]);
+
+                if (clip.Keyframes[i].NextKeyframe != null)
+                    for (int j = 1; j < tempFrames; j++)
+                        temp.Add(new Keyframe(clip.Keyframes[i], (1f * j) / tempFrames));
             }
-            keyframes.AddRange(temp);
-            keyframes.Sort((x, y) => x.Time.CompareTo(y.Time));
+
+            return new AnimationClip(clip.Duration, temp);
         }
         /// <summary>
         /// Helper used by the Update method to refresh the WorldTransforms data.

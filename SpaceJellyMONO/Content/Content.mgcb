@@ -24,13 +24,13 @@
 /processorParam:GenerateTangentFrames=False
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:ResizeTexturesToPowerOfTwo=True
 /processorParam:RotationX=0
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
+/processorParam:TextureFormat=DxtCompressed
 /build:baza.FBX
 
 #begin blueStones.FBX
@@ -138,6 +138,25 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:jellybounce.wav
+
+#begin jellyy.fbx
+/importer:FbxImporter
+/processor:SkinnedModelProcessor
+/processorParam:DefaultEffect=SkinnedEffect
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=1
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:jellyy.fbx
 
 #begin jumping.FBX
 /importer:FbxImporter
