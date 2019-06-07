@@ -54,7 +54,7 @@ namespace SpaceJellyMONO
             gridW = 100;
             gridH = 100;
             findPath = new FindPath(gridW, gridH);
-            resourcesStatistics = new ResourcesStatistics();
+            resourcesStatistics = new ResourcesStatistics(this);
 
         }
 
