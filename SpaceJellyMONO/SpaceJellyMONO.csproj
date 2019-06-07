@@ -46,8 +46,10 @@
     <Compile Include="BuildingSystem\ContinueBuilding.cs" />
     <Compile Include="Collision\CirclePath.cs" />
     <Compile Include="FSM\States\Animate.cs" />
+    <Compile Include="GameObjectComponents\MovingController.cs" />
     <Compile Include="Repositories\PathCollidersRepository.cs" />
     <Compile Include="Repositories\PowderSourcesRepository.cs" />
+    <Compile Include="Repositories\SelectedObjectsRepository.cs" />
     <Compile Include="ResourcesGathering\BluePowderGathering.cs" />
     <Compile Include="ResourcesGathering\GatherResources.cs" />
     <Compile Include="ResourcesGathering\WaterGathering.cs" />

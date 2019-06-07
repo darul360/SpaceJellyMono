@@ -38,6 +38,7 @@ namespace SpaceJellyMONO
                         if ((model.transform.Translation.X >= stopPoint.X && model.transform.Translation.X <= startPoint.X) && (model.transform.Translation.Z >= stopPoint.Z && model.transform.Translation.Z <= startPoint.Z))
                         {
                             model.isObjectSelected = true;
+                            game.selectedObjectsRepository.AddToRepo(model);
                             setPrimary(model);
                         }
                     }
@@ -46,6 +47,7 @@ namespace SpaceJellyMONO
                         if ((model.transform.Translation.X >= stopPoint.X && model.transform.Translation.X <= startPoint.X) && (model.transform.Translation.Z >= startPoint.Z && model.transform.Translation.Z <= stopPoint.Z))
                         {
                             model.isObjectSelected = true;
+                            game.selectedObjectsRepository.AddToRepo(model);
                             setPrimary(model);
                         }
                     }
@@ -58,6 +60,7 @@ namespace SpaceJellyMONO
                         if ((model.transform.Translation.X >= startPoint.X && model.transform.Translation.X <= stopPoint.X) && (model.transform.Translation.Z >= stopPoint.Z && model.transform.Translation.Z <= startPoint.Z))
                         {
                             model.isObjectSelected = true;
+                            game.selectedObjectsRepository.AddToRepo(model);
                             setPrimary(model);
                         }
                     }
@@ -66,6 +69,7 @@ namespace SpaceJellyMONO
                         if ((model.transform.Translation.X >= startPoint.X && model.transform.Translation.X <= stopPoint.X) && (model.transform.Translation.Z >= startPoint.Z && model.transform.Translation.Z <= stopPoint.Z))
                         {
                             model.isObjectSelected = true;
+                            game.selectedObjectsRepository.AddToRepo(model);
                             setPrimary(model);
                         }
                     }
@@ -77,9 +81,13 @@ namespace SpaceJellyMONO
             foreach (GameObject model in game.gameObjectsRepository.getRepo())
             {
                 model.isObjectSelected = false;
-                model.isPrimary = false;
+                model.isMoving = false;
             }
+            if(game.selectedObjectsRepository.getRepo().Count != 0)
+                game.selectedObjectsRepository.ClearAll();
         }
+
+
         private void setPrimary(GameObject go2)
         {
             //int counter = 0;

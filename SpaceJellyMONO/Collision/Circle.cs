@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+using SpaceJellyMONO.Repositories;
 
 namespace SpaceJellyMONO.GameObjectComponents
 {
@@ -38,7 +39,9 @@ namespace SpaceJellyMONO.GameObjectComponents
             Matrix rotation = Matrix.CreateRotationX(0) * Matrix.CreateRotationY(0) * Matrix.CreateRotationZ(0);
             Matrix temp = rotation*Matrix.CreateTranslation(parent.transform.World().Translation);
             if (parent.isObjectSelected)
+            {
                 cylinder.Draw(temp, cam.View, cam.Projection, new Color(255, 0, 0));
+            }
             else
                 cylinder.Draw(temp, cam.View, cam.Projection, new Color(0, 0, 255));
         }

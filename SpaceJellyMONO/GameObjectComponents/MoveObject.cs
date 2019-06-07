@@ -16,7 +16,7 @@ namespace SpaceJellyMONO
 {
     public class MoveObject
     {
-        private GameObject modelLoader;
+        private GameObject gameObject;
         private float moveZ, moveX;
         private Transform transform;
         private bool isGameObjectMovable;
@@ -25,7 +25,7 @@ namespace SpaceJellyMONO
         float Velocity;
         private MouseState lastMouseState = new MouseState();
         public int i = 1;
-        bool isFinalPointReached;
+        bool isFinalPointReached = true;
         bool collision = false;
         float timer = 1000f;
         const float TIMER = 1000;
@@ -34,60 +34,26 @@ namespace SpaceJellyMONO
         public MoveObject(GameObject modelLoader, bool isMovingActive, float velocity)
         {
             this.isGameObjectMovable = isMovingActive;
-            this.modelLoader = modelLoader;
+            this.gameObject = modelLoader;
             //Debug.WriteLine(modelLoader);
             this.transform = modelLoader.transform;
             this.Velocity = velocity;
         }
 
-        public int isPrimary()
-        {
-            int counter = 0;
-            foreach (GameObject go in modelLoader.mainClass.gameObjectsRepository.getRepo())
-            {
-                if (go.isPrimary) counter++;
-            }
-            return counter;
-        }
-
-        //public GameObject findPrimary()
-        //{
-            //GameObject temporary = null;
-            //if (isPrimary() == 0)
-            //{
-            //    float min = 100;
-            //    foreach (GameObject go in modelLoader.mainClass.gameObjectsRepository.getRepo())
-            //    {
-            //        if (go.moveObject.route != null)
-            //        {
-            //            if (Vector3.Distance(go.transform.translation, new Vector3(go.moveObject.route[go.moveObject.route.Count - 1].X, 0, go.moveObject.route[go.moveObject.route.Count - 1].Y)) < min)
-            //            {
-            //                min = Vector3.Distance(go.transform.translation, new Vector3(go.moveObject.route[go.moveObject.route.Count - 1].X, 0, go.moveObject.route[go.moveObject.route.Count - 1].Y));
-            //                temporary = go;
-            //            }
-            //        }
-            //    }
-            //    temporary.isPrimary = true;
-            //}
-            //return temporary;
-       //}
-
         public void spreadObjects(float tempx,float tempy)
         {
-
-                if (route == null && modelLoader.transform.translation == new Vector3(tempx,0,tempy))
+                if (route == null && gameObject.transform.translation == new Vector3(tempx,0,tempy))
                 {
-
-                    modelLoader.mainClass.basicFloorGenerate.updateGrid();
+                    gameObject.mainClass.basicFloorGenerate.updateGrid();
                     Random rand = new Random();
                     int value = rand.Next(-2, 2);
-                    modelLoader.moveObject.route = modelLoader.mainClass.findPath.findPath((int)modelLoader.transform.translation.X, (int)modelLoader.transform.translation.Z, (int)((int)tempx + value), (int)((int)tempy + value));
-                    modelLoader.moveObject.i = 1;
-                    modelLoader.moveObject.isFinalPointReached = false;
+                    gameObject.moveObject.route = gameObject.mainClass.findPath.findPath((int)gameObject.transform.translation.X, (int)gameObject.transform.translation.Z, (int)tempx + value, (int)tempy + value);
+                    gameObject.moveObject.i = 1;
+                    gameObject.moveObject.isFinalPointReached = false;
                 }
-           
-
         }
+
+       
     
 
      
@@ -98,11 +64,10 @@ namespace SpaceJellyMONO
                 isFinalPointReached = true;
                 transform.translation.X = route[i].X;
                 transform.translation.Z = route[i].Y;
-                float tempx,tempy;
-                tempx = route[i].X;
-                tempy = route[i].Y;
                 route = null;
-               //spreadObjects(tempx, tempy);
+                gameObject.isMoving = false;
+                gameObject.targetX = 0;
+                gameObject.targetY = 0;
             }
             if (isFinalPointReached == false)
             {
@@ -118,23 +83,23 @@ namespace SpaceJellyMONO
                     moveZ = transform.Translation.Z;
                     moveX += direction.X * deltatime * 0.001f;
                     moveZ += direction.Y * deltatime * 0.001f;
-                    modelLoader.transform.translation.X = moveX;
-                    modelLoader.transform.translation.Z = moveZ;
+                    gameObject.transform.translation.X = moveX;
+                    gameObject.transform.translation.Z = moveZ;
             }
         }
 
 
         public void unlockCells()
         {
-            for (int i = 0; i < modelLoader.mainClass.gridW; i++)
+            for (int i = 0; i < gameObject.mainClass.gridW; i++)
             {
-                for (int j = 0; j < modelLoader.mainClass.gridH; j++)
+                for (int j = 0; j < gameObject.mainClass.gridH; j++)
                 {
-                    for (int k = 0; k < modelLoader.mainClass.gameObjectsRepository.getRepo().Count; k++)
+                    for (int k = 0; k < gameObject.mainClass.gameObjectsRepository.getRepo().Count; k++)
                     {
-                        if (!PathCollidersRepository.cylinders[i, j].Intersect(modelLoader.mainClass.gameObjectsRepository.getRepo()[k].collider))
+                        if (!PathCollidersRepository.cylinders[i, j].Intersect(gameObject.mainClass.gameObjectsRepository.getRepo()[k].collider))
                         {
-                            modelLoader.mainClass.findPath.unblockCell(i, j);
+                            gameObject.mainClass.findPath.unblockCell(i, j);
                         }
                     }
                 }
@@ -145,19 +110,19 @@ namespace SpaceJellyMONO
         {
             float elapsed = deltatime;
             timer -= elapsed;
-            foreach (GameObject temp in modelLoader.mainClass.gameObjectsRepository.getRepo())
+            foreach (GameObject temp in gameObject.mainClass.gameObjectsRepository.getRepo())
             {
-                if (temp != modelLoader)
+                if (temp != gameObject)
                 {
                     if (ProcessCollisions(temp))
                     {
                         collision = true;
                         //Debug.WriteLine(collision);
                         
-                            if (modelLoader.GetType() == typeof(Warrior) || modelLoader.GetType() == typeof(Enemy))
+                            if (gameObject.GetType() == typeof(Warrior) || gameObject.GetType() == typeof(Enemy))
                             if (timer < 0)
                             {
-                                temp.TakeDmg(modelLoader.GetDmg());
+                                temp.TakeDmg(gameObject.GetDmg());
                             //Debug.WriteLine(temp.GetHp());
                             timer = TIMER;
                         }
@@ -172,35 +137,21 @@ namespace SpaceJellyMONO
 
         public bool ProcessCollisions(GameObject modelLoader2)
         {
-            return modelLoader.collider.Intersect(modelLoader2.collider);
+            return gameObject.collider.Intersect(modelLoader2.collider);
         }
 
-        public void Move(float deltatime, SoundEffect effect)
+        public void Move(float deltatime, SoundEffect effect,int targetX,int targetZ)
         {
             CheckCollisions(deltatime);
-            if (isGameObjectMovable)
+            if (isFinalPointReached)
             {
-                if (modelLoader.isObjectSelected)
-                {
-                    MouseState currentState = Mouse.GetState();
-                    if (currentState.RightButton == ButtonState.Pressed &&
-                         lastMouseState.RightButton == ButtonState.Released)
-                    {
-                        modelLoader.mainClass.basicFloorGenerate.updateGrid();
-                        lastClickedPos = modelLoader.mainClass.clickCooridantes.FindWhereClicked();
-                        if (!modelLoader.mainClass.findPath.checkIfPositionIsBlocked((int)Math.Round(lastClickedPos.X), (int)Math.Round(lastClickedPos.Z)))
-                        {
-                            route = modelLoader.mainClass.findPath.findPath((int)transform.Translation.X, (int)transform.Translation.Z, (int)Math.Round(lastClickedPos.X), (int)Math.Round(lastClickedPos.Z));
-                            i = 1;
-                            isFinalPointReached = false;
-                        }
-                    }
-                    lastMouseState = currentState;
-                }
-                if (route != null)
-                    moveToPoint(deltatime);
-
+                gameObject.mainClass.basicFloorGenerate.updateGrid();
+                route = gameObject.mainClass.findPath.findPath((int)transform.Translation.X, (int)transform.Translation.Z, targetX, targetZ);
+                i = 1;
+                isFinalPointReached = false;
             }
+            if (route != null)
+                moveToPoint(deltatime);
         }
     }
 }

@@ -29,6 +29,7 @@ namespace SpaceJellyMONO
         public BasicEffect effect;
         public GameObjectsRepository gameObjectsRepository;
         public PowderSourcesRepository powderSourcesRepository;
+        public SelectedObjectsRepository selectedObjectsRepository;
         public Scene scene;
         public FindPath findPath;
         public ClickCooridantes clickCooridantes;
@@ -51,6 +52,7 @@ namespace SpaceJellyMONO
             IsMouseVisible = true;
             gameObjectsRepository = new GameObjectsRepository();
             powderSourcesRepository = new PowderSourcesRepository();
+            selectedObjectsRepository = new SelectedObjectsRepository();
             gridW = 100;
             gridH = 100;
             findPath = new FindPath(gridW, gridH);
@@ -87,6 +89,7 @@ namespace SpaceJellyMONO
             Components.Add(new BluePowderGathering(this));
             platform = new GameObject("yellowChangePlatform", this, new Vector3(23, 0, 7), -1.57f, 0, 0, 0.05f, false, "platform", 2); ///adssssssssssssfdsgsgaaaaaaaaaaaaaaaaaaadfds
             Components.Add(new ChangeToWarrior(this, platform));
+            Components.Add(new MovingController(this));
             Components.Add(writeStats);
            
             base.Initialize();

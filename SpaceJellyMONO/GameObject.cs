@@ -5,6 +5,7 @@ using SkinnedModel;
 using SpaceJellyMONO.FSM;
 using SpaceJellyMONO.GameObjectComponents;
 using System;
+using System.Diagnostics;
 
 namespace SpaceJellyMONO
 {
@@ -27,7 +28,8 @@ namespace SpaceJellyMONO
         public float scale;
         private string gameTag;
         public string sceneID;
-        public bool isPrimary = false;
+        public bool isMoving = false;
+        public int targetX = 0, targetY = 0;
 
         public FinateStateMachine finateSatemachine;
 
@@ -64,7 +66,11 @@ namespace SpaceJellyMONO
 
         virtual public void update(float deltatime, SoundEffect effect)
         {
-            moveObject.Move(deltatime, effect);
+            if (isMoving && targetX != 0 && targetY != 0)
+            {
+                moveObject.Move(deltatime, effect, targetX, targetY);
+                //Debug.WriteLine(targetX + " " + targetY);
+            }
         }
         public override void Update(GameTime gameTime)
         {
