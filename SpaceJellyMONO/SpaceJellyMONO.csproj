@@ -68,6 +68,7 @@
     <Compile Include="Selector.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="RenderEngine.cs" />
+    <Compile Include="SMRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

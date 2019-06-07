@@ -15,16 +15,8 @@ namespace SpaceJellyMONO
         private GraphicsDevice device;
         private Color[] floorColors = new Color[2] { Color.BlueViolet, Color.Brown };
 
-        private Effect shadowEffect;
-
-        public BasicFloorGenerate(GraphicsDevice device,int width,int height, Effect shadowEffect, Texture2D floorTexture)
+        public BasicFloorGenerate(GraphicsDevice device,int width,int height)
         {
-            this.shadowEffect = shadowEffect;
-            shadowEffect.Parameters["xLightPos"].SetValue(new Vector3(10f, 3f, 5f));
-            shadowEffect.Parameters["xLightPower"].SetValue(2f);
-            shadowEffect.Parameters["xAmbient"].SetValue(0.1f);
-            shadowEffect.Parameters["xLightsWorldViewProjection"].SetValue(Matrix.CreateLookAt(new Vector3(10f, 3f, 5f), new Vector3(0f, -10f, 0f), Vector3.Up) * Matrix.CreatePerspectiveFieldOfView(MathHelper.Pi / 3f, 1f, 5f, 100f));
-
             this.device = device;
             this.fWidth = width;
             this.fHeight = height;
@@ -77,13 +69,9 @@ namespace SpaceJellyMONO
 
             }
         }
-        public void Draw(Matrix World, Matrix View, Matrix Projection, Texture2D shadowMapTexture)
+        public void Draw(Effect effect)
         {
-            shadowEffect.Parameters["xWorldViewProjection"].SetValue(World * View * Projection);
-            shadowEffect.Parameters["xWorld"].SetValue(World);
-            shadowEffect.Parameters["xShadowMap"].SetValue(shadowMapTexture);
-
-            foreach (EffectPass pass in shadowEffect?.CurrentTechnique.Passes)
+            foreach (EffectPass pass in effect?.CurrentTechnique.Passes)
             {
                 pass.Apply();
                 device.SetVertexBuffer(floorBuffer);

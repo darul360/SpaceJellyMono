@@ -56,7 +56,7 @@ float4 ShadowedScenePixelShader(SSceneVertexToPixel PSIn) : COLOR0
              diffuseLightingFactor *= xLightPower;            
          }
      }
-     float4 baseColor = float4(0,255,0,1);                
+     float4 baseColor = float4(20,20,20,1);                
      color = baseColor*(diffuseLightingFactor + xAmbient);
  
      return color;

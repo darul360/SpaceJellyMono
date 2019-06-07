@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 
 namespace SpaceJellyMONO
 {
@@ -12,10 +13,7 @@ namespace SpaceJellyMONO
     {
         private Camera camera;
         private BasicFloorGenerate basicFloor;
-
-        //Shadow Mapping
-        private RenderTarget2D customTarget;
-        private Effect shadowMapEffect;
+        private SMRenderer shadowMapRenderer;
 
         public Scene SceneToRender
         {
@@ -25,20 +23,15 @@ namespace SpaceJellyMONO
             }
         }
         
-        public RenderEngine(Game1 game, Camera camera, BasicFloorGenerate basicFloor, int shadowMapWidth, int shadowMapHeight, Effect shadowMapEffect) : base(game)
+        public RenderEngine(Game1 game, Camera camera, BasicFloorGenerate basicFloor) : base(game)
         {
             this.camera = camera;
             this.basicFloor = basicFloor;
-
-            customTarget = new RenderTarget2D(Game.GraphicsDevice, shadowMapWidth, shadowMapHeight);
-            this.shadowMapEffect = shadowMapEffect;
         }
         public override void Draw(GameTime gameTime)
         {
-            Game.GraphicsDevice.SetRenderTarget(customTarget);
-            RenderShadowMap();
-            Game.GraphicsDevice.SetRenderTarget(null);
-            basicFloor.Draw(SceneToRender.RootTransform.World(), camera.View, camera.Projection, customTarget);
+            shadowMapRenderer.RenderShadowMap(SceneToRender);
+            basicFloor.Draw(shadowMapRenderer.ShadowedEffect);
             RenderScene();
             //RenderHUD();
             //RenderCursor();
@@ -58,12 +51,27 @@ namespace SpaceJellyMONO
         {
 
         }
-        private void RenderShadowMap()
+        public override void Initialize()
         {
-                foreach (GameObject gameObject in SceneToRender?.SceneObjects.Values)
-                {
-                    gameObject.Draw(camera.View, camera.Projection, shadowMapEffect);
-                }
+            //Shadow Map Renderer Setup
+            shadowMapRenderer = new SMRenderer(Game, 1920, 1080);
+
+            Vector3 lightsPosition = new Vector3(10f, 30f, 20f);
+            Matrix lightsViewMatrix = Matrix.CreateLookAt(lightsPosition, new Vector3(0f, 0f, 0f), Vector3.Up);
+            Matrix lightsProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, 1f, 5f, 100f);
+
+            shadowMapRenderer.LightsPosition = lightsPosition;
+            shadowMapRenderer.LightsWorldMatrix = Matrix.Identity;
+            shadowMapRenderer.LightsViewMatrix = lightsViewMatrix;
+            shadowMapRenderer.LightsProjectionMatrix = lightsProjectionMatrix;
+            shadowMapRenderer.LightsWorldViewProjectionMatrix = Matrix.Identity * lightsViewMatrix * lightsProjectionMatrix;
+
+            shadowMapRenderer.LightsAmbientValue = 0.2f;
+            shadowMapRenderer.LightsPower = 10f;
+
+            shadowMapRenderer.SceneWorldMatrix = Matrix.Identity;
+            shadowMapRenderer.SceneWorldViewProjectionMatrix = Matrix.Identity * camera.View * camera.Projection;
+
         }
 
     }

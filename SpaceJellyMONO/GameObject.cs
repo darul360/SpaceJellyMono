@@ -125,16 +125,25 @@ namespace SpaceJellyMONO
                 collider.DrawCollider();
             }
         }
-        public void Draw(Matrix view, Matrix Projection, Effect effect)
+        public void Draw(Effect effect)
         {
             foreach(ModelMesh mesh in model.Meshes)
             {
+                Effect currentEffect = null;
                 foreach (ModelMeshPart meshPart in mesh.MeshParts)
                 {
+                    currentEffect = meshPart.Effect;
                     meshPart.Effect = effect;
                 }
 
                 mesh.Draw();
+
+                foreach (ModelMeshPart meshPart in mesh.MeshParts)
+                {
+                    meshPart.Effect = currentEffect;
+                }
+
+
             }
         }
         public void StartAnimationClip(string clipName, int tempFrames, bool toggleRepeat)

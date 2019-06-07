@@ -39,17 +39,15 @@ namespace SpaceJellyMONO
             /*-----KAMERA-----*/
             camera = new Camera(this, new Vector3(10f, 3f, 5f), new Vector3(0.8f, 0, 0), 5f, graphics);
             Components.Add(camera);
-            Effect shadowedEffect = Content.Load<Effect>("custom_effects/Shadowed");
-            Texture2D floorTexture = Content.Load<Texture2D>("diffuse3");
-            basicFloor = new BasicFloorGenerate(GraphicsDevice, 20, 20, shadowedEffect, floorTexture);
+            basicFloor = new BasicFloorGenerate(GraphicsDevice, 20, 20);
             effect = new BasicEffect(GraphicsDevice);
 
             /*-----MODELE-----*/
             scene = new Scene(new Transform(new Vector3(0f, 0f, 0f), 0f, 0f, 0f, 1f));
 
             Components.Add(new Selector(this));
-            Effect shadowMapEffect = Content.Load<Effect>("custom_effects/ShadowMap");
-            Components.Add(new RenderEngine(this, camera, basicFloor, 1920, 1080, shadowMapEffect));
+
+            Components.Add(new RenderEngine(this, camera, basicFloor));
 
             base.Initialize();
         }
@@ -68,14 +66,7 @@ namespace SpaceJellyMONO
                 .AddTransion(right, left, new TrueAfter100Frames().ChangeState)
                 .Build();
 
-            scene.AddSceneObject("zarlok_001", new GameObject("zarlok_poprawiony", camera, this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.05f, false));
-
-            GameObject jelly1 = new GameObject("Jelly", camera, this, new Vector3(10f, 0f, 8f), 0f, 0f, 0f, 0.5f, true)
-            {
-                finateSatemachine = move
-            };
-            scene.AddSceneObject("galaretka_001", jelly1);
-            scene.AddSceneObject("galaretka_002", new GameObject("Jelly", camera, this, new Vector3(9f, 0, 8f), 0f, 0f, 0f, 0.1f, true));
+            scene.AddSceneObject("zarlok_001", new GameObject("zarlok_poprawiony", camera, this, new Vector3(10f, 0f, 10f), 0f, 3.14f, 0f, 0.05f, false));
 
             scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
         }
