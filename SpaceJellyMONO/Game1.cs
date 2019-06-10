@@ -91,6 +91,7 @@ namespace SpaceJellyMONO
             Components.Add(new ChangeToWarrior(this, platform));
             Components.Add(new MovingController(this));
             Components.Add(writeStats);
+            Components.Add(new ShowInfoAboutBuilding(this));
            
             base.Initialize();
         }
