@@ -87,7 +87,7 @@ namespace SpaceJellyMONO
             Components.Add(new DrawPowderSources(this, 30));
             Components.Add(new GatherResources(this));
             Components.Add(new BluePowderGathering(this));
-            platform = new GameObject("yellowChangePlatform", this, new Vector3(23, 0, 7), -1.57f, 0, 0, 0.05f, false, "platform", 2); ///adssssssssssssfdsgsgaaaaaaaaaaaaaaaaaaadfds
+            platform = new GameObject("yellowChangePlatform", this, new Vector3(23, 0, 7), -1.57f, 0, 0, 0.05f, false, "platform", 2); 
             Components.Add(new ChangeToWarrior(this, platform));
             Components.Add(new MovingController(this));
             Components.Add(writeStats);
@@ -102,13 +102,13 @@ namespace SpaceJellyMONO
             spriteBatch = new SpriteBatch(GraphicsDevice);
             State right = new MoveRigth();
             State left = new MoveLeft();
-            FinateStateMachine move =
-                new FinateStateMachineBuilder()
-                .AddState(right)
-                .AddState(left)
-                .AddTransion(left, right, new TrueAfter100Frames().ChangeState)
-                .AddTransion(right, left, new TrueAfter100Frames().ChangeState)
-                .Build();
+            //FinateStateMachine move =
+            //    new FinateStateMachineBuilder()
+            //    .AddState(right)
+            //    .AddState(left)
+            //    .AddTransion(left, right, new TrueAfter100Frames().ChangeState)
+            //    .AddTransion(right, left, new TrueAfter100Frames().ChangeState)
+            //    .Build();
 
             FinateStateMachine aniamteZarlok = new FinateStateMachineBuilder()
                 .AddState(new Animate("Take 001", 20, true))
@@ -125,18 +125,18 @@ namespace SpaceJellyMONO
                 .AddState(JellyJumping)
                 .AddState(JellyWaitng)
                 .AddState(JellyMelting)
-                .AddTransion(JellyWaitng, JellyJumping, new TrueAfter100Frames().ChangeState)
-                .AddTransion(JellyJumping, JellyWaitng, new TrueAfter100Frames().ChangeState)
+                .AddTransion(JellyWaitng, JellyJumping, new AnimationStateChanger().ChangeState)
+                .AddTransion(JellyJumping, JellyWaitng, new AnimationStateChanger().ChangeState)
                 .Build();
 
             //scene.AddSceneObject("podloga", new GameObject("floor", this, new Vector3(46.3f, -0.1f, 48.5f), 1.571f, 0, 0, 1.05f, false, "floor"));
 
             scene.AddSceneObject("zarlok_001", new Enemy("zarlok_poprawiony", this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.05f, true, "enemy", 0.5f*0.9f) { finateSatemachine = aniamteZarlok});
 
-            GameObject jelly1 = new Jelly("Jelly", this, new Vector3(10f, 0f, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker",0.6f)
-            {
-                finateSatemachine = move
-            };
+            GameObject jelly1 = new Jelly("Jelly", this, new Vector3(10f, 0f, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker", 0.6f);
+            //{
+            //    finateSatemachine = move
+            //};
 
             Texture2D jellyTexture = Content.Load<Texture2D>("jelly_texture"); //wczytanie nowej teksury z Content Manager'a
             scene.AddSceneObject("galaretka_001", jelly1);

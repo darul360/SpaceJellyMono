@@ -18,7 +18,7 @@ namespace SpaceJellyMONO.FSM
             return this;
         }
 
-        public FinateStateMachineBuilder AddTransion(State startState, State targetSate, Func<bool> condition)
+        public FinateStateMachineBuilder AddTransion(State startState, State targetSate, Func<GameObject, bool> condition)
         {
             if (!states.Contains(startState))
             {

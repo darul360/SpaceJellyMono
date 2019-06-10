@@ -10,6 +10,6 @@ namespace SpaceJellyMONO.FSM
     {
         public State TargetState;
 
-        public Func<bool> ChangeStateCondtion;
+        public Func<GameObject, bool> ChangeStateCondtion;
     }
 }

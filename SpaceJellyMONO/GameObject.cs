@@ -120,42 +120,7 @@ namespace SpaceJellyMONO
             }
 
         }
-        public void Draw(Matrix view, Matrix projection)
-        {
-            foreach (ModelMesh mesh in model.Meshes)
-            {
-                foreach (Effect effect in mesh.Effects)
-                {
-                    if (effect is BasicEffect)
-                    {
-                        BasicEffect basicEffect = (BasicEffect)effect;
-                        basicEffect.World = WorldTransform;
-                        basicEffect.View = view;
-                        basicEffect.Projection = projection;
-                        basicEffect.EnableDefaultLighting();
-                        basicEffect.PreferPerPixelLighting = true;
-                        if (buildingFlag)
-                        {
-                            GraphicsDevice.BlendState = BlendState.AlphaBlend;
-                            basicEffect.Alpha = 0.5f;
-                        }
-                    }
-                    if (effect is SkinnedEffect)
-                    {
-                        SkinnedEffect skinnedEffect = (SkinnedEffect)effect;
-                        skinnedEffect.SetBoneTransforms(skinnedAnimationPlayer.GetSkinTransforms());
-                        skinnedEffect.View = view;
-                        skinnedEffect.Projection = projection;
 
-                        skinnedEffect.EnableDefaultLighting();
-                        skinnedEffect.PreferPerPixelLighting = true;
-                        skinnedEffect.SpecularPower = 300f;
-                    }
-                }
-                mesh.Draw();
-                collider.DrawCollider();
-            }
-        }
         public void StartAnimationClip(string clipName, int tempFrames, bool toggleRepeat)
         {
             if (skinnedAnimationPlayer == null)

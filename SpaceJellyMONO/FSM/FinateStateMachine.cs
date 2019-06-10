@@ -18,7 +18,7 @@ namespace SpaceJellyMONO.FSM
             currentState.OnUpdate(gameTime, gameObject);
             foreach (Transition transition in currentState.transisions)
             {
-                if (transition.ChangeStateCondtion())
+                if (transition.ChangeStateCondtion(gameObject))
                 {
                     currentState.OnExit(gameObject);
                     currentState = transition.TargetState;
