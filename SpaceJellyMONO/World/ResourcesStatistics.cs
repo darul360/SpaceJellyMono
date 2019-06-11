@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace SpaceJellyMONO.World
         public int redPowderStats;
         public int blackPowderStats;
         public int workers, warriors, enemies;
-
+        public int selectedWorkers, selectedWarriors, selectedEnemies;
         public void Refresh()
         {
             int tempworkerscount = 0;
@@ -27,6 +28,7 @@ namespace SpaceJellyMONO.World
                 if (go.GameTag == "worker") tempworkerscount++;
                 if (go.GameTag == "warrior") tempwarriorscount++;
                 if (go.GameTag == "enemy") tempenemiescount++;
+
             }
             workers = tempworkerscount;
             warriors = tempwarriorscount;

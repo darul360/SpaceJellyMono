@@ -220,6 +220,30 @@
 /processorParam:TextureFormat=DxtCompressed
 /build:kopalniaFBX.FBX
 
+#begin mineWARNING.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mineWARNING.png
+
+#begin platformWARNING.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:platformWARNING.png
+
 #begin Red.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -288,6 +312,18 @@
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=DxtCompressed
 /build:WaterPump.FBX
+
+#begin waterpumpWARNING.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:waterpumpWARNING.png
 
 #begin wood-pile.FBX
 /importer:FbxImporter

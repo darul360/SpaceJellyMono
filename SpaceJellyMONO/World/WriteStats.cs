@@ -34,7 +34,7 @@ namespace SpaceJellyMONO.World
             spriteBatch.DrawString(font,  game.resourcesStatistics.bluePowderStats.ToString(), new Vector2(990, 60), Color.Blue);
             spriteBatch.DrawString(font,  game.resourcesStatistics.yellowPowderStats.ToString(), new Vector2(1600,60), Color.Yellow);
             game.resourcesStatistics.Refresh();
-            spriteBatch.DrawString(font, game.resourcesStatistics.warriors.ToString(), new Vector2(370,915), Color.Green);
+            spriteBatch.DrawString(font, game.resourcesStatistics.workers.ToString(), new Vector2(370,915), Color.Green);
             spriteBatch.DrawString(font, game.resourcesStatistics.warriors.ToString(), new Vector2(930, 915), Color.LightYellow);
             spriteBatch.DrawString(font, game.resourcesStatistics.enemies.ToString(), new Vector2(1560, 915), Color.RosyBrown);
             spriteBatch.End();
