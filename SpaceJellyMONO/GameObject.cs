@@ -66,7 +66,7 @@ namespace SpaceJellyMONO
 
         virtual public void update(float deltatime, SoundEffect effect)
         {
-            if (isMoving && targetX != 0 && targetY != 0)
+            if (isMoving && targetX != 0 && targetY != 0 && isGameObjectMovable)
             {
                 moveObject.Move(deltatime, effect, targetX, targetY);
                 //Debug.WriteLine(targetX + " " + targetY);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,22 +16,41 @@ namespace SpaceJellyMONO.World
         public int redPowderStats;
         public int blackPowderStats;
         public int workers, warriors, enemies;
-
+        public int selectedWorkers, selectedWarriors, selectedEnemies;
         public void Refresh()
         {
             int tempworkerscount = 0;
             int tempwarriorscount = 0;
             int tempenemiescount = 0;
+            int tempworkersselectedcount = 0;
+            int tempwarriorsselectedcount = 0;
+            int tempenemiesselectedcount = 0;
 
-            foreach(GameObject go in game1.gameObjectsRepository.getRepo())
+            foreach (GameObject go in game1.gameObjectsRepository.getRepo())
             {
-                if (go.GameTag == "worker") tempworkerscount++;
-                if (go.GameTag == "warrior") tempwarriorscount++;
-                if (go.GameTag == "enemy") tempenemiescount++;
+                if (go.GameTag == "worker")
+                {
+                    tempworkerscount++;
+                    if (go.isObjectSelected) tempworkersselectedcount++;
+                }
+                if (go.GameTag == "warrior")
+                {
+                    tempwarriorscount++;
+                    if (go.isObjectSelected) tempwarriorsselectedcount++;
+                }
+                if (go.GameTag == "enemy")
+                {
+                    tempenemiescount++;
+                    if (go.isObjectSelected) tempenemiesselectedcount++;
+                }
+
             }
             workers = tempworkerscount;
             warriors = tempwarriorscount;
             enemies = tempenemiescount;
+            selectedWorkers = tempworkersselectedcount;
+            selectedWarriors = tempwarriorsselectedcount;
+            selectedEnemies = tempenemiesselectedcount;
         }
         public ResourcesStatistics(Game1 game1)
         {

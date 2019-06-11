@@ -40,6 +40,9 @@ namespace SpaceJellyMONO
         public SoundEffect soundEffect;
         public ResourcesStatistics resourcesStatistics;
         GameObject flr,platform;
+        Vector3 temporaryRot, temporaryPos;
+        bool switcher = false;
+        KeyboardState lastKeyboardState = new KeyboardState();
         //sound
 
         public Game1()
@@ -65,7 +68,7 @@ namespace SpaceJellyMONO
             //TargetElapsedTime = new TimeSpan(TargetElapsedTime.Ticks / 2);
             //IsFixedTimeStep = false;
             /*-----KAMERA-----*/
-            camera = new Camera(this, new Vector3(10f, 15f, 0f), new Vector3(0.8f, 0, 0), 10f, graphics);
+            camera = new Camera(this, new Vector3(10f, 15f, 0f), new Vector3(1.2f, 0, 0), 10f, graphics);
             Components.Add(camera);
             effect = new BasicEffect(GraphicsDevice);
 
@@ -187,6 +190,26 @@ namespace SpaceJellyMONO
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            if (!switcher)
+            {
+                temporaryRot = camera.Rotation;
+                temporaryPos = camera.Position;
+            }
+            KeyboardState currentState = Keyboard.GetState();
+            if (currentState.IsKeyDown(Keys.Tab) && lastKeyboardState.IsKeyUp(Keys.Tab))
+            {
+                switcher = !switcher;
+                if (switcher)
+                {
+                    camera.Rotation = new Vector3(1.5f, 0, 0);
+                    camera.Position = new Vector3(50, 130, 50);
+                }
+                if (!switcher)
+                {
+                    camera.Position = temporaryPos;
+                    camera.Rotation = temporaryRot;
+                }
+            }lastKeyboardState = currentState;
             // TODO: Add your update logic here
             //Debug.WriteLine(1000.0f/gameTime.ElapsedGameTime.TotalMilliseconds);  FPS COUNTER
             foreach (GameObject gameObject in scene.SceneObjects.Values)
