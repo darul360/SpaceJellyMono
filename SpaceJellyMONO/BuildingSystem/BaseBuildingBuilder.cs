@@ -9,7 +9,7 @@ namespace SpaceJellyMONO.BuildingSystem
         private Game1 game1;
         private GameObject gameObject, tempGameObject;
         private MouseState lastMouseState = new MouseState();
-        private bool isCreated = false;
+        private bool isCreated = false,changeModel=false;
         private int buldingCounter = 0;
 
         public BaseBuildingBuilder(Game1 game1):base(game1)
@@ -21,7 +21,7 @@ namespace SpaceJellyMONO.BuildingSystem
         {
             Vector3 clickLocation = game1.clickCooridantes.FindWhereClicked();
             Vector3 integerValues = new Vector3((int)Math.Round(clickLocation.X), (int)Math.Round(clickLocation.Y), (int)Math.Round(clickLocation.Z));
-            gameObject = new GameObject("wood-pile", game1, integerValues, 30f, 0f, 0f, 0.009f, false, "baseBuilding", 0.009f*0.9f);
+            gameObject = new GameObject("constructionplant1", game1, integerValues, 29.85f, 0f, 0f, 0.02f, false, "baseBuilding", 1.5f);
             gameObject.buildingFlag = true;
             game1.scene.AddSceneObject("baseBuilding"+ buldingCounter.ToString(), gameObject);
 
@@ -64,11 +64,18 @@ namespace SpaceJellyMONO.BuildingSystem
                                 tempGameObject = go;                                    //zgarniam obiekt do tempa bo foreach się sypyie
                                 gameObject.GameTag = "firstPartOfBuilding";             //zmiana tagu
                                 gameObject.sceneID = "baseBuilding" + buldingCounter.ToString();
+                                changeModel = true;
                                 break;
                             }
 
                         }
                     }
+                if (changeModel)
+                {
+                    gameObject.modelPath = "constructionplant2";
+                    gameObject.Reload();
+                    changeModel = false;
+                }
                     game1.gameObjectsRepository.RemoveFromRepo(tempGameObject);        //usuwam workera z repo
                 }
         }

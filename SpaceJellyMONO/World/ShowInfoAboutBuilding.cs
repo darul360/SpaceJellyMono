@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
+using SpaceJellyMONO.FSM;
 
 namespace SpaceJellyMONO.World
 {
@@ -14,6 +17,7 @@ namespace SpaceJellyMONO.World
         Texture2D texture,texture2,texture3,texture4;
         Game1 game1;
         SpriteBatch spriteBatch;
+
         public ShowInfoAboutBuilding(Game1 game1) : base(game1)
         {
             this.game1 = game1;
@@ -22,10 +26,14 @@ namespace SpaceJellyMONO.World
             texture2 = game1.Content.Load<Texture2D>("platformWARNING");
             texture3 = game1.Content.Load<Texture2D>("mineWARNING");
             texture4 = game1.Content.Load<Texture2D>("waterpumpWARNING");
+           
+
         }
+
 
         public override void Draw(GameTime gameTime)
         {
+            
             Vector3 clickPos = game1.clickCooridantes.FindWhereClicked();
             GameObject temp = null,temp2 = null,temp3=null,temp4=null;
             foreach (GameObject go in game1.gameObjectsRepository.getRepo())
@@ -50,9 +58,8 @@ namespace SpaceJellyMONO.World
 
             if (Vector3.Distance(clickPos, temp.transform.translation) < 1.0f)
             {
-                spriteBatch.Begin();
-                spriteBatch.Draw(texture, new Rectangle((int)clickPos.X,(int)clickPos.Z, 400, 250), Color.White);
-                spriteBatch.End();
+              
+               // player.Stop();
             }
             if (Vector3.Distance(clickPos, temp2.transform.translation) < 1.0f)
             {

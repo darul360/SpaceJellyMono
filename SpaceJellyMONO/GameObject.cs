@@ -80,6 +80,11 @@ namespace SpaceJellyMONO
 
 
         }
+
+        public void Reload()
+        {
+            model = mainClass.exportContentManager().Load<Model>(modelPath);
+        }
 		
 
         public override void Draw(GameTime gameTime)

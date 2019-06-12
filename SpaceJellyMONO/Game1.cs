@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using SpaceJellyMONO.BuildingSystem;
 using SpaceJellyMONO.FSM;
 using SpaceJellyMONO.FSM.States;
@@ -43,6 +44,8 @@ namespace SpaceJellyMONO
         Vector3 temporaryRot, temporaryPos;
         bool switcher = false;
         KeyboardState lastKeyboardState = new KeyboardState();
+        VideoPlayer player,player2;
+        Video video,video2;
         //sound
 
         public Game1()
@@ -50,7 +53,7 @@ namespace SpaceJellyMONO
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.IsFullScreen = false;
-            graphics.PreferredBackBufferHeight = 1020;
+            graphics.PreferredBackBufferHeight = 1080;
             graphics.PreferredBackBufferWidth = 1920;
             IsMouseVisible = true;
             gameObjectsRepository = new GameObjectsRepository();
@@ -95,7 +98,10 @@ namespace SpaceJellyMONO
             Components.Add(new MovingController(this));
             Components.Add(writeStats);
             Components.Add(new ShowInfoAboutBuilding(this));
-           
+            video = Content.Load<Video>("building");
+            player = new VideoPlayer();
+            video2 = Content.Load<Video>("building2");
+            player2 = new VideoPlayer();
             base.Initialize();
         }
 
@@ -137,13 +143,13 @@ namespace SpaceJellyMONO
 
             scene.AddSceneObject("zarlok_001", new Enemy("zarlok_poprawiony", this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.05f, true, "enemy", 0.5f*0.9f) { finateSatemachine = aniamteZarlok});
 
-            GameObject jelly1 = new Jelly("Jelly", this, new Vector3(10f, 0f, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker", 0.6f);
+            //GameObject jelly1 = new Jelly("Jelly", this, new Vector3(10f, 0f, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker", 0.6f);
             //{
             //    finateSatemachine = move
             //};
 
             Texture2D jellyTexture = Content.Load<Texture2D>("jelly_texture"); //wczytanie nowej teksury z Content Manager'a
-            scene.AddSceneObject("galaretka_001", jelly1);
+            //scene.AddSceneObject("galaretka_001", jelly1);
             //scene.AddSceneObject("galaretka_003", new Jelly("jumping", this, new Vector3(8f, 0, 8f), 0f, 0f, 0f, 0.01f, true, "worker") {finateSatemachine = aniamteJelly });
 
             
@@ -158,16 +164,32 @@ namespace SpaceJellyMONO
                         skinnedEffect.Texture = jellyTexture;
                 }
             } //Ustawiam teksture recznie wewnatrz efektu.
-            scene.AddSceneObject("galaretka_004", new Warrior("Jelly2", this, new Vector3(4f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "warrior", 0.6f));
-            scene.AddSceneObject("baza_001", new GameObject("baza", this, new Vector3(15, 0, 15), -1.57f, 0, 0, 0.005f, false, "baza",0.005f*0.9f));
-            
+            scene.AddSceneObject("galaretka_004", new Jelly("jellyy", this, new Vector3(10f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker", 0.6f) { finateSatemachine = aniamteJelly });
+            foreach (ModelMesh mesh in scene.SceneObjects["galaretka_004"].model.Meshes)
+            {
+                foreach (Effect effect in mesh.Effects)
+                {
+                    SkinnedEffect skinnedEffect = effect as SkinnedEffect;
+                    if (skinnedEffect != null)
+                        skinnedEffect.Texture = jellyTexture;
+                }
+            } //Ustawiam teksture recznie wewnatrz efektu.
+            scene.AddSceneObject("galaretka_005", new Jelly("jellyy", this, new Vector3(14f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker", 0.6f) { finateSatemachine = aniamteJelly });
+            foreach (ModelMesh mesh in scene.SceneObjects["galaretka_005"].model.Meshes)
+            {
+                foreach (Effect effect in mesh.Effects)
+                {
+                    SkinnedEffect skinnedEffect = effect as SkinnedEffect;
+                    if (skinnedEffect != null)
+                        skinnedEffect.Texture = jellyTexture;
+                }
+            } //Ustawiam teksture recznie wewnatrz efektu.
+
+
+            scene.AddSceneObject("galaretka_007", new Warrior("Jelly2", this, new Vector3(4f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "warrior", 0.6f));
+            scene.AddSceneObject("baza_001", new GameObject("baza", this, new Vector3(15, 0, 15), -1.57f, 0, 0, 0.005f, false, "baza",0.005f*0.9f));          
             scene.AddSceneObject("yellowPlatform", platform);
-
             scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
-            //scene.SceneObjects["galaretka_003"].StartAnimationClip("jumping", 20, true);
-            //scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
-
-            //init kurwa
             foreach (GameObject gameObject in scene.SceneObjects.Values)
             {
                 gameObject.Initialize();
@@ -208,7 +230,9 @@ namespace SpaceJellyMONO
                     camera.Position = temporaryPos;
                     camera.Rotation = temporaryRot;
                 }
-            }lastKeyboardState = currentState;
+               
+            }
+            lastKeyboardState = currentState;
             // TODO: Add your update logic here
             //Debug.WriteLine(1000.0f/gameTime.ElapsedGameTime.TotalMilliseconds);  FPS COUNTER
             foreach (GameObject gameObject in scene.SceneObjects.Values)
@@ -227,6 +251,38 @@ namespace SpaceJellyMONO
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             base.Draw(gameTime);
+            if (switcher)
+            {
+                
+                if (player.State == MediaState.Stopped)
+                {
+                    player.Play(video);
+                }
+                if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                {
+                    player.Play(video2);
+                }
+
+                Texture2D videoTexture = null;
+
+                if (player.State != MediaState.Stopped)
+                {
+                    videoTexture = player.GetTexture();
+                }
+
+                if (videoTexture != null )
+                {
+                    spriteBatch.Begin();
+                    spriteBatch.Draw(videoTexture, new Rectangle(50, 200, 400, 250), Color.White);
+                    spriteBatch.End();
+                }
+            }
+            else
+            {
+                player.Stop();
+                player2.Stop();
+            }
+            
         }
     }
 
