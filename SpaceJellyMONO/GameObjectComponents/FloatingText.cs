@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace SpaceJellyMONO.GameObjectComponents
 {
-    class FloatingText : DrawableGameComponent
+    public class FloatingText : DrawableGameComponent
     {
         private SpriteFont font;
         private SpriteBatch spriteBatch;
         Game1 game;
         Vector2 position;
-        Transform transform;
-        String tekst;
+        public Transform transform;
+        public String tekst;
 
         public FloatingText(Game1 game, Transform transform, String tekst) : base(game)
         {
@@ -33,7 +33,7 @@ namespace SpaceJellyMONO.GameObjectComponents
             Vector3 tmp = game.GraphicsDevice.Viewport.Project(Vector3.Zero, game.camera.Projection, game.camera.View, Matrix.CreateTranslation(transform.translation));
             position.X = (int)tmp.X - 100;
             position.Y = (int)tmp.Y - 100;
-            spriteBatch.DrawString(font, tekst, position, Color.Red);
+            spriteBatch.DrawString(font, tekst, position, Color.Blue);
             spriteBatch.End();
 
         }

@@ -15,6 +15,7 @@ namespace SpaceJellyMONO.ResourcesGathering
         const float TIMER = 10;
         int numberOfWaterPumps = 0;
         FloatingText floatingText;
+        GameObject temp = null;
         public WaterGathering(Game1 game) : base(game)
         {
             this.game = game;
@@ -28,6 +29,7 @@ namespace SpaceJellyMONO.ResourcesGathering
                 if (go.GameTag == "waterpump")
                 {
                     counter++;
+                    temp = go;
                 }
             }
             return counter;
@@ -43,11 +45,16 @@ namespace SpaceJellyMONO.ResourcesGathering
                 numberOfWaterPumps = countWaterPumps();
                 if (numberOfWaterPumps != 0)
                 {
+                    game.floatingText.transform = temp.transform;
+                    game.floatingText.tekst = "+3";
                     game.resourcesStatistics.waterStats += 3 * numberOfWaterPumps;
                 }
                 timer = TIMER;   //Reset Timer
+                
             }
-            
+            if (timer < 8)
+                game.floatingText.tekst = "";
+
 
         }
     }

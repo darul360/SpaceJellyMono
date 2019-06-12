@@ -46,6 +46,7 @@ namespace SpaceJellyMONO
         KeyboardState lastKeyboardState = new KeyboardState();
         VideoPlayer player,player2;
         Video video,video2;
+        public FloatingText floatingText;
         //sound
 
         public Game1()
@@ -102,6 +103,8 @@ namespace SpaceJellyMONO
             player = new VideoPlayer();
             video2 = Content.Load<Video>("building2");
             player2 = new VideoPlayer();
+            floatingText = new FloatingText(this, platform.transform, "sample");
+            Components.Add(floatingText);
             base.Initialize();
         }
 
