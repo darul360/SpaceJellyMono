@@ -47,6 +47,7 @@
     <Compile Include="Collision\CirclePath.cs" />
     <Compile Include="FSM\Conditions\AnimationStateChanger.cs" />
     <Compile Include="FSM\States\Animate.cs" />
+    <Compile Include="GameObjectComponents\FloatingText.cs" />
     <Compile Include="GameObjectComponents\MovingController.cs" />
     <Compile Include="Repositories\PathCollidersRepository.cs" />
     <Compile Include="Repositories\PowderSourcesRepository.cs" />
