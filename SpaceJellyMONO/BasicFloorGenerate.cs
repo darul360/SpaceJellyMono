@@ -13,7 +13,6 @@ namespace SpaceJellyMONO
         private int fWidth, fHeight;
         private VertexBuffer floorBuffer;
         private GraphicsDevice device;
-        private Color[] floorColors = new Color[2] { Color.BlueViolet, Color.Brown };
 
         public BasicFloorGenerate(GraphicsDevice device,int width,int height)
         {
@@ -25,32 +24,30 @@ namespace SpaceJellyMONO
 
         public void BuildFloorBuffer()
         {
-            List<VertexPositionNormal> vertexPositionColors = new List<VertexPositionNormal>();
-            int counter = 0;
+            List<VertexPositionNormalTexture> vertexPositionNormalTexture = new List<VertexPositionNormalTexture>();
             for(int i = 0; i < fWidth; i++)
             {
                 for(int j = 0; j < fHeight; j++)
                 {
-                    counter++;
-                    foreach(VertexPositionNormal vertex in FloorTile(i, j))
+                    foreach(VertexPositionNormalTexture vertex in FloorTile(i, j, fWidth, fHeight))
                     {
-                        vertexPositionColors.Add(vertex);
+                        vertexPositionNormalTexture.Add(vertex);
                     }
                 }
             }
-            floorBuffer = new VertexBuffer(device, VertexPositionNormal.VertexDeclaration, vertexPositionColors.Count, BufferUsage.None);
-            floorBuffer.SetData(vertexPositionColors.ToArray());
+            floorBuffer = new VertexBuffer(device, VertexPositionNormalTexture.VertexDeclaration, vertexPositionNormalTexture.Count, BufferUsage.WriteOnly);
+            floorBuffer.SetData(vertexPositionNormalTexture.ToArray());
         }
 
-        private List<VertexPositionNormal> FloorTile(int xOffset,int zOffset)
+        private List<VertexPositionNormalTexture> FloorTile(int xOffset,int zOffset, int width, int height)
         {
-            List<VertexPositionNormal> vertices = new List<VertexPositionNormal>();
-            vertices.Add(new VertexPositionNormal(new Vector3(0 + xOffset, 0, 0 + zOffset), Vector3.Up));
-            vertices.Add(new VertexPositionNormal(new Vector3(1 + xOffset, 0, 0 + zOffset), Vector3.Up));
-            vertices.Add(new VertexPositionNormal(new Vector3(0 + xOffset, 0, 1 + zOffset), Vector3.Up));
-            vertices.Add(new VertexPositionNormal(new Vector3(1 + xOffset, 0, 0 + zOffset), Vector3.Up));
-            vertices.Add(new VertexPositionNormal(new Vector3(1 + xOffset, 0, 1 + zOffset), Vector3.Up));
-            vertices.Add(new VertexPositionNormal(new Vector3(0 + xOffset, 0, 1 + zOffset), Vector3.Up));
+            List<VertexPositionNormalTexture> vertices = new List<VertexPositionNormalTexture>();
+            vertices.Add(new VertexPositionNormalTexture(new Vector3(0 + xOffset, 0f, 0 + zOffset), Vector3.Up, new Vector2((0 + xOffset) * 1f/ width, (0 + zOffset) * 1f / height)));
+            vertices.Add(new VertexPositionNormalTexture(new Vector3(1 + xOffset, 0f, 0 + zOffset), Vector3.Up, new Vector2((1 + xOffset) * 1f / width, (0 + zOffset) * 1f/ height)));
+            vertices.Add(new VertexPositionNormalTexture(new Vector3(0 + xOffset, 0f, 1 + zOffset), Vector3.Up, new Vector2((0 + xOffset) * 1f / width, (1 + zOffset) * 1f/ height)));
+            vertices.Add(new VertexPositionNormalTexture(new Vector3(1 + xOffset, 0f, 0 + zOffset), Vector3.Up, new Vector2((1 + xOffset) * 1f / width, (0 + zOffset) * 1f/ height)));
+            vertices.Add(new VertexPositionNormalTexture(new Vector3(1 + xOffset, 0f, 1 + zOffset), Vector3.Up, new Vector2((1 + xOffset) * 1f / width, (1 + zOffset) * 1f/ height)));
+            vertices.Add(new VertexPositionNormalTexture(new Vector3(0 + xOffset, 0f, 1 + zOffset), Vector3.Up, new Vector2((0 + xOffset) * 1f / width, (1 + zOffset) * 1f/ height)));
             return vertices;
         }
 

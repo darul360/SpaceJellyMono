@@ -5,63 +5,66 @@ float3 xLightPos;
 float xLightPower;
 float xAmbient;
 
-Texture xShadowMap;
-sampler ShadowMapSampler = sampler_state { texture = <xShadowMap> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; AddressU = clamp; AddressV = clamp;};
- 
- float DotProduct(float3 lightPos, float3 pos3D, float3 normal)
-{
-    float3 lightDir = normalize(pos3D - lightPos);
-    return dot(-lightDir, normal);    
-}
+Texture2D xShadowMap;
+sampler2D ShadowMapSampler = sampler_state { texture = <xShadowMap> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; AddressU = mirror; AddressV = mirror;};
+
+Texture2D xTexture;
+sampler2D TextureSampler = sampler_state { texture = <xTexture> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; AddressU = clamp; AddressV = clamp;};
 
 struct SSceneVertexToPixel
 {
-    float4 Position             : POSITION;
-    float4 Pos2DAsSeenByLight    : TEXCOORD0;
-
-     float3 Normal                : TEXCOORD2;
-     float4 Position3D            : TEXCOORD3;
+    float4 Position              : SV_POSITION;
+	float2 Tex					 : TEXCOORD0;
+    float4 Pos2DAsSeenByLight    : POSITION1;
+	float4 Position3D            : POSITION2;
+    float3 Normal                : NORMAL;
 
 };
 
- SSceneVertexToPixel ShadowedSceneVertexShader( float4 inPos : POSITION, float3 inNormal : NORMAL)
+ SSceneVertexToPixel ShadowedSceneVertexShader( float3 inPos : SV_POSITION, float3 inNormal : NORMAL, float2 inTex : TEXCOORD)
  {
      SSceneVertexToPixel Output = (SSceneVertexToPixel)0;
  
-     Output.Position = mul(inPos, xWorldViewProjection);    
-     Output.Pos2DAsSeenByLight = mul(inPos, xLightsWorldViewProjection);    
+	 float4 inPos4 = float4(inPos, 1);
+     Output.Position = mul(inPos4, xWorldViewProjection);    
+     Output.Pos2DAsSeenByLight = mul(inPos4, xLightsWorldViewProjection);    
      Output.Normal = normalize(mul(inNormal, (float3x3)xWorld));    
-     Output.Position3D = mul(inPos, xWorld);  
+     Output.Position3D = mul(inPos4, xWorld);
+	 Output.Tex = inTex;
  
      return Output;
  }
  
 float4 ShadowedScenePixelShader(SSceneVertexToPixel PSIn) : COLOR0
  {
-     float4 color = 0; 
- 
+     float4 color = 0;
+	 
      float2 ProjectedTexCoords;
-     ProjectedTexCoords[0] = PSIn.Pos2DAsSeenByLight.x/PSIn.Pos2DAsSeenByLight.w/2.0f +0.5f;
-     ProjectedTexCoords[1] = -PSIn.Pos2DAsSeenByLight.y/PSIn.Pos2DAsSeenByLight.w/2.0f +0.5f;
+     ProjectedTexCoords.x = PSIn.Pos2DAsSeenByLight.x/PSIn.Pos2DAsSeenByLight.w/2.0f +0.5f;
+     ProjectedTexCoords.y = -PSIn.Pos2DAsSeenByLight.y/PSIn.Pos2DAsSeenByLight.w/2.0f +0.5f;
      
-     float diffuseLightingFactor = 0;
+	 float diffuseLightingFactor = 0;
+	 
      if ((saturate(ProjectedTexCoords).x == ProjectedTexCoords.x) && (saturate(ProjectedTexCoords).y == ProjectedTexCoords.y))
      {
-         float depthStoredInShadowMap = tex2D(ShadowMapSampler, ProjectedTexCoords).r;
-         float realDistance = PSIn.Pos2DAsSeenByLight.z/PSIn.Pos2DAsSeenByLight.w;
-         if ((realDistance - 1.0f/100.0f) <= depthStoredInShadowMap)
+        float depthStoredInShadowMap = tex2D(ShadowMapSampler, ProjectedTexCoords).r;
+        float realDistance = PSIn.Pos2DAsSeenByLight.z/PSIn.Pos2DAsSeenByLight.w;
+		
+		float3 lightDir = normalize(PSIn.Position3D.xyz - xLightPos);
+		diffuseLightingFactor = dot(-lightDir, PSIn.Normal);
+		diffuseLightingFactor = saturate(diffuseLightingFactor);
+		diffuseLightingFactor *= xLightPower;
+		 
+         if ((realDistance - 0.01f) > depthStoredInShadowMap)
          {
-             diffuseLightingFactor = DotProduct(xLightPos, PSIn.Position3D, PSIn.Normal);
-             diffuseLightingFactor = saturate(diffuseLightingFactor);
-             diffuseLightingFactor *= xLightPower;            
+			diffuseLightingFactor = 0;
          }
      }
-     float4 baseColor = float4(20,20,20,1);                
-     color = baseColor*(diffuseLightingFactor + xAmbient);
+	              
+     color = tex2D(TextureSampler, PSIn.Tex) * (diffuseLightingFactor + xAmbient);
  
      return color;
  }
-
 
 technique ShadowedScene
 {

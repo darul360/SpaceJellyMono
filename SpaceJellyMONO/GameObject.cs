@@ -24,6 +24,7 @@ namespace SpaceJellyMONO
         private bool isMovingActive;
         public bool isObjectSelected = false;
         public float scale;
+        public bool IsVisible { get; set; }
 
         public FinateStateMachine finateSatemachine;
 
@@ -118,7 +119,7 @@ namespace SpaceJellyMONO
 
                         skinnedEffect.EnableDefaultLighting();
                         skinnedEffect.PreferPerPixelLighting = true;
-                        skinnedEffect.SpecularPower = 300f;
+                        skinnedEffect.SpecularPower = 100f;
                     }
                 }
                 mesh.Draw();
@@ -142,8 +143,6 @@ namespace SpaceJellyMONO
                 {
                     meshPart.Effect = currentEffect;
                 }
-
-
             }
         }
         public void StartAnimationClip(string clipName, int tempFrames, bool toggleRepeat)

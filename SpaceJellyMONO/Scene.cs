@@ -12,6 +12,8 @@ namespace SpaceJellyMONO
 
         public Transform RootTransform { get { return rootTransform; } }
 
+        public BasicFloorGenerate Floor { get; set; }
+
         private Dictionary<string, GameObject> sceneObjects;
         public Dictionary<string, GameObject> SceneObjects { get { return sceneObjects; }}
         public void AddSceneObject(string objectId, GameObject objectToAdd)

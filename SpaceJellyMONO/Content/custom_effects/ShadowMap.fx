@@ -5,21 +5,18 @@ cbuffer MatrixBuffer
     matrix projectionMatrix;
 };
 
-struct VertexShaderInput
-{
-    float4 Position : POSITION0;
-};
-
 struct VertexShaderOutput
 {
     float4 Position : POSITION0;
 	float2 Position2D    : TEXCOORD0;
 };
 
-VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
+VertexShaderOutput VertexShaderFunction(float3 InPos : SV_POSITION)
 {
     VertexShaderOutput output = (VertexShaderOutput)0;
-    float4 worldPosition = mul(input.Position, worldMatrix);
+	
+	float4 InPos4 = float4(InPos, 1);
+    float4 worldPosition = mul(InPos4, worldMatrix);
     float4 viewPosition = mul(worldPosition, viewMatrix);
     output.Position = mul(viewPosition, projectionMatrix);
 	output.Position2D = output.Position.zw;

@@ -44,10 +44,11 @@ namespace SpaceJellyMONO
 
             /*-----MODELE-----*/
             scene = new Scene(new Transform(new Vector3(0f, 0f, 0f), 0f, 0f, 0f, 1f));
+            scene.Floor = basicFloor;
 
             Components.Add(new Selector(this));
 
-            Components.Add(new RenderEngine(this, camera, basicFloor));
+            Components.Add(new RenderEngine(this, camera));
 
             base.Initialize();
         }
@@ -66,7 +67,8 @@ namespace SpaceJellyMONO
                 .AddTransion(right, left, new TrueAfter100Frames().ChangeState)
                 .Build();
 
-            scene.AddSceneObject("zarlok_001", new GameObject("zarlok_poprawiony", camera, this, new Vector3(10f, 0f, 10f), 0f, 3.14f, 0f, 0.05f, false));
+            scene.AddSceneObject("zarlok_001", new GameObject("zarlok_poprawiony", camera, this, new Vector3(10f, 0.2f, 10f), 0f, 3.14f, 0f, 0.05f, false));
+            scene.AddSceneObject("galaretka_001", new GameObject("jelly2", camera, this, new Vector3(10f, 0f, 8f), -1.57f, 0f, 0f, 0.2f, false));
 
             scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
         }
