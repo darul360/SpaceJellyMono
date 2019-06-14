@@ -30,7 +30,7 @@ namespace SpaceJellyMONO
         public override void Draw(GameTime gameTime)
         {
             shadowMapRenderer.RenderShadowMap(SceneToRender);
-            RenderScene();
+            RenderScene(gameTime);
             //RenderHUD();
             //RenderCursor();
         }
@@ -56,7 +56,7 @@ namespace SpaceJellyMONO
             //Shadow Map Renderer Setup
             shadowMapRenderer = new SMRenderer(Game, 4096, 3112);
 
-            Vector3 lightsPosition = new Vector3(8f, 10f, 8f);
+            Vector3 lightsPosition = new Vector3(0f, 3f, 0f);
             Matrix lightsViewMatrix = Matrix.CreateLookAt(lightsPosition, new Vector3(10f, 0f, 10f), Vector3.Up);
             Matrix lightsProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, 4f/3 , 5f, 100f);
 

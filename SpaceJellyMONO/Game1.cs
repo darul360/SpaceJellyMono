@@ -60,8 +60,8 @@ namespace SpaceJellyMONO
             gameObjectsRepository = new GameObjectsRepository();
             powderSourcesRepository = new PowderSourcesRepository();
             selectedObjectsRepository = new SelectedObjectsRepository();
-            gridW = 100;
-            gridH = 100;
+            gridW = 20;
+            gridH = 20;
             findPath = new FindPath(gridW, gridH);
             resourcesStatistics = new ResourcesStatistics(this);
 
@@ -77,7 +77,7 @@ namespace SpaceJellyMONO
             effect = new BasicEffect(GraphicsDevice);
 
             /*-----MODELE-----*/
-            scene = new Scene(camera, new Transform(new Vector3(0f, 0f, 0f), 0f, 0f, 0f, 1f));
+            scene = new Scene(new Transform(new Vector3(0f, 0f, 0f), 0f, 0f, 0f, 1f));
             basicFloorGenerate = new BasicFloorGenerate(GraphicsDevice, gridW, gridH, spriteBatch, this);
 			scene.Floor = basicFloorGenerate;
 			
@@ -99,14 +99,14 @@ namespace SpaceJellyMONO
             platform = new GameObject("yellowChangePlatform", this, new Vector3(23, 0, 7), -1.57f, 0, 0, 0.05f, false, "platform", 2); 
             Components.Add(new ChangeToWarrior(this, platform));
             Components.Add(new MovingController(this));
-            Components.Add(writeStats);
-            Components.Add(new ShowInfoAboutBuilding(this));
+            //Components.Add(writeStats);
+           // Components.Add(new ShowInfoAboutBuilding(this));
             video = Content.Load<Video>("building");
             player = new VideoPlayer();
             video2 = Content.Load<Video>("building2");
             player2 = new VideoPlayer();
-            floatingText = new FloatingText(this, platform.transform, "sample");
-            Components.Add(floatingText);
+            //floatingText = new FloatingText(this, platform.transform, "sample");
+           // Components.Add(floatingText);
             base.Initialize();
         }
 
@@ -129,8 +129,8 @@ namespace SpaceJellyMONO
                 .AddState(new Animate("Take 001", 20, true))
                 .Build();
 
-             flr= new GameObject("floor", this, new Vector3(50, 0, 50), -1.57f, 0, 0, 1f, false, "floor",0.9f);
-            scene.AddSceneObject("podloga",flr );
+           //  flr= new GameObject("floor", this, new Vector3(50, 0, 50), -1.57f, 0, 0, 1f, false, "floor",0.9f);
+           // scene.AddSceneObject("podloga",flr );
 
 
             State JellyJumping = new Animate("jumping", 20, true);

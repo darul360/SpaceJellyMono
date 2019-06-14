@@ -121,12 +121,32 @@ namespace SpaceJellyMONO
                         skinnedEffect.SpecularPower = 300f;
                     }
                 }
-                collider.DrawCollider();
+                //collider.DrawCollider();
                 modelMesh.Draw();
             }
 
         }
-		public void Draw(Matrix view, Matrix projection)
+
+        public void Draw(Effect effect)
+        {
+            foreach (ModelMesh mesh in model.Meshes)
+            {
+                Effect currentEffect = null;
+                foreach (ModelMeshPart meshPart in mesh.MeshParts)
+                {
+                    currentEffect = meshPart.Effect;
+                    meshPart.Effect = effect;
+                }
+
+                mesh.Draw();
+
+                foreach (ModelMeshPart meshPart in mesh.MeshParts)
+                {
+                    meshPart.Effect = currentEffect;
+                }
+            }
+        }
+        public void Draw(Matrix view, Matrix projection)
         {
             foreach (ModelMesh mesh in model.Meshes)
             {
@@ -154,7 +174,7 @@ namespace SpaceJellyMONO
                     }
                 }
                 mesh.Draw();
-                collider.DrawCollider();
+               // collider.DrawCollider();
             }
         }
 
