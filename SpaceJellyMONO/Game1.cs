@@ -79,6 +79,8 @@ namespace SpaceJellyMONO
             /*-----MODELE-----*/
             scene = new Scene(camera, new Transform(new Vector3(0f, 0f, 0f), 0f, 0f, 0f, 1f));
             basicFloorGenerate = new BasicFloorGenerate(GraphicsDevice, gridW, gridH, spriteBatch, this);
+			scene.Floor = basicFloorGenerate;
+			
             clickCooridantes = new ClickCooridantes(this);
             continueBuilding = new ContinueBuilding(this);
             writeStats = new WriteStats(this);
@@ -88,7 +90,7 @@ namespace SpaceJellyMONO
             Components.Add(new GenerateWorker(this));
             Components.Add(new RemoveDeadUnits(this));
             Components.Add(new Selector(this));
-            Components.Add(new RenderEngine(this));
+            Components.Add(new RenderEngine(this, camera));
             Components.Add(new BaseBuildingBuilder(this));
             Components.Add(new WaterGathering(this));
             Components.Add(new DrawPowderSources(this, 30));

@@ -1,4 +1,3 @@
-
 #----------------------------- Global Properties ----------------------------#
 
 /outputDir:bin/$(Platform)
@@ -13,6 +12,24 @@
 /reference:References\SkinnedModelProcessor.dll
 
 #---------------------------------- Content ---------------------------------#
+
+#begin custom_effects/Projection.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:custom_effects/Projection.fx
+
+#begin custom_effects/Shadowed.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:custom_effects/Shadowed.fx
+
+#begin custom_effects/ShadowMap.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:custom_effects/ShadowMap.fx
 
 #begin baseWARNING.png
 /importer:TextureImporter
@@ -449,3 +466,26 @@
 /processorParam:TextureFormat=Compressed
 /build:zarlok_poprawiony.fbx
 
+#begin PancakeTexture.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:PancakeTexture.jpg
+
+#begin SelectionCircleAlpha.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SelectionCircleAlpha.png

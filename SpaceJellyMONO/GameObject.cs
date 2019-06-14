@@ -14,6 +14,7 @@ namespace SpaceJellyMONO
         public Model model;
         public Transform transform;
         public Transform parentTransform;
+		public Transform ParentTransform { set { parentTransform = value; } }
 
         public Matrix WorldTransform => parentTransform.World() * transform.World();
 
@@ -125,6 +126,37 @@ namespace SpaceJellyMONO
             }
 
         }
+		public void Draw(Matrix view, Matrix projection)
+        {
+            foreach (ModelMesh mesh in model.Meshes)
+            {
+                foreach (Effect effect in mesh.Effects)
+                {
+                    if (effect is BasicEffect)
+                    {
+                        BasicEffect basicEffect = (BasicEffect)effect;
+                        basicEffect.World = WorldTransform;
+                        basicEffect.View = view;
+                        basicEffect.Projection = projection;
+                        basicEffect.EnableDefaultLighting();
+                        basicEffect.PreferPerPixelLighting = true;
+                    }
+                    if (effect is SkinnedEffect)
+                    {
+                        SkinnedEffect skinnedEffect = (SkinnedEffect)effect;
+                        skinnedEffect.SetBoneTransforms(skinnedAnimationPlayer.GetSkinTransforms());
+                        skinnedEffect.View = view;
+                        skinnedEffect.Projection = projection;
+
+                        skinnedEffect.EnableDefaultLighting();
+                        skinnedEffect.PreferPerPixelLighting = true;
+                        skinnedEffect.SpecularPower = 100f;
+                    }
+                }
+                mesh.Draw();
+                collider.DrawCollider();
+            }
+        }
 
         public void StartAnimationClip(string clipName, int tempFrames, bool toggleRepeat)
         {
@@ -152,4 +184,3 @@ namespace SpaceJellyMONO
         virtual public float GetHp() { return 0; }
     }
 }
-
