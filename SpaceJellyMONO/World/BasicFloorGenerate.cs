@@ -43,38 +43,33 @@ namespace SpaceJellyMONO
             }
             BuildFloorBuffer();
         }
-
         public void BuildFloorBuffer()
         {
-            List<VertexPositionColor> vertexPositionColors = new List<VertexPositionColor>();
-            int counter = 0;
-
-            for (int i = 0; i < fHeight; i++)
+            List<VertexPositionNormalTexture> vertexPositionNormalTexture = new List<VertexPositionNormalTexture>();
+            for(int i = 0; i < fWidth; i++)
             {
-                for (int j = 0; j < fWidth; j++)
+                for(int j = 0; j < fHeight; j++)
                 {
-                    PathCollidersRepository.cylinders[i, j] = new CirclePath(null, 0.5f, new Vector3(i, 0, j));
-                    counter++;
-                    foreach (VertexPositionColor vertex in FloorTile(i, j, floorColors[counter % 2]))
+					PathCollidersRepository.cylinders[i, j] = new CirclePath(null, 0.5f, new Vector3(i, 0, j));
+                    foreach(VertexPositionNormalTexture vertex in FloorTile(i, j, fWidth, fHeight))
                     {
-                        vertexPositionColors.Add(vertex);
+                        vertexPositionNormalTexture.Add(vertex);
                     }
-                    //cylinders[i, j] = new CylinderPrimitive(device, 0.5f, 0.2f, 20);
                 }
             }
-            floorBuffer = new VertexBuffer(device, VertexPositionColor.VertexDeclaration, vertexPositionColors.Count, BufferUsage.None);
-            floorBuffer.SetData<VertexPositionColor>(vertexPositionColors.ToArray());
+            floorBuffer = new VertexBuffer(device, VertexPositionNormalTexture.VertexDeclaration, vertexPositionNormalTexture.Count, BufferUsage.WriteOnly);
+            floorBuffer.SetData(vertexPositionNormalTexture.ToArray());
         }
 
-        private List<VertexPositionColor> FloorTile(int xOffset, int zOffset, Color tileColor)
+        private List<VertexPositionNormalTexture> FloorTile(int xOffset,int zOffset, int width, int height)
         {
-            List<VertexPositionColor> vertices = new List<VertexPositionColor>();
-            vertices.Add(new VertexPositionColor(new Vector3(0 + xOffset, 0, 0 + zOffset), tileColor));
-            vertices.Add(new VertexPositionColor(new Vector3(1 + xOffset, 0, 0 + zOffset), tileColor));
-            vertices.Add(new VertexPositionColor(new Vector3(0 + xOffset, 0, 1 + zOffset), tileColor));
-            vertices.Add(new VertexPositionColor(new Vector3(1 + xOffset, 0, 0 + zOffset), tileColor));
-            vertices.Add(new VertexPositionColor(new Vector3(1 + xOffset, 0, 1 + zOffset), tileColor));
-            vertices.Add(new VertexPositionColor(new Vector3(0 + xOffset, 0, 1 + zOffset), tileColor));
+            List<VertexPositionNormalTexture> vertices = new List<VertexPositionNormalTexture>();
+            vertices.Add(new VertexPositionNormalTexture(new Vector3(0 + xOffset, 0f, 0 + zOffset), Vector3.Up, new Vector2((0 + xOffset) * 1f/ width, (0 + zOffset) * 1f / height)));
+            vertices.Add(new VertexPositionNormalTexture(new Vector3(1 + xOffset, 0f, 0 + zOffset), Vector3.Up, new Vector2((1 + xOffset) * 1f / width, (0 + zOffset) * 1f/ height)));
+            vertices.Add(new VertexPositionNormalTexture(new Vector3(0 + xOffset, 0f, 1 + zOffset), Vector3.Up, new Vector2((0 + xOffset) * 1f / width, (1 + zOffset) * 1f/ height)));
+            vertices.Add(new VertexPositionNormalTexture(new Vector3(1 + xOffset, 0f, 0 + zOffset), Vector3.Up, new Vector2((1 + xOffset) * 1f / width, (0 + zOffset) * 1f/ height)));
+            vertices.Add(new VertexPositionNormalTexture(new Vector3(1 + xOffset, 0f, 1 + zOffset), Vector3.Up, new Vector2((1 + xOffset) * 1f / width, (1 + zOffset) * 1f/ height)));
+            vertices.Add(new VertexPositionNormalTexture(new Vector3(0 + xOffset, 0f, 1 + zOffset), Vector3.Up, new Vector2((0 + xOffset) * 1f / width, (1 + zOffset) * 1f/ height)));
             return vertices;
         }
 
@@ -137,6 +132,16 @@ namespace SpaceJellyMONO
 
             
 
+        }
+		public void Draw(Effect effect)
+        {
+            foreach (EffectPass pass in effect?.CurrentTechnique.Passes)
+            {
+                pass.Apply();
+                device.SetVertexBuffer(floorBuffer);
+                device.DrawPrimitives(PrimitiveType.TriangleList, 0, floorBuffer.VertexCount / 3);
+
+            }
         }
     }
     
