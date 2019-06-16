@@ -81,10 +81,14 @@ namespace SpaceJellyMONO
             foreach (GameObject model in game.gameObjectsRepository.getRepo())
             {
                 model.isObjectSelected = false;
-                model.isMoving = false;
+                if (!model.isMoving)
+                {
+                    if (model.mainClass.selectedObjectsRepository.getRepo().Contains(model))
+                        model.mainClass.selectedObjectsRepository.getRepo().Remove(model);
+                }
             }
-            if(game.selectedObjectsRepository.getRepo().Count != 0)
-                game.selectedObjectsRepository.ClearAll();
+            
+            
         }
 
 
@@ -139,7 +143,7 @@ namespace SpaceJellyMONO
             if ((start.X > end.X && start.Z < end.Z) || (start.X < end.X && start.Z > end.Z))
             {
 
-                verticies[0].Position = new Vector3(start.X, 0.3f, start.Z);
+                verticies[0].Position = new Vector3(start.X, 0.1f, start.Z);
                 verticies[1].Position = new Vector3(start.X, 0.1f, end.Z);
                 verticies[2].Position = new Vector3(end.X, 0.1f, start.Z);
                 verticies[3].Position = new Vector3(start.X, 0.1f, end.Z);

@@ -20,7 +20,6 @@ namespace SpaceJellyMONO.PathFinding
             this.widht = width;
             this.height = height;
             grid = new Grid(width, height, 1.0f);
-            setBlockCell(5,5);
         }
 
         public void setBlockCell(int x, int y)

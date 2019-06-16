@@ -48,6 +48,7 @@ namespace SpaceJellyMONO
         Video video,video2;
         public FloatingText floatingText;
         public FinateStateMachine aniamteZarlok;
+        public FinateStateMachine animateJelly;
         //sound
 
         public Game1()
@@ -55,7 +56,7 @@ namespace SpaceJellyMONO
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.IsFullScreen = false;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferHeight = 1020;
             graphics.PreferredBackBufferWidth = 1920;
             IsMouseVisible = true;
             gameObjectsRepository = new GameObjectsRepository();
@@ -134,10 +135,10 @@ namespace SpaceJellyMONO
             scene.AddSceneObject("podloga",flr );
 
 
-            State JellyJumping = new Animate("jumping", 20, true);
-            State JellyMelting = new Animate("melting", 20, true);
-            State JellyWaitng = new Animate("waiting", 20, true);
-            FinateStateMachine aniamteJelly = new FinateStateMachineBuilder()
+            State JellyJumping = new Animate("1", 20, true);
+            State JellyMelting = new Animate("2", 20, true);
+            State JellyWaitng = new Animate("3", 20, true);
+            animateJelly = new FinateStateMachineBuilder()
                 .AddState(JellyJumping)
                 .AddState(JellyWaitng)
                 .AddState(JellyMelting)
@@ -154,45 +155,27 @@ namespace SpaceJellyMONO
             //    finateSatemachine = move
             //};
 
-            Texture2D jellyTexture = Content.Load<Texture2D>("jelly_texture"); //wczytanie nowej teksury z Content Manager'a
+            //Texture2D jellyTexture = Content.Load<Texture2D>("jelly_texture"); //wczytanie nowej teksury z Content Manager'a
             //scene.AddSceneObject("galaretka_001", jelly1);
             //scene.AddSceneObject("galaretka_003", new Jelly("jumping", this, new Vector3(8f, 0, 8f), 0f, 0f, 0f, 0.01f, true, "worker") {finateSatemachine = aniamteJelly });
 
             
 
-            scene.AddSceneObject("galaretka_003", new Jelly("jellyy", this, new Vector3(6f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker",0.6f) { finateSatemachine = aniamteJelly });
-            foreach (ModelMesh mesh in scene.SceneObjects["galaretka_003"].model.Meshes)
-            {
-                foreach (Effect effect in mesh.Effects)
-                {
-                    SkinnedEffect skinnedEffect = effect as SkinnedEffect;
-                    if (skinnedEffect != null)
-                        skinnedEffect.Texture = jellyTexture;
-                }
-            } //Ustawiam teksture recznie wewnatrz efektu.
-            scene.AddSceneObject("galaretka_004", new Jelly("jellyy", this, new Vector3(10f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker", 0.6f) { finateSatemachine = aniamteJelly });
-            foreach (ModelMesh mesh in scene.SceneObjects["galaretka_004"].model.Meshes)
-            {
-                foreach (Effect effect in mesh.Effects)
-                {
-                    SkinnedEffect skinnedEffect = effect as SkinnedEffect;
-                    if (skinnedEffect != null)
-                        skinnedEffect.Texture = jellyTexture;
-                }
-            } //Ustawiam teksture recznie wewnatrz efektu.
-            scene.AddSceneObject("galaretka_005", new Jelly("jellyy", this, new Vector3(14f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker", 0.6f) { finateSatemachine = aniamteJelly });
-            foreach (ModelMesh mesh in scene.SceneObjects["galaretka_005"].model.Meshes)
-            {
-                foreach (Effect effect in mesh.Effects)
-                {
-                    SkinnedEffect skinnedEffect = effect as SkinnedEffect;
-                    if (skinnedEffect != null)
-                        skinnedEffect.Texture = jellyTexture;
-                }
-            } //Ustawiam teksture recznie wewnatrz efektu.
+            scene.AddSceneObject("galaretka_003", new Jelly("jelly_yellow_13_ascii", this, new Vector3(6f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker",0.6f) { finateSatemachine = animateJelly });
+            scene.AddSceneObject("galaretka_004", new Jelly("jelly_yellow_13_ascii", this, new Vector3(10f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker", 0.6f) { finateSatemachine = animateJelly });
+            scene.AddSceneObject("galaretka_005", new Jelly("jelly_yellow_13_ascii", this, new Vector3(14f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker", 0.6f) { finateSatemachine = animateJelly });
+            //foreach (ModelMesh mesh in scene.SceneObjects["galaretka_005"].model.Meshes)
+            //{
+            //    foreach (Effect effect in mesh.Effects)
+            //    {
+            //        SkinnedEffect skinnedEffect = effect as SkinnedEffect;
+            //        if (skinnedEffect != null)
+            //            skinnedEffect.Texture = jellyTexture;
+            //    }
+            //} //Ustawiam teksture recznie wewnatrz efektu.
 
 
-            scene.AddSceneObject("galaretka_007", new Warrior("Jelly2", this, new Vector3(4f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "warrior", 0.6f));
+            scene.AddSceneObject("galaretka_007", new Warrior("jelly_yellow_13_ascii", this, new Vector3(4f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "warrior", 0.6f){ finateSatemachine = animateJelly });
             scene.AddSceneObject("baza_001", new GameObject("baza", this, new Vector3(15, 0, 15), -1.57f, 0, 0, 0.005f, false, "baza",0.005f*0.9f));          
             scene.AddSceneObject("yellowPlatform", platform);
             scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);

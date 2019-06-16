@@ -47,23 +47,23 @@ namespace SpaceJellyMONO
                 game1.scene.SceneObjects["zarlokS" + i].StartAnimationClip("Take 001", 20, true);
                 i++;
 
-                go4 = new Enemy("zarlok_poprawiony", game1, new Vector3(87, 0, 11f), 0f, 3.14f, 0f, 0.05f, true, "enemy", 0.5f * 0.9f);
-                game1.scene.AddSceneObject("zarlokS" + i,go4);
-                go4.finateSatemachine = game1.aniamteZarlok;
-                game1.scene.SceneObjects["zarlokS" + i].StartAnimationClip("Take 001", 20, true);
-                i++;
+                //go4 = new Enemy("zarlok_poprawiony", game1, new Vector3(87, 0, 11f), 0f, 3.14f, 0f, 0.05f, true, "enemy", 0.5f * 0.9f);
+                //game1.scene.AddSceneObject("zarlokS" + i,go4);
+                //go4.finateSatemachine = game1.aniamteZarlok;
+                //game1.scene.SceneObjects["zarlokS" + i].StartAnimationClip("Take 001", 20, true);
+                //i++;
 
-                go5 = new Enemy("zarlok_poprawiony", game1, new Vector3(87, 0, 10f), 0f, 3.14f, 0f, 0.05f, true, "enemy", 0.5f * 0.9f);
-                game1.scene.AddSceneObject("zarlokS" + i,go5);
-                go5.finateSatemachine = game1.aniamteZarlok;
-                game1.scene.SceneObjects["zarlokS" + i].StartAnimationClip("Take 001", 20, true);
-                i++;
+                //go5 = new Enemy("zarlok_poprawiony", game1, new Vector3(87, 0, 10f), 0f, 3.14f, 0f, 0.05f, true, "enemy", 0.5f * 0.9f);
+                //game1.scene.AddSceneObject("zarlokS" + i,go5);
+                //go5.finateSatemachine = game1.aniamteZarlok;
+                //game1.scene.SceneObjects["zarlokS" + i].StartAnimationClip("Take 001", 20, true);
+                //i++;
 
-                go6 = new Enemy("zarlok_poprawiony", game1, new Vector3(87, 0, 9f), 0f, 3.14f, 0f, 0.05f, true, "enemy", 0.5f * 0.9f);
-                game1.scene.AddSceneObject("zarlokS" + i,go6);
-                go6.finateSatemachine = game1.aniamteZarlok;
-                game1.scene.SceneObjects["zarlokS" + i].StartAnimationClip("Take 001", 20, true);
-                i++;
+                //go6 = new Enemy("zarlok_poprawiony", game1, new Vector3(87, 0, 9f), 0f, 3.14f, 0f, 0.05f, true, "enemy", 0.5f * 0.9f);
+                //game1.scene.AddSceneObject("zarlokS" + i,go6);
+                //go6.finateSatemachine = game1.aniamteZarlok;
+                //game1.scene.SceneObjects["zarlokS" + i].StartAnimationClip("Take 001", 20, true);
+                //i++;
                 start = true;
                 timer = TIMER;  
 
@@ -87,15 +87,15 @@ namespace SpaceJellyMONO
                 go3.targetX = (int)15;
                 go3.targetY = (int)15;
                 go3.isMoving = true;
-                go4.targetX = (int)15;
-                go4.targetY = (int)15;
-                go4.isMoving = true;
-                go5.targetX = (int)15;
-                go5.targetY = (int)15;
-                go5.isMoving = true;
-                go6.targetX = (int)15;
-                go6.targetY = (int)15;
-                go6.isMoving = true;
+                //go4.targetX = (int)15;
+                //go4.targetY = (int)15;
+                //go4.isMoving = true;
+                //go5.targetX = (int)15;
+                //go5.targetY = (int)15;
+                //go5.isMoving = true;
+                //go6.targetX = (int)15;
+                //go6.targetY = (int)15;
+                //go6.isMoving = true;
             }
             base.Update(gameTime);
         }

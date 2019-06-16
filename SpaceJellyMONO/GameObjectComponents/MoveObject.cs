@@ -68,6 +68,8 @@ namespace SpaceJellyMONO
                 gameObject.isMoving = false;
                 gameObject.targetX = 0;
                 gameObject.targetY = 0;
+                if(!gameObject.isObjectSelected)
+                gameObject.mainClass.selectedObjectsRepository.getRepo().Remove(gameObject);
             }
             if (isFinalPointReached == false)
             {
@@ -119,7 +121,7 @@ namespace SpaceJellyMONO
                         collision = true;
                         //Debug.WriteLine(collision);
                         
-                            if (gameObject.GetType() == typeof(Warrior) || gameObject.GetType() == typeof(Enemy))
+                            if (gameObject.GetType() == typeof(Warrior) || gameObject.GetType() == typeof(Enemy) && gameObject.GetType() != temp.GetType())
                             if (timer < 0)
                             {
                                 temp.TakeDmg(gameObject.GetDmg());
