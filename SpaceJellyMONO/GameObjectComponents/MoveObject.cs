@@ -17,7 +17,7 @@ namespace SpaceJellyMONO
     public class MoveObject
     {
         private GameObject gameObject;
-        private float moveZ, moveX;
+        public float moveZ, moveX;
         private Transform transform;
         private bool isGameObjectMovable;
         Vector3 lastClickedPos = new Vector3(0, 0, 0);

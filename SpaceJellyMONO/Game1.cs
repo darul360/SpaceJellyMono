@@ -47,6 +47,7 @@ namespace SpaceJellyMONO
         VideoPlayer player,player2;
         Video video,video2;
         public FloatingText floatingText;
+        public FinateStateMachine aniamteZarlok;
         //sound
 
         public Game1()
@@ -99,12 +100,14 @@ namespace SpaceJellyMONO
             Components.Add(new MovingController(this));
             Components.Add(writeStats);
             Components.Add(new ShowInfoAboutBuilding(this));
+            Components.Add(new MoveEnemyToWarrior(this));
             video = Content.Load<Video>("building");
             player = new VideoPlayer();
             video2 = Content.Load<Video>("building2");
             player2 = new VideoPlayer();
             floatingText = new FloatingText(this, platform.transform, "sample");
             Components.Add(floatingText);
+            Components.Add(new SpawnEnemies(this));
             base.Initialize();
         }
 
@@ -123,7 +126,7 @@ namespace SpaceJellyMONO
             //    .AddTransion(right, left, new TrueAfter100Frames().ChangeState)
             //    .Build();
 
-            FinateStateMachine aniamteZarlok = new FinateStateMachineBuilder()
+            aniamteZarlok = new FinateStateMachineBuilder()
                 .AddState(new Animate("Take 001", 20, true))
                 .Build();
 

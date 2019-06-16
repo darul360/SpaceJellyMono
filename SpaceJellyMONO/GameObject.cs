@@ -68,8 +68,8 @@ namespace SpaceJellyMONO
         {
             if (isMoving && targetX != 0 && targetY != 0 && isGameObjectMovable)
             {
+                
                 moveObject.Move(deltatime, effect, targetX, targetY);
-                //Debug.WriteLine(targetX + " " + targetY);
             }
         }
         public override void Update(GameTime gameTime)
