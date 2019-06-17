@@ -11,7 +11,7 @@ namespace SpaceJellyMONO.UnitsFolder
 {
     class Spawn : Unit
     {
-        float hp = 1000;
+        float hp = 8000;
         float dmg = 0;
         //healthBar
         Texture2D healthTexture;
@@ -21,11 +21,11 @@ namespace SpaceJellyMONO.UnitsFolder
 
         public Spawn(string path, Game1 game1, Vector3 translation, float rotationAngleX, float rotationAngleY, float rotationAngleZ, float scale, bool isMovable, string tag, float colSize) : base(path, game1, translation, rotationAngleX, rotationAngleY, rotationAngleZ, scale, isMovable, tag, colSize)
         {
-            healthTexture = game1.exportContentManager().Load<Texture2D>("Red");
+            healthTexture = game1.exportContentManager().Load<Texture2D>("bluebar");
             spriteBatch = new SpriteBatch(game1.GraphicsDevice);
             Vector3 tmp = game1.GraphicsDevice.Viewport.Project(Vector3.Zero, game1.camera.Projection, game1.camera.View, Matrix.CreateTranslation(translation));
             //Debug.WriteLine(tmp);
-            helathRectangle = new Rectangle((int)tmp.X, (int)tmp.Y, (int)hp, 8);
+            helathRectangle = new Rectangle((int)tmp.X, (int)tmp.Y, (int)hp, 15);
             this.game1 = game1;
         }
 
@@ -52,8 +52,8 @@ namespace SpaceJellyMONO.UnitsFolder
             base.Draw(gameTime);
             Vector3 tmp = game1.GraphicsDevice.Viewport.Project(Vector3.Zero, game1.camera.Projection, game1.camera.View, Matrix.CreateTranslation(transform.translation));
             helathRectangle.X = (int)tmp.X - 50;
-            helathRectangle.Y = (int)tmp.Y - 50;
-            helathRectangle.Width = (int)hp / 20;
+            helathRectangle.Y = (int)tmp.Y -150;
+            helathRectangle.Width = (int)hp / 40;
             spriteBatch.Begin();
             spriteBatch.Draw(healthTexture, helathRectangle, Color.White);
             spriteBatch.End();

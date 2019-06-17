@@ -14,6 +14,7 @@ namespace SpaceJellyMONO
         Game1 game1;
         float timer = 15;
         const float TIMER = 15;
+        List<Vector2> tempNodes;
 
         int i;
         GameObject go1, go2, go3, go4, go5, go6;
@@ -22,6 +23,7 @@ namespace SpaceJellyMONO
         {
             this.game1 = game1;
             i = 0;
+            tempNodes = new List<Vector2>();
         }
         public override void Draw(GameTime gameTime)
         {
@@ -81,27 +83,60 @@ namespace SpaceJellyMONO
             float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             if (start)
             {
-
-                go1.targetX = (int)15;
-                go1.targetY = (int)15;
+                spiralSpread(16, 15, 3);
+                go1.targetX = (int)tempNodes[0].X;
+                go1.targetY = (int)tempNodes[0].Y;
                 go1.isMoving = true;
-                go2.targetX = (int)15;
-                go2.targetY = (int)15;
+                go2.targetX = (int)tempNodes[1].X;
+                go2.targetY = (int)tempNodes[1].Y;
                 go2.isMoving = true;
-                go3.targetX = (int)15;
-                go3.targetY = (int)15;
+                go3.targetX = (int)tempNodes[2].X;
+                go3.targetY = (int)tempNodes[2].Y;
                 go3.isMoving = true;
-                //go4.targetX = (int)15;
-                //go4.targetY = (int)15;
-                //go4.isMoving = true;
-                //go5.targetX = (int)15;
-                //go5.targetY = (int)15;
-                //go5.isMoving = true;
-                //go6.targetX = (int)15;
-                //go6.targetY = (int)15;
-                //go6.isMoving = true;
+                start = false;
+
             }
             base.Update(gameTime);
+        }
+
+        public void spiralSpread(int i, int j, int howManySelected)
+        {
+            tempNodes.Add(new Vector2(i, j));
+            // (di, dj) is a vector - direction in which we move right now
+            int di = 1;
+            int dj = 0;
+            // length of current segment
+            int segment_length = 1;
+
+            // current position (i, j) and how much of current segment we passed
+            //int i = 0;
+            //int j = 0;
+            int segment_passed = 0;
+            for (int k = 0; k < howManySelected; ++k)
+            {
+                // make a step, add 'direction' vector (di, dj) to current position (i, j)
+                i += di;
+                j += dj;
+                ++segment_passed;
+                tempNodes.Add(new Vector2(i, j));
+
+                if (segment_passed == segment_length)
+                {
+                    // done with current segment
+                    segment_passed = 0;
+
+                    // 'rotate' directions
+                    int buffer = di;
+                    di = -dj;
+                    dj = buffer;
+
+                    // increase segment length if necessary
+                    if (dj == 0)
+                    {
+                        ++segment_length;
+                    }
+                }
+            }
         }
     }
 }
