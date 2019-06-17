@@ -31,6 +31,7 @@ namespace SpaceJellyMONO
         public bool isMoving = false;
         public int targetX = 0, targetY = 0;
         public bool isFighting = false;
+        public bool isEnemyMovingFromSpawn = false;
 
         public FinateStateMachine finateSatemachine;
 

@@ -29,6 +29,8 @@ namespace SpaceJellyMONO
         bool pointNotReached = true;
         float timer = 1000f;
         const float TIMER = 1000;
+        float timer2 = 1;
+        const float TIMER2 = 1;
 
 
         public MoveObject(GameObject modelLoader, bool isMovingActive, float velocity)
@@ -60,8 +62,14 @@ namespace SpaceJellyMONO
                         unlockCells();
                         i++;
                     }
-
-                    Vector2 direction = route[i] - new Vector2(transform.Translation.X, transform.Translation.Z);
+                float elapsed2 = deltatime/1000;
+                timer2 -= elapsed2;
+                if (timer2 < 0)
+                {
+                    unlockCells();
+                    timer2 = TIMER2;
+                }
+                Vector2 direction = route[i] - new Vector2(transform.Translation.X, transform.Translation.Z);
                     direction.Normalize();
                     moveX = transform.Translation.X;
                     moveZ = transform.Translation.Z;

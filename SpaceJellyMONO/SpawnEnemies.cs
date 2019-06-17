@@ -52,7 +52,9 @@ namespace SpaceJellyMONO
                     go3.finateSatemachine = game1.aniamteZarlok;
                     game1.scene.SceneObjects["zarlokS" + i].StartAnimationClip("Take 001", 20, true);
                     i++;
-
+                    go1.isEnemyMovingFromSpawn = true;
+                    go2.isEnemyMovingFromSpawn = true;
+                    go3.isEnemyMovingFromSpawn = true;
                     //go4 = new Enemy("zarlok_poprawiony", game1, new Vector3(87, 0, 11f), 0f, 3.14f, 0f, 0.05f, true, "enemy", 0.5f * 0.9f);
                     //game1.scene.AddSceneObject("zarlokS" + i,go4);
                     //go4.finateSatemachine = game1.aniamteZarlok;
