@@ -56,31 +56,34 @@ namespace SpaceJellyMONO.World
                 }
             }
 
-            if (Vector3.Distance(clickPos, temp.transform.translation) < 1.0f)
+            if (temp != null)
             {
-              
-               // player.Stop();
-            }
-            if (Vector3.Distance(clickPos, temp2.transform.translation) < 1.0f)
-            {
-                spriteBatch.Begin();
-                spriteBatch.Draw(texture2, new Rectangle((int)clickPos.X, (int)clickPos.Z, 400, 250), Color.White);
-                spriteBatch.End();
-            }
-            if (temp3 != null)
-            if (Vector3.Distance(clickPos, temp3.transform.translation) < 1.0f)
-            {
-                spriteBatch.Begin();
-                spriteBatch.Draw(texture3, new Rectangle((int)clickPos.X, (int)clickPos.Z, 400, 250), Color.White);
-                spriteBatch.End();
-            }
-            if (temp4 != null)
-                if (Vector3.Distance(clickPos, temp4.transform.translation) < 1.0f)
+                if (Vector3.Distance(clickPos, temp.transform.translation) < 1.0f)
+                {
+
+                    // player.Stop();
+                }
+                if (Vector3.Distance(clickPos, temp2.transform.translation) < 1.0f)
                 {
                     spriteBatch.Begin();
-                    spriteBatch.Draw(texture4, new Rectangle((int)clickPos.X, (int)clickPos.Z, 400, 250), Color.White);
+                    spriteBatch.Draw(texture2, new Rectangle((int)clickPos.X, (int)clickPos.Z, 400, 250), Color.White);
                     spriteBatch.End();
                 }
+                if (temp3 != null)
+                    if (Vector3.Distance(clickPos, temp3.transform.translation) < 1.0f)
+                    {
+                        spriteBatch.Begin();
+                        spriteBatch.Draw(texture3, new Rectangle((int)clickPos.X, (int)clickPos.Z, 400, 250), Color.White);
+                        spriteBatch.End();
+                    }
+                if (temp4 != null)
+                    if (Vector3.Distance(clickPos, temp4.transform.translation) < 1.0f)
+                    {
+                        spriteBatch.Begin();
+                        spriteBatch.Draw(texture4, new Rectangle((int)clickPos.X, (int)clickPos.Z, 400, 250), Color.White);
+                        spriteBatch.End();
+                    }
+            }
             base.Draw(gameTime);
 
 

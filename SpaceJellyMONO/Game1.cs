@@ -49,6 +49,7 @@ namespace SpaceJellyMONO
         public FloatingText floatingText;
         public FinateStateMachine aniamteZarlok;
         public FinateStateMachine animateJelly;
+        public GameObject spawn;
         //sound
 
         public Game1()
@@ -117,8 +118,10 @@ namespace SpaceJellyMONO
 
             soundEffect = Content.Load<SoundEffect>("jellybounce");
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            State right = new MoveRigth();
-            State left = new MoveLeft();
+
+            #region commented
+            //State right = new MoveRigth();
+            //State left = new MoveLeft();
             //FinateStateMachine move =
             //    new FinateStateMachineBuilder()
             //    .AddState(right)
@@ -127,27 +130,9 @@ namespace SpaceJellyMONO
             //    .AddTransion(right, left, new TrueAfter100Frames().ChangeState)
             //    .Build();
 
-            aniamteZarlok = new FinateStateMachineBuilder()
-                .AddState(new Animate("Take 001", 20, true))
-                .Build();
-
-             flr= new GameObject("mountainTerrain", this, new Vector3(50, 0, 50), -1.57f, -1.5f, 0, 1f, false, "floor",0.9f);
-            scene.AddSceneObject("podloga",flr );
-
-
-            State JellyJumping = new Animate("1", 20, true);
-            State JellyMelting = new Animate("2", 20, true);
-            State JellyWaitng = new Animate("3", 20, true);
-            animateJelly = new FinateStateMachineBuilder()
-                .AddState(JellyJumping)
-                .AddState(JellyWaitng)
-                .AddState(JellyMelting)
-                .AddTransion(JellyWaitng, JellyJumping, new AnimationStateChanger().ChangeState)
-                .AddTransion(JellyJumping, JellyWaitng, new AnimationStateChanger().ChangeState)
-                .Build();
-
-
-            scene.AddSceneObject("zarlok_001", new Enemy("zarlok_poprawiony", this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.05f, true, "enemy", 0.5f*0.9f) { finateSatemachine = aniamteZarlok});
+            //aniamteZarlok = new FinateStateMachineBuilder()
+            //    .AddState(new Animate("Take 001", 20, true))
+            //    .Build();
 
             //GameObject jelly1 = new Jelly("Jelly", this, new Vector3(10f, 0f, 8f), -1.57f, 0f, 0f, 0.5f, true, "worker", 0.6f);
             //{
@@ -158,12 +143,6 @@ namespace SpaceJellyMONO
             //scene.AddSceneObject("galaretka_001", jelly1);
             //scene.AddSceneObject("galaretka_003", new Jelly("jumping", this, new Vector3(8f, 0, 8f), 0f, 0f, 0f, 0.01f, true, "worker") {finateSatemachine = aniamteJelly });
 
-            
-
-            scene.AddSceneObject("galaretka_003", new Jelly("jelly_blue", this, new Vector3(6f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker",0.6f) { finateSatemachine = animateJelly });
-            scene.AddSceneObject("galaretka_004", new Jelly("jelly_blue", this, new Vector3(10f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker", 0.6f) { finateSatemachine = animateJelly });
-            scene.AddSceneObject("galaretka_005", new Jelly("jelly_blue", this, new Vector3(14f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker", 0.6f) { finateSatemachine = animateJelly });
-            scene.AddSceneObject("spawn", new Spawn("spawn", this, new Vector3(95f, 0, 5f),-1.5f, -1.55f, 0f, 0.05f, true, "spawn", 1.6f));
             //foreach (ModelMesh mesh in scene.SceneObjects["galaretka_005"].model.Meshes)
             //{
             //    foreach (Effect effect in mesh.Effects)
@@ -175,10 +154,36 @@ namespace SpaceJellyMONO
             //} //Ustawiam teksture recznie wewnatrz efektu.
 
 
-            scene.AddSceneObject("galaretka_007", new Warrior("jelly_yellow", this, new Vector3(4f, 0, 8f), 0, 0f, 0f, 0.005f, true, "warrior", 0.6f){ finateSatemachine = animateJelly });
-            scene.AddSceneObject("baza_001", new Spawn("baza", this, new Vector3(15, 0, 15), -1.57f, 0, 0, 0.009f, false, "baza",1.2f));          
+            //State JellyJumping = new Animate("1", 20, true);
+            //State JellyMelting = new Animate("2", 20, true);
+            //State JellyWaitng = new Animate("3", 20, true);
+            //animateJelly = new FinateStateMachineBuilder()
+            //    .AddState(JellyJumping)
+            //    .AddState(JellyWaitng)
+            //    .AddState(JellyMelting)
+            //    .AddTransion(JellyWaitng, JellyJumping, new AnimationStateChanger().ChangeState)
+            //    .AddTransion(JellyJumping, JellyWaitng, new AnimationStateChanger().ChangeState)
+            //    .Build();
+
+            //
+            #endregion
+
+            flr = new GameObject("mountainTerrain", this, new Vector3(50, 0, 50), -1.57f, -1.5f, 0, 1f, false, "floor",0.9f);
+            scene.AddSceneObject("podloga",flr );
+            scene.AddSceneObject("zarlok_001", new Enemy("zarlok_poprawiony", this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.05f, true, "enemy", 0.5f*0.9f));
+            scene.AddSceneObject("galaretka_003", new Jelly("jelly_blue", this, new Vector3(6f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker",0.6f));
+            scene.AddSceneObject("galaretka_004", new Jelly("jelly_blue", this, new Vector3(10f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker", 0.6f));
+            scene.AddSceneObject("galaretka_005", new Jelly("jelly_blue", this, new Vector3(14f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker", 0.6f));
+            scene.AddSceneObject("galaretka_007", new Warrior("jelly_yellow", this, new Vector3(4f, 0, 8f), 0, 0f, 0f, 0.005f, true, "warrior", 0.6f));
+            scene.AddSceneObject("baza_001", new Spawn("baza", this, new Vector3(15, 0, 15), -1.57f, 0, 0, 0.009f, false, "baza", 1.2f));
+            spawn = new Spawn("spawn", this, new Vector3(95f, 0, 5f), -1.5f, -1.55f, 0f, 0.05f, true, "spawn", 1.6f);
             scene.AddSceneObject("yellowPlatform", platform);
-            //scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
+            scene.AddSceneObject("spawn",spawn);
+
+
+            
+                     
+            
             foreach (GameObject gameObject in scene.SceneObjects.Values)
             {
                 gameObject.Initialize();

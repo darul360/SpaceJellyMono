@@ -29,6 +29,7 @@ namespace SkinnedModel
         AnimationClip currentClipValue;
         TimeSpan currentTimeValue;
         int currentKeyframe;
+        public string clipName;
 
 
         // Current animation transform matrices.
@@ -76,7 +77,7 @@ namespace SkinnedModel
         /// </summary>
         public void StartClip(string clipName)
         {
-
+            this.clipName = clipName;
             currentClipValue = RepopulateKeyframeList(skinningDataValue.AnimationClips[clipName]);
             currentTimeValue = TimeSpan.Zero;
             currentKeyframe = 0;

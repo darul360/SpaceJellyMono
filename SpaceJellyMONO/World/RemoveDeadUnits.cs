@@ -21,8 +21,7 @@ namespace SpaceJellyMONO.World
         {
             foreach(GameObject go in game1.gameObjectsRepository.getRepo())
             {
-                if (go.GetHp() == 0 &&( go.GameTag=="enemy" || go.GameTag=="warrior" || go.GameTag =="worker")) temp = go;
-                //Debug.WriteLine(temp);
+                if (go.GetHp() == 0 &&( go.GameTag=="enemy" || go.GameTag=="warrior" || go.GameTag =="worker" || go.GameTag == "spawn" || go.GameTag == "baza")) temp = go;
             }
            
             if (temp != null)

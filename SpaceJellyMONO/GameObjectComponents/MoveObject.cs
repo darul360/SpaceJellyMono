@@ -52,10 +52,6 @@ namespace SpaceJellyMONO
                     gameObject.moveObject.isFinalPointReached = false;
                 }
         }
-
-       
-    
-
      
         private void moveToPoint(float deltatime)
         {
@@ -119,14 +115,23 @@ namespace SpaceJellyMONO
                     if (ProcessCollisions(temp))
                     {
                         collision = true;
-                        //Debug.WriteLine(collision);
-                        
-                            if (( (gameObject.GetType() == typeof(Warrior) && temp.GetType() != typeof(Jelly))|| gameObject.GetType() == typeof(Enemy)) && gameObject.GetType() != temp.GetType())
+
+
+                        if (((gameObject.GetType() == typeof(Warrior) && temp.GetType() != typeof(Jelly)) || gameObject.GetType() == typeof(Enemy)) && gameObject.GetType() != temp.GetType())
+                        {
+                            gameObject.isFighting = true;
                             if (timer < 0)
                             {
                                 temp.TakeDmg(gameObject.GetDmg());
-                            //Debug.WriteLine(temp.GetHp());
-                            timer = TIMER;
+
+                                //Debug.WriteLine(temp.GetHp());
+                                timer = TIMER;
+                            }
+                        }
+                        else
+                        {
+                            gameObject.isFighting = false;
+
                         }
                     }
                     else

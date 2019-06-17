@@ -30,6 +30,7 @@ namespace SpaceJellyMONO
         public string sceneID;
         public bool isMoving = false;
         public int targetX = 0, targetY = 0;
+        public bool isFighting = false;
 
         public FinateStateMachine finateSatemachine;
 
@@ -62,6 +63,8 @@ namespace SpaceJellyMONO
             SkinningData skinningDataValue = model.Tag as SkinningData;
             if (skinningDataValue != null)
                 skinnedAnimationPlayer = new AnimationPlayer(skinningDataValue);
+
+            
         }
 
         virtual public void update(float deltatime, SoundEffect effect)
@@ -77,10 +80,68 @@ namespace SpaceJellyMONO
         {
             skinnedAnimationPlayer?.Update(gameTime.ElapsedGameTime, WorldTransform);
             finateSatemachine?.Update(gameTime, this);
+            startWalking();
+            stopWalking();
+            startFighting();
+            stopFighting();
             base.Update(gameTime);
 
 
         }
+
+        public void startWalking() // idzie
+        {
+            if (gameTag == "worker" && isMoving)
+            {
+                if (skinnedAnimationPlayer.clipName != "1")
+                mainClass.scene.SceneObjects[mainClass.scene.FindKeyOfObject(this)].StartAnimationClip("1", 20, true);
+            }
+            if (gameTag == "warrior" && isMoving)
+            {
+                if (skinnedAnimationPlayer.clipName != "1")
+                    mainClass.scene.SceneObjects[mainClass.scene.FindKeyOfObject(this)].StartAnimationClip("1", 20, true);
+            }
+        }
+        public void stopWalking() //stoi
+        {
+            if (gameTag == "worker" && !isMoving && !isFighting)
+            {
+                if (skinnedAnimationPlayer.clipName != "2")
+                    mainClass.scene.SceneObjects[mainClass.scene.FindKeyOfObject(this)].StartAnimationClip("2", 20, true);
+            }
+            if (gameTag == "warrior" && !isMoving && !isFighting)
+            {
+                if (skinnedAnimationPlayer.clipName != "2")
+                    mainClass.scene.SceneObjects[mainClass.scene.FindKeyOfObject(this)].StartAnimationClip("2", 20, true);
+            }
+        }
+
+        public void startFighting() //walczy
+        {
+            if (gameTag == "worker" && isFighting)
+            {
+                Debug.WriteLine(isFighting);
+                if (skinnedAnimationPlayer.clipName != "4")
+                    mainClass.scene.SceneObjects[mainClass.scene.FindKeyOfObject(this)].StartAnimationClip("4", 20, true);
+            }
+            if (gameTag == "warrior" && isFighting)
+            {
+                if (skinnedAnimationPlayer.clipName != "4")
+                    mainClass.scene.SceneObjects[mainClass.scene.FindKeyOfObject(this)].StartAnimationClip("4", 20, true);
+            }
+        }
+        public void stopFighting()
+        {
+            if (gameTag == "worker" && isFighting && isMoving)
+            {
+                isFighting = false;
+            }
+            if (gameTag == "warrior" && isFighting && isMoving)
+            {
+                isFighting = false;
+            }
+        }
+
 
         public void Reload()
         {
@@ -90,7 +151,6 @@ namespace SpaceJellyMONO
 
         public override void Draw(GameTime gameTime)
         {
-
             foreach (ModelMesh modelMesh in model.Meshes)
             {
                 foreach (Effect effect in modelMesh.Effects)
@@ -145,6 +205,18 @@ namespace SpaceJellyMONO
         public override void Initialize()
         {
             base.Initialize();
+            if (gameTag == "worker")
+            {
+                mainClass.scene.SceneObjects[mainClass.scene.FindKeyOfObject(this)].StartAnimationClip("2", 20, true);
+            }
+            if (gameTag == "warrior")
+            {
+                mainClass.scene.SceneObjects[mainClass.scene.FindKeyOfObject(this)].StartAnimationClip("2", 20, true);
+            }
+            if (gameTag == "enemy")
+            {
+                mainClass.scene.SceneObjects[mainClass.scene.FindKeyOfObject(this)].StartAnimationClip("Take 001", 20, true);
+            }
             Console.WriteLine("go init");
             finateSatemachine?.Initialize(this);
         }
