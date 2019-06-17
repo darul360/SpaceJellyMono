@@ -103,7 +103,7 @@ namespace SkinnedModel
         public void UpdateBoneTransforms(TimeSpan time)
         {
             if (currentClipValue == null)
-                throw new InvalidOperationException(
+               throw new InvalidOperationException(
                             "AnimationPlayer.Update was called before StartClip");
 
             // Update the animation position.

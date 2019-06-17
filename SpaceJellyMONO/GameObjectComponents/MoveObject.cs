@@ -108,7 +108,7 @@ namespace SpaceJellyMONO
             }
         }
 
-        private void CheckCollisions(float deltatime)
+        public void CheckCollisions(float deltatime)
         {
             float elapsed = deltatime;
             timer -= elapsed;
@@ -125,7 +125,6 @@ namespace SpaceJellyMONO
                             if (timer < 0)
                             {
                                 temp.TakeDmg(gameObject.GetDmg());
-                                gameObject.TakeDmg(temp.GetDmg());
                             //Debug.WriteLine(temp.GetHp());
                             timer = TIMER;
                         }
@@ -145,7 +144,7 @@ namespace SpaceJellyMONO
 
         public void Move(float deltatime, SoundEffect effect,int targetX,int targetZ)
         {
-            CheckCollisions(deltatime);
+            //CheckCollisions(deltatime);
             if (isFinalPointReached)
             {
                 gameObject.mainClass.basicFloorGenerate.updateGrid();

@@ -40,7 +40,7 @@ namespace SpaceJellyMONO.World
                     Random random = new Random();
                     if (game1.resourcesStatistics.bluePowderStats >= 5 && game1.resourcesStatistics.waterStats >= 5)
                     {
-                        GameObject worker = new Jelly("jelly_yellow", game1, new Vector3(temp.transform.translation.X + random.Next(-2, 2), 0, temp.transform.translation.Z + random.Next(-2, 2)), -1.57f, 0, 0, 0.5f, true, "worker",0.45f);
+                        GameObject worker = new Jelly("jelly_blue", game1, new Vector3(temp.transform.translation.X + random.Next(-2, 2), 0, temp.transform.translation.Z + random.Next(-2, 2)), -1.57f, 0, 0, 0.5f, true, "worker",0.45f);
                         game1.scene.AddSceneObject("worker_X" + i.ToString(), worker);
                         worker.finateSatemachine = game1.animateJelly;
                         game1.resourcesStatistics.bluePowderStats -= 5;
