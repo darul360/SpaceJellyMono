@@ -37,18 +37,24 @@ namespace SpaceJellyMONO
                     {
                         if ((model.transform.Translation.X >= stopPoint.X && model.transform.Translation.X <= startPoint.X) && (model.transform.Translation.Z >= stopPoint.Z && model.transform.Translation.Z <= startPoint.Z))
                         {
-                            model.isObjectSelected = true;
-                            game.selectedObjectsRepository.AddToRepo(model);
-                            setPrimary(model);
+                            if (model.GameTag != "enemy")
+                            {
+                                model.isObjectSelected = true;
+                                game.selectedObjectsRepository.AddToRepo(model);
+                                setPrimary(model);
+                            }
                         }
                     }
                     if(startPoint.Z < stopPoint.Z)
                     {
                         if ((model.transform.Translation.X >= stopPoint.X && model.transform.Translation.X <= startPoint.X) && (model.transform.Translation.Z >= startPoint.Z && model.transform.Translation.Z <= stopPoint.Z))
                         {
-                            model.isObjectSelected = true;
-                            game.selectedObjectsRepository.AddToRepo(model);
-                            setPrimary(model);
+                            if (model.GameTag != "enemy")
+                            {
+                                model.isObjectSelected = true;
+                                game.selectedObjectsRepository.AddToRepo(model);
+                                setPrimary(model);
+                            }
                         }
                     }
                 }
@@ -59,18 +65,24 @@ namespace SpaceJellyMONO
                     {
                         if ((model.transform.Translation.X >= startPoint.X && model.transform.Translation.X <= stopPoint.X) && (model.transform.Translation.Z >= stopPoint.Z && model.transform.Translation.Z <= startPoint.Z))
                         {
-                            model.isObjectSelected = true;
-                            game.selectedObjectsRepository.AddToRepo(model);
-                            setPrimary(model);
+                            if (model.GameTag != "enemy")
+                            {
+                                model.isObjectSelected = true;
+                                game.selectedObjectsRepository.AddToRepo(model);
+                                setPrimary(model);
+                            }
                         }
                     }
                     if (startPoint.Z < stopPoint.Z)
                     {
                         if ((model.transform.Translation.X >= startPoint.X && model.transform.Translation.X <= stopPoint.X) && (model.transform.Translation.Z >= startPoint.Z && model.transform.Translation.Z <= stopPoint.Z))
                         {
-                            model.isObjectSelected = true;
-                            game.selectedObjectsRepository.AddToRepo(model);
-                            setPrimary(model);
+                            if (model.GameTag != "enemy")
+                            {
+                                model.isObjectSelected = true;
+                                game.selectedObjectsRepository.AddToRepo(model);
+                                setPrimary(model);
+                            }
                         }
                     }
                 }

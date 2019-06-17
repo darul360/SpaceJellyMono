@@ -121,7 +121,6 @@ namespace SpaceJellyMONO
         {
             if (gameTag == "worker" && isFighting)
             {
-                Debug.WriteLine(isFighting);
                 if (skinnedAnimationPlayer.clipName != "4")
                     mainClass.scene.SceneObjects[mainClass.scene.FindKeyOfObject(this)].StartAnimationClip("4", 20, true);
             }
@@ -129,6 +128,12 @@ namespace SpaceJellyMONO
             {
                 if (skinnedAnimationPlayer.clipName != "4")
                     mainClass.scene.SceneObjects[mainClass.scene.FindKeyOfObject(this)].StartAnimationClip("4", 20, true);
+            }
+
+            if(gameTag == "enemy" && isFighting)
+            {
+                if (skinnedAnimationPlayer.clipName != "2")
+                    mainClass.scene.SceneObjects[mainClass.scene.FindKeyOfObject(this)].StartAnimationClip("2", 20, true);
             }
         }
         public void stopFighting()
@@ -141,6 +146,14 @@ namespace SpaceJellyMONO
             {
                 isFighting = false;
             }
+
+            if (gameTag == "enemy" && !isFighting)
+            {
+                if (skinnedAnimationPlayer.clipName != "1")
+                    mainClass.scene.SceneObjects[mainClass.scene.FindKeyOfObject(this)].StartAnimationClip("1", 20, true);
+
+            }
+
         }
 
 
@@ -216,7 +229,7 @@ namespace SpaceJellyMONO
             }
             if (gameTag == "enemy")
             {
-                mainClass.scene.SceneObjects[mainClass.scene.FindKeyOfObject(this)].StartAnimationClip("Take 001", 20, true);
+                mainClass.scene.SceneObjects[mainClass.scene.FindKeyOfObject(this)].StartAnimationClip("1", 20, true);
             }
             Console.WriteLine("go init");
             finateSatemachine?.Initialize(this);

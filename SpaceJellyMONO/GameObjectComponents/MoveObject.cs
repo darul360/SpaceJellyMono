@@ -56,7 +56,6 @@ namespace SpaceJellyMONO
             }
             if (isThatFirstStep == false)
             {
-                Debug.WriteLine(route.Count);
                 if (Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) <= 0.05f && i < route.Count-1)
                     {
                         unlockCells();
@@ -123,7 +122,7 @@ namespace SpaceJellyMONO
                         else
                         {
                             gameObject.isFighting = false;
-
+                            temp.isFighting = false;
                         }
                     }
                     //else
@@ -146,7 +145,6 @@ namespace SpaceJellyMONO
             {
                 gameObject.mainClass.basicFloorGenerate.updateGrid();
                 route = gameObject.mainClass.findPath.findPath((int)transform.Translation.X, (int)transform.Translation.Z, targetX, targetZ);
-                Debug.WriteLine(route.Count);
                 if (route.Count == 1)
                 {
                     route = null;

@@ -12,8 +12,8 @@ namespace SpaceJellyMONO
     public class SpawnEnemies:DrawableGameComponent
     {
         Game1 game1;
-        float timer = 15;
-        const float TIMER = 15;
+        float timer = 45;
+        const float TIMER = 45;
         List<Vector2> tempNodes;
 
         int i;
@@ -35,22 +35,22 @@ namespace SpaceJellyMONO
                 timer -= elapsed;
                 if (timer < 0)
                 {
-                    go1 = new Enemy("zarlok_poprawiony", game1, new Vector3(89, 0, 11f), 0f, 3.14f, 0f, 0.05f, true, "enemy", 0.5f * 0.9f);
+                    go1 = new Enemy("zarlok", game1, new Vector3(89, 0, 11f), 0f, 3.14f, 0f, 0.02f, true, "enemy", 0.5f * 0.9f);
                     game1.scene.AddSceneObject("zarlokS" + i, go1);
                     go1.finateSatemachine = game1.aniamteZarlok;
-                    game1.scene.SceneObjects["zarlokS" + i].StartAnimationClip("Take 001", 20, true);
+                    game1.scene.SceneObjects["zarlokS" + i].StartAnimationClip("1", 20, true);
                     i++;
 
-                    go2 = new Enemy("zarlok_poprawiony", game1, new Vector3(89, 0, 10f), 0f, 3.14f, 0f, 0.05f, true, "enemy", 0.5f * 0.9f);
+                    go2 = new Enemy("zarlok", game1, new Vector3(89, 0, 10f), 0f, 3.14f, 0f, 0.02f, true, "enemy", 0.5f * 0.9f);
                     game1.scene.AddSceneObject("zarlokS" + i, go2);
                     go2.finateSatemachine = game1.aniamteZarlok;
-                    game1.scene.SceneObjects["zarlokS" + i].StartAnimationClip("Take 001", 20, true);
+                    game1.scene.SceneObjects["zarlokS" + i].StartAnimationClip("1", 20, true);
                     i++;
 
-                    go3 = new Enemy("zarlok_poprawiony", game1, new Vector3(89, 0, 9f), 0f, 3.14f, 0f, 0.05f, true, "enemy", 0.5f * 0.9f);
+                    go3 = new Enemy("zarlok", game1, new Vector3(89, 0, 9f), 0f, 3.14f, 0f, 0.02f, true, "enemy", 0.5f * 0.9f);
                     game1.scene.AddSceneObject("zarlokS" + i, go3);
                     go3.finateSatemachine = game1.aniamteZarlok;
-                    game1.scene.SceneObjects["zarlokS" + i].StartAnimationClip("Take 001", 20, true);
+                    game1.scene.SceneObjects["zarlokS" + i].StartAnimationClip("1", 20, true);
                     i++;
                     go1.isEnemyMovingFromSpawn = true;
                     go2.isEnemyMovingFromSpawn = true;

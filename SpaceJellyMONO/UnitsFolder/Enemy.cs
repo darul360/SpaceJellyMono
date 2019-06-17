@@ -12,7 +12,7 @@ namespace SpaceJellyMONO.GameObjectComponents
 {
     class Enemy : Unit
     {
-        float hp = 200;
+        float hp = 250;
         float dmg = 50;
         //healthBar
         Texture2D healthTexture;

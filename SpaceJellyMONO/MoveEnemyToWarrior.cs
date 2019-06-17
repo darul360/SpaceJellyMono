@@ -13,12 +13,14 @@ namespace SpaceJellyMONO
     {
         Game1 game1;
         SoundEffect effect;
-        float timer = 30;
-        const float TIMER = 30;
+        float timer = 40;
+        const float TIMER = 40;
+        bool block1 = false, block2 = false;
         public MoveEnemyToWarrior(Game1 game1):base(game1)
         {
             this.game1 = game1;
         }
+
 
         public override void Update(GameTime gameTime)
         {
@@ -43,10 +45,22 @@ namespace SpaceJellyMONO
                                         go.targetY = (int)Math.Round(go2.moveObject.moveZ);
                                         go.moveObject.isThatFirstStep = true;
                                         go.isEnemyMovingFromSpawn = false;
+                                      
                                     }
 
                                     go.moveObject.Move((float)gameTime.ElapsedGameTime.TotalMilliseconds, effect, (int)Math.Round(go2.moveObject.moveX), (int)Math.Round(go2.moveObject.moveZ));
                                     go.moveObject.isThatFirstStep = true;
+                                    if (go2.moveObject.moveZ < go.moveObject.moveZ)
+                                    {
+                                        go.targetY = go.targetY - 1;
+                                        go.transform.YRotation = 1.57f;
+                                    }
+                                    if (go2.moveObject.moveZ > go.moveObject.moveZ)
+                                    {
+                                        go.targetY = go.targetY + 1;
+                                        go.transform.YRotation = 11;
+                                    }
+
                                     timer = TIMER;
                                 }
                             }
