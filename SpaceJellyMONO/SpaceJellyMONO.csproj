@@ -59,6 +59,7 @@
     <Compile Include="SpawnEnemies.cs" />
     <Compile Include="UnitsFolder\Enemy.cs" />
     <Compile Include="UnitsFolder\Jelly.cs" />
+    <Compile Include="UnitsFolder\Spawn.cs" />
     <Compile Include="UnitsFolder\Unit.cs" />
     <Compile Include="UnitsFolder\Warrior.cs" />
     <Compile Include="World\BasicFloorGenerate.cs" />
@@ -121,9 +122,6 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
-    <None Include="Content\Floor.FBX" />
-    <None Include="Content\Jelly.FBX" />
-    <None Include="Content\Jelly2.FBX" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

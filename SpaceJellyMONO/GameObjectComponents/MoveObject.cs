@@ -83,8 +83,8 @@ namespace SpaceJellyMONO
                     direction.Normalize();
                     moveX = transform.Translation.X;
                     moveZ = transform.Translation.Z;
-                    moveX += direction.X * deltatime * 0.001f;
-                    moveZ += direction.Y * deltatime * 0.001f;
+                    moveX += direction.X * deltatime * 0.005f;
+                    moveZ += direction.Y * deltatime * 0.005f;
                     gameObject.transform.translation.X = moveX;
                     gameObject.transform.translation.Z = moveZ;
             }
@@ -121,10 +121,11 @@ namespace SpaceJellyMONO
                         collision = true;
                         //Debug.WriteLine(collision);
                         
-                            if (gameObject.GetType() == typeof(Warrior) || gameObject.GetType() == typeof(Enemy) && gameObject.GetType() != temp.GetType())
+                            if (( (gameObject.GetType() == typeof(Warrior) && temp.GetType() != typeof(Jelly))|| gameObject.GetType() == typeof(Enemy)) && gameObject.GetType() != temp.GetType())
                             if (timer < 0)
                             {
                                 temp.TakeDmg(gameObject.GetDmg());
+                                gameObject.TakeDmg(temp.GetDmg());
                             //Debug.WriteLine(temp.GetHp());
                             timer = TIMER;
                         }

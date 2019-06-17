@@ -25,7 +25,7 @@ namespace SpaceJellyMONO.UnitsFolder
             spriteBatch = new SpriteBatch(game1.GraphicsDevice);
             Vector3 tmp = game1.GraphicsDevice.Viewport.Project(Vector3.Zero, game1.camera.Projection, game1.camera.View, Matrix.CreateTranslation(translation));
             //Debug.WriteLine(tmp);
-            helathRectangle = new Rectangle((int)tmp.X, (int)tmp.Y, (int)hp, 25);
+            helathRectangle = new Rectangle((int)tmp.X, (int)tmp.Y, (int)hp, 8);
             this.game1 = game1;
         }
 
@@ -51,9 +51,9 @@ namespace SpaceJellyMONO.UnitsFolder
             //Debug.WriteLine("dsdsdsdsds");
             base.Draw(gameTime);
             Vector3 tmp = game1.GraphicsDevice.Viewport.Project(Vector3.Zero, game1.camera.Projection, game1.camera.View, Matrix.CreateTranslation(transform.translation));
-            helathRectangle.X = (int)tmp.X - 100;
-            helathRectangle.Y = (int)tmp.Y - 100;
-            helathRectangle.Width = (int)hp;
+            helathRectangle.X = (int)tmp.X - 50;
+            helathRectangle.Y = (int)tmp.Y - 50;
+            helathRectangle.Width = (int)hp/2;
             spriteBatch.Begin();
             spriteBatch.Draw(healthTexture, helathRectangle, Color.White);
             spriteBatch.End();

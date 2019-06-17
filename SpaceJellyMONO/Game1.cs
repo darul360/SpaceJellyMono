@@ -74,7 +74,7 @@ namespace SpaceJellyMONO
             //TargetElapsedTime = new TimeSpan(TargetElapsedTime.Ticks / 2);
             //IsFixedTimeStep = false;
             /*-----KAMERA-----*/
-            camera = new Camera(this, new Vector3(10f, 15f, 0f), new Vector3(1.2f, 0, 0), 10f, graphics);
+            camera = new Camera(this, new Vector3(10f, 25f, 0f), new Vector3(1.2f, 0, 0), 10f, graphics);
             Components.Add(camera);
             effect = new BasicEffect(GraphicsDevice);
 
@@ -131,7 +131,7 @@ namespace SpaceJellyMONO
                 .AddState(new Animate("Take 001", 20, true))
                 .Build();
 
-             flr= new GameObject("floor", this, new Vector3(50, 0, 50), -1.57f, 0, 0, 1f, false, "floor",0.9f);
+             flr= new GameObject("mountainTerrain", this, new Vector3(50, 0, 50), -1.57f, -1.5f, 0, 1f, false, "floor",0.9f);
             scene.AddSceneObject("podloga",flr );
 
 
@@ -146,7 +146,6 @@ namespace SpaceJellyMONO
                 .AddTransion(JellyJumping, JellyWaitng, new AnimationStateChanger().ChangeState)
                 .Build();
 
-            //scene.AddSceneObject("podloga", new GameObject("floor", this, new Vector3(46.3f, -0.1f, 48.5f), 1.571f, 0, 0, 1.05f, false, "floor"));
 
             scene.AddSceneObject("zarlok_001", new Enemy("zarlok_poprawiony", this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.05f, true, "enemy", 0.5f*0.9f) { finateSatemachine = aniamteZarlok});
 
@@ -161,9 +160,10 @@ namespace SpaceJellyMONO
 
             
 
-            scene.AddSceneObject("galaretka_003", new Jelly("jelly_yellow_13_ascii", this, new Vector3(6f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker",0.6f) { finateSatemachine = animateJelly });
-            scene.AddSceneObject("galaretka_004", new Jelly("jelly_yellow_13_ascii", this, new Vector3(10f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker", 0.6f) { finateSatemachine = animateJelly });
-            scene.AddSceneObject("galaretka_005", new Jelly("jelly_yellow_13_ascii", this, new Vector3(14f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker", 0.6f) { finateSatemachine = animateJelly });
+            scene.AddSceneObject("galaretka_003", new Jelly("jelly_blue", this, new Vector3(6f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker",0.6f) { finateSatemachine = animateJelly });
+            scene.AddSceneObject("galaretka_004", new Jelly("jelly_blue", this, new Vector3(10f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker", 0.6f) { finateSatemachine = animateJelly });
+            scene.AddSceneObject("galaretka_005", new Jelly("jelly_blue", this, new Vector3(14f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker", 0.6f) { finateSatemachine = animateJelly });
+            scene.AddSceneObject("spawn", new Spawn("spawn", this, new Vector3(95f, 0, 5f),-1.5f, -1.55f, 0f, 0.05f, true, "spawn", 1.6f));
             //foreach (ModelMesh mesh in scene.SceneObjects["galaretka_005"].model.Meshes)
             //{
             //    foreach (Effect effect in mesh.Effects)
@@ -175,8 +175,8 @@ namespace SpaceJellyMONO
             //} //Ustawiam teksture recznie wewnatrz efektu.
 
 
-            scene.AddSceneObject("galaretka_007", new Warrior("jelly_yellow_13_ascii", this, new Vector3(4f, 0, 8f), -1.57f, 0f, 0f, 0.5f, true, "warrior", 0.6f){ finateSatemachine = animateJelly });
-            scene.AddSceneObject("baza_001", new GameObject("baza", this, new Vector3(15, 0, 15), -1.57f, 0, 0, 0.005f, false, "baza",0.005f*0.9f));          
+            scene.AddSceneObject("galaretka_007", new Warrior("jelly_yellow", this, new Vector3(4f, 0, 8f), 0, 0f, 0f, 0.005f, true, "warrior", 0.6f){ finateSatemachine = animateJelly });
+            scene.AddSceneObject("baza_001", new GameObject("baza", this, new Vector3(15, 0, 15), -1.57f, 0, 0, 0.009f, false, "baza",1.2f));          
             scene.AddSceneObject("yellowPlatform", platform);
             scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
             foreach (GameObject gameObject in scene.SceneObjects.Values)
@@ -238,7 +238,7 @@ namespace SpaceJellyMONO
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(new Color(28, 44, 68));
             base.Draw(gameTime);
             if (switcher)
             {

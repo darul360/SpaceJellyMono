@@ -14,7 +14,7 @@ namespace SpaceJellyMONO.FSM.Trans
         {
             //Console.WriteLine(frameCounter);
             frameCounter++;
-            if (frameCounter > 500)
+            if (frameCounter > 100)
             {
                 frameCounter = 0;
                 return true;

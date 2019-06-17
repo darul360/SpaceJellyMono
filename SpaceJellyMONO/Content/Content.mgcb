@@ -36,16 +36,16 @@
 /processorParam:GenerateTangentFrames=False
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:ResizeTexturesToPowerOfTwo=True
 /processorParam:RotationX=0
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
+/processorParam:TextureFormat=DxtCompressed
 /build:baza.FBX
 
-#begin blueStones.FBX
+#begin blueStoneSource.FBX
 /importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
@@ -55,14 +55,14 @@
 /processorParam:GenerateTangentFrames=False
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
 /processorParam:RotationX=0
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=DxtCompressed
-/build:blueStones.FBX
+/processorParam:TextureFormat=Compressed
+/build:blueStoneSource.FBX
 
 #begin building.mp4
 /importer:H264Importer
@@ -124,7 +124,7 @@
 /processorParam:TextureFormat=Color
 /build:diffuse3.png
 
-#begin downui.png
+#begin downUI.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -134,28 +134,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:downui.png
+/build:downUI.jpg
 
-#begin floor.FBX
-/importer:FbxImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=1
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
-/build:floor.FBX
-
-#begin jelly_yellow_13_ascii.fbx
+#begin jelly_blue.fbx
 /importer:FbxImporter
 /processor:SkinnedModelProcessor
 /processorParam:DefaultEffect=SkinnedEffect
@@ -172,7 +153,26 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:jelly_yellow_13_ascii.fbx
+/build:jelly_blue.fbx
+
+#begin jelly_yellow.fbx
+/importer:FbxImporter
+/processor:SkinnedModelProcessor
+/processorParam:DefaultEffect=SkinnedEffect
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=1
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:jelly_yellow.fbx
 
 #begin jellybounce.wav
 /importer:WavImporter
@@ -230,6 +230,25 @@
 /processorParam:TextureFormat=Color
 /build:mineWARNING.png
 
+#begin mountainTerrain.FBX
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=1
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:mountainTerrain.FBX
+
 #begin platformWARNING.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -254,7 +273,7 @@
 /processorParam:TextureFormat=Color
 /build:Red.jpg
 
-#begin stones.fbx
+#begin spawn.FBX
 /importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
@@ -271,7 +290,7 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:stones.fbx
+/build:spawn.FBX
 
 #begin ui.png
 /importer:TextureImporter
@@ -342,7 +361,7 @@
 /processorParam:TextureFormat=Compressed
 /build:yellowChangePlatform.FBX
 
-#begin yellowStones.FBX
+#begin yellowStoneSource.FBX
 /importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
@@ -352,14 +371,14 @@
 /processorParam:GenerateTangentFrames=False
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
 /processorParam:RotationX=0
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=DxtCompressed
-/build:yellowStones.FBX
+/processorParam:TextureFormat=Compressed
+/build:yellowStoneSource.FBX
 
 #begin zarlok_poprawiony.fbx
 /importer:FbxImporter

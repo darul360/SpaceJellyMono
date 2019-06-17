@@ -23,6 +23,7 @@ namespace SpaceJellyMONO.World
         }
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
             if (platform != null)
             {
                 GameObject temp = null;
@@ -34,10 +35,8 @@ namespace SpaceJellyMONO.World
 
                 if (change)
                 {
-                    GameObject gameOBJ = new Warrior("jelly_yellow_13_ascii", game, temp.transform.translation, -1.57f, 0, 0, 0.5f, true, "warrior", 0.45f);
-                    game.scene.AddSceneObject("warrior" + i + "siemanko", gameOBJ);
-                    gameOBJ.finateSatemachine = game.animateJelly;
-                    gameOBJ.isObjectSelected = true;
+                   // GameObject gameOBJ = ;
+                    game.scene.AddSceneObject("warrior" + i + "siemanko", new Warrior("jelly_yellow", game, temp.transform.translation, -1.57f, 0, 0, 0.5f, true, "warrior", 0.45f) {finateSatemachine = game.animateJelly });
                     string workerKey = game.scene.FindKeyOfObject(temp);     //znajdź klucz obiektu w repo rysowania
                     if (workerKey != null)                                  //overcode
                         game.scene.DeleteSceneObject(workerKey);
@@ -45,7 +44,7 @@ namespace SpaceJellyMONO.World
                     change = false;
                 }
             }
-            base.Update(gameTime);
+           
         }
     }
 }

@@ -18,25 +18,25 @@ namespace SpaceJellyMONO
 
         public override void Update(GameTime gameTime)
         {
-            foreach(GameObject go in game1.gameObjectsRepository.getRepo())
-            {
-                if (go.GameTag == "enemy")
-                {
-                    foreach (GameObject go2 in game1.gameObjectsRepository.getRepo())
-                    {
-                        if(go2.GameTag == "warrior" /*|| go2.GameTag == "worker"*/)
-                        {
-                           if(Vector3.Distance(go2.transform.translation,go.transform.translation)<6.0f)
-                            {
-                                go.isMoving = true;
-                                go.targetX = (int)go2.transform.translation.X;
-                                go.targetY = (int)go2.transform.translation.Z;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
+            //foreach(GameObject go in game1.gameObjectsRepository.getRepo())
+            //{
+            //    if (go.GameTag == "enemy")
+            //    {
+            //        foreach (GameObject go2 in game1.gameObjectsRepository.getRepo())
+            //        {
+            //            if(go2.GameTag == "warrior" /*|| go2.GameTag == "worker"*/)
+            //            {
+            //               if(Vector3.Distance(go2.transform.translation,go.transform.translation)<6.0f)
+            //                {
+            //                    go.isMoving = true;
+            //                    go.targetX = (int)go2.transform.translation.X;
+            //                    go.targetY = (int)go2.transform.translation.Z;
+            //                    break;
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
             base.Update(gameTime);
         }
     }

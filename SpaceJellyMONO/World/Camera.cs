@@ -94,20 +94,24 @@ namespace SpaceJellyMONO
             
             if (current_mouse.Y <50.0f)
             {
-                moveVec.Z = 1;
+                if (cameraPos.Z < 104)
+                    moveVec.Z = 1;
             }
 
             if (current_mouse.Y> gdm.PreferredBackBufferHeight-50.0f)
             {
+                if(cameraPos.Z>-12)
                 moveVec.Z = -1;
             }
             if (current_mouse.X < 50.0f)
             {
+                if(cameraPos.X<97)
                 moveVec.X = 1;
             }
             if (current_mouse.X>gdm.PreferredBackBufferWidth-50.0f)
             {
-                moveVec.X = -1;
+                if (cameraPos.X > -7.5f)
+                    moveVec.X = -1;
             }
 
             if(moveVec != Vector3.Zero)

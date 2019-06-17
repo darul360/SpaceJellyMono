@@ -25,7 +25,7 @@ namespace SpaceJellyMONO.BuildingSystem
 
         private void BuildMine(int x, int y, int z)
         {
-            gameObject = new GameObject("kopalniaFBX", game, new Vector3(x, y, z), -1.57f, 7.8f, 0, 0.03f, false, "mine",0.7f);
+            gameObject = new GameObject("kopalniaFBX", game, new Vector3(x, y, z), -1.57f, 7.8f, 0, 0.07f, false, "mine",1.7f);
             game.scene.AddSceneObject("mine" + waterPumpCounter.ToString(), gameObject);
         }
 
