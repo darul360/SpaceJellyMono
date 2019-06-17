@@ -33,12 +33,12 @@ namespace SpaceJellyMONO.World
             spriteBatch.DrawString(font,  game.resourcesStatistics.yellowPowderStats.ToString(), new Vector2(1600,60), Color.Yellow);
 
             game.resourcesStatistics.Refresh();
-            spriteBatch.DrawString(font, game.resourcesStatistics.workers.ToString(), new Vector2(370,915), Color.Green);
-            spriteBatch.DrawString(font, game.resourcesStatistics.warriors.ToString(), new Vector2(930, 915), Color.LightYellow);
-            spriteBatch.DrawString(font, game.resourcesStatistics.enemies.ToString(), new Vector2(1560, 915), Color.RosyBrown);
+            spriteBatch.DrawString(font, game.resourcesStatistics.workers.ToString(), new Vector2(870,915), Color.Black);
+            spriteBatch.DrawString(font, game.resourcesStatistics.warriors.ToString(), new Vector2(330, 915), Color.Black);
+            //spriteBatch.DrawString(font, game.resourcesStatistics.enemies.ToString(), new Vector2(1560, 915), Color.RosyBrown);
 
-            spriteBatch.DrawString(font, game.resourcesStatistics.selectedWorkers.ToString(), new Vector2(470, 915), Color.Red);
-            spriteBatch.DrawString(font, game.resourcesStatistics.selectedWarriors.ToString(), new Vector2(1030, 915), Color.Red);
+            spriteBatch.DrawString(font, game.resourcesStatistics.selectedWorkers.ToString(), new Vector2(960, 915), Color.Red);
+            spriteBatch.DrawString(font, game.resourcesStatistics.selectedWarriors.ToString(), new Vector2(420, 915), Color.Red);
             spriteBatch.End();
                
         }

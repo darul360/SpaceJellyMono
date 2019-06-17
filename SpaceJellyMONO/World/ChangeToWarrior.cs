@@ -58,6 +58,7 @@ namespace SpaceJellyMONO.World
                         game.scene.DeleteSceneObject(workerKey);
                     game.gameObjectsRepository.RemoveFromRepo(temp);
                     change = false;
+                    i++;
                 }
 
 
