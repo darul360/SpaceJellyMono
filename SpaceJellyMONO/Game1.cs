@@ -106,7 +106,7 @@ namespace SpaceJellyMONO
             player = new VideoPlayer();
             video2 = Content.Load<Video>("building2");
             player2 = new VideoPlayer();
-            floatingText = new FloatingText(this, platform.transform, "sample");
+            floatingText = new FloatingText(this, platform.transform, "");
             Components.Add(floatingText);
             Components.Add(new SpawnEnemies(this));
             base.Initialize();
@@ -176,7 +176,7 @@ namespace SpaceJellyMONO
 
 
             scene.AddSceneObject("galaretka_007", new Warrior("jelly_yellow", this, new Vector3(4f, 0, 8f), 0, 0f, 0f, 0.005f, true, "warrior", 0.6f){ finateSatemachine = animateJelly });
-            scene.AddSceneObject("baza_001", new GameObject("baza", this, new Vector3(15, 0, 15), -1.57f, 0, 0, 0.009f, false, "baza",1.2f));          
+            scene.AddSceneObject("baza_001", new Spawn("baza", this, new Vector3(15, 0, 15), -1.57f, 0, 0, 0.009f, false, "baza",1.2f));          
             scene.AddSceneObject("yellowPlatform", platform);
             scene.SceneObjects["zarlok_001"].StartAnimationClip("Take 001", 20, true);
             foreach (GameObject gameObject in scene.SceneObjects.Values)

@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using SpaceJellyMONO.FSM;
+using SpaceJellyMONO.FSM.States;
+using SpaceJellyMONO.FSM.Trans;
 using SpaceJellyMONO.UnitsFolder;
 
 namespace SpaceJellyMONO.World
@@ -16,6 +19,7 @@ namespace SpaceJellyMONO.World
         GameObject platform;
         bool change = false;
         int i = 0;
+        FinateStateMachine animateJelly;
         public ChangeToWarrior(Game1 game,GameObject platform) : base(game)
         {
             this.game = game;
@@ -23,7 +27,18 @@ namespace SpaceJellyMONO.World
         }
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
+
+            //State JellyJumping = new Animate("1", 20, true);
+            //State JellyMelting = new Animate("2", 20, true);
+            //State JellyWaitng = new Animate("3", 20, true);
+            //animateJelly = new FinateStateMachineBuilder()
+            //    .AddState(JellyJumping)
+            //    .AddState(JellyWaitng)
+            //    .AddState(JellyMelting)
+            //    .AddTransion(JellyWaitng, JellyJumping, new AnimationStateChanger().ChangeState)
+            //    .AddTransion(JellyJumping, JellyWaitng, new AnimationStateChanger().ChangeState)
+            //    .Build();
+
             if (platform != null)
             {
                 GameObject temp = null;
@@ -36,15 +51,22 @@ namespace SpaceJellyMONO.World
                 if (change)
                 {
                    // GameObject gameOBJ = ;
-                    game.scene.AddSceneObject("warrior" + i + "siemanko", new Warrior("jelly_yellow", game, temp.transform.translation, -1.57f, 0, 0, 0.5f, true, "warrior", 0.45f) {finateSatemachine = game.animateJelly });
+                    game.scene.AddSceneObject("warrior" + i + "siemanko", new Warrior("jelly_yellow", game, temp.transform.translation, 0, 0f, 0f, 0.005f, true, "warrior", 0.6f) /*{finateSatemachine = game.animateJelly }*/);
+                    game.scene.SceneObjects["warrior" + i + "siemanko"].StartAnimationClip("1", 20, true);
                     string workerKey = game.scene.FindKeyOfObject(temp);     //znajdź klucz obiektu w repo rysowania
                     if (workerKey != null)                                  //overcode
                         game.scene.DeleteSceneObject(workerKey);
                     game.gameObjectsRepository.RemoveFromRepo(temp);
                     change = false;
                 }
+
+
             }
-           
+
+
+            base.Update(gameTime);
+
+
         }
     }
 }
