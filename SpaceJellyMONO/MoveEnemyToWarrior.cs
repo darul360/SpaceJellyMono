@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-
+using Microsoft.Xna.Framework.Audio;
 
 namespace SpaceJellyMONO
 {
     public class MoveEnemyToWarrior:GameComponent
     {
         Game1 game1;
+        SoundEffect effect;
+        float timer = 100f;
+        const float TIMER = 100f;
         public MoveEnemyToWarrior(Game1 game1):base(game1)
         {
             this.game1 = game1;
@@ -18,26 +22,34 @@ namespace SpaceJellyMONO
 
         public override void Update(GameTime gameTime)
         {
-            //foreach(GameObject go in game1.gameObjectsRepository.getRepo())
-            //{
-            //    if (go.GameTag == "enemy")
-            //    {
-            //        foreach (GameObject go2 in game1.gameObjectsRepository.getRepo())
-            //        {
-            //            if(go2.GameTag == "warrior" /*|| go2.GameTag == "worker"*/)
-            //            {
-            //               if(Vector3.Distance(go2.transform.translation,go.transform.translation)<6.0f)
-            //                {
-            //                    go.isMoving = true;
-            //                    go.targetX = (int)go2.transform.translation.X;
-            //                    go.targetY = (int)go2.transform.translation.Z;
-            //                    break;
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
             base.Update(gameTime);
+            float elapsed = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            timer -= elapsed;
+            foreach (GameObject go in game1.gameObjectsRepository.getRepo())
+            {
+                if (go.GameTag == "enemy")
+                {
+                    foreach (GameObject go2 in game1.gameObjectsRepository.getRepo())
+                    {
+                        if (go2.GameTag == "warrior" /*|| go2.GameTag == "worker"*/)
+                        {
+                            if (Vector3.Distance(go.transform.translation, go2.transform.translation) < 6.0f)
+                            {
+                                if (timer < 0)
+                                {
+                                    //go.moveObject.Move((float)gameTime.ElapsedGameTime.TotalMilliseconds, effect, (int)Math.Round(go2.transform.translation.X), (int)Math.Round(go2.transform.translation.Z));
+                                    //Debug.WriteLine((int)Math.Round(go2.transform.translation.X) + " " + (int)Math.Round(go2.transform.translation.Y));
+
+                                    go.moveObject.Move((float)gameTime.ElapsedGameTime.TotalMilliseconds, effect, (int)Math.Round(go2.moveObject.moveX), (int)Math.Round(go2.moveObject.moveZ));
+                                    go.moveObject.isThatFirstStep = true;
+                                    timer = TIMER;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
         }
     }
 }

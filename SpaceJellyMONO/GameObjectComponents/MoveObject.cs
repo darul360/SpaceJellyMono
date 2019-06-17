@@ -25,8 +25,8 @@ namespace SpaceJellyMONO
         float Velocity;
         private MouseState lastMouseState = new MouseState();
         public int i = 1;
-        bool isFinalPointReached = true;
-        bool collision = false;
+        public bool isThatFirstStep = true;
+        bool pointNotReached = true;
         float timer = 1000f;
         const float TIMER = 1000;
 
@@ -39,37 +39,23 @@ namespace SpaceJellyMONO
             this.transform = modelLoader.transform;
             this.Velocity = velocity;
         }
-
-        public void spreadObjects(float tempx,float tempy)
-        {
-                if (route == null && gameObject.transform.translation == new Vector3(tempx,0,tempy))
-                {
-                    gameObject.mainClass.basicFloorGenerate.updateGrid();
-                    Random rand = new Random();
-                    int value = rand.Next(-2, 2);
-                    gameObject.moveObject.route = gameObject.mainClass.findPath.findPath((int)gameObject.transform.translation.X, (int)gameObject.transform.translation.Z, (int)tempx + value, (int)tempy + value);
-                    gameObject.moveObject.i = 1;
-                    gameObject.moveObject.isFinalPointReached = false;
-                }
-        }
      
         private void moveToPoint(float deltatime)
         {
             if (i == route.Count - 1 && Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) <= 0.02f)
             {
-                isFinalPointReached = true;
+                isThatFirstStep = true;
                 transform.translation.X = route[i].X;
                 transform.translation.Z = route[i].Y;
                 route = null;
                 gameObject.isMoving = false;
-                gameObject.targetX = 0;
-                gameObject.targetY = 0;
                 if(!gameObject.isObjectSelected)
                 gameObject.mainClass.selectedObjectsRepository.getRepo().Remove(gameObject);
             }
-            if (isFinalPointReached == false)
+            if (isThatFirstStep == false)
             {
-                    if (Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) <= 0.05f && i < route.Count - 1)
+                Debug.WriteLine(route.Count);
+                if (Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) <= 0.05f && i < route.Count-1)
                     {
                         unlockCells();
                         i++;
@@ -114,8 +100,6 @@ namespace SpaceJellyMONO
                 {
                     if (ProcessCollisions(temp))
                     {
-                        collision = true;
-
 
                         if (((gameObject.GetType() == typeof(Warrior) && temp.GetType() != typeof(Jelly)) || gameObject.GetType() == typeof(Enemy)) && gameObject.GetType() != temp.GetType())
                         {
@@ -134,10 +118,10 @@ namespace SpaceJellyMONO
 
                         }
                     }
-                    else
-                    {
-                        collision = false;
-                    }
+                    //else
+                    //{
+                    //    collision = false;
+                    //}
                 }
             }
         }
@@ -150,12 +134,23 @@ namespace SpaceJellyMONO
         public void Move(float deltatime, SoundEffect effect,int targetX,int targetZ)
         {
             //CheckCollisions(deltatime);
-            if (isFinalPointReached)
+            if (isThatFirstStep)
             {
                 gameObject.mainClass.basicFloorGenerate.updateGrid();
                 route = gameObject.mainClass.findPath.findPath((int)transform.Translation.X, (int)transform.Translation.Z, targetX, targetZ);
+                Debug.WriteLine(route.Count);
+                if (route.Count == 1)
+                {
+                    route = null;
+                    isThatFirstStep = true;
+                    gameObject.isMoving = false;
+                    if (!gameObject.isObjectSelected)
+                        gameObject.mainClass.selectedObjectsRepository.getRepo().Remove(gameObject);
+                }
+                else
+                isThatFirstStep = false;
                 i = 1;
-                isFinalPointReached = false;
+                
             }
             if (route != null)
                 moveToPoint(deltatime);

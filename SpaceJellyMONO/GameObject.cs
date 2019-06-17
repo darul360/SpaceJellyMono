@@ -70,7 +70,7 @@ namespace SpaceJellyMONO
         virtual public void update(float deltatime, SoundEffect effect)
         {
             moveObject.CheckCollisions(deltatime);
-            if (isMoving && targetX != 0 && targetY != 0 && isGameObjectMovable)
+            if (isMoving && isGameObjectMovable)
             {
                 
                 moveObject.Move(deltatime, effect, targetX, targetY);

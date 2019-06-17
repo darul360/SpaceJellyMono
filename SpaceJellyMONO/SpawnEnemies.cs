@@ -14,6 +14,7 @@ namespace SpaceJellyMONO
         Game1 game1;
         float timer = 15;
         const float TIMER = 15;
+
         int i;
         GameObject go1, go2, go3, go4, go5, go6;
         bool start = false;

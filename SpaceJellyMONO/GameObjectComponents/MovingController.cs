@@ -22,6 +22,7 @@ namespace SpaceJellyMONO.GameObjectComponents
 
         public void spiralSpread(int i, int j, int howManySelected)
         {
+            tempNodes.Add(new Vector2(i, j));
             // (di, dj) is a vector - direction in which we move right now
             int di = 1;
             int dj = 0;
@@ -68,26 +69,18 @@ namespace SpaceJellyMONO.GameObjectComponents
                 MouseState currentState = Mouse.GetState();
                 if(currentState.RightButton == ButtonState.Pressed && lastMouseState.RightButton == ButtonState.Released)
                 {
-                    //spiralSpread(11, 11, 3);
-
                     Vector3 clickPos = game1.clickCooridantes.FindWhereClicked();
-                    if (!game1.findPath.checkIfPositionIsBlocked((int)Math.Round(clickPos.X), (int)Math.Round(clickPos.Z))){
-                        spiralSpread((int)Math.Round(clickPos.X), (int)Math.Round(clickPos.Z), game1.selectedObjectsRepository.getRepo().Count-1);
+                    if (clickPos.X > 0 && clickPos.X < 100 && clickPos.Z > 0 && clickPos.Z<100)
+                    if (!game1.findPath.checkIfPositionIsBlocked((int)Math.Round(clickPos.X), (int)Math.Round(clickPos.Z)))
+                    {
+                        spiralSpread((int)Math.Round(clickPos.X), (int)Math.Round(clickPos.Z), game1.selectedObjectsRepository.getRepo().Count);
                         int i = 0;
                         foreach (GameObject go in game1.selectedObjectsRepository.getRepo())
                         {
-                            if (i == 0)
-                            {
-                                go.targetX = (int)Math.Round(clickPos.X);
-                                go.targetY = (int)Math.Round(clickPos.Z);
+                            
+                                go.targetX = (int)tempNodes[i].X;
+                                go.targetY = (int)tempNodes[i].Y;
                                 go.isMoving = true;
-                            }
-                            else
-                            {
-                                go.targetX = (int)tempNodes[i-1].X;
-                                go.targetY = (int)tempNodes[i-1].Y;
-                                go.isMoving = true;
-                            }
                             i++;
                         }
                     }
