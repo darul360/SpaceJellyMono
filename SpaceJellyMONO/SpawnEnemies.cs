@@ -12,8 +12,8 @@ namespace SpaceJellyMONO
     public class SpawnEnemies:DrawableGameComponent
     {
         Game1 game1;
-        float timer = 45;
-        const float TIMER = 45;
+        float timer = 4500;
+        const float TIMER = 4500;
         int i;
         GameObject go1, go2, go3, go4, go5, go6;
         bool start = false;
