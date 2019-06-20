@@ -148,6 +148,18 @@
 /processorParam:TextureFormat=Color
 /build:downUI.jpg
 
+#begin exitButton.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:exitButton.jpg
+
 #begin jelly_blue.fbx
 /importer:FbxImporter
 /processor:SkinnedModelProcessor
@@ -273,6 +285,18 @@
 /processorParam:TextureFormat=Color
 /build:platformWARNING.png
 
+#begin playButton.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:playButton.jpg
+
 #begin Red.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -303,6 +327,18 @@
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:spawn.FBX
+
+#begin tutorialButton.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:tutorialButton.jpg
 
 #begin ui.png
 /importer:TextureImporter

@@ -52,6 +52,15 @@ namespace SpaceJellyMONO
         public GameObject spawn;
         //sound
 
+        enum GameState
+        {
+            MainMenu,
+            Tutorial,
+            Playing,
+        }
+        GameState currentGameState = GameState.MainMenu;
+
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
