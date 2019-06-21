@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SpaceJellyMONO
 {
-    public class SelectionRenderer //rysowanie zaznaczenia, prototyp
+    public class SelectionRenderer //rysowanie zaznaczenia na podłodze, przy pomocy projekcji
     {
         private Effect selectionEffect;
         public Effect SelectionEffect { get { return selectionEffect; } }

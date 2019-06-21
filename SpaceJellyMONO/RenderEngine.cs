@@ -29,8 +29,8 @@ namespace SpaceJellyMONO
         }
         public override void Draw(GameTime gameTime)
         {
-            shadowMapRenderer.RenderShadowMap(SceneToRender);
-            RenderScene();
+            //shadowMapRenderer.RenderShadowMap(SceneToRender);
+            RenderScene(gameTime);
             //RenderHUD();
             //RenderCursor();
         }
@@ -40,7 +40,7 @@ namespace SpaceJellyMONO
             SceneToRender?.Floor?.Draw(shadowMapRenderer.ShadowedEffect);
             foreach(GameObject gameObject in SceneToRender?.SceneObjects.Values)
             {
-                gameObject.Draw(camera.View, camera.Projection);
+                gameObject.Draw(gameTime);
             }
 
         }

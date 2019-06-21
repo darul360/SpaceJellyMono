@@ -147,12 +147,14 @@ namespace SpaceJellyMONO
         public void DrawRect(Vector3 start, Vector3 end)
         {
             Game.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+            Game.GraphicsDevice.BlendState = BlendState.Additive;
+
             BasicEffect effect = new BasicEffect(Game.GraphicsDevice);
             effect.View = game.camera.View;
             effect.Projection = game.camera.Projection;
             effect.TextureEnabled = true;
             effect.Texture = checkerboardTexture;
-            effect.Alpha = 0.5f;
+            effect.Alpha = 0.3f;
 
             if ((start.X > end.X && start.Z < end.Z) || (start.X < end.X && start.Z > end.Z))
             {
@@ -183,6 +185,8 @@ namespace SpaceJellyMONO
                 pass.Apply();
                 GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleList, verticies, 0, 2);
             }
+
+            Game.GraphicsDevice.BlendState = BlendState.Opaque;
         }
 
         private void drawRect()

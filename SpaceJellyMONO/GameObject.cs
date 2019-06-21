@@ -14,6 +14,7 @@ namespace SpaceJellyMONO
         public Model model;
         public Transform transform;
         public Transform parentTransform;
+        public Transform ParentTransform { set { parentTransform = value; } }
 
         public Matrix WorldTransform => parentTransform.World() * transform.World();
 

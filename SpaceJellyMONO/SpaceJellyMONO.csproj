@@ -56,6 +56,7 @@
     <Compile Include="ResourcesGathering\BluePowderGathering.cs" />
     <Compile Include="ResourcesGathering\GatherResources.cs" />
     <Compile Include="ResourcesGathering\WaterGathering.cs" />
+    <Compile Include="SelectionCircle.cs" />
     <Compile Include="SpawnEnemies.cs" />
     <Compile Include="UnitsFolder\Enemy.cs" />
     <Compile Include="UnitsFolder\Jelly.cs" />
@@ -97,8 +98,8 @@
     <Compile Include="World\ShowInfoAboutBuilding.cs" />
     <Compile Include="World\UI.cs" />
     <Compile Include="World\WriteStats.cs" />
-	<Compile Include="SelectionRenderer.cs" />
-	<Compile Include="SMRenderer.cs" />
+    <Compile Include="SelectionRenderer.cs" />
+    <Compile Include="SMRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
