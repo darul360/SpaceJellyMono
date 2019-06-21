@@ -32,6 +32,7 @@ namespace SpaceJellyMONO
         public int targetX = 0, targetY = 0;
         public bool isFighting = false;
         public bool isEnemyMovingFromSpawn = false;
+		public bool IsVisible { get; set; }
 
         public FinateStateMachine finateSatemachine;
 
@@ -201,6 +202,58 @@ namespace SpaceJellyMONO
             }
 
         }
+		
+		public void Draw(Matrix view, Matrix projection)
+        {
+            foreach (ModelMesh mesh in model.Meshes)
+            {
+                foreach (Effect effect in mesh.Effects)
+                {
+                    if (effect is BasicEffect)
+                    {
+                        BasicEffect basicEffect = (BasicEffect)effect;
+                        basicEffect.World = WorldTransform;
+                        basicEffect.View = view;
+                        basicEffect.Projection = projection;
+                        basicEffect.EnableDefaultLighting();
+                        basicEffect.PreferPerPixelLighting = true;
+                    }
+                    if (effect is SkinnedEffect)
+                    {
+                        SkinnedEffect skinnedEffect = (SkinnedEffect)effect;
+                        skinnedEffect.SetBoneTransforms(skinnedAnimationPlayer.GetSkinTransforms());
+                        skinnedEffect.View = view;
+                        skinnedEffect.Projection = projection;
+
+                        skinnedEffect.EnableDefaultLighting();
+                        skinnedEffect.PreferPerPixelLighting = true;
+                        skinnedEffect.SpecularPower = 100f;
+                    }
+                }
+                mesh.Draw();
+                collider.DrawCollider();
+            }
+        }
+		
+		public void Draw(Effect effect)
+        {
+            foreach(ModelMesh mesh in model.Meshes)
+            {
+                Effect currentEffect = null;
+                foreach (ModelMeshPart meshPart in mesh.MeshParts)
+                {
+                    currentEffect = meshPart.Effect;
+                    meshPart.Effect = effect;
+                }
+
+                mesh.Draw();
+
+                foreach (ModelMeshPart meshPart in mesh.MeshParts)
+                {
+                    meshPart.Effect = currentEffect;
+                }
+            }
+        }
 
         public void StartAnimationClip(string clipName, int tempFrames, bool toggleRepeat)
         {
@@ -240,4 +293,3 @@ namespace SpaceJellyMONO
         virtual public float GetHp() { return 0; }
     }
 }
-

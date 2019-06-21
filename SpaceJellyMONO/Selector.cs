@@ -146,32 +146,34 @@ namespace SpaceJellyMONO
 
         public void DrawRect(Vector3 start, Vector3 end)
         {
-            BasicEffect effect = new BasicEffect(GraphicsDevice);
+            Game.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+            BasicEffect effect = new BasicEffect(Game.GraphicsDevice);
             effect.View = game.camera.View;
             effect.Projection = game.camera.Projection;
             effect.TextureEnabled = true;
             effect.Texture = checkerboardTexture;
+            effect.Alpha = 0.5f;
 
             if ((start.X > end.X && start.Z < end.Z) || (start.X < end.X && start.Z > end.Z))
             {
 
-                verticies[0].Position = new Vector3(start.X, 0.1f, start.Z);
-                verticies[1].Position = new Vector3(start.X, 0.1f, end.Z);
-                verticies[2].Position = new Vector3(end.X, 0.1f, start.Z);
-                verticies[3].Position = new Vector3(start.X, 0.1f, end.Z);
-                verticies[4].Position = new Vector3(end.X, 0.1f, end.Z);
-                verticies[5].Position = new Vector3(end.X, 0.1f, start.Z);
+                verticies[0].Position = new Vector3(start.X, 0.6f, start.Z);
+                verticies[1].Position = new Vector3(start.X, 0.6f, end.Z);
+                verticies[2].Position = new Vector3(end.X, 0.6f, start.Z);
+                verticies[3].Position = new Vector3(start.X, 0.6f, end.Z);
+                verticies[4].Position = new Vector3(end.X, 0.6f, end.Z);
+                verticies[5].Position = new Vector3(end.X, 0.6f, start.Z);
             }
 
             else
             {
                 verticies = new VertexPositionTexture[6];
-                verticies[0].Position = new Vector3(start.X,0.1f, start.Z);
-                verticies[1].Position = new Vector3(end.X,0.1f, start.Z);
-                verticies[2].Position = new Vector3(start.X, 0.1f, end.Z);
-                verticies[3].Position = new Vector3(end.X, 0.1f, start.Z);
-                verticies[4].Position = new Vector3(end.X, 0.1f, end.Z);
-                verticies[5].Position = new Vector3(start.X, 0.1f, end.Z);
+                verticies[0].Position = new Vector3(start.X,0.6f, start.Z);
+                verticies[1].Position = new Vector3(end.X,0.6f, start.Z);
+                verticies[2].Position = new Vector3(start.X, 0.6f, end.Z);
+                verticies[3].Position = new Vector3(end.X, 0.6f, start.Z);
+                verticies[4].Position = new Vector3(end.X, 0.6f, end.Z);
+                verticies[5].Position = new Vector3(start.X, 0.6f, end.Z);
             }
 
 

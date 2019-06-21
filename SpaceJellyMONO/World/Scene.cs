@@ -8,19 +8,24 @@ namespace SpaceJellyMONO
 {
     public class Scene
     {
-        private Camera camera;
-        public Camera Camera { get { return camera; } set { camera = value; } }
-
         private Transform rootTransform;
+
+        public Transform RootTransform { get { return rootTransform; } }
+
+        public BasicFloorGenerate Floor { get; set; }
 
         private Dictionary<string, GameObject> sceneObjects;
         public Dictionary<string, GameObject> SceneObjects { get { return sceneObjects; }}
         public void AddSceneObject(string objectId, GameObject objectToAdd)
         {
-            objectToAdd.parentTransform = rootTransform;
+            objectToAdd.ParentTransform = rootTransform;
             sceneObjects.Add(objectId, objectToAdd);
         }
-
+        public void AddSceneObject(string objectId, string parentId, GameObject objectToAdd)
+        {
+            objectToAdd.ParentTransform = SceneObjects[parentId].transform;
+            sceneObjects.Add(objectId, objectToAdd);
+        }
         public void DeleteSceneObject(String key)
         {
             sceneObjects.Remove(key);
@@ -32,9 +37,8 @@ namespace SpaceJellyMONO
             return myKey;
         }
 
-        public Scene(Camera camera, Transform rootTransform)
+        public Scene(Transform rootTransform)
         {
-            this.camera = camera;
             this.rootTransform = rootTransform;
             sceneObjects = new Dictionary<string, GameObject>();
         }
