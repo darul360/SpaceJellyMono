@@ -44,7 +44,7 @@ namespace SpaceJellyMONO
      
         private void moveToPoint(float deltatime)
         {
-            if (i == route.Count - 1 && Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) <= 0.02f)
+            if (i == route.Count - 1 && Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) <= 0.2f)
             {
                 isThatFirstStep = true;
                 transform.translation.X = route[i].X;

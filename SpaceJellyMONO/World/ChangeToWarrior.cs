@@ -51,12 +51,13 @@ namespace SpaceJellyMONO.World
                 if (change)
                 {
                    // GameObject gameOBJ = ;
-                    game.scene.AddSceneObject("warrior" + i + "W", new Warrior("jelly_yellow", game, temp.transform.translation, 0, 0f, 0f, 0.005f, true, "warrior", 0.6f) /*{finateSatemachine = game.animateJelly }*/);
-                    game.scene.SceneObjects["warrior" + i + "W"].StartAnimationClip("1", 20, true);
+                    game.scene.AddSceneObject("warrior" + i, new Warrior("jelly_yellow", game, temp.transform.translation, 0, 0f, 0f, 0.008f, true, "warrior", 0.5f) /*{finateSatemachine = game.animateJelly }*/);
+                    game.scene.SceneObjects["warrior" + i ].StartAnimationClip("1", 20, true);
                     string workerKey = game.scene.FindKeyOfObject(temp);     //znajdź klucz obiektu w repo rysowania
                     if (workerKey != null)                                  //overcode
                         game.scene.DeleteSceneObject(workerKey);
                     game.gameObjectsRepository.RemoveFromRepo(temp);
+                    game.selectedObjectsRepository.RemoveFromRepo(temp);
                     change = false;
                     i++;
                 }

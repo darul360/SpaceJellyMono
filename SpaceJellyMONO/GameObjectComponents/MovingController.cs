@@ -73,6 +73,7 @@ namespace SpaceJellyMONO.GameObjectComponents
                     if (clickPos.X > 0 && clickPos.X < 100 && clickPos.Z > 0 && clickPos.Z<100)
                     if (!game1.findPath.checkIfPositionIsBlocked((int)Math.Round(clickPos.X), (int)Math.Round(clickPos.Z)))
                     {
+                            Debug.WriteLine(game1.selectedObjectsRepository.getRepo().Count);
                         spiralSpread((int)Math.Round(clickPos.X), (int)Math.Round(clickPos.Z), game1.selectedObjectsRepository.getRepo().Count);
                         int i = 0;
                         foreach (GameObject go in game1.selectedObjectsRepository.getRepo())
