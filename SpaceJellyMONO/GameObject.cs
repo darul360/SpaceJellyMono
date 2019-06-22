@@ -178,7 +178,6 @@ namespace SpaceJellyMONO
                         basicEffect.View = camera.View;
                         basicEffect.Projection = camera.Projection;
                         basicEffect.EnableDefaultLighting();
-
                         basicEffect.SpecularPower = 200f;
                         basicEffect.LightingEnabled = true; // turn on the lighting subsystem.
                         basicEffect.DirectionalLight0.Direction = new Vector3(1, 0, 1);  // coming along the x-axis
@@ -198,7 +197,7 @@ namespace SpaceJellyMONO
                         skinnedEffect.DirectionalLight0.Direction = new Vector3(1, 0, 1);  // coming along the x-axis
                     }
                 }
-                collider.DrawCollider();
+                //collider.DrawCollider();
                 modelMesh.Draw();
             }
 

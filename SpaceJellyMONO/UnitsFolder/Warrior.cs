@@ -27,6 +27,9 @@ namespace SpaceJellyMONO.UnitsFolder
             //Debug.WriteLine(tmp);
             helathRectangle = new Rectangle((int)tmp.X, (int)tmp.Y, (int)hp, 8);
             this.game1 = game1;
+
+            SelectionCircle = new SelectionCircle(Vector3.Zero, new Vector2(2f, 2f), game1);
+            SelectionCircle.Color = Color.GreenYellow.ToVector4();
         }
 
         override public float GetDmg()
@@ -49,7 +52,7 @@ namespace SpaceJellyMONO.UnitsFolder
             ////  spriteBatch.Draw(texture, rectangle, Color.White);
 
             //Debug.WriteLine("dsdsdsdsds");
-            base.Draw(gameTime);
+            
             Vector3 tmp = game1.GraphicsDevice.Viewport.Project(Vector3.Zero, game1.camera.Projection, game1.camera.View, Matrix.CreateTranslation(transform.translation));
             helathRectangle.X = (int)tmp.X - 50;
             helathRectangle.Y = (int)tmp.Y - 50;
@@ -57,6 +60,8 @@ namespace SpaceJellyMONO.UnitsFolder
             spriteBatch.Begin();
             spriteBatch.Draw(healthTexture, helathRectangle, Color.White);
             spriteBatch.End();
+            
+            base.Draw(gameTime);
 
         }
 

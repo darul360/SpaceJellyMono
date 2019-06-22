@@ -51,6 +51,7 @@ namespace SpaceJellyMONO.GameObjectComponents
 
             //Debug.WriteLine("dsdsdsdsds");
             base.Draw(gameTime);
+            
             Vector3 tmp = game1.GraphicsDevice.Viewport.Project(Vector3.Zero, game1.camera.Projection, game1.camera.View, Matrix.CreateTranslation(transform.translation));
             helathRectangle.X = (int)tmp.X - 50;
             helathRectangle.Y = (int)tmp.Y - 50;
@@ -58,6 +59,7 @@ namespace SpaceJellyMONO.GameObjectComponents
             spriteBatch.Begin();
             spriteBatch.Draw(healthTexture, helathRectangle, Color.White);
             spriteBatch.End();
+            
 
         }
 

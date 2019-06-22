@@ -49,6 +49,7 @@
     <Compile Include="FSM\States\Animate.cs" />
     <Compile Include="GameObjectComponents\FloatingText.cs" />
     <Compile Include="GameObjectComponents\MovingController.cs" />
+    <Compile Include="ISelectable.cs" />
     <Compile Include="MoveEnemyToWarrior.cs" />
     <Compile Include="Repositories\PathCollidersRepository.cs" />
     <Compile Include="Repositories\PowderSourcesRepository.cs" />

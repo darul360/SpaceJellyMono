@@ -3,22 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SpaceJellyMONO.Units;
 
 namespace SpaceJellyMONO.Repositories
 {
     public class SelectedObjectsRepository
     {
-        List<GameObject> repository = new List<GameObject>();
+        List<Unit> repository = new List<Unit>();
 
         public SelectedObjectsRepository() { }
-        public void AddToRepo(GameObject modelLoader) { if(!ifExists(modelLoader))repository.Add(modelLoader); }
-        bool ifExists(GameObject go)
+        public void AddToRepo(Unit modelLoader)
         {
-            if (repository.Contains(go)) return true;
-            return false;
+            if(!repository.Contains(modelLoader))
+            {
+                modelLoader.IsSelected = true;
+                repository.Add(modelLoader);
+            }
         }
-        public void ClearAll() { repository.Clear(); }
-        public void RemoveFromRepo(GameObject modelLoader) { repository.Remove(modelLoader); }
-        public List<GameObject> getRepo() { return repository; }
+        public void ClearAll()
+        {
+            foreach (Unit element in repository)
+            {
+                element.IsSelected = false;
+            }
+            repository.Clear();
+        }
+        public void RemoveFromRepo(Unit modelLoader)
+        {
+            if(repository.Contains(modelLoader))
+            {
+                modelLoader.IsSelected = true;
+                repository.Remove(modelLoader);
+            }
+        }
+        public List<GameObject> getRepo()
+        {
+            return new List<GameObject>(repository);
+        }
     }
 }

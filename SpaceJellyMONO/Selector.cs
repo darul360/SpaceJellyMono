@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
+using SpaceJellyMONO.Units;
 
 namespace SpaceJellyMONO
 {
@@ -31,29 +32,33 @@ namespace SpaceJellyMONO
         {
             foreach (GameObject model in game.gameObjectsRepository.getRepo())
             {
-                if (startPoint.X > stopPoint.X)
+                Unit selectableUnit = model as Unit;
+                if(selectableUnit != null)
                 {
-                    if (startPoint.Z > stopPoint.Z)
+                    if (startPoint.X > stopPoint.X)
                     {
-                        if ((model.transform.Translation.X >= stopPoint.X && model.transform.Translation.X <= startPoint.X) && (model.transform.Translation.Z >= stopPoint.Z && model.transform.Translation.Z <= startPoint.Z))
+                        if (startPoint.Z > stopPoint.Z)
                         {
-                            if (model.GameTag != "enemy")
+                            if ((selectableUnit.transform.Translation.X >= stopPoint.X && selectableUnit.transform.Translation.X <= startPoint.X) && (selectableUnit.transform.Translation.Z >= stopPoint.Z && selectableUnit.transform.Translation.Z <= startPoint.Z))
                             {
-                                model.isObjectSelected = true;
-                                game.selectedObjectsRepository.AddToRepo(model);
-                                setPrimary(model);
+                                if (selectableUnit.GameTag != "enemy")
+                                {
+                                    //selectableUnit.IsSelected = true;
+                                    game.selectedObjectsRepository.AddToRepo(selectableUnit);
+                                    //setPrimary(selectableUnit);
+                                }
                             }
                         }
-                    }
-                    if(startPoint.Z < stopPoint.Z)
-                    {
-                        if ((model.transform.Translation.X >= stopPoint.X && model.transform.Translation.X <= startPoint.X) && (model.transform.Translation.Z >= startPoint.Z && model.transform.Translation.Z <= stopPoint.Z))
+                        if (startPoint.Z < stopPoint.Z)
                         {
-                            if (model.GameTag != "enemy")
+                            if ((selectableUnit.transform.Translation.X >= stopPoint.X && selectableUnit.transform.Translation.X <= startPoint.X) && (selectableUnit.transform.Translation.Z >= startPoint.Z && selectableUnit.transform.Translation.Z <= stopPoint.Z))
                             {
-                                model.isObjectSelected = true;
-                                game.selectedObjectsRepository.AddToRepo(model);
-                                setPrimary(model);
+                                if (selectableUnit.GameTag != "enemy")
+                                {
+                                    //selectableUnit.IsSelected = true;
+                                    game.selectedObjectsRepository.AddToRepo(selectableUnit);
+                                    //setPrimary(selectableUnit);
+                                }
                             }
                         }
                     }
@@ -63,25 +68,25 @@ namespace SpaceJellyMONO
                 {
                     if (startPoint.Z > stopPoint.Z)
                     {
-                        if ((model.transform.Translation.X >= startPoint.X && model.transform.Translation.X <= stopPoint.X) && (model.transform.Translation.Z >= stopPoint.Z && model.transform.Translation.Z <= startPoint.Z))
+                        if ((selectableUnit.transform.Translation.X >= startPoint.X && selectableUnit.transform.Translation.X <= stopPoint.X) && (selectableUnit.transform.Translation.Z >= stopPoint.Z && selectableUnit.transform.Translation.Z <= startPoint.Z))
                         {
-                            if (model.GameTag != "enemy")
+                            if (selectableUnit.GameTag != "enemy")
                             {
-                                model.isObjectSelected = true;
-                                game.selectedObjectsRepository.AddToRepo(model);
-                                setPrimary(model);
+                                //selectableUnit.IsSelected = true;
+                                game.selectedObjectsRepository.AddToRepo(selectableUnit);
+                                //setPrimary(selectableUnit);
                             }
                         }
                     }
                     if (startPoint.Z < stopPoint.Z)
                     {
-                        if ((model.transform.Translation.X >= startPoint.X && model.transform.Translation.X <= stopPoint.X) && (model.transform.Translation.Z >= startPoint.Z && model.transform.Translation.Z <= stopPoint.Z))
+                        if ((selectableUnit.transform.Translation.X >= startPoint.X && selectableUnit.transform.Translation.X <= stopPoint.X) && (selectableUnit.transform.Translation.Z >= startPoint.Z && selectableUnit.transform.Translation.Z <= stopPoint.Z))
                         {
-                            if (model.GameTag != "enemy")
+                            if (selectableUnit.GameTag != "enemy")
                             {
-                                model.isObjectSelected = true;
-                                game.selectedObjectsRepository.AddToRepo(model);
-                                setPrimary(model);
+                                //selectableUnit.IsSelected = true;
+                                game.selectedObjectsRepository.AddToRepo(selectableUnit);
+                                //setPrimary(selectableUnit);
                             }
                         }
                     }
@@ -90,17 +95,17 @@ namespace SpaceJellyMONO
         }
         private void DeselectAll()
         {
-            foreach (GameObject model in game.gameObjectsRepository.getRepo())
+            game.selectedObjectsRepository.ClearAll();
+            /*
+            foreach (GameObject model in game.selectedObjectsRepository.getRepo())
             {
-                model.isObjectSelected = false;
                 if (!model.isMoving)
                 {
-                    if (model.mainClass.selectedObjectsRepository.getRepo().Contains(model))
+                        ((Unit)model).IsSelected = false;
                         model.mainClass.selectedObjectsRepository.getRepo().Remove(model);
                 }
             }
-            
-            
+            */ 
         }
 
 
@@ -146,7 +151,6 @@ namespace SpaceJellyMONO
 
         public void DrawRect(Vector3 start, Vector3 end)
         {
-            Game.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
             Game.GraphicsDevice.BlendState = BlendState.Additive;
 
             BasicEffect effect = new BasicEffect(Game.GraphicsDevice);

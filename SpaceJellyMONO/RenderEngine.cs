@@ -13,7 +13,6 @@ namespace SpaceJellyMONO
     {
         private Camera camera;
         private SMRenderer shadowMapRenderer;
-        private SelectionRenderer selectionRenderer;
 
         public Scene SceneToRender
         {
@@ -37,8 +36,9 @@ namespace SpaceJellyMONO
 
         private void RenderScene(GameTime gameTime)
         {
-            SceneToRender?.Floor?.Draw(shadowMapRenderer.ShadowedEffect);
-            foreach(GameObject gameObject in SceneToRender?.SceneObjects.Values)
+            Game.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+
+            foreach (GameObject gameObject in SceneToRender?.SceneObjects.Values)
             {
                 gameObject.Draw(gameTime);
             }
@@ -73,18 +73,10 @@ namespace SpaceJellyMONO
             shadowMapRenderer.Texture = Game.Content.Load<Texture2D>("PancakeTexture");
 
             //Selection Renderer Setup
-            selectionRenderer = new SelectionRenderer(Game);
-
-            selectionRenderer.WorldMatrix = Matrix.Identity;
-            selectionRenderer.ProjectionMatrix2 = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, 1f, 1f, 100f);
-
         }
         public override void Update(GameTime gameTime)
         {
             shadowMapRenderer.SceneWorldViewProjectionMatrix = Matrix.Identity * camera.View * camera.Projection;
-
-            selectionRenderer.ViewMatrix = camera.View;
-            selectionRenderer.ProjectionMatrix = camera.Projection;
 
             base.Update(gameTime);
         }
