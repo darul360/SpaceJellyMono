@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.IO;
+using SpaceJellyMONO.Units;
 
 namespace SpaceJellyMONO
 {
@@ -13,6 +13,7 @@ namespace SpaceJellyMONO
     {
         private Camera camera;
         private SMRenderer shadowMapRenderer;
+        private SpriteBatch spriteBatch;
 
         public Scene SceneToRender
         {
@@ -25,11 +26,13 @@ namespace SpaceJellyMONO
         public RenderEngine(Game1 game, Camera camera) : base(game)
         {
             this.camera = camera;
+            spriteBatch = new SpriteBatch(game.GraphicsDevice);
         }
         public override void Draw(GameTime gameTime)
         {
             //shadowMapRenderer.RenderShadowMap(SceneToRender);
             RenderScene(gameTime);
+            RenderSprites();
             //RenderHUD();
             //RenderCursor();
         }
@@ -43,6 +46,19 @@ namespace SpaceJellyMONO
                 gameObject.Draw(gameTime);
             }
 
+        }
+        private void RenderSprites()
+        {
+            spriteBatch.Begin();
+            foreach (GameObject gameObject in SceneToRender.SceneObjects.Values)
+            {
+                if (gameObject is Unit)
+                {
+                    Unit unit = gameObject as Unit;
+                    spriteBatch.Draw(unit.HealthBarTexture, unit.HealthBar, Color.White);
+                }
+            }
+            spriteBatch.End();
         }
         private void RenderHUD()
         {

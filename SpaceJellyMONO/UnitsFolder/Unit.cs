@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 
 namespace SpaceJellyMONO.Units
 {
-    public class Unit : GameObject, ISelectable
+    public class Unit : GameObject, ISelectable, IDamageable
     {
-        protected Texture2D texture;
-        public Rectangle rectangle;
+        public virtual Texture2D HealthBarTexture { get; set; }
+        public virtual Rectangle HealthBar { get; set; }
+        public virtual float CurrentHealth { get; set; }
+
         private bool isSelected = false;
         public bool IsSelected { get { return isSelected; } set { isSelected = value;} }
         public SelectionCircle SelectionCircle { get; set; }
@@ -43,6 +45,14 @@ namespace SpaceJellyMONO.Units
                 
 
             base.Draw(gameTime);
+        }
+        public virtual void TakeDamage(float damage)
+        {
+
+        }
+        public virtual void Die()
+        {
+
         }
     }
 }

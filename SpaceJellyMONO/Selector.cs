@@ -32,9 +32,10 @@ namespace SpaceJellyMONO
         {
             foreach (GameObject model in game.gameObjectsRepository.getRepo())
             {
-                Unit selectableUnit = model as Unit;
-                if(selectableUnit != null)
+                
+                if(model is Unit)
                 {
+                    Unit selectableUnit = model as Unit;
                     if (startPoint.X > stopPoint.X)
                     {
                         if (startPoint.Z > stopPoint.Z)
@@ -62,31 +63,32 @@ namespace SpaceJellyMONO
                             }
                         }
                     }
-                }
 
-                if (startPoint.X < stopPoint.X)
-                {
-                    if (startPoint.Z > stopPoint.Z)
+
+                    if (startPoint.X < stopPoint.X)
                     {
-                        if ((selectableUnit.transform.Translation.X >= startPoint.X && selectableUnit.transform.Translation.X <= stopPoint.X) && (selectableUnit.transform.Translation.Z >= stopPoint.Z && selectableUnit.transform.Translation.Z <= startPoint.Z))
+                        if (startPoint.Z > stopPoint.Z)
                         {
-                            if (selectableUnit.GameTag != "enemy")
+                            if ((selectableUnit.transform.Translation.X >= startPoint.X && selectableUnit.transform.Translation.X <= stopPoint.X) && (selectableUnit.transform.Translation.Z >= stopPoint.Z && selectableUnit.transform.Translation.Z <= startPoint.Z))
                             {
-                                //selectableUnit.IsSelected = true;
-                                game.selectedObjectsRepository.AddToRepo(selectableUnit);
-                                //setPrimary(selectableUnit);
+                                if (selectableUnit.GameTag != "enemy")
+                                {
+                                    //selectableUnit.IsSelected = true;
+                                    game.selectedObjectsRepository.AddToRepo(selectableUnit);
+                                    //setPrimary(selectableUnit);
+                                }
                             }
                         }
-                    }
-                    if (startPoint.Z < stopPoint.Z)
-                    {
-                        if ((selectableUnit.transform.Translation.X >= startPoint.X && selectableUnit.transform.Translation.X <= stopPoint.X) && (selectableUnit.transform.Translation.Z >= startPoint.Z && selectableUnit.transform.Translation.Z <= stopPoint.Z))
+                        if (startPoint.Z < stopPoint.Z)
                         {
-                            if (selectableUnit.GameTag != "enemy")
+                            if ((selectableUnit.transform.Translation.X >= startPoint.X && selectableUnit.transform.Translation.X <= stopPoint.X) && (selectableUnit.transform.Translation.Z >= startPoint.Z && selectableUnit.transform.Translation.Z <= stopPoint.Z))
                             {
-                                //selectableUnit.IsSelected = true;
-                                game.selectedObjectsRepository.AddToRepo(selectableUnit);
-                                //setPrimary(selectableUnit);
+                                if (selectableUnit.GameTag != "enemy")
+                                {
+                                    //selectableUnit.IsSelected = true;
+                                    game.selectedObjectsRepository.AddToRepo(selectableUnit);
+                                    //setPrimary(selectableUnit);
+                                }
                             }
                         }
                     }
