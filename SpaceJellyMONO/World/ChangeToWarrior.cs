@@ -50,8 +50,9 @@ namespace SpaceJellyMONO.World
 
                 if (change)
                 {
-                   // GameObject gameOBJ = ;
-                    game.scene.AddSceneObject("warrior" + i, new Warrior("jelly_yellow", game, temp.transform.translation, 0, 0f, 0f, 0.008f, true, "warrior", 0.5f) /*{finateSatemachine = game.animateJelly }*/);
+                    // GameObject gameOBJ = ;
+                    GameObject go = new Warrior("jelly_yellow", game, temp.transform.translation, 0, 0f, 0f, 0.008f, true, "warrior", 0.6f);
+                    game.scene.AddSceneObject("warrior" + i, go);
                     game.scene.SceneObjects["warrior" + i ].StartAnimationClip("1", 20, true);
                     string workerKey = game.scene.FindKeyOfObject(temp);     //znajdź klucz obiektu w repo rysowania
                     if (workerKey != null)                                  //overcode
@@ -59,6 +60,7 @@ namespace SpaceJellyMONO.World
                     game.gameObjectsRepository.RemoveFromRepo(temp);
                     game.selectedObjectsRepository.RemoveFromRepo(temp);
                     change = false;
+                    go.isObjectSelected = true;
                     i++;
                 }
 
