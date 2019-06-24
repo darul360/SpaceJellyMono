@@ -50,6 +50,7 @@ namespace SpaceJellyMONO
         public FinateStateMachine aniamteZarlok;
         public FinateStateMachine animateJelly;
         public GameObject spawn;
+        public MovingController movingController;
         //sound
 
         enum GameState
@@ -108,7 +109,8 @@ namespace SpaceJellyMONO
             Components.Add(new BluePowderGathering(this));
             platform = new GameObject("yellowChangePlatform", this, new Vector3(23, 0, 7), -1.57f, 0, 0, 0.05f, false, "platform", 2); 
             Components.Add(new ChangeToWarrior(this, platform));
-            Components.Add(new MovingController(this));
+            movingController = new MovingController(this);
+            Components.Add(movingController);
             Components.Add(writeStats);
             Components.Add(new ShowInfoAboutBuilding(this));
             Components.Add(new MoveEnemyToWarrior(this));

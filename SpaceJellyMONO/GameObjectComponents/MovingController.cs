@@ -14,6 +14,7 @@ namespace SpaceJellyMONO.GameObjectComponents
         Game1 game1;
         MouseState lastMouseState = new MouseState();
         List<Vector2> tempNodes;
+        public Vector3 clickPos;
         public MovingController(Game1 game1) : base(game1)
         {
             this.game1 = game1;
@@ -69,7 +70,7 @@ namespace SpaceJellyMONO.GameObjectComponents
                 MouseState currentState = Mouse.GetState();
                 if(currentState.RightButton == ButtonState.Pressed && lastMouseState.RightButton == ButtonState.Released)
                 {
-                    Vector3 clickPos = game1.clickCooridantes.FindWhereClicked();
+                    clickPos = game1.clickCooridantes.FindWhereClicked();
                     if (clickPos.X > 0 && clickPos.X < 100 && clickPos.Z > 0 && clickPos.Z<100)
                     if (!game1.findPath.checkIfPositionIsBlocked((int)Math.Round(clickPos.X), (int)Math.Round(clickPos.Z)))
                     {

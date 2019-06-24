@@ -36,6 +36,7 @@ namespace SpaceJellyMONO
         public FinateStateMachine finateSatemachine;
 
         protected AnimationPlayer skinnedAnimationPlayer = null;
+        public CylinderPrimitive cylinder;
 
         public String GameTag
         {
@@ -64,8 +65,9 @@ namespace SpaceJellyMONO
             SkinningData skinningDataValue = model.Tag as SkinningData;
             if (skinningDataValue != null)
                 skinnedAnimationPlayer = new AnimationPlayer(skinningDataValue);
+            cylinder = new CylinderPrimitive(mainClass.GraphicsDevice, 0.5f, 0.6f, 20);
 
-            
+
         }
 
         virtual public void update(float deltatime, SoundEffect effect)
@@ -198,8 +200,13 @@ namespace SpaceJellyMONO
                 }
                 collider.DrawCollider();
                 modelMesh.Draw();
+                if (this.isMoving)
+                {
+                    Matrix rotation = Matrix.CreateRotationX(0) * Matrix.CreateRotationY(0) * Matrix.CreateRotationZ(0);
+                    Matrix temp = rotation * Matrix.CreateTranslation(mainClass.movingController.clickPos);
+                    cylinder.Draw(temp, camera.View, camera.Projection, new Color(0, 255, 0));
+                }
             }
-
         }
 
         public void StartAnimationClip(string clipName, int tempFrames, bool toggleRepeat)
