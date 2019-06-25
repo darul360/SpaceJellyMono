@@ -93,7 +93,7 @@ namespace SpaceJellyMONO
             shadowMapRenderer.LightsPower = 1f;
 
 
-            shadowMapRenderer.Texture = Game.Content.Load<Texture2D>("PancakeTexture");
+            shadowMapRenderer.Texture = Game.Content.Load<Texture2D>("mountains/mountains_DefaultMaterial_BaseColor");
 
         }
         public override void Update(GameTime gameTime)

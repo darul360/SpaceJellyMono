@@ -297,6 +297,30 @@
 /processorParam:TextureFormat=Color
 /build:mineWARNING.png
 
+#begin mountains/mountains_DefaultMaterial_BaseColor.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mountains/mountains_DefaultMaterial_BaseColor.png
+
+#begin mountains/mountains_DefaultMaterial_BaseColor.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mountains/mountains_DefaultMaterial_BaseColor.png
+
 #begin mountainTerrain.FBX
 /importer:FbxImporter
 /processor:ModelProcessor
