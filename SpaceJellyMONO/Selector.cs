@@ -38,7 +38,7 @@ namespace SpaceJellyMONO
                     {
                         if ((model.transform.Translation.X >= stopPoint.X && model.transform.Translation.X <= startPoint.X) && (model.transform.Translation.Z >= stopPoint.Z && model.transform.Translation.Z <= startPoint.Z))
                         {
-                            if (model.GameTag != "enemy")
+                            if (model.GameTag == "worker" || model.GameTag == "warrior")
                             {
                                 model.isObjectSelected = true;
                                 game.selectedObjectsRepository.AddToRepo(model);
@@ -50,7 +50,7 @@ namespace SpaceJellyMONO
                     {
                         if ((model.transform.Translation.X >= stopPoint.X && model.transform.Translation.X <= startPoint.X) && (model.transform.Translation.Z >= startPoint.Z && model.transform.Translation.Z <= stopPoint.Z))
                         {
-                            if (model.GameTag != "enemy")
+                            if (model.GameTag == "worker" || model.GameTag == "warrior")
                             {
                                 model.isObjectSelected = true;
                                 game.selectedObjectsRepository.AddToRepo(model);
@@ -66,7 +66,7 @@ namespace SpaceJellyMONO
                     {
                         if ((model.transform.Translation.X >= startPoint.X && model.transform.Translation.X <= stopPoint.X) && (model.transform.Translation.Z >= stopPoint.Z && model.transform.Translation.Z <= startPoint.Z))
                         {
-                            if (model.GameTag != "enemy")
+                            if (model.GameTag == "worker" || model.GameTag == "warrior")
                             {
                                 model.isObjectSelected = true;
                                 game.selectedObjectsRepository.AddToRepo(model);
@@ -78,7 +78,7 @@ namespace SpaceJellyMONO
                     {
                         if ((model.transform.Translation.X >= startPoint.X && model.transform.Translation.X <= stopPoint.X) && (model.transform.Translation.Z >= startPoint.Z && model.transform.Translation.Z <= stopPoint.Z))
                         {
-                            if (model.GameTag != "enemy")
+                            if (model.GameTag == "worker" || model.GameTag == "warrior")
                             {
                                 model.isObjectSelected = true;
                                 game.selectedObjectsRepository.AddToRepo(model);
