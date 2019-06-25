@@ -1,9 +1,17 @@
-float4x4 xWorldViewProjection;
-float4x4 xLightsWorldViewProjection;
-float4x4 xWorld;
 float3 xLightPos;
 float xLightPower;
 float xAmbient;
+
+cbuffer MatrixBuffer
+{
+	matrix worldMatrix;
+	
+	matrix cameraViewMatrix;
+	matrix cameraProjectionMatrix;
+	
+	matrix lightsViewMatrix;
+	matrix lightsProjectionMatrix;
+};
 
 Texture2D xShadowMap;
 sampler2D ShadowMapSampler = sampler_state { texture = <xShadowMap> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; AddressU = mirror; AddressV = mirror;};
@@ -26,10 +34,16 @@ struct SSceneVertexToPixel
      SSceneVertexToPixel Output = (SSceneVertexToPixel)0;
  
 	 float4 inPos4 = float4(inPos, 1);
-     Output.Position = mul(inPos4, xWorldViewProjection);    
-     Output.Pos2DAsSeenByLight = mul(inPos4, xLightsWorldViewProjection);    
-     Output.Normal = normalize(mul(inNormal, (float3x3)xWorld));    
-     Output.Position3D = mul(inPos4, xWorld);
+     Output.Position = mul(inPos4, worldMatrix);
+	 Output.Position = mul(Output.Position, cameraViewMatrix);
+	 Output.Position = mul(Output.Position, cameraProjectionMatrix);	
+	 
+     Output.Pos2DAsSeenByLight = mul(inPos4, worldMatrix);
+	 Output.Pos2DAsSeenByLight = mul(Output.Pos2DAsSeenByLight, lightsViewMatrix);
+	 Output.Pos2DAsSeenByLight = mul(Output.Pos2DAsSeenByLight, lightsProjectionMatrix);
+	 
+     Output.Normal = normalize(mul(inNormal, (float3x3)worldMatrix));    
+     Output.Position3D = mul(inPos4, worldMatrix);
 	 Output.Tex = inTex;
  
      return Output;
@@ -50,14 +64,12 @@ float4 ShadowedScenePixelShader(SSceneVertexToPixel PSIn) : COLOR0
         float depthStoredInShadowMap = tex2D(ShadowMapSampler, ProjectedTexCoords).r;
         float realDistance = PSIn.Pos2DAsSeenByLight.z/PSIn.Pos2DAsSeenByLight.w;
 		
-		float3 lightDir = normalize(PSIn.Position3D.xyz - xLightPos);
-		diffuseLightingFactor = dot(-lightDir, PSIn.Normal);
-		diffuseLightingFactor = saturate(diffuseLightingFactor);
-		diffuseLightingFactor *= xLightPower;
-		 
-         if ((realDistance - 0.01f) > depthStoredInShadowMap)
+         if ((realDistance - 0.01f) <= depthStoredInShadowMap)
          {
-			diffuseLightingFactor = 0;
+		 	float3 lightDir = normalize(PSIn.Position3D.xyz - xLightPos);
+			diffuseLightingFactor = dot(-lightDir, PSIn.Normal);
+			diffuseLightingFactor = saturate(diffuseLightingFactor);
+			diffuseLightingFactor *= xLightPower;
          }
      }
 	              

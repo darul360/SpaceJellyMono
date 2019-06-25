@@ -33,7 +33,8 @@ namespace SpaceJellyMONO
         public int targetX = 0, targetY = 0;
         public bool isFighting = false;
         public bool isEnemyMovingFromSpawn = false;
-		public bool IsVisible { get; set; }
+        private bool isVisible = true;
+		public bool IsVisible { get { return isVisible; } set { isVisible = value; } }
 
         public FinateStateMachine finateSatemachine;
 

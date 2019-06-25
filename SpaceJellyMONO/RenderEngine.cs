@@ -27,10 +27,21 @@ namespace SpaceJellyMONO
         {
             this.camera = camera;
             spriteBatch = new SpriteBatch(game.GraphicsDevice);
+            shadowMapRenderer = new SMRenderer(Game, 4096, 3112);
         }
         public override void Draw(GameTime gameTime)
         {
-            //shadowMapRenderer.RenderShadowMap(SceneToRender);
+            shadowMapRenderer.RenderShadowMap(SceneToRender);
+
+            if (SceneToRender.Floor != null)
+            {
+                shadowMapRenderer.WorldMatrix = SceneToRender.Floor.WorldTransform;
+                shadowMapRenderer.CameraViewMatrix = camera.View;
+                shadowMapRenderer.CameraProjectionMatrix = camera.Projection;
+                SceneToRender.Floor.Draw(shadowMapRenderer.ShadowedEffect);
+                SceneToRender.Floor.IsVisible = false;
+            }
+
             RenderScene(gameTime);
             RenderSprites();
             //RenderHUD();
@@ -40,10 +51,10 @@ namespace SpaceJellyMONO
         private void RenderScene(GameTime gameTime)
         {
             Game.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-
             foreach (GameObject gameObject in SceneToRender?.SceneObjects.Values)
             {
-                gameObject.Draw(gameTime);
+                if(gameObject.IsVisible)
+                    gameObject.Draw(gameTime);
             }
 
         }
@@ -70,30 +81,23 @@ namespace SpaceJellyMONO
         public override void Initialize()
         {
             //Shadow Map Renderer Setup
-            shadowMapRenderer = new SMRenderer(Game, 4096, 3112);
-
-            Vector3 lightsPosition = new Vector3(8f, 10f, 8f);
-            Matrix lightsViewMatrix = Matrix.CreateLookAt(lightsPosition, new Vector3(10f, 0f, 10f), Vector3.Up);
+            Vector3 lightsPosition = new Vector3(10f, 10f, 10f);
+            Matrix lightsViewMatrix = Matrix.CreateLookAt(lightsPosition, new Vector3(20f, 0f, 20f), Vector3.Up);
             Matrix lightsProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, 4f/3 , 5f, 100f);
 
             shadowMapRenderer.LightsPosition = lightsPosition;
             shadowMapRenderer.LightsViewMatrix = lightsViewMatrix;
             shadowMapRenderer.LightsProjectionMatrix = lightsProjectionMatrix;
-            shadowMapRenderer.LightsWorldViewProjectionMatrix = Matrix.Identity * lightsViewMatrix * lightsProjectionMatrix;
 
             shadowMapRenderer.LightsAmbientValue = 0.2f;
             shadowMapRenderer.LightsPower = 1f;
 
-            shadowMapRenderer.SceneWorldMatrix = Matrix.Identity;
 
             shadowMapRenderer.Texture = Game.Content.Load<Texture2D>("PancakeTexture");
 
-            //Selection Renderer Setup
         }
         public override void Update(GameTime gameTime)
         {
-            shadowMapRenderer.SceneWorldViewProjectionMatrix = Matrix.Identity * camera.View * camera.Projection;
-
             base.Update(gameTime);
         }
 

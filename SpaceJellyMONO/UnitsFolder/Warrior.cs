@@ -26,7 +26,7 @@ namespace SpaceJellyMONO.UnitsFolder
             healthTexture = game1.exportContentManager().Load<Texture2D>("diffuse3");
             healthRectangle = new Rectangle(0,0,0,10);
 
-            SelectionCircle = new SelectionCircle(Vector3.Zero, new Vector2(1f, 1f), game1);
+            SelectionCircle = new SelectionCircle(Vector3.Zero, new Vector2(1.5f, 1.5f), game1);
             SelectionCircle.Color = Color.GreenYellow.ToVector4();
         }
 

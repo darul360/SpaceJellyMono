@@ -81,6 +81,8 @@ namespace SpaceJellyMONO
 
             /*-----MODELE-----*/
             scene = new Scene(new Transform(new Vector3(0f, 0f, 0f), 0f, 0f, 0f, 1f));
+            Components.Add(new RenderEngine(this, camera));
+            Components.Add(new Selector(this));
             basicFloorGenerate = new BasicFloorGenerate(GraphicsDevice, gridW, gridH, spriteBatch, this);
             clickCooridantes = new ClickCooridantes(this);
             continueBuilding = new ContinueBuilding(this);
@@ -90,8 +92,6 @@ namespace SpaceJellyMONO
             Components.Add(clickCooridantes);
             Components.Add(new GenerateWorker(this));
             Components.Add(new RemoveDeadUnits(this));
-            Components.Add(new RenderEngine(this, camera));
-            Components.Add(new Selector(this));
             Components.Add(new BaseBuildingBuilder(this));
             Components.Add(new WaterGathering(this));
             Components.Add(new DrawPowderSources(this, 30));
@@ -100,7 +100,7 @@ namespace SpaceJellyMONO
             platform = new GameObject("yellowChangePlatform", this, new Vector3(23, 0, 7), -1.57f, 0, 0, 0.05f, false, "platform", 2); 
             Components.Add(new ChangeToWarrior(this, platform));
             Components.Add(new MovingController(this));
-            Components.Add(writeStats);
+            //Components.Add(writeStats);
             Components.Add(new ShowInfoAboutBuilding(this));
             Components.Add(new MoveEnemyToWarrior(this));
             video = Content.Load<Video>("building");
@@ -108,7 +108,7 @@ namespace SpaceJellyMONO
             video2 = Content.Load<Video>("building2");
             player2 = new VideoPlayer();
             floatingText = new FloatingText(this, platform.transform, "");
-            Components.Add(floatingText);
+            //Components.Add(floatingText);
             Components.Add(new SpawnEnemies(this));
             base.Initialize();
         }
@@ -170,6 +170,7 @@ namespace SpaceJellyMONO
 
             flr = new GameObject("mountainTerrain", this, new Vector3(50, 0, 50), -1.57f, -1.5f, 0, 1f, false, "floor",0.9f);
             scene.AddSceneObject("podloga",flr );
+            scene.Floor = flr;
             scene.AddSceneObject("zarlok_001", new Enemy("zarlok", this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.02f, true, "enemy", 0.5f*0.9f));
             scene.AddSceneObject("galaretka_003", new Jelly("jelly_blue", this, new Vector3(6f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker",0.6f));
             scene.AddSceneObject("galaretka_004", new Jelly("jelly_blue", this, new Vector3(10f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker", 0.6f));
@@ -179,7 +180,6 @@ namespace SpaceJellyMONO
             spawn = new Spawn("spawn", this, new Vector3(95f, 0, 5f), -1.5f, -1.55f, 0f, 0.05f, true, "spawn", 1.6f);
             scene.AddSceneObject("yellowPlatform", platform);
             scene.AddSceneObject("spawn",spawn);
-
 
             
                      

@@ -153,8 +153,6 @@ namespace SpaceJellyMONO
 
         public void DrawRect(Vector3 start, Vector3 end)
         {
-            Game.GraphicsDevice.BlendState = BlendState.Additive;
-
             BasicEffect effect = new BasicEffect(Game.GraphicsDevice);
             effect.View = game.camera.View;
             effect.Projection = game.camera.Projection;
@@ -191,13 +189,11 @@ namespace SpaceJellyMONO
                 pass.Apply();
                 GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleList, verticies, 0, 2);
             }
-
-            Game.GraphicsDevice.BlendState = BlendState.Opaque;
         }
 
         private void drawRect()
         {
-
+            Game.GraphicsDevice.BlendState = BlendState.Additive;
             MouseState mouseState = Mouse.GetState();
 
             if (mouseState.LeftButton == ButtonState.Pressed && isFirstPointSelected == false)
@@ -217,6 +213,7 @@ namespace SpaceJellyMONO
                 isFirstPointSelected = false;
                 isLastPointSelected = false;
             }
+            Game.GraphicsDevice.BlendState = BlendState.Opaque;
 
         }
 
