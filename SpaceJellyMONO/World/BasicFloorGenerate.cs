@@ -95,7 +95,8 @@ namespace SpaceJellyMONO
                             && go.GameTag != "baseBuilding" && go.GameTag != "firstPartOfBuilding"
                             && go.GameTag != "bluePowder" && go.GameTag != "yellowPowder"
                             && go.GameTag != "platform" && go.GameTag != "baza" && go.GameTag != "warrior"
-                            && go.GameTag != "worker" && go.GameTag != "enemy" && go.GameTag != "spawn")
+                            && go.GameTag != "worker" && go.GameTag != "enemy" && go.GameTag != "spawn"
+                            && go.GameTag != "bazaenemy")
                         {
                             game1.findPath.setBlockCell(i, j);
                         }
