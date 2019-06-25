@@ -15,6 +15,7 @@ namespace SpaceJellyMONO
         private bool reclicked = false;
         Vector3 startPoint = new Vector3(0, 0, 0);
         Vector3 endPoint = new Vector3(0, 0, 0);
+        private MouseState lastMouseState = new MouseState();
 
         public Selector(Game1 game) : base(game)
         {
@@ -210,12 +211,30 @@ namespace SpaceJellyMONO
             }
 
         }
+        public void singleClickSelect()
+        {
+            foreach(GameObject go in game.gameObjectsRepository.getRepo())
+            {
+                if (Vector3.Distance(FindWhereClicked(), go.transform.translation) < 0.5f)
+                {
+                    MouseState currentState = Mouse.GetState();
+
+                    if (currentState.LeftButton == ButtonState.Pressed && lastMouseState.LeftButton == ButtonState.Released)
+                    {
+                        go.isObjectSelected = true;
+                        game.selectedObjectsRepository.AddToRepo(go);
+                    }
+                    lastMouseState = currentState;
+                }
+            }
+        }
 
 
         public override void Draw(GameTime gameTime)
         {
             
             drawRect();
+            singleClickSelect();
             base.Draw(gameTime);
         }
     }

@@ -30,6 +30,7 @@ namespace SpaceJellyMONO.World
                 if (workerKey != null)
                     game1.scene.DeleteSceneObject(workerKey);
                 game1.gameObjectsRepository.RemoveFromRepo(temp);
+                game1.selectedObjectsRepository.RemoveFromRepo(temp);
                 temp = null;
             }
             base.Update(gameTime);

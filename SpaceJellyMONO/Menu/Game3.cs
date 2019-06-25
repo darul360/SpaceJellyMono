@@ -4,7 +4,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace SpaceJellyMONO
 {
@@ -14,10 +15,14 @@ namespace SpaceJellyMONO
         public SpriteBatch spriteBatch;
         public Texture2D exitButton;
         VideoPlayer player, player2;
-        Video video, video2;
+        Video video, video2,video3,video4,video5;
         public bool returnToMenu = false;
         Color color;
         Rectangle rectangle;
+        List<Video> lista;
+        Texture2D videoTexture = null;
+
+        int i = 0;
 
         public Game3()
         {
@@ -27,6 +32,7 @@ namespace SpaceJellyMONO
             graphics.PreferredBackBufferHeight = 1020;
             graphics.PreferredBackBufferWidth = 1920;
             IsMouseVisible = true;
+            lista = new List<Video>();
             
         }
 
@@ -42,8 +48,12 @@ namespace SpaceJellyMONO
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player = new VideoPlayer();
             player2 = new VideoPlayer();
-            video = Content.Load<Video>("building");
-            video2 = Content.Load<Video>("building2");
+            video = Content.Load<Video>("t5");
+            video2 = Content.Load<Video>("t3");
+            video3 = Content.Load<Video>("t2");
+            video4 = Content.Load<Video>("t4");
+            video5 = Content.Load<Video>("t1");
+            lista.Add(video);lista.Add(video2);lista.Add(video3);lista.Add(video4);lista.Add(video5);
             exitButton = Content.Load<Texture2D>("exitButton");
         }
         protected override void Update(GameTime gameTime)
@@ -76,18 +86,28 @@ namespace SpaceJellyMONO
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(new Color(28, 44, 68));
+            Debug.WriteLine(i);
+            GraphicsDevice.Clear(new Color(32, 35, 40));
             base.Draw(gameTime);
             if (player.State == MediaState.Stopped)
             {
-                player.Play(video);
+                player.Play(lista[i]);
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
-                player.Play(video2); // cos sypie 
+                if (i <= 4)
+                {
+                    player.Play(lista[i]);
+                    i++;
+                    
+                }
+                else
+                {
+                    player.Play(lista[0]);
+                    i = 0;
+                }
             }
 
-            Texture2D videoTexture = null;
 
             if (player.State != MediaState.Stopped)
             {
@@ -97,7 +117,7 @@ namespace SpaceJellyMONO
             if (videoTexture != null)
             {
                 spriteBatch.Begin();
-                spriteBatch.Draw(videoTexture, new Rectangle(50, 200, 400, 250), Color.White);
+                spriteBatch.Draw(videoTexture, new Rectangle(500, 400, 1000, 480), Color.White);
                 spriteBatch.Draw(exitButton, rectangle, color);
                 spriteBatch.End();
             }

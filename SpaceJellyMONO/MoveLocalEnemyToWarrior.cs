@@ -40,7 +40,7 @@ namespace SpaceJellyMONO
                         {
                             if (Vector3.Distance(go.transform.translation, go2.transform.translation) < 4.0f)
                             {
-                                if (!isTupleAtList(new Tuple<GameObject, GameObject>(go, go2)))
+                                if (!isTupleAtList(go2))
                                     pairs.Add(new Tuple<GameObject, GameObject>(go, go2));
                             }
                         }
@@ -62,12 +62,12 @@ namespace SpaceJellyMONO
             isSetted = true;
         }
 
-        public bool isTupleAtList(Tuple<GameObject, GameObject> T)
+        public bool isTupleAtList(GameObject gameObject)
         {
             foreach (Tuple<GameObject, GameObject> tuple in pairs)
             {
-                if (T == tuple) return true;
-                if (T.Item1 == tuple.Item1) return true;
+                
+                if (gameObject == tuple.Item2) return true;
             }
             return false;
         }

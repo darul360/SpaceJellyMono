@@ -47,14 +47,14 @@ namespace SpaceJellyMONO
                     game1.scene.SceneObjects["zarlokS" + i].StartAnimationClip("1", 20, true);
                     i++;
 
-                    go3 = new Enemy("zarlok", game1, new Vector3(89, 0, 9f), 0f, 3.14f, 0f, 0.02f, true, "enemy", 0.5f * 0.9f);
-                    game1.scene.AddSceneObject("zarlokS" + i, go3);
-                    go3.finateSatemachine = game1.aniamteZarlok;
-                    game1.scene.SceneObjects["zarlokS" + i].StartAnimationClip("1", 20, true);
-                    i++;
-                    go1.isEnemyMovingFromSpawn = true;
-                    go2.isEnemyMovingFromSpawn = true;
-                    go3.isEnemyMovingFromSpawn = true;
+                    //go3 = new Enemy("zarlok", game1, new Vector3(89, 0, 9f), 0f, 3.14f, 0f, 0.02f, true, "enemy", 0.5f * 0.9f);
+                    //game1.scene.AddSceneObject("zarlokS" + i, go3);
+                    //go3.finateSatemachine = game1.aniamteZarlok;
+                    //game1.scene.SceneObjects["zarlokS" + i].StartAnimationClip("1", 20, true);
+                    //i++;
+                    //go1.isEnemyMovingFromSpawn = true;
+                    //go2.isEnemyMovingFromSpawn = true;
+                    //go3.isEnemyMovingFromSpawn = true;
                     //go4 = new Enemy("zarlok_poprawiony", game1, new Vector3(87, 0, 11f), 0f, 3.14f, 0f, 0.05f, true, "enemy", 0.5f * 0.9f);
                     //game1.scene.AddSceneObject("zarlokS" + i,go4);
                     //go4.finateSatemachine = game1.aniamteZarlok;
@@ -92,9 +92,9 @@ namespace SpaceJellyMONO
                 go2.targetX = (int)tempNodes[1].X;
                 go2.targetY = (int)tempNodes[1].Y;
                 go2.isMoving = true;
-                go3.targetX = (int)tempNodes[2].X;
-                go3.targetY = (int)tempNodes[2].Y;
-                go3.isMoving = true;
+                //go3.targetX = (int)tempNodes[2].X;
+                //go3.targetY = (int)tempNodes[2].Y;
+                //go3.isMoving = true;
                 start = false;
 
             }

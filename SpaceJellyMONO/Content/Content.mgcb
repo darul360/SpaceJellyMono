@@ -347,6 +347,31 @@
 /processorParam:TextureFormat=Compressed
 /build:spawn.FBX
 
+#begin t1.mp4
+/importer:H264Importer
+/processor:VideoProcessor
+/build:t1.mp4
+
+#begin t2.mp4
+/importer:H264Importer
+/processor:VideoProcessor
+/build:t2.mp4
+
+#begin t3.mp4
+/importer:H264Importer
+/processor:VideoProcessor
+/build:t3.mp4
+
+#begin t4.mp4
+/importer:H264Importer
+/processor:VideoProcessor
+/build:t4.mp4
+
+#begin t5.mp4
+/importer:H264Importer
+/processor:VideoProcessor
+/build:t5.mp4
+
 #begin tutorialButton.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -408,6 +433,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:waterpumpWARNING.png
+
+#begin WAVEWARNING.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:WAVEWARNING.png
 
 #begin yellowChangePlatform.FBX
 /importer:FbxImporter
