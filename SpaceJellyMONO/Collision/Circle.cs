@@ -40,10 +40,13 @@ namespace SpaceJellyMONO.GameObjectComponents
             Matrix temp = rotation*Matrix.CreateTranslation(parent.transform.World().Translation);
             if (parent.isObjectSelected)
             {
+                if(parent.GameTag == "worker" || parent.GameTag =="warrior")
                 cylinder.Draw(temp, cam.View, cam.Projection, new Color(255, 0, 0));
+               // else
+                  //  cylinder.Draw(temp, cam.View, cam.Projection, new Color(255, 0, 0, 0));
             }
             else
-                cylinder.Draw(temp, cam.View, cam.Projection, new Color(0, 0, 255));
+                cylinder.Draw(temp, cam.View, cam.Projection, new Color(0, 0, 255,0));
         }
     }
 }

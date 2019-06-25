@@ -234,7 +234,7 @@ namespace SpaceJellyMONO
             {
                 mainClass.scene.SceneObjects[mainClass.scene.FindKeyOfObject(this)].StartAnimationClip("2", 20, true);
             }
-            if (gameTag == "enemy")
+            if (gameTag == "enemy" || GameTag == "enemyLocal")
             {
                 mainClass.scene.SceneObjects[mainClass.scene.FindKeyOfObject(this)].StartAnimationClip("1", 20, true);
             }

@@ -53,6 +53,7 @@
     <Compile Include="GameObjectComponents\MovingController.cs" />
     <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="MoveEnemyToWarrior.cs" />
+    <Compile Include="MoveLocalEnemyToWarrior.cs" />
     <Compile Include="Repositories\PathCollidersRepository.cs" />
     <Compile Include="Repositories\PowderSourcesRepository.cs" />
     <Compile Include="Repositories\SelectedObjectsRepository.cs" />

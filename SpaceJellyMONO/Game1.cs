@@ -121,6 +121,7 @@ namespace SpaceJellyMONO
             floatingText = new FloatingText(this, platform.transform, "");
             Components.Add(floatingText);
             Components.Add(new SpawnEnemies(this));
+          //  Components.Add(new MoveLocalEnemyToWarrior(this));
             base.Initialize();
         }
 
@@ -181,7 +182,7 @@ namespace SpaceJellyMONO
 
             flr = new GameObject("mountainTerrain", this, new Vector3(50, 0, 50), -1.57f, -1.5f, 0, 1f, false, "floor",0.9f);
             scene.AddSceneObject("podloga",flr );
-            scene.AddSceneObject("zarlok_001", new Enemy("zarlok", this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.02f, true, "enemy", 0.5f*0.9f));
+            //scene.AddSceneObject("zarlok_001", new Enemy("zarlok", this, new Vector3(10f, 0, 10f), 0f, 3.14f, 0f, 0.02f, true, "enemy", 0.5f*0.9f));
             scene.AddSceneObject("galaretka_003", new Jelly("jelly_blue", this, new Vector3(6f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker",0.6f));
             scene.AddSceneObject("galaretka_004", new Jelly("jelly_blue", this, new Vector3(10f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker", 0.6f));
             scene.AddSceneObject("galaretka_005", new Jelly("jelly_blue", this, new Vector3(14f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker", 0.6f));
@@ -192,10 +193,14 @@ namespace SpaceJellyMONO
             scene.AddSceneObject("yellowPlatform", platform);
             scene.AddSceneObject("spawn",spawn);
 
+            scene.AddSceneObject("zarlok_stacjonarny_001", new Enemy("zarlok", this, new Vector3(91f, 0, 3f), 0f, 3.14f, 0f, 0.02f, true, "enemyLocal", 0.5f * 0.9f));
+            scene.AddSceneObject("zarlok_stacjonarny_002", new Enemy("zarlok", this, new Vector3(91f, 0, 5f), 0f, 3.14f, 0f, 0.02f, true, "enemyLocal", 0.5f * 0.9f));
+            scene.AddSceneObject("zarlok_stacjonarny_003", new Enemy("zarlok", this, new Vector3(91f, 0, 7f), 0f, 3.14f, 0f, 0.02f, true, "enemyLocal", 0.5f * 0.9f));
+            scene.AddSceneObject("zarlok_stacjonarny_004", new Enemy("zarlok", this, new Vector3(93f, 0, 3f), 0f, 3.14f, 0f, 0.02f, true, "enemyLocal", 0.5f * 0.9f));
+            scene.AddSceneObject("zarlok_stacjonarny_005", new Enemy("zarlok", this, new Vector3(93f, 0, 7f), 0f, 3.14f, 0f, 0.02f, true, "enemyLocal", 0.5f * 0.9f));
 
-            
-                     
-            
+
+
             foreach (GameObject gameObject in scene.SceneObjects.Values)
             {
                 gameObject.Initialize();

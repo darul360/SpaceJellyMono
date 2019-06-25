@@ -37,7 +37,7 @@ namespace SpaceJellyMONO
                         {
                             if (Vector3.Distance(go.transform.translation, go2.transform.translation) < 6.0f)
                             {
-                                if(!isTupleAtList(new Tuple<GameObject, GameObject>(go,go2)))
+                                if(!isTupleAtList(go))
                                     pairs.Add(new Tuple<GameObject, GameObject>(go, go2));
                             }
                         }
@@ -46,12 +46,11 @@ namespace SpaceJellyMONO
             }
         }
 
-        public bool isTupleAtList(Tuple<GameObject,GameObject> T)
+        public bool isTupleAtList(GameObject T)
         {
             foreach(Tuple<GameObject, GameObject> tuple in pairs)
             {
-                if (T == tuple) return true;
-                if (T.Item1 == tuple.Item1) return true;
+                if (T == tuple.Item1) return true;
             }
             return false;
         }
@@ -64,11 +63,11 @@ namespace SpaceJellyMONO
                 if(tuple.Item2.GetHp()<0)
                 {
                     pairs.Remove(tuple);
-                    tuple.Item2.isEnemyMovingFromSpawn = true;
-                    tuple.Item2.targetX = 17;
-                    tuple.Item2.targetY = 15;
-                    tuple.Item2.isMoving = true;
-                    tuple.Item2.moveObject.isThatFirstStep = true;
+                    tuple.Item1.isEnemyMovingFromSpawn = true;
+                    tuple.Item1.targetX = 17;
+                    tuple.Item1.targetY = 15;
+                    tuple.Item1.isMoving = true;
+                    tuple.Item1.moveObject.isThatFirstStep = true;
                 }
             }
         }

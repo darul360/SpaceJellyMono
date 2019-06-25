@@ -151,31 +151,34 @@ namespace SpaceJellyMONO
             effect.Projection = game.camera.Projection;
             effect.TextureEnabled = true;
             effect.Texture = checkerboardTexture;
+            effect.Alpha = 0.01f;
+
+
 
             if ((start.X > end.X && start.Z < end.Z) || (start.X < end.X && start.Z > end.Z))
             {
 
-                verticies[0].Position = new Vector3(start.X, 0.1f, start.Z);
-                verticies[1].Position = new Vector3(start.X, 0.1f, end.Z);
-                verticies[2].Position = new Vector3(end.X, 0.1f, start.Z);
-                verticies[3].Position = new Vector3(start.X, 0.1f, end.Z);
-                verticies[4].Position = new Vector3(end.X, 0.1f, end.Z);
-                verticies[5].Position = new Vector3(end.X, 0.1f, start.Z);
+                verticies[0].Position = new Vector3(start.X, 0.5f, start.Z);
+                verticies[1].Position = new Vector3(start.X, 0.5f, end.Z);
+                verticies[2].Position = new Vector3(end.X, 0.5f, start.Z);
+                verticies[3].Position = new Vector3(start.X, 0.5f, end.Z);
+                verticies[4].Position = new Vector3(end.X, 0.5f, end.Z);
+                verticies[5].Position = new Vector3(end.X, 0.5f, start.Z);
             }
 
             else
             {
                 verticies = new VertexPositionTexture[6];
-                verticies[0].Position = new Vector3(start.X,0.1f, start.Z);
-                verticies[1].Position = new Vector3(end.X,0.1f, start.Z);
-                verticies[2].Position = new Vector3(start.X, 0.1f, end.Z);
-                verticies[3].Position = new Vector3(end.X, 0.1f, start.Z);
-                verticies[4].Position = new Vector3(end.X, 0.1f, end.Z);
-                verticies[5].Position = new Vector3(start.X, 0.1f, end.Z);
+                verticies[0].Position = new Vector3(start.X, 0.5f, start.Z);
+                verticies[1].Position = new Vector3(end.X, 0.5f, start.Z);
+                verticies[2].Position = new Vector3(start.X, 0.5f, end.Z);
+                verticies[3].Position = new Vector3(end.X, 0.5f, start.Z);
+                verticies[4].Position = new Vector3(end.X, 0.5f, end.Z);
+                verticies[5].Position = new Vector3(start.X, 0.5f, end.Z);
             }
 
 
-
+            game.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
             foreach (var pass in effect.CurrentTechnique.Passes)
             {
                 pass.Apply();
@@ -211,9 +214,9 @@ namespace SpaceJellyMONO
 
         public override void Draw(GameTime gameTime)
         {
-            base.Draw(gameTime);
-            drawRect();
             
+            drawRect();
+            base.Draw(gameTime);
         }
     }
 }

@@ -43,13 +43,15 @@ namespace SpaceJellyMONO
             player = new VideoPlayer();
             player2 = new VideoPlayer();
             video = Content.Load<Video>("building");
-            video = Content.Load<Video>("building2");
+            video2 = Content.Load<Video>("building2");
             exitButton = Content.Load<Texture2D>("exitButton");
         }
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+
 
             MouseState mouseState = Mouse.GetState();
             if (mouseState.X > rectangle.X && mouseState.X < rectangle.X + rectangle.Width
