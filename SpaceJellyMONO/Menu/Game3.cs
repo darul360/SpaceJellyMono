@@ -20,7 +20,7 @@ namespace SpaceJellyMONO
         Color color;
         Rectangle rectangle;
         List<Video> lista;
-        Texture2D videoTexture = null;
+        //Texture2D videoTexture = null;
 
         int i = 0;
 
@@ -87,11 +87,11 @@ namespace SpaceJellyMONO
         protected override void Draw(GameTime gameTime)
         {
             Debug.WriteLine(i);
-            GraphicsDevice.Clear(new Color(32, 35, 40));
+            GraphicsDevice.Clear(Color.Black);
             base.Draw(gameTime);
             if (player.State == MediaState.Stopped)
             {
-                player.Play(lista[i]);
+                player.Play(video4);
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
@@ -108,6 +108,8 @@ namespace SpaceJellyMONO
                 }
             }
 
+
+            Texture2D videoTexture = null;
 
             if (player.State != MediaState.Stopped)
             {

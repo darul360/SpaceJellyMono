@@ -12,7 +12,7 @@ namespace SpaceJellyMONO
     {
         public GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
-        public Texture2D playButton,tutorialButton,exitButton;
+        public Texture2D playButton,tutorialButton,exitButton,menutext;
         Rectangle playRect,tutRect,exitRect;
         Color color, color2, color3;
         public bool play = false,tutorial = false;
@@ -30,9 +30,10 @@ namespace SpaceJellyMONO
 
         protected override void Initialize()
         {
-            playRect = new Rectangle(910, 415, 100, 50);
-            tutRect = new Rectangle(910, 485, 100, 50);
-            exitRect = new Rectangle(910, 555, 100, 50);
+            playRect = new Rectangle(410, 115, 300, 140);
+            tutRect = new Rectangle(410, 345, 300, 140);
+            exitRect = new Rectangle(410, 555, 300, 140);
+
             color = Color.White;
             color2 = Color.White;
             color3 = Color.White;
@@ -42,9 +43,10 @@ namespace SpaceJellyMONO
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            playButton = Content.Load<Texture2D>("playButton");
-            tutorialButton = Content.Load<Texture2D>("tutorialButton");
-            exitButton = Content.Load<Texture2D>("exitButton");
+            playButton = Content.Load<Texture2D>("play");
+            tutorialButton = Content.Load<Texture2D>("tutorial");
+            exitButton = Content.Load<Texture2D>("exit");
+            menutext = Content.Load<Texture2D>("mainmenu");
         }
         protected override void Update(GameTime gameTime)
         {
@@ -116,6 +118,8 @@ namespace SpaceJellyMONO
         {
             GraphicsDevice.Clear(new Color(28, 44, 68));
             spriteBatch.Begin();
+            spriteBatch.Draw(menutext, new Rectangle(0, 0, 1920, 1080), Color.White);
+
             spriteBatch.Draw(playButton,playRect, color);
             spriteBatch.Draw(exitButton, exitRect, color2);
             spriteBatch.Draw(tutorialButton, tutRect, color3);

@@ -102,7 +102,7 @@ namespace SpaceJellyMONO
         private void DeselectAll()
         {
             game.selectedObjectsRepository.ClearAll();
-            /*
+            
             foreach (GameObject model in game.selectedObjectsRepository.getRepo())
             {
                 if (!model.isMoving)
@@ -110,7 +110,7 @@ namespace SpaceJellyMONO
                         ((Unit)model).IsSelected = false;
                         model.mainClass.selectedObjectsRepository.getRepo().Remove(model);
                 }
-            }*/
+            }
             
         }
 

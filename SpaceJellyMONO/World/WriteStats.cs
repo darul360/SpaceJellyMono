@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SpaceJellyMONO.World
 {
-    public class WriteStats : DrawableGameComponent
+    public class WriteStats 
     {
         Game1 game;
         private SpriteFont font;
@@ -17,7 +17,7 @@ namespace SpaceJellyMONO.World
         Texture2D texture,texture2,texture3;
         float timer = 45;
         const float TIMER =45;
-        public WriteStats(Game1 game) : base(game)
+        public WriteStats(Game1 game)
         {
             this.game = game;
             font = game.exportContentManager().Load<SpriteFont>("WaterCounter");
@@ -25,10 +25,9 @@ namespace SpaceJellyMONO.World
             texture2 = game.Content.Load<Texture2D>("downui");
             texture3 = game.Content.Load<Texture2D>("WAVEWARNING");
         }
-        public override void Draw(GameTime gameTime)
+        public  void Draw(GameTime gameTime)
         {
-            base.Draw(gameTime);
-
+            game.resourcesStatistics.Refresh();
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
             timer -= elapsed;
             if (timer < 0) { timer = TIMER; }

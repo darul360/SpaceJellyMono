@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceJellyMONO.Units;
+using SpaceJellyMONO.World;
 
 namespace SpaceJellyMONO
 {
@@ -14,6 +15,8 @@ namespace SpaceJellyMONO
         private Camera camera;
         private SMRenderer shadowMapRenderer;
         private SpriteBatch spriteBatch;
+        private WriteStats writeStats;
+        private ShowInfoAboutBuilding showInfoAbout;
 
         public Scene SceneToRender
         {
@@ -28,6 +31,8 @@ namespace SpaceJellyMONO
             this.camera = camera;
             spriteBatch = new SpriteBatch(game.GraphicsDevice);
             shadowMapRenderer = new SMRenderer(Game, 4096, 3112);
+            writeStats = new WriteStats(game);
+            showInfoAbout = new ShowInfoAboutBuilding(game);
         }
         public override void Draw(GameTime gameTime)
         {
@@ -44,7 +49,7 @@ namespace SpaceJellyMONO
 
             RenderScene(gameTime);
             RenderSprites();
-            //RenderHUD();
+            RenderHUD(gameTime);
             //RenderCursor();
         }
 
@@ -71,8 +76,11 @@ namespace SpaceJellyMONO
             }
             spriteBatch.End();
         }
-        private void RenderHUD()
+        private void RenderHUD(GameTime gameTime)
         {
+            writeStats.Draw(gameTime);
+            showInfoAbout.Draw(gameTime);
+
         }
         private void RenderCursor()
         {
@@ -81,8 +89,8 @@ namespace SpaceJellyMONO
         public override void Initialize()
         {
             //Shadow Map Renderer Setup
-            Vector3 lightsPosition = new Vector3(10f, 10f, 10f);
-            Matrix lightsViewMatrix = Matrix.CreateLookAt(lightsPosition, new Vector3(20f, 0f, 20f), Vector3.Up);
+            Vector3 lightsPosition = new Vector3(-5, 10f, -5);
+            Matrix lightsViewMatrix = Matrix.CreateLookAt(lightsPosition, new Vector3(100, 0f, 100), Vector3.Up);
             Matrix lightsProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, 4f/3 , 5f, 100f);
 
             shadowMapRenderer.LightsPosition = lightsPosition;
@@ -98,6 +106,8 @@ namespace SpaceJellyMONO
         }
         public override void Update(GameTime gameTime)
         {
+           // shadowMapRenderer.LightsPosition = camera.Position;
+            //shadowMapRenderer.LightsViewMatrix = camera.View;
             base.Update(gameTime);
         }
 
