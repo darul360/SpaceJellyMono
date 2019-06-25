@@ -221,8 +221,11 @@ namespace SpaceJellyMONO
 
                     if (currentState.LeftButton == ButtonState.Pressed && lastMouseState.LeftButton == ButtonState.Released)
                     {
-                        go.isObjectSelected = true;
-                        game.selectedObjectsRepository.AddToRepo(go);
+                        if (go.GameTag == "worker" || go.GameTag == "warrior")
+                        {
+                            go.isObjectSelected = true;
+                            game.selectedObjectsRepository.AddToRepo(go);
+                        }
                     }
                     lastMouseState = currentState;
                 }

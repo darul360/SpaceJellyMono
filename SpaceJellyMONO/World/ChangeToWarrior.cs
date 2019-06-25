@@ -51,7 +51,7 @@ namespace SpaceJellyMONO.World
                 if (change)
                 {
                     // GameObject gameOBJ = ;
-                    GameObject go = new Warrior("jelly_yellow", game, temp.transform.translation, 0, 0f, 0f, 0.008f, true, "warrior", 0.6f);
+                    GameObject go = new Warrior("jelly_yellow", game, temp.transform.translation, 0, 0f, 0f, 0.008f, true, "warrior", .9f);
                     game.scene.AddSceneObject("warrior" + i, go);
                     game.scene.SceneObjects["warrior" + i ].StartAnimationClip("1", 20, true);
                     string workerKey = game.scene.FindKeyOfObject(temp);     //znajdź klucz obiektu w repo rysowania

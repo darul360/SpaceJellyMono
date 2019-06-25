@@ -186,7 +186,7 @@ namespace SpaceJellyMONO
             scene.AddSceneObject("galaretka_003", new Jelly("jelly_blue", this, new Vector3(6f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker",0.6f));
             scene.AddSceneObject("galaretka_004", new Jelly("jelly_blue", this, new Vector3(10f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker", 0.6f));
             scene.AddSceneObject("galaretka_005", new Jelly("jelly_blue", this, new Vector3(14f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker", 0.6f));
-            scene.AddSceneObject("galaretka_007", new Warrior("jelly_yellow", this, new Vector3(4f, 0, 8f), 0, 0f, 0f, 0.008f, true, "warrior", 0.6f));
+            scene.AddSceneObject("galaretka_007", new Warrior("jelly_yellow", this, new Vector3(4f, 0, 8f), 0, 0f, 0f, 0.008f, true, "warrior", 0.9f));
             scene.AddSceneObject("baza_001", new Spawn("baza", this, new Vector3(15, 0, 15), -1.57f, 0, 0, 0.009f, false, "baza", 2.5f));
             scene.AddSceneObject("baza_003", new Spawn("baseEnemy", this, new Vector3(50, 0f, 50), -1.57f, 0, 0, 0.07f, false, "bazaenemy", 8.2f));
             spawn = new Spawn("spawn", this, new Vector3(95f, 0, 5f), -1.5f, -1.55f, 0f, 0.05f, true, "spawn", 1.6f);

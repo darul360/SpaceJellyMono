@@ -58,16 +58,16 @@ namespace SpaceJellyMONO
             {
                 if (Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) <= 0.05f && i < route.Count-1)
                     {
-                        unlockCells();
-                        i++;
+                        float elapsed2 = deltatime / 1000;
+                        timer2 -= elapsed2;
+                        if (timer2 < 0)
+                        {
+                            unlockCells();
+                            timer2 = TIMER2;
+                        }
+                    i++;
                     }
-                float elapsed2 = deltatime/1000;
-                timer2 -= elapsed2;
-                if (timer2 < 0)
-                {
-                    unlockCells();
-                    timer2 = TIMER2;
-                }
+    
                 Vector2 direction = route[i] - new Vector2(transform.Translation.X, transform.Translation.Z);
                     direction.Normalize();
                     moveX = transform.Translation.X;

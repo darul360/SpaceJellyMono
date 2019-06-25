@@ -114,19 +114,20 @@ namespace SpaceJellyMONO
 
         public override void Draw(GameTime gameTime)
         {
-            //base.Draw(gameTime);
+            
             //basicEffect.VertexColorEnabled = true;
             //basicEffect.View = game1.camera.View;
             //basicEffect.Projection = game1.camera.Projection;
             //basicEffect.World = Matrix.Identity;
 
-
+            //game1.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
             //foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
             //{
             //    pass.Apply();
             //    device.SetVertexBuffer(floorBuffer);
             //    device.DrawPrimitives(PrimitiveType.TriangleList, 0, floorBuffer.VertexCount / 3);
             //}
+            //base.Draw(gameTime);
 
             //for (int i = 0; i < fHeight; i++)
             //{
@@ -136,7 +137,7 @@ namespace SpaceJellyMONO
             //    }
             //}
 
-            
+
 
         }
     }

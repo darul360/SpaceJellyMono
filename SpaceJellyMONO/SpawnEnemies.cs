@@ -96,7 +96,7 @@ namespace SpaceJellyMONO
                 //go3.targetY = (int)tempNodes[2].Y;
                 //go3.isMoving = true;
                 start = false;
-
+                Debug.WriteLine("hejka");
             }
             base.Update(gameTime);
         }
