@@ -8,14 +8,18 @@ using System.Threading.Tasks;
 
 namespace SpaceJellyMONO.Units
 {
-    class Unit : GameObject
+    public class Unit : GameObject, ISelectable, IDamageable
     {
-        protected Texture2D texture;
-        public Rectangle rectangle;
+        public virtual Texture2D HealthBarTexture { get; set; }
+        public virtual Rectangle HealthBar { get; set; }
+        public virtual float CurrentHealth { get; set; }
+
+        private bool isSelected = false;
+        public bool IsSelected { get { return isSelected; } set { isSelected = value;} }
+        public SelectionCircle SelectionCircle { get; set; }
 
         public Unit(string path, Game1 game1, Vector3 translation, float rotationAngleX, float rotationAngleY, float rotationAngleZ, float scale, bool isMovable, string tag, float colSize) : base(path, game1, translation, rotationAngleX, rotationAngleY, rotationAngleZ, scale, isMovable, tag,colSize)
         {
-
         }
 
         override public void TakeDmg(float dmg) { }
@@ -27,9 +31,28 @@ namespace SpaceJellyMONO.Units
         //    rectangle = new Rectangle((int)transform.translation.X, (int)transform.translation.Y, texture.Width, texture.Height);
         //}
 
-        // public override  void Draw(GameTime gameTime)
-        //{
-           
-        //}
+        public override  void Draw(GameTime gameTime)
+        {
+            if(SelectionCircle != null)
+                if (IsSelected)
+                {
+                    SelectionCircle.WorldMatrix = Matrix.CreateTranslation(WorldTransform.Translation);
+                    SelectionCircle.ViewMatrix = camera.View;
+                    SelectionCircle.ProjectionMatrix = camera.Projection;
+
+                    SelectionCircle.Draw();
+                }
+                
+
+            base.Draw(gameTime);
+        }
+        public virtual void TakeDamage(float damage)
+        {
+
+        }
+        public virtual void Die()
+        {
+
+        }
     }
 }

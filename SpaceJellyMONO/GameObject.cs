@@ -14,6 +14,7 @@ namespace SpaceJellyMONO
         public Model model;
         public Transform transform;
         public Transform parentTransform;
+        public Transform ParentTransform { set { parentTransform = value; } }
 
         public Matrix WorldTransform => parentTransform.World() * transform.World();
 
@@ -32,6 +33,8 @@ namespace SpaceJellyMONO
         public int targetX = 0, targetY = 0;
         public bool isFighting = false;
         public bool isEnemyMovingFromSpawn = false;
+        private bool isVisible = true;
+		public bool IsVisible { get { return isVisible; } set { isVisible = value; } }
 
         public FinateStateMachine finateSatemachine;
 
@@ -178,7 +181,6 @@ namespace SpaceJellyMONO
                         basicEffect.View = camera.View;
                         basicEffect.Projection = camera.Projection;
                         basicEffect.EnableDefaultLighting();
-
                         basicEffect.SpecularPower = 200f;
                         basicEffect.LightingEnabled = true; // turn on the lighting subsystem.
                         basicEffect.DirectionalLight0.Direction = new Vector3(1, 0, 1);  // coming along the x-axis
@@ -198,13 +200,65 @@ namespace SpaceJellyMONO
                         skinnedEffect.DirectionalLight0.Direction = new Vector3(1, 0, 1);  // coming along the x-axis
                     }
                 }
-                collider.DrawCollider();
+                //collider.DrawCollider();
                 modelMesh.Draw();
                 if (this.isMoving)
                 {
                     Matrix rotation = Matrix.CreateRotationX(0) * Matrix.CreateRotationY(0) * Matrix.CreateRotationZ(0);
                     Matrix temp = rotation * Matrix.CreateTranslation(mainClass.movingController.clickPos);
                     cylinder.Draw(temp, camera.View, camera.Projection, new Color(0, 255, 0));
+                }
+            }
+        }
+		
+		public void Draw(Matrix view, Matrix projection)
+        {
+            foreach (ModelMesh mesh in model.Meshes)
+            {
+                foreach (Effect effect in mesh.Effects)
+                {
+                    if (effect is BasicEffect)
+                    {
+                        BasicEffect basicEffect = (BasicEffect)effect;
+                        basicEffect.World = WorldTransform;
+                        basicEffect.View = view;
+                        basicEffect.Projection = projection;
+                        basicEffect.EnableDefaultLighting();
+                        basicEffect.PreferPerPixelLighting = true;
+                    }
+                    if (effect is SkinnedEffect)
+                    {
+                        SkinnedEffect skinnedEffect = (SkinnedEffect)effect;
+                        skinnedEffect.SetBoneTransforms(skinnedAnimationPlayer.GetSkinTransforms());
+                        skinnedEffect.View = view;
+                        skinnedEffect.Projection = projection;
+
+                        skinnedEffect.EnableDefaultLighting();
+                        skinnedEffect.PreferPerPixelLighting = true;
+                        skinnedEffect.SpecularPower = 100f;
+                    }
+                }
+                mesh.Draw();
+                collider.DrawCollider();
+            }
+        }
+		
+		public void Draw(Effect effect)
+        {
+            foreach(ModelMesh mesh in model.Meshes)
+            {
+                Effect currentEffect = null;
+                foreach (ModelMeshPart meshPart in mesh.MeshParts)
+                {
+                    currentEffect = meshPart.Effect;
+                    meshPart.Effect = effect;
+                }
+
+                mesh.Draw();
+
+                foreach (ModelMeshPart meshPart in mesh.MeshParts)
+                {
+                    meshPart.Effect = currentEffect;
                 }
             }
         }
@@ -247,4 +301,3 @@ namespace SpaceJellyMONO
         virtual public float GetHp() { return 0; }
     }
 }
-

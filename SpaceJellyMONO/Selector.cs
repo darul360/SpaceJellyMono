@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
+using SpaceJellyMONO.Units;
 
 namespace SpaceJellyMONO
 {
@@ -32,57 +33,66 @@ namespace SpaceJellyMONO
         {
             foreach (GameObject model in game.gameObjectsRepository.getRepo())
             {
-                if (startPoint.X > stopPoint.X)
+                
+                if(model is Unit)
                 {
-                    if (startPoint.Z > stopPoint.Z)
+                    Unit selectableUnit = model as Unit;
+                    if (startPoint.X > stopPoint.X)
                     {
-                        if ((model.transform.Translation.X >= stopPoint.X && model.transform.Translation.X <= startPoint.X) && (model.transform.Translation.Z >= stopPoint.Z && model.transform.Translation.Z <= startPoint.Z))
-                        {
-                            if (model.GameTag == "worker" || model.GameTag == "warrior")
+                        if (startPoint.Z > stopPoint.Z)
+						{   if ((selectableUnit.transform.Translation.X >= stopPoint.X && selectableUnit.transform.Translation.X <= startPoint.X) && (selectableUnit.transform.Translation.Z >= stopPoint.Z && selectableUnit.transform.Translation.Z <= startPoint.Z))
                             {
-                                model.isObjectSelected = true;
-                                game.selectedObjectsRepository.AddToRepo(model);
-                                setPrimary(model);
+                                if (model.GameTag == "worker" || model.GameTag == "warrior")
+                                {
+                                    //selectableUnit.IsSelected = true;
+                                    game.selectedObjectsRepository.AddToRepo(selectableUnit);
+                                    //setPrimary(selectableUnit);
+                                }
                             }
                         }
-                    }
-                    if(startPoint.Z < stopPoint.Z)
-                    {
-                        if ((model.transform.Translation.X >= stopPoint.X && model.transform.Translation.X <= startPoint.X) && (model.transform.Translation.Z >= startPoint.Z && model.transform.Translation.Z <= stopPoint.Z))
+                        if (startPoint.Z < stopPoint.Z)
                         {
-                            if (model.GameTag == "worker" || model.GameTag == "warrior")
-                            {
-                                model.isObjectSelected = true;
-                                game.selectedObjectsRepository.AddToRepo(model);
-                                setPrimary(model);
-                            }
-                        }
-                    }
-                }
 
-                if (startPoint.X < stopPoint.X)
-                {
-                    if (startPoint.Z > stopPoint.Z)
-                    {
-                        if ((model.transform.Translation.X >= startPoint.X && model.transform.Translation.X <= stopPoint.X) && (model.transform.Translation.Z >= stopPoint.Z && model.transform.Translation.Z <= startPoint.Z))
-                        {
-                            if (model.GameTag == "worker" || model.GameTag == "warrior")
+                            if ((selectableUnit.transform.Translation.X >= stopPoint.X && selectableUnit.transform.Translation.X <= startPoint.X) && (selectableUnit.transform.Translation.Z >= startPoint.Z && selectableUnit.transform.Translation.Z <= stopPoint.Z))
+
                             {
-                                model.isObjectSelected = true;
-                                game.selectedObjectsRepository.AddToRepo(model);
-                                setPrimary(model);
+                                if ((model.GameTag == "worker" || model.GameTag == "warrior"))
+                                {
+                                    //selectableUnit.IsSelected = true;
+                                    game.selectedObjectsRepository.AddToRepo(selectableUnit);
+                                    //setPrimary(selectableUnit);
+                                }
                             }
                         }
                     }
-                    if (startPoint.Z < stopPoint.Z)
+
+
+                    if (startPoint.X < stopPoint.X)
                     {
-                        if ((model.transform.Translation.X >= startPoint.X && model.transform.Translation.X <= stopPoint.X) && (model.transform.Translation.Z >= startPoint.Z && model.transform.Translation.Z <= stopPoint.Z))
+                        if (startPoint.Z > stopPoint.Z)
                         {
-                            if (model.GameTag == "worker" || model.GameTag == "warrior")
+
+                            if ((selectableUnit.transform.Translation.X >= startPoint.X && selectableUnit.transform.Translation.X <= stopPoint.X) && (selectableUnit.transform.Translation.Z >= stopPoint.Z && selectableUnit.transform.Translation.Z <= startPoint.Z))
+
                             {
-                                model.isObjectSelected = true;
-                                game.selectedObjectsRepository.AddToRepo(model);
-                                setPrimary(model);
+                                if (model.GameTag == "worker" || model.GameTag == "warrior")
+                                {
+                                    //selectableUnit.IsSelected = true;
+                                    game.selectedObjectsRepository.AddToRepo(selectableUnit);
+                                    //setPrimary(selectableUnit);
+                                }
+                            }
+                        }
+                        if (startPoint.Z < stopPoint.Z)
+                        {
+                            if ((selectableUnit.transform.Translation.X >= startPoint.X && selectableUnit.transform.Translation.X <= stopPoint.X) && (selectableUnit.transform.Translation.Z >= startPoint.Z && selectableUnit.transform.Translation.Z <= stopPoint.Z))
+                            {
+                                if (model.GameTag == "worker" || model.GameTag == "warrior")
+                                {
+                                    //selectableUnit.IsSelected = true;
+                                    game.selectedObjectsRepository.AddToRepo(selectableUnit);
+                                    //setPrimary(selectableUnit);
+                                }
                             }
                         }
                     }
@@ -91,16 +101,16 @@ namespace SpaceJellyMONO
         }
         private void DeselectAll()
         {
-            foreach (GameObject model in game.gameObjectsRepository.getRepo())
+            game.selectedObjectsRepository.ClearAll();
+            /*
+            foreach (GameObject model in game.selectedObjectsRepository.getRepo())
             {
-                model.isObjectSelected = false;
                 if (!model.isMoving)
                 {
-                    if (model.mainClass.selectedObjectsRepository.getRepo().Contains(model))
+                        ((Unit)model).IsSelected = false;
                         model.mainClass.selectedObjectsRepository.getRepo().Remove(model);
                 }
-            }
-            
+            }*/
             
         }
 
@@ -147,18 +157,15 @@ namespace SpaceJellyMONO
 
         public void DrawRect(Vector3 start, Vector3 end)
         {
-            BasicEffect effect = new BasicEffect(GraphicsDevice);
+            BasicEffect effect = new BasicEffect(Game.GraphicsDevice);
             effect.View = game.camera.View;
             effect.Projection = game.camera.Projection;
             effect.TextureEnabled = true;
             effect.Texture = checkerboardTexture;
-            effect.Alpha = 0.01f;
-
-
+            effect.Alpha = 0.3f;
 
             if ((start.X > end.X && start.Z < end.Z) || (start.X < end.X && start.Z > end.Z))
             {
-
                 verticies[0].Position = new Vector3(start.X, 0.5f, start.Z);
                 verticies[1].Position = new Vector3(start.X, 0.5f, end.Z);
                 verticies[2].Position = new Vector3(end.X, 0.5f, start.Z);
@@ -189,7 +196,7 @@ namespace SpaceJellyMONO
 
         private void drawRect()
         {
-
+            Game.GraphicsDevice.BlendState = BlendState.Additive;
             MouseState mouseState = Mouse.GetState();
 
             if (mouseState.LeftButton == ButtonState.Pressed && isFirstPointSelected == false)
@@ -209,6 +216,7 @@ namespace SpaceJellyMONO
                 isFirstPointSelected = false;
                 isLastPointSelected = false;
             }
+            Game.GraphicsDevice.BlendState = BlendState.Opaque;
 
         }
         public void singleClickSelect()
@@ -223,8 +231,12 @@ namespace SpaceJellyMONO
                     {
                         if (go.GameTag == "worker" || go.GameTag == "warrior")
                         {
-                            go.isObjectSelected = true;
-                            game.selectedObjectsRepository.AddToRepo(go);
+                            if (go is Unit)
+                            {
+                                Unit selectableUnit = go as Unit;
+                                go.isObjectSelected = true;
+                                game.selectedObjectsRepository.AddToRepo(selectableUnit);
+                            }
                         }
                     }
                     lastMouseState = currentState;

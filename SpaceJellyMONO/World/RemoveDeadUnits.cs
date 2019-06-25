@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SpaceJellyMONO.Units;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -30,7 +31,8 @@ namespace SpaceJellyMONO.World
                 if (workerKey != null)
                     game1.scene.DeleteSceneObject(workerKey);
                 game1.gameObjectsRepository.RemoveFromRepo(temp);
-                game1.selectedObjectsRepository.RemoveFromRepo(temp);
+                Unit selectableUnit = temp as Unit;
+                game1.selectedObjectsRepository.RemoveFromRepo(selectableUnit);
                 temp = null;
             }
             base.Update(gameTime);

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using SpaceJellyMONO.FSM;
 using SpaceJellyMONO.FSM.States;
 using SpaceJellyMONO.FSM.Trans;
+using SpaceJellyMONO.Units;
 using SpaceJellyMONO.UnitsFolder;
 
 namespace SpaceJellyMONO.World
@@ -58,7 +59,8 @@ namespace SpaceJellyMONO.World
                     if (workerKey != null)                                  //overcode
                         game.scene.DeleteSceneObject(workerKey);
                     game.gameObjectsRepository.RemoveFromRepo(temp);
-                    game.selectedObjectsRepository.RemoveFromRepo(temp);
+                    Unit selectableUnit = temp as Unit;
+                    game.selectedObjectsRepository.RemoveFromRepo(selectableUnit);
                     change = false;
                     go.isObjectSelected = true;
                     i++;
