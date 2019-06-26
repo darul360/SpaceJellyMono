@@ -70,6 +70,7 @@ namespace SpaceJellyMONO
                 skinnedAnimationPlayer = new AnimationPlayer(skinningDataValue);
             cylinder = new CylinderPrimitive(mainClass.GraphicsDevice, 0.5f, 0.6f, 20);
 
+            InitializeModelEffects();
 
         }
 
@@ -180,11 +181,6 @@ namespace SpaceJellyMONO
                         basicEffect.World = WorldTransform;
                         basicEffect.View = camera.View;
                         basicEffect.Projection = camera.Projection;
-                        basicEffect.EnableDefaultLighting();
-                        basicEffect.SpecularPower = 200f;
-                        basicEffect.LightingEnabled = true; // turn on the lighting subsystem.
-                        basicEffect.DirectionalLight0.Direction = new Vector3(1, 0, 1);  // coming along the x-axis
-                        basicEffect.PreferPerPixelLighting = true;
 
                     }
                     if (effect is SkinnedEffect)
@@ -193,11 +189,6 @@ namespace SpaceJellyMONO
                         skinnedEffect.SetBoneTransforms(skinnedAnimationPlayer.GetSkinTransforms());
                         skinnedEffect.View = camera.View;
                         skinnedEffect.Projection = camera.Projection;
-
-                        skinnedEffect.EnableDefaultLighting();
-                        skinnedEffect.PreferPerPixelLighting = true;
-                        skinnedEffect.SpecularPower = 100f;
-                        skinnedEffect.DirectionalLight0.Direction = new Vector3(1, 0, 1);  // coming along the x-axis
                     }
                 }
                 //collider.DrawCollider();
@@ -299,5 +290,34 @@ namespace SpaceJellyMONO
 		virtual public void TakeDmg(float dmg) { }
         virtual public float GetDmg() { return 0; }
         virtual public float GetHp() { return 0; }
+
+        private void InitializeModelEffects()
+        {
+            foreach (ModelMesh modelMesh in model.Meshes)
+            {
+                foreach (Effect effect in modelMesh.Effects)
+                {
+                    if (effect is BasicEffect)
+                    {
+                        BasicEffect basicEffect = (BasicEffect)effect;
+                        basicEffect.EnableDefaultLighting();
+                        basicEffect.SpecularPower = 200f;
+                        basicEffect.LightingEnabled = true;
+                        basicEffect.DirectionalLight0.Direction = new Vector3(0f, 0f, 1f);
+                        basicEffect.PreferPerPixelLighting = true;
+
+                    }
+                    if (effect is SkinnedEffect)
+                    {
+                        SkinnedEffect skinnedEffect = (SkinnedEffect)effect;
+
+                        skinnedEffect.EnableDefaultLighting();
+                        skinnedEffect.PreferPerPixelLighting = true;
+                        skinnedEffect.SpecularPower = 100f;
+                        skinnedEffect.DirectionalLight0.Direction = new Vector3(0f, 0f, 1f);
+                    }
+                }
+            }
+        }
     }
 }

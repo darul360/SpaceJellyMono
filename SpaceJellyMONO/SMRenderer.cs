@@ -37,6 +37,7 @@ namespace SpaceJellyMONO
         }
 
         //Light parameters
+        public Matrix LightsWorldMatrix { set { shadowedEffect.Parameters["lightsWorldMatrix"].SetValue(value); } }
         public Matrix LightsViewMatrix { get { return lightsViewMatrix; } set { lightsViewMatrix = value; shadowMapEffect.Parameters["viewMatrix"].SetValue(value); shadowedEffect.Parameters["lightsViewMatrix"].SetValue(value); } }
         public Matrix LightsProjectionMatrix { get { return lightsProjectionMatrix; } set { lightsProjectionMatrix = value; shadowMapEffect.Parameters["projectionMatrix"].SetValue(value); shadowedEffect.Parameters["lightsProjectionMatrix"].SetValue(value); } } 
         public Vector3 LightsPosition { set { shadowedEffect.Parameters["xLightPos"].SetValue(value); } }
@@ -45,7 +46,6 @@ namespace SpaceJellyMONO
         public Texture2D Texture { set { shadowedEffect.Parameters["xTexture"].SetValue(value); } }
 
         //Scene parameters
-        public Matrix SMWorldMatrix { set { shadowMapEffect.Parameters["worldMatrix"].SetValue(value); } }
         public Matrix WorldMatrix { set { shadowedEffect.Parameters["worldMatrix"].SetValue(value); } }
         public Matrix CameraViewMatrix { set { shadowedEffect.Parameters["cameraViewMatrix"].SetValue(value); } }
         public Matrix CameraProjectionMatrix { set { shadowedEffect.Parameters["cameraProjectionMatrix"].SetValue(value); } }

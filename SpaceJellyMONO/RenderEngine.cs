@@ -31,10 +31,18 @@ namespace SpaceJellyMONO
         }
         public override void Draw(GameTime gameTime)
         {
+            Vector3 lightsPosition = camera.Position;
+            lightsPosition.Y -= 5f;
+            Vector3 lightsLookAt = camera.CameraLookAt;
+            lightsLookAt.Y -= 5f;
+            shadowMapRenderer.LightsPosition = camera.Position;
+            shadowMapRenderer.LightsViewMatrix = Matrix.CreateLookAt(lightsPosition, lightsLookAt, Vector3.Up);
+
             shadowMapRenderer.RenderShadowMap(SceneToRender);
 
             if (SceneToRender.Floor != null)
             {
+                shadowMapRenderer.LightsWorldMatrix = SceneToRender.Floor.WorldTransform;
                 shadowMapRenderer.WorldMatrix = SceneToRender.Floor.WorldTransform;
                 shadowMapRenderer.CameraViewMatrix = camera.View;
                 shadowMapRenderer.CameraProjectionMatrix = camera.Projection;
@@ -81,17 +89,12 @@ namespace SpaceJellyMONO
         public override void Initialize()
         {
             //Shadow Map Renderer Setup
-            Vector3 lightsPosition = new Vector3(10f, 10f, 10f);
-            Matrix lightsViewMatrix = Matrix.CreateLookAt(lightsPosition, new Vector3(20f, 0f, 20f), Vector3.Up);
             Matrix lightsProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, 4f/3 , 5f, 100f);
 
-            shadowMapRenderer.LightsPosition = lightsPosition;
-            shadowMapRenderer.LightsViewMatrix = lightsViewMatrix;
             shadowMapRenderer.LightsProjectionMatrix = lightsProjectionMatrix;
 
             shadowMapRenderer.LightsAmbientValue = 0.2f;
             shadowMapRenderer.LightsPower = 1f;
-
 
             shadowMapRenderer.Texture = Game.Content.Load<Texture2D>("mountains/mountains_DefaultMaterial_BaseColor");
 

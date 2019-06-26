@@ -124,5 +124,20 @@ namespace SpaceJellyMONO
 
             base.Update(gameTime);
         }
+        public Matrix World
+        { get
+            {
+                Matrix translation = Matrix.CreateTranslation(cameraPos);
+
+                Matrix rotationX = Matrix.CreateRotationX(cameraRot.X);
+                Matrix rotationY = Matrix.CreateRotationY(cameraRot.X);
+                Matrix rotationZ = Matrix.CreateRotationZ(cameraRot.X);
+                Matrix rotation = rotationX * rotationY * rotationZ;
+
+                return rotation * translation;
+
+            }
+        }
+        public Vector3 CameraLookAt { get { return cameraLookAt; } }
     }
 }

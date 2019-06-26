@@ -114,7 +114,7 @@ namespace SpaceJellyMONO
             //Components.Add(writeStats);
             Components.Add(new MovingController(this));
             //Components.Add(writeStats);
-            Components.Add(new ShowInfoAboutBuilding(this));
+            //Components.Add(new ShowInfoAboutBuilding(this));
             Components.Add(new MoveEnemyToWarrior(this));
             video = Content.Load<Video>("building");
             player = new VideoPlayer();

@@ -4,11 +4,11 @@ float xAmbient;
 
 cbuffer MatrixBuffer
 {
-	matrix worldMatrix;
-	
+	matrix worldMatrix;	
 	matrix cameraViewMatrix;
 	matrix cameraProjectionMatrix;
 	
+	matrix lightsWorldMatrix;
 	matrix lightsViewMatrix;
 	matrix lightsProjectionMatrix;
 };
@@ -38,7 +38,7 @@ struct SSceneVertexToPixel
 	 Output.Position = mul(Output.Position, cameraViewMatrix);
 	 Output.Position = mul(Output.Position, cameraProjectionMatrix);	
 	 
-     Output.Pos2DAsSeenByLight = mul(inPos4, worldMatrix);
+     Output.Pos2DAsSeenByLight = mul(inPos4, lightsWorldMatrix);
 	 Output.Pos2DAsSeenByLight = mul(Output.Pos2DAsSeenByLight, lightsViewMatrix);
 	 Output.Pos2DAsSeenByLight = mul(Output.Pos2DAsSeenByLight, lightsProjectionMatrix);
 	 
