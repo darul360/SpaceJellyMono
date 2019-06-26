@@ -33,7 +33,7 @@ namespace SpaceJellyMONO
                 {
 
 
-                   if (Vector3.Distance(go.transform.translation, go2.transform.translation) < 3.0f && go2.GetHp()>=0)
+                   if (Vector3.Distance(go.transform.translation, go2.transform.translation) < 6.0f && go2.GetHp()>=0)
                    {
                        go.targetX = (int)go2.moveObject.moveX;
                        go.targetY = (int)go2.moveObject.moveZ;
