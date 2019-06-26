@@ -13,11 +13,8 @@ namespace SpaceJellyMONO
     {
         Game1 game1;
         SoundEffect effect;
-        float timer = 2;
-        float timer2 = 40;
-        const float TIMER = 2;
-        const float TIMER2 = 40;
-        bool block1 = false, block2 = false;
+        float timer = 0.5f;
+        const float TIMER = 0.5f;
         List<Tuple<GameObject,GameObject>> pairs;
         public MoveEnemyToWarrior(Game1 game1):base(game1)
         {
@@ -25,7 +22,7 @@ namespace SpaceJellyMONO
             pairs = new List<Tuple<GameObject, GameObject>>();
         }
 
-        public void findPairs()
+        public void findActiveWarriorAround()
         {
             foreach (GameObject go in game1.gameObjectsRepository.getRepo())
             {
@@ -35,10 +32,20 @@ namespace SpaceJellyMONO
                     {
                         if (go2.GameTag == "warrior")
                         {
-                            if (Vector3.Distance(go.transform.translation, go2.transform.translation) < 6.0f)
+
+                            if (Vector3.Distance(go.transform.translation, go2.transform.translation) < 3.0f)
                             {
-                                if(!isTupleAtList(go))
-                                    pairs.Add(new Tuple<GameObject, GameObject>(go, go2));
+                                go.targetX = (int)go2.moveObject.moveX;
+                                go.targetY = (int)go2.moveObject.moveZ;
+                                go.isMoving = true;
+                                go.moveObject.isThatFirstStep = true;
+                            }
+                            else
+                            {
+                                go.targetX = 15;
+                                go.targetY = 15;
+                                go.isMoving = true;
+                                go.moveObject.isThatFirstStep = true;
                             }
                         }
                     }
@@ -46,53 +53,17 @@ namespace SpaceJellyMONO
             }
         }
 
-        public bool isTupleAtList(GameObject T)
-        {
-            foreach(Tuple<GameObject, GameObject> tuple in pairs)
-            {
-                if (T == tuple.Item1) return true;
-            }
-            return false;
-        }
-
-        public void renewMovingToBase()
-        {
-            foreach (Tuple<GameObject, GameObject> tuple in pairs)
-            {
-                if (tuple.Item1 == null) pairs.Remove(tuple);
-                if(tuple.Item2.GetHp()<0)
-                {
-                    pairs.Remove(tuple);
-                    tuple.Item1.isEnemyMovingFromSpawn = true;
-                    tuple.Item1.targetX = 17;
-                    tuple.Item1.targetY = 15;
-                    tuple.Item1.isMoving = true;
-                    tuple.Item1.moveObject.isThatFirstStep = true;
-                }
-            }
-        }
-
-        public void moveTuplesToEachOther(GameTime gameTime)
-        {
-            if(pairs != null && pairs.Count >0)
-            foreach (Tuple<GameObject, GameObject> tuple in pairs)
-            {
-                if (tuple.Item1.isEnemyMovingFromSpawn)
-                {
-                    tuple.Item1.targetX = (int)Math.Round(tuple.Item2.moveObject.moveX);
-                    tuple.Item1.targetY = (int)Math.Round(tuple.Item2.moveObject.moveZ);
-                    tuple.Item1.moveObject.isThatFirstStep = true;
-                    tuple.Item1.isEnemyMovingFromSpawn = false;
-
-                }
-
-                tuple.Item1.moveObject.Move((float)gameTime.ElapsedGameTime.TotalMilliseconds, effect, (int)Math.Round(tuple.Item2.moveObject.moveX), (int)Math.Round(tuple.Item2.moveObject.moveZ));
-                tuple.Item1.moveObject.isThatFirstStep = true;
-            }
-        }
-
         public override void Update(GameTime gameTime)
         {
+            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            timer -= elapsed;
+            if (timer < 0)
+            {
+                findActiveWarriorAround();
+                timer = TIMER;
+            }
+
+            /*
             base.Update(gameTime);
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
             timer -= elapsed;
@@ -107,8 +78,8 @@ namespace SpaceJellyMONO
             timer2 -= elapsed2;
             if (timer2 < 0)
             {
-                moveTuplesToEachOther(gameTime);
-                renewMovingToBase();
+                //moveTuplesToEachOther(gameTime);
+               // renewMovingToBase();
                 timer2 = TIMER2;
             }
 
