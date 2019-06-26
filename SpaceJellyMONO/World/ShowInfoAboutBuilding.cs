@@ -12,13 +12,13 @@ using SpaceJellyMONO.FSM;
 
 namespace SpaceJellyMONO.World
 {
-    class ShowInfoAboutBuilding : DrawableGameComponent
+    public class ShowInfoAboutBuilding
     {
         Texture2D texture,texture2,texture3,texture4;
         Game1 game1;
         SpriteBatch spriteBatch;
 
-        public ShowInfoAboutBuilding(Game1 game1) : base(game1)
+        public ShowInfoAboutBuilding(Game1 game1) 
         {
             this.game1 = game1;
             this.spriteBatch = new SpriteBatch(game1.GraphicsDevice);
@@ -31,7 +31,7 @@ namespace SpaceJellyMONO.World
         }
 
 
-        public override void Draw(GameTime gameTime)
+        public  void Draw(GameTime gameTime)
         {
             
             Vector3 clickPos = game1.clickCooridantes.FindWhereClicked();
@@ -86,7 +86,6 @@ namespace SpaceJellyMONO.World
                         spriteBatch.End();
                     }
             }
-            base.Draw(gameTime);
 
 
         }

@@ -171,6 +171,7 @@ namespace SpaceJellyMONO
 
         public override void Draw(GameTime gameTime)
         {
+            //base.Draw(gameTime);
             foreach (ModelMesh modelMesh in model.Meshes)
             {
                 foreach (Effect effect in modelMesh.Effects)

@@ -191,6 +191,18 @@
 /processorParam:TextureFormat=Color
 /build:downUI.jpg
 
+#begin exit.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:exit.jpg
+
 #begin exitButton.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -285,6 +297,18 @@
 /processorParam:TextureFormat=DxtCompressed
 /build:kopalniaFBX.FBX
 
+#begin mainmenu.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mainmenu.jpg
+
 #begin mineWARNING.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -296,18 +320,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:mineWARNING.png
-
-#begin mountains/mountains_DefaultMaterial_BaseColor.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:mountains/mountains_DefaultMaterial_BaseColor.png
 
 #begin mountains/mountains_DefaultMaterial_BaseColor.png
 /importer:TextureImporter
@@ -364,6 +376,18 @@
 /processorParam:TextureFormat=Color
 /build:platformWARNING.png
 
+#begin play.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:play.jpg
+
 #begin playButton.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -419,30 +443,42 @@
 /processorParam:TextureFormat=Compressed
 /build:spawn.FBX
 
-#begin t1.mp4
-/importer:H264Importer
+#begin t1.wmv
+/importer:WmvImporter
 /processor:VideoProcessor
-/build:t1.mp4
+/build:t1.wmv
 
-#begin t2.mp4
-/importer:H264Importer
+#begin t2.wmv
+/importer:WmvImporter
 /processor:VideoProcessor
-/build:t2.mp4
+/build:t2.wmv
 
-#begin t3.mp4
-/importer:H264Importer
+#begin t3.wmv
+/importer:WmvImporter
 /processor:VideoProcessor
-/build:t3.mp4
+/build:t3.wmv
 
-#begin t4.mp4
-/importer:H264Importer
+#begin t4.wmv
+/importer:WmvImporter
 /processor:VideoProcessor
-/build:t4.mp4
+/build:t4.wmv
 
-#begin t5.mp4
-/importer:H264Importer
+#begin t5.wmv
+/importer:WmvImporter
 /processor:VideoProcessor
-/build:t5.mp4
+/build:t5.wmv
+
+#begin tutorial.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:tutorial.jpg
 
 #begin tutorialButton.jpg
 /importer:TextureImporter

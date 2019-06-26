@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceJellyMONO.Units;
+using SpaceJellyMONO.World;
 
 namespace SpaceJellyMONO
 {
@@ -14,6 +15,8 @@ namespace SpaceJellyMONO
         private Camera camera;
         private SMRenderer shadowMapRenderer;
         private SpriteBatch spriteBatch;
+        private WriteStats writeStats;
+        private ShowInfoAboutBuilding showInfoAbout;
 
         public Scene SceneToRender
         {
@@ -28,6 +31,8 @@ namespace SpaceJellyMONO
             this.camera = camera;
             spriteBatch = new SpriteBatch(game.GraphicsDevice);
             shadowMapRenderer = new SMRenderer(Game, 4096, 3112);
+            writeStats = new WriteStats(game);
+            showInfoAbout = new ShowInfoAboutBuilding(game);
         }
         public override void Draw(GameTime gameTime)
         {
@@ -52,7 +57,7 @@ namespace SpaceJellyMONO
 
             RenderScene(gameTime);
             RenderSprites();
-            //RenderHUD();
+            RenderHUD(gameTime);
             //RenderCursor();
         }
 
@@ -79,8 +84,11 @@ namespace SpaceJellyMONO
             }
             spriteBatch.End();
         }
-        private void RenderHUD()
+        private void RenderHUD(GameTime gameTime)
         {
+            writeStats.Draw(gameTime);
+            showInfoAbout.Draw(gameTime);
+
         }
         private void RenderCursor()
         {
