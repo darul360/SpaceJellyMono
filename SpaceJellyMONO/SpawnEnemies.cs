@@ -12,8 +12,8 @@ namespace SpaceJellyMONO
     public class SpawnEnemies:DrawableGameComponent
     {
         Game1 game1;
-        float timer = 5;
-        const float TIMER = 5;
+        float timer = 45;
+        const float TIMER = 45;
         List<Vector2> tempNodes;
 
         int i;
@@ -58,7 +58,7 @@ namespace SpaceJellyMONO
             float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             if (start)
             {
-                spiralSpread(16, 15, 3);
+                spiralSpread(17, 15, 3);
                 go1.targetX = (int)tempNodes[0].X;
                 go1.targetY = (int)tempNodes[0].Y;
                 go1.isMoving = true;

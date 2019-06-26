@@ -70,6 +70,7 @@
     <Compile Include="UnitsFolder\Spawn.cs" />
     <Compile Include="UnitsFolder\Unit.cs" />
     <Compile Include="UnitsFolder\Warrior.cs" />
+    <Compile Include="WONLOSE.cs" />
     <Compile Include="World\BasicFloorGenerate.cs" />
     <Compile Include="World\Camera.cs" />
     <Compile Include="Collision\Circle.cs" />

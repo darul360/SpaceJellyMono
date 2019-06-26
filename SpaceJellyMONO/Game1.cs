@@ -53,6 +53,7 @@ namespace SpaceJellyMONO
         public MovingController movingController;
         public EnemiesRepository enemiesRepository = new EnemiesRepository();
         public WarriorsRepository warriorsRepository = new WarriorsRepository();
+        public GameObject baseEnemy,baza;
         //sound
 
 
@@ -107,6 +108,7 @@ namespace SpaceJellyMONO
             Components.Add(movingController);
             //Components.Add(writeStats);
             Components.Add(new MovingController(this));
+            Components.Add(new WONLOSE(this));
             //Components.Add(writeStats);
             //Components.Add(new ShowInfoAboutBuilding(this));
             Components.Add(new MoveEnemyToWarrior(this));
@@ -186,8 +188,10 @@ namespace SpaceJellyMONO
             Warrior warrior = new Warrior("jelly_yellow", this, new Vector3(4f, 0, 8f), 0, 0f, 0f, 0.008f, true, "warrior", 0.9f);
             scene.AddSceneObject("galaretka_007",warrior);
             warriorsRepository.AddToRepo(warrior);
-            scene.AddSceneObject("baza_001", new Spawn("baza", this, new Vector3(15, 0, 15), -1.57f, 0, 0, 0.009f, false, "baza", 2.5f));
-            scene.AddSceneObject("baza_003", new Spawn("baseEnemy", this, new Vector3(50, -0.8f, 50), -1.57f, 0, 0, 0.07f, false, "bazaenemy", 8.2f));
+            baza = new Spawn("baza", this, new Vector3(15, 0, 15), -1.57f, 0, 0, 0.009f, false, "baza", 2.5f);
+            scene.AddSceneObject("baza_001",baza);
+            baseEnemy = new Spawn("baseEnemy", this, new Vector3(50, -0.8f, 50), -1.57f, 0, 0, 0.07f, false, "bazaenemy", 8.2f);
+            scene.AddSceneObject("baza_003", baseEnemy);
             spawn = new Spawn("spawn", this, new Vector3(95f, 0, 5f), -1.5f, -1.55f, 0f, 0.05f, true, "spawn", 1.6f);
             scene.AddSceneObject("yellowPlatform", platform);
             scene.AddSceneObject("spawn",spawn);

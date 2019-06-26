@@ -30,13 +30,11 @@ namespace SpaceJellyMONO
 
         protected override void Initialize()
         {
-            playRect = new Rectangle(410, 115, 300, 140);
-            tutRect = new Rectangle(410, 345, 300, 140);
-            exitRect = new Rectangle(410, 555, 300, 140);
+            playRect = new Rectangle(410, 215, 300, 140);
+            exitRect = new Rectangle(410, 455, 300, 140);
 
             color = Color.White;
             color2 = Color.White;
-            color3 = Color.White;
             base.Initialize();
         }
 
@@ -44,7 +42,6 @@ namespace SpaceJellyMONO
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             playButton = Content.Load<Texture2D>("play");
-            tutorialButton = Content.Load<Texture2D>("tutorial");
             exitButton = Content.Load<Texture2D>("exit");
             menutext = Content.Load<Texture2D>("mainmenu");
         }
@@ -52,6 +49,7 @@ namespace SpaceJellyMONO
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
             MouseState mouseState = Mouse.GetState();
             #region play
             if (mouseState.X > playRect.X && mouseState.X < playRect.X + playRect.Width
@@ -59,7 +57,7 @@ namespace SpaceJellyMONO
             {
                 if(mouseState.LeftButton == ButtonState.Pressed)
                 {
-                    play = true;
+                    tutorial = true;
                     Exit();
                 }
                 else
@@ -90,26 +88,6 @@ namespace SpaceJellyMONO
                 color2 = Color.White;
             }
             #endregion
-
-            #region tutorial
-            if (mouseState.X > tutRect.X && mouseState.X < tutRect.X + tutRect.Width
-            && mouseState.Y > tutRect.Y && mouseState.Y < tutRect.Y + tutRect.Height)
-            {
-                if (mouseState.LeftButton == ButtonState.Pressed)
-                {
-                    tutorial = true;
-                    Exit();
-                }
-                else
-                {
-                    color3 = Color.Teal;
-                }
-            }
-            else
-            {
-                color3 = Color.White;
-            }
-            #endregion
             base.Update(gameTime);
 
         }
@@ -119,10 +97,8 @@ namespace SpaceJellyMONO
             GraphicsDevice.Clear(new Color(28, 44, 68));
             spriteBatch.Begin();
             spriteBatch.Draw(menutext, new Rectangle(0, 0, 1920, 1080), Color.White);
-
             spriteBatch.Draw(playButton,playRect, color);
             spriteBatch.Draw(exitButton, exitRect, color2);
-            spriteBatch.Draw(tutorialButton, tutRect, color3);
             spriteBatch.End();
             base.Draw(gameTime);
          

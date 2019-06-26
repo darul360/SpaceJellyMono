@@ -79,7 +79,7 @@ namespace SpaceJellyMONO.GameObjectComponents
                         int i = 0;
                         foreach (GameObject go in game1.selectedObjectsRepository.getRepo())
                         {
-                            
+                                go.moveObject.isThatFirstStep = true;
                                 go.targetX = (int)tempNodes[i].X;
                                 go.targetY = (int)tempNodes[i].Y;
                                 go.isMoving = true;

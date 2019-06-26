@@ -8,17 +8,13 @@ namespace SpaceJellyMONO
     /// </summary>
     public static class Program
     {
-        static bool play = false, tutorial = false, returnToMenu = false;
+        static bool play = false, tutorial = false;
         [STAThread]
         static void Main()
         {
-            using (var game = new Game2())
+            using (var game = new Game2()) // main menu
             {
                 game.Run();
-                if (game.play)
-                {
-                    play = true;
-                }
                 if (game.tutorial)
                 {
                     tutorial = true;
@@ -29,27 +25,12 @@ namespace SpaceJellyMONO
             using (var game = new Game3())
             {
                     game.Run();
-                    if (game.returnToMenu)
-                    {
-                        returnToMenu = true;
-                    }
-            }
-            if(returnToMenu)
-            {
-                using (var game = new Game2())
-                {
-                    game.Run();
-                    if (game.play)
+                    if (game.PLAYGAME)
                     {
                         play = true;
+                        tutorial = false;
                     }
-                    if (game.tutorial)
-                    {
-                        tutorial = true;
-                    }
-                }
             }
-
             if (play)
                using (var game = new Game1())
                      game.Run();

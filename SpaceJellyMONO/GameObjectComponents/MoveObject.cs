@@ -111,7 +111,9 @@ namespace SpaceJellyMONO
                         if ((gameObject.GetType() == typeof(Warrior) && temp.GetType() == typeof(Enemy)) ||
                             (gameObject.GetType() == typeof(Enemy) && temp.GameTag == "warrior") ||
                             (gameObject.GetType() == typeof(Enemy) && temp.GameTag == "baza") ||
-                            (gameObject.GetType() == typeof(Enemy) && temp.GameTag == "worker") &&
+                            (gameObject.GetType() == typeof(Enemy) && temp.GameTag == "worker") ||
+                            (gameObject.GetType() == typeof(Warrior) && temp.GameTag == "bazaenemy") ||
+                            (gameObject.GetType() == typeof(Warrior) && temp.GameTag == "spawn") &&
                             gameObject.GameTag != temp.GameTag)
                         {
                             gameObject.isFighting = true;

@@ -39,29 +39,23 @@ namespace SpaceJellyMONO
                        go.targetY = (int)go2.moveObject.moveZ;
                        go.isMoving = true;
                        go.moveObject.isThatFirstStep = true;
-                        Debug.WriteLine(1);
-                        temp = go;
-                        temp2 = go2;
+                       temp = go;
+                       temp2 = go2;
                    }
 
 
                     else
                     {
-                       go.targetX = 15;
+                       go.targetX = 17;
                        go.targetY = 15;
                        go.isMoving = true;
                        go.moveObject.isThatFirstStep = true;
-                        if (Vector3.Distance(new Vector3(go.moveObject.moveX, 0, go.moveObject.moveZ), new Vector3(15, 0, 15)) < 2)
+                        if (Vector3.Distance(new Vector3(go.moveObject.moveX, 0, go.moveObject.moveZ), new Vector3(17, 0, 15)) < 2)
                         {
-                            go.transform.translation = new Vector3(15, 0, 15);
+                            go.transform.translation = new Vector3(17, 0, 15);
                             go.isMoving = false;
-                            Debug.WriteLine(2);
                         }
                     }
-                    //if (temp2 != null)
-                    //    Debug.WriteLine(temp + " " + temp2 + " " + temp2.GetHp());
-                    //else
-                    //    Debug.WriteLine("null");
                 }
 
             }
