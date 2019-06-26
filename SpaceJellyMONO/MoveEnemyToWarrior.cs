@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using SpaceJellyMONO.GameObjectComponents;
+using SpaceJellyMONO.UnitsFolder;
 
 namespace SpaceJellyMONO
 {
@@ -13,43 +15,55 @@ namespace SpaceJellyMONO
     {
         Game1 game1;
         SoundEffect effect;
-        float timer = 0.5f;
-        const float TIMER = 0.5f;
-        List<Tuple<GameObject,GameObject>> pairs;
+        float timer = 1f;
+        const float TIMER = 1f;
+        GameObject temp,temp2;
         public MoveEnemyToWarrior(Game1 game1):base(game1)
         {
             this.game1 = game1;
-            pairs = new List<Tuple<GameObject, GameObject>>();
+            Warrior warrior = new Warrior("jelly_yellow", game1, new Vector3(1000, 1000, 10000), 0, 0, 0, 0.00001f, false, "daddsa", 1);
+            game1.warriorsRepository.AddToRepo(warrior);
         }
 
         public void findActiveWarriorAround()
         {
-            foreach (GameObject go in game1.gameObjectsRepository.getRepo())
+            foreach (Enemy go in game1.enemiesRepository.getRepo())
             {
-                if (go.GameTag == "enemy")
+                foreach (Warrior go2 in game1.warriorsRepository.getRepo())
                 {
-                    foreach (GameObject go2 in game1.gameObjectsRepository.getRepo())
-                    {
-                        if (go2.GameTag == "warrior")
-                        {
 
-                            if (Vector3.Distance(go.transform.translation, go2.transform.translation) < 3.0f && go2.GetHp()>=0)
-                            {
-                                go.targetX = (int)go2.moveObject.moveX;
-                                go.targetY = (int)go2.moveObject.moveZ;
-                                go.isMoving = true;
-                                go.moveObject.isThatFirstStep = true;
-                            }
-                            else
-                            {
-                                go.targetX = 15;
-                                go.targetY = 15;
-                                go.isMoving = true;
-                                go.moveObject.isThatFirstStep = true;
-                            }
+
+                   if (Vector3.Distance(go.transform.translation, go2.transform.translation) < 3.0f && go2.GetHp()>=0)
+                   {
+                       go.targetX = (int)go2.moveObject.moveX;
+                       go.targetY = (int)go2.moveObject.moveZ;
+                       go.isMoving = true;
+                       go.moveObject.isThatFirstStep = true;
+                        Debug.WriteLine(1);
+                        temp = go;
+                        temp2 = go2;
+                   }
+
+
+                    else
+                    {
+                       go.targetX = 15;
+                       go.targetY = 15;
+                       go.isMoving = true;
+                       go.moveObject.isThatFirstStep = true;
+                        if (Vector3.Distance(new Vector3(go.moveObject.moveX, 0, go.moveObject.moveZ), new Vector3(15, 0, 15)) < 2)
+                        {
+                            go.transform.translation = new Vector3(15, 0, 15);
+                            go.isMoving = false;
+                            Debug.WriteLine(2);
                         }
                     }
+                    //if (temp2 != null)
+                    //    Debug.WriteLine(temp + " " + temp2 + " " + temp2.GetHp());
+                    //else
+                    //    Debug.WriteLine("null");
                 }
+
             }
         }
 

@@ -55,10 +55,11 @@
     <Compile Include="IDamageable.cs" />
     <Compile Include="ISelectable.cs" />
     <Compile Include="MoveEnemyToWarrior.cs" />
-    <Compile Include="MoveLocalEnemyToWarrior.cs" />
+    <Compile Include="Repositories\EnemiesRepository.cs" />
     <Compile Include="Repositories\PathCollidersRepository.cs" />
     <Compile Include="Repositories\PowderSourcesRepository.cs" />
     <Compile Include="Repositories\SelectedObjectsRepository.cs" />
+    <Compile Include="Repositories\WarriorsRepository.cs" />
     <Compile Include="ResourcesGathering\BluePowderGathering.cs" />
     <Compile Include="ResourcesGathering\GatherResources.cs" />
     <Compile Include="ResourcesGathering\WaterGathering.cs" />

@@ -51,15 +51,9 @@ namespace SpaceJellyMONO
         public FinateStateMachine animateJelly;
         public GameObject spawn;
         public MovingController movingController;
+        public EnemiesRepository enemiesRepository = new EnemiesRepository();
+        public WarriorsRepository warriorsRepository = new WarriorsRepository();
         //sound
-
-        enum GameState
-        {
-            MainMenu,
-            Tutorial,
-            Playing,
-        }
-        GameState currentGameState = GameState.MainMenu;
 
 
         public Game1()
@@ -189,18 +183,20 @@ namespace SpaceJellyMONO
             scene.AddSceneObject("galaretka_003", new Jelly("jelly_blue", this, new Vector3(6f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker",0.6f));
             scene.AddSceneObject("galaretka_004", new Jelly("jelly_blue", this, new Vector3(10f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker", 0.6f));
             scene.AddSceneObject("galaretka_005", new Jelly("jelly_blue", this, new Vector3(14f, 0, 8f), 0f, 0f, 0f, 0.005f, true, "worker", 0.6f));
-            scene.AddSceneObject("galaretka_007", new Warrior("jelly_yellow", this, new Vector3(4f, 0, 8f), 0, 0f, 0f, 0.008f, true, "warrior", 0.9f));
+            Warrior warrior = new Warrior("jelly_yellow", this, new Vector3(4f, 0, 8f), 0, 0f, 0f, 0.008f, true, "warrior", 0.9f);
+            scene.AddSceneObject("galaretka_007",warrior);
+            warriorsRepository.AddToRepo(warrior);
             scene.AddSceneObject("baza_001", new Spawn("baza", this, new Vector3(15, 0, 15), -1.57f, 0, 0, 0.009f, false, "baza", 2.5f));
             scene.AddSceneObject("baza_003", new Spawn("baseEnemy", this, new Vector3(50, -0.8f, 50), -1.57f, 0, 0, 0.07f, false, "bazaenemy", 8.2f));
             spawn = new Spawn("spawn", this, new Vector3(95f, 0, 5f), -1.5f, -1.55f, 0f, 0.05f, true, "spawn", 1.6f);
             scene.AddSceneObject("yellowPlatform", platform);
             scene.AddSceneObject("spawn",spawn);
 
-            scene.AddSceneObject("zarlok_stacjonarny_001", new Enemy("zarlok", this, new Vector3(91f, 0, 3f), 0f, 3.14f, 0f, 0.02f, true, "enemyLocal", 0.5f * 0.9f));
+            /*scene.AddSceneObject("zarlok_stacjonarny_001", new Enemy("zarlok", this, new Vector3(91f, 0, 3f), 0f, 3.14f, 0f, 0.02f, true, "enemyLocal", 0.5f * 0.9f));
             scene.AddSceneObject("zarlok_stacjonarny_002", new Enemy("zarlok", this, new Vector3(91f, 0, 5f), 0f, 3.14f, 0f, 0.02f, true, "enemyLocal", 0.5f * 0.9f));
             scene.AddSceneObject("zarlok_stacjonarny_003", new Enemy("zarlok", this, new Vector3(91f, 0, 7f), 0f, 3.14f, 0f, 0.02f, true, "enemyLocal", 0.5f * 0.9f));
             scene.AddSceneObject("zarlok_stacjonarny_004", new Enemy("zarlok", this, new Vector3(93f, 0, 3f), 0f, 3.14f, 0f, 0.02f, true, "enemyLocal", 0.5f * 0.9f));
-            scene.AddSceneObject("zarlok_stacjonarny_005", new Enemy("zarlok", this, new Vector3(93f, 0, 7f), 0f, 3.14f, 0f, 0.02f, true, "enemyLocal", 0.5f * 0.9f));
+            */scene.AddSceneObject("zarlok_stacjonarny_005", new Enemy("zarlok", this, new Vector3(93f, 0, 7f), 0f, 3.14f, 0f, 0.02f, true, "enemyLocal", 0.5f * 0.9f));
 
             foreach (GameObject gameObject in scene.SceneObjects.Values)
             {

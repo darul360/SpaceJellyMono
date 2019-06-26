@@ -46,7 +46,8 @@ namespace SpaceJellyMONO
                     i++;
                     start = true;
                     timer = TIMER;
-
+                    game1.enemiesRepository.AddToRepo(go1);
+                    game1.enemiesRepository.AddToRepo(go2);
                 }
             }
             base.Draw(gameTime);
