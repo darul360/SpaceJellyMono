@@ -77,6 +77,7 @@ namespace SpaceJellyMONO
             gridH = 100;
             findPath = new FindPath(gridW, gridH);
             resourcesStatistics = new ResourcesStatistics(this);
+            graphics.GraphicsProfile = GraphicsProfile.HiDef;  // ZMIENIĆ JAK COŚ  to do directx!!!
 
         }
 

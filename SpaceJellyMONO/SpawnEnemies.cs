@@ -37,7 +37,7 @@ namespace SpaceJellyMONO
                     timer -= elapsed;
                     if (timer < 0)
                     {
-                        go1 = new Enemy("zarlok", game1, new Vector3(94, 0, 5f), 0f, 3.14f, 0f, 0.02f, true, "enemy", 0.5f * 0.9f);
+                        go1 = new Enemy("zarlok", game1, new Vector3(92, 0, 5f), 0f, 3.14f, 0f, 0.02f, true, "enemy", 0.5f * 0.9f);
                         game1.scene.AddSceneObject("zarlokS" + i, go1);
                         game1.scene.SceneObjects["zarlokS" + i].StartAnimationClip("1", 20, true);
                         i++;

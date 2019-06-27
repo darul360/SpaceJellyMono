@@ -40,7 +40,7 @@ namespace SpaceJellyMONO
                         game1.scene.SceneObjects["zarlokG" + i].StartAnimationClip("1", 20, true);
                         i++;
 
-                        go2 = new Enemy("zarlok", game1, new Vector3(48, 0, 48), 0f, 3.14f, 0f, 0.02f, true, "enemy", 0.5f * 0.9f);
+                        go2 = new Enemy("zarlok", game1, new Vector3(48, 0, 46), 0f, 3.14f, 0f, 0.02f, true, "enemy", 0.5f * 0.9f);
                         game1.scene.AddSceneObject("zarlokG" + i, go2);
                         game1.scene.SceneObjects["zarlokG" + i].StartAnimationClip("1", 20, true);
                         i++;
