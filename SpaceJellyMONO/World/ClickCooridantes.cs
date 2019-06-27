@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,7 +40,7 @@ namespace SpaceJellyMONO.World
             float t = -(numerator / denominator);
 
             Vector3 pickedPosition = nearPoint + direction * t;
-
+            Debug.WriteLine(pickedPosition);
             return pickedPosition;
         }
     }
