@@ -178,7 +178,7 @@ namespace SpaceJellyMONO
             //
             #endregion
 
-            flr = new GameObject("mountainTerrain", this, new Vector3(50, 0, 50), -1.57f, -1.5f, 0, 1f, false, "floor",0.9f);
+            flr = new GameObject("mountainTerrain", this, new Vector3(50, 0, 50), -1.57f, -1.5f, 0, 1.5f, false, "floor",1.5f);
             scene.AddSceneObject("podloga",flr );
             scene.Floor = flr;
             scene.AddSceneObject("zarlok_001", new Enemy("zarlok", this, new Vector3(50f, 0, 10f), 0f, 3.14f, 0f, 0.02f, true, "enemy", 0.5f*0.9f));
@@ -200,7 +200,7 @@ namespace SpaceJellyMONO
             scene.AddSceneObject("zarlok_stacjonarny_002", new Enemy("zarlok", this, new Vector3(91f, 0, 5f), 0f, 3.14f, 0f, 0.02f, true, "enemyLocal", 0.5f * 0.9f));
             scene.AddSceneObject("zarlok_stacjonarny_003", new Enemy("zarlok", this, new Vector3(91f, 0, 7f), 0f, 3.14f, 0f, 0.02f, true, "enemyLocal", 0.5f * 0.9f));
             scene.AddSceneObject("zarlok_stacjonarny_004", new Enemy("zarlok", this, new Vector3(93f, 0, 3f), 0f, 3.14f, 0f, 0.02f, true, "enemyLocal", 0.5f * 0.9f));
-            */scene.AddSceneObject("zarlok_stacjonarny_005", new Enemy("zarlok", this, new Vector3(93f, 0, 7f), 0f, 3.14f, 0f, 0.02f, true, "enemyLocal", 0.5f * 0.9f));
+            *///scene.AddSceneObject("zarlok_stacjonarny_005", new Enemy("zarlok", this, new Vector3(93f, 0, 7f), 0f, 3.14f, 0f, 0.02f, true, "enemyLocal", 0.5f * 0.9f));
 
             foreach (GameObject gameObject in scene.SceneObjects.Values)
             {

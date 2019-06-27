@@ -171,6 +171,8 @@ namespace SpaceJellyMONO
 
         public override void Draw(GameTime gameTime)
         {
+            mainClass.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+
             //base.Draw(gameTime);
             foreach (ModelMesh modelMesh in model.Meshes)
             {
@@ -193,7 +195,11 @@ namespace SpaceJellyMONO
                     }
                 }
                 //collider.DrawCollider();
+                mainClass.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+
                 modelMesh.Draw();
+                mainClass.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+
                 if (this.isMoving)
                 {
                     Matrix rotation = Matrix.CreateRotationX(0) * Matrix.CreateRotationY(0) * Matrix.CreateRotationZ(0);
@@ -205,6 +211,8 @@ namespace SpaceJellyMONO
 		
 		public void Draw(Matrix view, Matrix projection)
         {
+            mainClass.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+
             foreach (ModelMesh mesh in model.Meshes)
             {
                 foreach (Effect effect in mesh.Effects)
@@ -230,14 +238,20 @@ namespace SpaceJellyMONO
                         skinnedEffect.SpecularPower = 100f;
                     }
                 }
+                mainClass.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+
                 mesh.Draw();
                 collider.DrawCollider();
+                mainClass.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+
             }
         }
 		
 		public void Draw(Effect effect)
         {
-            foreach(ModelMesh mesh in model.Meshes)
+            mainClass.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+
+            foreach (ModelMesh mesh in model.Meshes)
             {
                 Effect currentEffect = null;
                 foreach (ModelMeshPart meshPart in mesh.MeshParts)
@@ -294,12 +308,16 @@ namespace SpaceJellyMONO
 
         private void InitializeModelEffects()
         {
+            mainClass.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+
             foreach (ModelMesh modelMesh in model.Meshes)
             {
                 foreach (Effect effect in modelMesh.Effects)
                 {
                     if (effect is BasicEffect)
                     {
+                        mainClass.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+
                         BasicEffect basicEffect = (BasicEffect)effect;
                         basicEffect.EnableDefaultLighting();
                         basicEffect.SpecularPower = 200f;

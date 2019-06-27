@@ -31,17 +31,31 @@ namespace SpaceJellyMONO.World
                 if (go.GameTag == "worker")
                 {
                     tempworkerscount++;
-                    if (go.isObjectSelected) tempworkersselectedcount++;
                 }
                 if (go.GameTag == "warrior")
                 {
                     tempwarriorscount++;
-                    if (go.isObjectSelected) tempwarriorsselectedcount++;
                 }
                 if (go.GameTag == "enemy")
                 {
                     tempenemiescount++;
-                    if (go.isObjectSelected) tempenemiesselectedcount++;
+                }
+
+            }
+
+            foreach (GameObject go in game1.selectedObjectsRepository.getRepo())
+            {
+                if (go.GameTag == "worker")
+                {
+                    tempworkersselectedcount++;
+                }
+                if (go.GameTag == "warrior")
+                {
+                    tempwarriorsselectedcount++;
+                }
+                if (go.GameTag == "enemy")
+                {
+                    tempenemiesselectedcount++;
                 }
 
             }
@@ -54,9 +68,9 @@ namespace SpaceJellyMONO.World
         }
         public ResourcesStatistics(Game1 game1)
         {
-            this.waterStats = 10;
-            this.bluePowderStats = 10;
-            this.yellowPowderStats = 10;
+            this.waterStats = 20;
+            this.bluePowderStats = 20;
+            this.yellowPowderStats = 20;
             this.redPowderStats = 0;
             this.blackPowderStats = 0;
             this.game1 = game1;

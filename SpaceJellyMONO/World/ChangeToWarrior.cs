@@ -51,20 +51,24 @@ namespace SpaceJellyMONO.World
 
                 if (change)
                 {
-                    // GameObject gameOBJ = ;
-                    GameObject go = new Warrior("jelly_yellow", game, temp.transform.translation, 0, 0f, 0f, 0.008f, true, "warrior", .9f);
-                    game.warriorsRepository.AddToRepo(go);
-                    game.scene.AddSceneObject("warrior" + i, go);
-                    game.scene.SceneObjects["warrior" + i ].StartAnimationClip("1", 20, true);
-                    string workerKey = game.scene.FindKeyOfObject(temp);     //znajdź klucz obiektu w repo rysowania
-                    if (workerKey != null)                                  //overcode
-                        game.scene.DeleteSceneObject(workerKey);
-                    game.gameObjectsRepository.RemoveFromRepo(temp);
-                    Unit selectableUnit = temp as Unit;
-                    game.selectedObjectsRepository.RemoveFromRepo(selectableUnit);
-                    change = false;
-                    go.isObjectSelected = true;
-                    i++;
+                    if (game.resourcesStatistics.yellowPowderStats >= 5)
+                    {
+                        // GameObject gameOBJ = ;
+                        GameObject go = new Warrior("jelly_yellow", game, temp.transform.translation, 0, 0f, 0f, 0.008f, true, "warrior", .9f);
+                        game.warriorsRepository.AddToRepo(go);
+                        game.scene.AddSceneObject("warrior" + i, go);
+                        game.scene.SceneObjects["warrior" + i].StartAnimationClip("1", 20, true);
+                        string workerKey = game.scene.FindKeyOfObject(temp);     //znajdź klucz obiektu w repo rysowania
+                        if (workerKey != null)                                  //overcode
+                            game.scene.DeleteSceneObject(workerKey);
+                        game.gameObjectsRepository.RemoveFromRepo(temp);
+                        Unit selectableUnit = temp as Unit;
+                        game.selectedObjectsRepository.RemoveFromRepo(selectableUnit);
+                        change = false;
+                        go.isObjectSelected = true;
+                        i++;
+                        game.resourcesStatistics.yellowPowderStats -= 5;
+                    }
                 }
 
 

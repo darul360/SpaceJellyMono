@@ -196,7 +196,7 @@ namespace SpaceJellyMONO
 
         private void drawRect()
         {
-            Game.GraphicsDevice.BlendState = BlendState.Additive;
+           // Game.GraphicsDevice.BlendState = BlendState.Additive;
             MouseState mouseState = Mouse.GetState();
 
             if (mouseState.LeftButton == ButtonState.Pressed && isFirstPointSelected == false)
