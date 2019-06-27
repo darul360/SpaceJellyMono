@@ -23,7 +23,7 @@ namespace SpaceJellyMONO
         private MouseState lastMouseState = new MouseState();
         private MouseState lastMouseState2 = new MouseState();
         private MouseState lastMouseState3 = new MouseState();
-        //Texture2D videoTexture = null;
+        Texture2D videoTexture = null;
 
         int i = 0;
 
@@ -148,7 +148,6 @@ namespace SpaceJellyMONO
             }
 
 
-            Texture2D videoTexture = null;
 
             if (player.State != MediaState.Stopped)
             {

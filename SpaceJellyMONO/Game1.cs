@@ -42,7 +42,7 @@ namespace SpaceJellyMONO
         public ResourcesStatistics resourcesStatistics;
         GameObject flr,platform;
         Vector3 temporaryRot, temporaryPos;
-        bool switcher = false;
+        public bool switcher = false;
         KeyboardState lastKeyboardState = new KeyboardState();
         VideoPlayer player,player2;
         Video video,video2;
@@ -225,24 +225,21 @@ namespace SpaceJellyMONO
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (!switcher)
-            {
-                temporaryRot = camera.Rotation;
-                temporaryPos = camera.Position;
-            }
             KeyboardState currentState = Keyboard.GetState();
             if (currentState.IsKeyDown(Keys.Tab) && lastKeyboardState.IsKeyUp(Keys.Tab))
             {
                 switcher = !switcher;
                 if (switcher)
                 {
+                    camera.setCameraSpeed(50);
                     camera.Rotation = new Vector3(1.5f, 0, 0);
-                    camera.Position = new Vector3(50, 130, 50);
+                    camera.Position = new Vector3(camera.Position.X, 130, camera.Position.Z);
                 }
                 if (!switcher)
                 {
-                    camera.Position = temporaryPos;
-                    camera.Rotation = temporaryRot;
+                    camera.setCameraSpeed(10);
+                    camera.Position = new Vector3(camera.Position.X, 25, camera.Position.Z);
+                    camera.Rotation = new Vector3(1.2f, 0, 0);
                 }
                
             }
