@@ -56,6 +56,7 @@ namespace SpaceJellyMONO
         public GameObject baza,wall;
         private Spawn baseEnemy;
         public bool destroyed = false;
+        public RenderEngine renderEngine;
 
         internal Spawn BaseEnemy { get => baseEnemy; set => baseEnemy = value; }
 
@@ -91,7 +92,8 @@ namespace SpaceJellyMONO
 
             /*-----MODELE-----*/
             scene = new Scene(new Transform(new Vector3(0f, 0f, 0f), 0f, 0f, 0f, 1f));
-            Components.Add(new RenderEngine(this, camera));
+            renderEngine = new RenderEngine(this, camera);
+            Components.Add(renderEngine);
             Components.Add(new Selector(this));
             basicFloorGenerate = new BasicFloorGenerate(GraphicsDevice, gridW, gridH, spriteBatch, this);
             clickCooridantes = new ClickCooridantes(this);
@@ -241,7 +243,7 @@ namespace SpaceJellyMONO
                 {
                     BaseEnemy.setHP(8000);
                     destroyed = true;
-                    writeStats.timer = 45;
+                    renderEngine.writeStats.timer = 45;
                 }
             }
             KeyboardState currentState = Keyboard.GetState();

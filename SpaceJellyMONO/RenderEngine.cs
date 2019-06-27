@@ -16,7 +16,7 @@ namespace SpaceJellyMONO
         private Camera camera;
         private SMRenderer shadowMapRenderer;
         private SpriteBatch spriteBatch;
-        private WriteStats writeStats;
+        public WriteStats writeStats;
         private ShowInfoAboutBuilding showInfoAbout;
         private FloatingText floatingText;
 
