@@ -53,7 +53,12 @@ namespace SpaceJellyMONO
         public MovingController movingController;
         public EnemiesRepository enemiesRepository = new EnemiesRepository();
         public WarriorsRepository warriorsRepository = new WarriorsRepository();
-        public GameObject baseEnemy,baza,wall;
+        public GameObject baza,wall;
+        private Spawn baseEnemy;
+        bool destroyed = false;
+
+        internal Spawn BaseEnemy { get => baseEnemy; set => baseEnemy = value; }
+
         //sound
 
 
@@ -190,8 +195,8 @@ namespace SpaceJellyMONO
             warriorsRepository.AddToRepo(warrior);
             baza = new Spawn("baza", this, new Vector3(15, 0, 15), -1.57f, 0, 0, 0.009f, false, "baza", 2.5f);
             scene.AddSceneObject("baza_001",baza);
-            baseEnemy = new Spawn("baseEnemy", this, new Vector3(50, -0.8f, 50), -1.57f, 0, 0, 0.07f, false, "bazaenemy", 8.2f);
-            scene.AddSceneObject("baza_003", baseEnemy);
+            BaseEnemy = new Spawn("baseEnemy", this, new Vector3(50, -0.8f, 50), -1.57f, 0, 0, 0.07f, false, "bazaenemy", 8.2f);
+            scene.AddSceneObject("baza_003", BaseEnemy);
             //wall = new GameObject("wall", this, new Vector3(50, 0, 50), -1.57f, 0, 0, 35, false, "wall", 1);
             //scene.AddSceneObject("wall1", wall);
             spawn = new Spawn("spawn", this, new Vector3(95f, 0, 5f), -1.5f, -1.55f, 0f, 0.05f, true, "spawn", 1.6f);
@@ -225,6 +230,18 @@ namespace SpaceJellyMONO
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            if(spawn.GetHp() >0)
+            {
+                BaseEnemy.setHP(1);
+            }
+            else
+            {
+                if (!destroyed)
+                {
+                    BaseEnemy.setHP(8000);
+                    destroyed = true;
+                }
+            }
             KeyboardState currentState = Keyboard.GetState();
             if (currentState.IsKeyDown(Keys.Tab) && lastKeyboardState.IsKeyUp(Keys.Tab))
             {

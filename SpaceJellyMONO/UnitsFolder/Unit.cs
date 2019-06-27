@@ -20,6 +20,7 @@ namespace SpaceJellyMONO.Units
 
         public Unit(string path, Game1 game1, Vector3 translation, float rotationAngleX, float rotationAngleY, float rotationAngleZ, float scale, bool isMovable, string tag, float colSize) : base(path, game1, translation, rotationAngleX, rotationAngleY, rotationAngleZ, scale, isMovable, tag,colSize)
         {
+
         }
 
         override public void TakeDmg(float dmg) { }

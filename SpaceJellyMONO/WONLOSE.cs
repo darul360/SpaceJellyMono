@@ -30,7 +30,7 @@ namespace SpaceJellyMONO
                 spriteBatch.End();
             }
 
-            if (game1.baseEnemy.GetHp() <= 0)
+            if (game1.BaseEnemy.GetHp() <= 0)
             {
                 spriteBatch.Begin();
                 spriteBatch.Draw(win, new Rectangle(0, 0, 1920, 1080), Color.White);

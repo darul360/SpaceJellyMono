@@ -11,7 +11,7 @@ namespace SpaceJellyMONO.UnitsFolder
 {
     class Spawn : Unit
     {
-        float hp = 8000;
+        float hp = 8;
         float dmg = 0;
         //healthBar
         Texture2D healthTexture;
@@ -38,6 +38,10 @@ namespace SpaceJellyMONO.UnitsFolder
         override public float GetHp()
         {
             return hp;
+        }
+        public void setHP(int hp)
+        {
+            this.hp = hp;
         }
 
         public override void Draw(GameTime gameTime)
