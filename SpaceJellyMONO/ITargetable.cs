@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SpaceJellyMONO
 {
-    public interface ISelectable
+    public interface ITargetable
     {
-        bool IsSelected { get; set; }
-        SelectionCircle SelectionCircle { get;}
+        bool IsTargeted { get; set; }
+        SelectionCircle TargetCircle { get;}
     }
 }

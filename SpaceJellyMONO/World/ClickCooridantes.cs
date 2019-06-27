@@ -40,7 +40,7 @@ namespace SpaceJellyMONO.World
             float t = -(numerator / denominator);
 
             Vector3 pickedPosition = nearPoint + direction * t;
-            Debug.WriteLine(pickedPosition);
+            //Debug.WriteLine(pickedPosition);
             return pickedPosition;
         }
     }

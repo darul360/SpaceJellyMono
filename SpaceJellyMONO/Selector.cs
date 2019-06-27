@@ -12,11 +12,17 @@ namespace SpaceJellyMONO
         Texture2D checkerboardTexture;
         private VertexPositionTexture[] verticies;
         private bool isFirstPointSelected = false;
-        private bool isLastPointSelected = false;
-        private bool reclicked = false;
         Vector3 startPoint = new Vector3(0, 0, 0);
         Vector3 endPoint = new Vector3(0, 0, 0);
         private MouseState lastMouseState = new MouseState();
+
+        //Mouse position calculations
+        private Vector3 nearSourceVector = new Vector3(0f, 0f, 0f);
+        private Vector3 farSourceVector = new Vector3(0f, 0f, 1f);
+        private Ray ray = new Ray();
+        private Plane p = new Plane(Vector3.Up, 0f);
+        private Vector3 currentTarget = new Vector3();
+        private bool drawRectangle = false;
 
         public Selector(Game1 game) : base(game)
         {
@@ -103,48 +109,34 @@ namespace SpaceJellyMONO
         {
             game.selectedObjectsRepository.ClearAll();
             
-            foreach (GameObject model in game.selectedObjectsRepository.getRepo())
-            {
-                if (!model.isMoving)
-                {
-                        ((Unit)model).IsSelected = false;
-                        model.mainClass.selectedObjectsRepository.getRepo().Remove(model);
-                }
-            }
+            //foreach (Unit selectableUnit in game.selectedObjectsRepository.getRepo())
+            //{
+            //    if (!selectableUnit.isMoving)
+            //    {
+            //            selectableUnit.IsSelected = false;
+            //            game.selectedObjectsRepository.RemoveFromRepo(selectableUnit);
+            //    }
+            //}
             
         }
-
-
-        private void setPrimary(GameObject go2)
-        {
-            //int counter = 0;
-            //foreach(GameObject go in game.gameObjectsRepository.getRepo())
-            //{
-            //    if (go.isPrimary == true)
-            //        counter++;
-            //}
-
-            //if (counter == 0) go2.isPrimary = true;
-
-        }
-
         private Vector3 FindWhereClicked()
         {
             GraphicsDevice graphicsDevice = game.GraphicsDevice;
             MouseState mouseState = Mouse.GetState();
 
-            Vector3 nearSource = new Vector3((float)mouseState.X, (float)mouseState.Y, 0f);
-            Vector3 farSource = new Vector3((float)mouseState.X, (float)mouseState.Y, 1f);
-            Vector3 nearPoint = graphicsDevice.Viewport.Unproject(nearSource, game.camera.Projection, game.camera.View, Matrix.Identity);
-            Vector3 farPoint = graphicsDevice.Viewport.Unproject(farSource, game.camera.Projection, game.camera.View, Matrix.Identity);
+            nearSourceVector.X = (float)mouseState.X;
+            nearSourceVector.Y = (float)mouseState.Y;
+
+            farSourceVector.X = (float)mouseState.X;
+            farSourceVector.Y = (float)mouseState.Y;
+            Vector3 nearPoint = graphicsDevice.Viewport.Unproject(nearSourceVector, game.camera.Projection, game.camera.View, Matrix.Identity);
+            Vector3 farPoint = graphicsDevice.Viewport.Unproject(farSourceVector, game.camera.Projection, game.camera.View, Matrix.Identity);
 
             Vector3 direction = farPoint - nearPoint;
             direction.Normalize();
 
-            Ray ray = new Ray(nearPoint, direction);
-
-            Vector3 n = new Vector3(0f, 1f, 0f);
-            Plane p = new Plane(n, 0f);
+            ray.Position = nearPoint;
+            ray.Direction = direction;
 
             float denominator = Vector3.Dot(p.Normal, ray.Direction);
             float numerator = Vector3.Dot(p.Normal, ray.Position) + p.D;
@@ -185,7 +177,6 @@ namespace SpaceJellyMONO
                 verticies[5].Position = new Vector3(start.X, 0.5f, end.Z);
             }
 
-
             game.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
             foreach (var pass in effect.CurrentTechnique.Passes)
             {
@@ -193,64 +184,85 @@ namespace SpaceJellyMONO
                 GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleList, verticies, 0, 2);
             }
         }
-
-        private void drawRect()
-        {
-           // Game.GraphicsDevice.BlendState = BlendState.Additive;
-            MouseState mouseState = Mouse.GetState();
-
-            if (mouseState.LeftButton == ButtonState.Pressed && isFirstPointSelected == false)
-            {
-                startPoint = FindWhereClicked();
-                DeselectAll();
-                isFirstPointSelected = true;
-            }
-            if (mouseState.LeftButton == ButtonState.Pressed && isFirstPointSelected == true)
-            {
-                endPoint = FindWhereClicked();
-                DrawRect(startPoint, endPoint);
-                ChangeSelectedObjectsState(startPoint, endPoint);
-            }
-            if (mouseState.LeftButton == ButtonState.Released)
-            {
-                isFirstPointSelected = false;
-                isLastPointSelected = false;
-            }
-            Game.GraphicsDevice.BlendState = BlendState.Opaque;
-
-        }
-        public void singleClickSelect()
+        public void singleClickSelect(Vector3 targetPosition)
         {
             foreach(GameObject go in game.gameObjectsRepository.getRepo())
             {
-                if (Vector3.Distance(FindWhereClicked(), go.transform.translation) < 0.5f)
+                if (go is Unit)
                 {
-                    MouseState currentState = Mouse.GetState();
+                    Unit selectableUnit = go as Unit;
 
-                    if (currentState.LeftButton == ButtonState.Pressed && lastMouseState.LeftButton == ButtonState.Released)
-                    {
+                    if (Vector3.Distance(targetPosition, selectableUnit.transform.translation) < 0.8f)
                         if (go.GameTag == "worker" || go.GameTag == "warrior")
-                        {
-                            if (go is Unit)
-                            {
-                                Unit selectableUnit = go as Unit;
-                                go.isObjectSelected = true;
-                                game.selectedObjectsRepository.AddToRepo(selectableUnit);
-                            }
-                        }
+                            game.selectedObjectsRepository.AddToRepo(selectableUnit);
+                 }
+            }
+
+        }
+        private void MouseOver(Vector3 targetPosition)
+        {
+            foreach (GameObject go in game.gameObjectsRepository.getRepo())
+            {
+                if (go is Unit)
+                {
+                    Unit targetableUnit = go as Unit;
+
+                    if (Vector3.Distance(targetPosition, targetableUnit.transform.translation) < 0.8f)
+                    {
+                        targetableUnit.IsTargeted = true;
                     }
-                    lastMouseState = currentState;
+                    else
+                        targetableUnit.IsTargeted = false;
                 }
             }
         }
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
 
+            currentTarget = FindWhereClicked();
+
+            MouseState mouseState = Mouse.GetState();
+
+            if (mouseState.LeftButton == ButtonState.Pressed)
+            {
+                if (lastMouseState.LeftButton == ButtonState.Released)
+                {
+                    DeselectAll();
+                    singleClickSelect(currentTarget);
+                }
+                else
+                {
+                    if (!isFirstPointSelected)
+                    {
+                        startPoint = currentTarget;
+                        isFirstPointSelected = true;
+                    }
+                    else
+                    {
+                        endPoint = currentTarget;
+                        ChangeSelectedObjectsState(startPoint, endPoint);
+                        drawRectangle = true;
+                    }
+                }
+            }
+            else
+            {
+                drawRectangle = false;
+                isFirstPointSelected = false;
+                MouseOver(currentTarget);
+            }
+            lastMouseState = mouseState;
+        }
 
         public override void Draw(GameTime gameTime)
         {
-            
-            drawRect();
-            singleClickSelect();
             base.Draw(gameTime);
+
+            game.GraphicsDevice.BlendState = BlendState.Additive;
+            if(drawRectangle)
+                DrawRect(startPoint, endPoint);
+            game.GraphicsDevice.BlendState = BlendState.Opaque;
         }
     }
 }

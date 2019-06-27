@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceJellyMONO.Units;
 using SpaceJellyMONO.World;
+using SpaceJellyMONO.GameObjectComponents;
 
 namespace SpaceJellyMONO
 {
@@ -17,6 +18,7 @@ namespace SpaceJellyMONO
         private SpriteBatch spriteBatch;
         private WriteStats writeStats;
         private ShowInfoAboutBuilding showInfoAbout;
+        private FloatingText floatingText;
 
         public Scene SceneToRender
         {
@@ -56,7 +58,7 @@ namespace SpaceJellyMONO
             }
 
             RenderScene(gameTime);
-            RenderSprites();
+            RenderSprites(gameTime);
             RenderHUD(gameTime);
             //RenderCursor();
         }
@@ -71,7 +73,7 @@ namespace SpaceJellyMONO
             }
 
         }
-        private void RenderSprites()
+        private void RenderSprites(GameTime gameTime)
         {
             spriteBatch.Begin();
             foreach (GameObject gameObject in SceneToRender.SceneObjects.Values)

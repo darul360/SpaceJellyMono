@@ -11,20 +11,16 @@ namespace SpaceJellyMONO
     public class SelectionCircle
     {
         private Game game;
-        private Effect circleEffect;
 
         private VertexBuffer vbuffer;
 
-        public Vector4 Color { set { circleEffect.Parameters["tintColor"].SetValue(value); } }
-        public Matrix WorldMatrix { set { circleEffect.Parameters["worldMatrix"].SetValue(value); } }
-        public Matrix ViewMatrix { set { circleEffect.Parameters["viewMatrix"].SetValue(value); } }
-        public Matrix ProjectionMatrix { set { circleEffect.Parameters["projectionMatrix"].SetValue(value); } }
+        private Vector4 tintColor;
+        public Vector4 TintColor { get { return tintColor; } }
 
-        public SelectionCircle(Vector3 position, Vector2 radius, Game game)
+        public SelectionCircle(Vector3 position, Vector2 radius, Vector4 tintColor, Game game)
         {
             this.game = game;
-            this.circleEffect = game.Content.Load<Effect>("custom_effects/SelectionCircle");
-            circleEffect.Parameters["circleTexture"].SetValue(game.Content.Load<Texture2D>("SelectionCircleAlpha"));
+            this.tintColor = tintColor;
 
             List<VertexPositionTexture> vertices = new List<VertexPositionTexture>(6);
             vertices.Add(new VertexPositionTexture(new Vector3((position.X + radius.X), 0.1f, position.Z + radius.Y), new Vector2(1f, 1f)));
@@ -36,7 +32,7 @@ namespace SpaceJellyMONO
             vbuffer = new VertexBuffer(game.GraphicsDevice, VertexPositionTexture.VertexDeclaration, vertices.Count, BufferUsage.WriteOnly);
             vbuffer.SetData<VertexPositionTexture>(vertices.ToArray());
         }
-        public void Draw()
+        public void Draw(Effect effect)
         {
             game.GraphicsDevice.SetVertexBuffer(vbuffer);
             game.GraphicsDevice.BlendState = BlendState.Additive;
@@ -44,7 +40,7 @@ namespace SpaceJellyMONO
             BasicEffect basicEffect = new BasicEffect(game.GraphicsDevice);
 
 
-            foreach (EffectPass pass in circleEffect.CurrentTechnique.Passes)
+            foreach (EffectPass pass in effect.CurrentTechnique.Passes)
             {
                 pass.Apply();
                 game.GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleList, 0, 2);

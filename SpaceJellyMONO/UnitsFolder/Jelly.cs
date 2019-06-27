@@ -22,13 +22,20 @@ namespace SpaceJellyMONO.GameObjectComponents
         public override Texture2D HealthBarTexture { get { return healthTexture; } set { healthTexture = value; } }
         public override Rectangle HealthBar { get { return healthRectangle; } set { healthRectangle = value; } }
 
+        private SelectionCircle selectionCircle;
+        public override SelectionCircle SelectionCircle{ get { return selectionCircle; } }
+
+        private SelectionCircle targetCircle;
+        public override SelectionCircle TargetCircle { get { return targetCircle; } }
+
         public Jelly(string path, Game1 game1, Vector3 translation, float rotationAngleX, float rotationAngleY, float rotationAngleZ, float scale, bool isMovable, string tag, float colSize) : base(path, game1, translation, rotationAngleX,rotationAngleY, rotationAngleZ, scale, isMovable, tag,colSize)
         {
             healthTexture = game1.exportContentManager().Load<Texture2D>("diffuse3");
             healthRectangle = new Rectangle(0, 0, 0, 10);
 
-            SelectionCircle = new SelectionCircle(Vector3.Zero, new Vector2(1f, 1f), game1);
-            SelectionCircle.Color = Color.GreenYellow.ToVector4();
+            selectionCircle = new SelectionCircle(Vector3.Zero, new Vector2(1f, 1f), Color.Green.ToVector4(), game1);
+
+            targetCircle = new SelectionCircle(Vector3.Zero, new Vector2(1f, 1f), Color.Green.ToVector4(), game1);
         }
 
         override public float GetDmg()
