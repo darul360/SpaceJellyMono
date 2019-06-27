@@ -58,7 +58,7 @@ namespace SpaceJellyMONO.World
 
             if (temp != null)
             {
-                if (Vector3.Distance(clickPos, temp.transform.translation) < 1.0f)
+                if (Vector3.Distance(clickPos, temp.transform.translation) < 2.0f)
                 {
                     spriteBatch.Begin();
                     spriteBatch.Draw(texture, new Rectangle((int)clickPos.X, (int)clickPos.Z, 400, 250), Color.White);

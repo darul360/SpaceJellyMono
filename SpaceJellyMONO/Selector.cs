@@ -207,7 +207,7 @@ namespace SpaceJellyMONO
                 {
                     Unit targetableUnit = go as Unit;
 
-                    if (Vector3.Distance(targetPosition, targetableUnit.transform.translation) < 0.8f)
+                    if (Vector3.Distance(targetPosition, targetableUnit.transform.translation) < 2f)
                     {
                         targetableUnit.IsTargeted = true;
                     }

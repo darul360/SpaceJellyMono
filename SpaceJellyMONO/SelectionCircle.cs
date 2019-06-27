@@ -21,16 +21,30 @@ namespace SpaceJellyMONO
         {
             this.game = game;
             this.tintColor = tintColor;
-
-            List<VertexPositionTexture> vertices = new List<VertexPositionTexture>(6);
-            vertices.Add(new VertexPositionTexture(new Vector3((position.X + radius.X), 0.1f, position.Z + radius.Y), new Vector2(1f, 1f)));
-            vertices.Add(new VertexPositionTexture(new Vector3((position.X - radius.X), 0.1f, position.Z + radius.Y), new Vector2(0f, 1f)));
-            vertices.Add(new VertexPositionTexture(new Vector3((position.X + radius.X), 0.1f, position.Z - radius.Y), new Vector2(1f, 0f)));
-            vertices.Add(new VertexPositionTexture(new Vector3((position.X - radius.X), 0.1f, position.Z + radius.Y), new Vector2(0f, 1f)));
-            vertices.Add(new VertexPositionTexture(new Vector3((position.X - radius.X), 0.1f, position.Z - radius.Y), new Vector2(0f, 0f)));
-            vertices.Add(new VertexPositionTexture(new Vector3((position.X + radius.X), 0.1f, position.Z - radius.Y), new Vector2(1f, 0f)));
-            vbuffer = new VertexBuffer(game.GraphicsDevice, VertexPositionTexture.VertexDeclaration, vertices.Count, BufferUsage.WriteOnly);
-            vbuffer.SetData<VertexPositionTexture>(vertices.ToArray());
+            if (position.Y == 0)
+            {
+                List<VertexPositionTexture> vertices = new List<VertexPositionTexture>(6);
+                vertices.Add(new VertexPositionTexture(new Vector3((position.X + radius.X), 0.1f, position.Z + radius.Y), new Vector2(1f, 1f)));
+                vertices.Add(new VertexPositionTexture(new Vector3((position.X - radius.X), 0.1f, position.Z + radius.Y), new Vector2(0f, 1f)));
+                vertices.Add(new VertexPositionTexture(new Vector3((position.X + radius.X), 0.1f, position.Z - radius.Y), new Vector2(1f, 0f)));
+                vertices.Add(new VertexPositionTexture(new Vector3((position.X - radius.X), 0.1f, position.Z + radius.Y), new Vector2(0f, 1f)));
+                vertices.Add(new VertexPositionTexture(new Vector3((position.X - radius.X), 0.1f, position.Z - radius.Y), new Vector2(0f, 0f)));
+                vertices.Add(new VertexPositionTexture(new Vector3((position.X + radius.X), 0.1f, position.Z - radius.Y), new Vector2(1f, 0f)));
+                vbuffer = new VertexBuffer(game.GraphicsDevice, VertexPositionTexture.VertexDeclaration, vertices.Count, BufferUsage.WriteOnly);
+                vbuffer.SetData<VertexPositionTexture>(vertices.ToArray());
+            }
+            else
+            {
+                List<VertexPositionTexture> vertices = new List<VertexPositionTexture>(6);
+                vertices.Add(new VertexPositionTexture(new Vector3((position.X + radius.X), position.Y, position.Z + radius.Y), new Vector2(1f, 1f)));
+                vertices.Add(new VertexPositionTexture(new Vector3((position.X - radius.X), position.Y, position.Z + radius.Y), new Vector2(0f, 1f)));
+                vertices.Add(new VertexPositionTexture(new Vector3((position.X + radius.X), position.Y, position.Z - radius.Y), new Vector2(1f, 0f)));
+                vertices.Add(new VertexPositionTexture(new Vector3((position.X - radius.X), position.Y, position.Z + radius.Y), new Vector2(0f, 1f)));
+                vertices.Add(new VertexPositionTexture(new Vector3((position.X - radius.X), position.Y, position.Z - radius.Y), new Vector2(0f, 0f)));
+                vertices.Add(new VertexPositionTexture(new Vector3((position.X + radius.X), position.Y, position.Z - radius.Y), new Vector2(1f, 0f)));
+                vbuffer = new VertexBuffer(game.GraphicsDevice, VertexPositionTexture.VertexDeclaration, vertices.Count, BufferUsage.WriteOnly);
+                vbuffer.SetData<VertexPositionTexture>(vertices.ToArray());
+            }
         }
         public void Draw(Effect effect)
         {

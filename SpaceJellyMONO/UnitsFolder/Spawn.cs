@@ -28,8 +28,11 @@ namespace SpaceJellyMONO.UnitsFolder
         {
             healthTexture = game1.exportContentManager().Load<Texture2D>("bluebar");
             healthRectangle = new Rectangle(0, 0, 0, 10);
-
+            if(GameTag == "bazaenemy")
+            targetCircle = new SelectionCircle(new Vector3(0,0.6f,0), new Vector2(10f, 10f), Color.DarkRed.ToVector4(), game1);
+            else
             targetCircle = new SelectionCircle(Vector3.Zero, new Vector2(4f, 4f), Color.Yellow.ToVector4(), game1);
+
         }
 
         override public float GetDmg()
