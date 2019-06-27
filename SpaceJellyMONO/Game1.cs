@@ -196,7 +196,7 @@ namespace SpaceJellyMONO
             warriorsRepository.AddToRepo(warrior);
             baza = new Spawn("baza", this, new Vector3(15, 0, 15), -1.57f, 0, 0, 0.009f, false, "baza", 2.5f);
             scene.AddSceneObject("baza_001",baza);
-            BaseEnemy = new Spawn("baseEnemy", this, new Vector3(50, -0.8f, 50), -1.57f, 0, 0, 0.07f, false, "bazaenemy", 8.2f);
+            BaseEnemy = new Spawn("baseEnemy", this, new Vector3(50, -0.3f, 50), -1.57f, 0, 0, 0.07f, false, "bazaenemy", 8.2f);
             scene.AddSceneObject("baza_003", BaseEnemy);
             //wall = new GameObject("wall", this, new Vector3(50, 0, 50), -1.57f, 0, 0, 35, false, "wall", 1);
             //scene.AddSceneObject("wall1", wall);

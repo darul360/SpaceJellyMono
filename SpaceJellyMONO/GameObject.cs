@@ -34,7 +34,9 @@ namespace SpaceJellyMONO
         public bool isFighting = false;
         public bool isEnemyMovingFromSpawn = false;
         private bool isVisible = true;
-		public bool IsVisible { get { return isVisible; } set { isVisible = value; } }
+        private SelectionCircle targetCircle;
+
+        public bool IsVisible { get { return isVisible; } set { isVisible = value; } }
 
         public FinateStateMachine finateSatemachine;
 
@@ -69,6 +71,8 @@ namespace SpaceJellyMONO
             if (skinningDataValue != null)
                 skinnedAnimationPlayer = new AnimationPlayer(skinningDataValue);
             cylinder = new CylinderPrimitive(mainClass.GraphicsDevice, 0.5f, 0.6f, 20);
+            if( gameTag == "platform")
+                targetCircle = new SelectionCircle(new Vector3(0,0.5f,0), new Vector2(9f, 9f), Color.Yellow.ToVector4(), game1);
 
             InitializeModelEffects();
 

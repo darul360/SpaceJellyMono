@@ -35,7 +35,7 @@ namespace SpaceJellyMONO.World
                     }
                 }
 
-            if (Vector3.Distance(clickPos, temp.transform.translation) < 1.0f)
+            if (Vector3.Distance(clickPos, temp.transform.translation) < 2.0f)
                 {
                     Random random = new Random();
                     if (game1.resourcesStatistics.bluePowderStats >= 5 && game1.resourcesStatistics.waterStats >= 5)
