@@ -21,10 +21,15 @@ namespace SpaceJellyMONO.UnitsFolder
         public override Texture2D HealthBarTexture { get { return healthTexture; } set { healthTexture = value; } }
         public override Rectangle HealthBar { get { return healthRectangle; } set { healthRectangle = value; } }
 
+        private SelectionCircle targetCircle;
+        public override SelectionCircle TargetCircle { get { return targetCircle; } }
+
         public Spawn(string path, Game1 game1, Vector3 translation, float rotationAngleX, float rotationAngleY, float rotationAngleZ, float scale, bool isMovable, string tag, float colSize) : base(path, game1, translation, rotationAngleX, rotationAngleY, rotationAngleZ, scale, isMovable, tag, colSize)
         {
             healthTexture = game1.exportContentManager().Load<Texture2D>("bluebar");
             healthRectangle = new Rectangle(0, 0, 0, 10);
+
+            targetCircle = new SelectionCircle(Vector3.Zero, new Vector2(4f, 4f), Color.Yellow.ToVector4(), game1);
         }
 
         override public float GetDmg()

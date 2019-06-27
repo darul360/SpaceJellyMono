@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SpaceJellyMONO.Units
 {
-    public class Unit : GameObject, ISelectable, IDamageable
+    public class Unit : GameObject, ISelectable, ITargetable, IDamageable
     {
         public virtual Texture2D HealthBarTexture { get; set; }
         public virtual Rectangle HealthBar { get; set; }
@@ -16,10 +16,18 @@ namespace SpaceJellyMONO.Units
 
         private bool isSelected = false;
         public bool IsSelected { get { return isSelected; } set { isSelected = value;} }
-        public SelectionCircle SelectionCircle { get; set; }
+        public virtual SelectionCircle SelectionCircle { get { return null; } }
+
+        private bool isTargeted = false;
+        public bool IsTargeted { get { return isTargeted; } set { isTargeted = value; } }
+        public virtual SelectionCircle TargetCircle { get { return null; } }
+
+        private Effect selectedEffect;
 
         public Unit(string path, Game1 game1, Vector3 translation, float rotationAngleX, float rotationAngleY, float rotationAngleZ, float scale, bool isMovable, string tag, float colSize) : base(path, game1, translation, rotationAngleX, rotationAngleY, rotationAngleZ, scale, isMovable, tag,colSize)
         {
+            selectedEffect = game1.Content.Load<Effect>("custom_effects/SelectionCircle");
+            selectedEffect.Parameters["circleTexture"].SetValue(game1.Content.Load<Texture2D>("SelectionCircleAlpha"));
         }
 
         override public void TakeDmg(float dmg) { }
@@ -33,16 +41,27 @@ namespace SpaceJellyMONO.Units
 
         public override  void Draw(GameTime gameTime)
         {
-            if(SelectionCircle != null)
-                if (IsSelected)
+            if (IsSelected)
+                if (SelectionCircle != null)
                 {
-                    SelectionCircle.WorldMatrix = Matrix.CreateTranslation(WorldTransform.Translation);
-                    SelectionCircle.ViewMatrix = camera.View;
-                    SelectionCircle.ProjectionMatrix = camera.Projection;
+                    selectedEffect.Parameters["worldMatrix"].SetValue(Matrix.CreateTranslation(WorldTransform.Translation));
+                    selectedEffect.Parameters["viewMatrix"].SetValue(camera.View);
+                    selectedEffect.Parameters["projectionMatrix"].SetValue(camera.Projection);
+                    selectedEffect.Parameters["tintColor"].SetValue(SelectionCircle.TintColor);
 
-                    SelectionCircle.Draw();
+                    SelectionCircle.Draw(selectedEffect);
                 }
-                
+            if (IsTargeted)
+                if (TargetCircle != null)
+                {
+                    selectedEffect.Parameters["worldMatrix"].SetValue(Matrix.CreateTranslation(WorldTransform.Translation));
+                    selectedEffect.Parameters["viewMatrix"].SetValue(camera.View);
+                    selectedEffect.Parameters["projectionMatrix"].SetValue(camera.Projection);
+                    selectedEffect.Parameters["tintColor"].SetValue(TargetCircle.TintColor);
+
+                    TargetCircle.Draw(selectedEffect);
+                }
+
 
             base.Draw(gameTime);
         }

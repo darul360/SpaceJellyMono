@@ -32,7 +32,7 @@ namespace SpaceJellyMONO.Repositories
         {
             if(repository.Contains(modelLoader))
             {
-                modelLoader.IsSelected = true;
+                modelLoader.IsSelected = false;
                 repository.Remove(modelLoader);
             }
         }

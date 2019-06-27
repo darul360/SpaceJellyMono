@@ -47,6 +47,7 @@
     <Compile Include="Collision\CirclePath.cs" />
     <Compile Include="FSM\Conditions\AnimationStateChanger.cs" />
     <Compile Include="FSM\States\Animate.cs" />
+    <Compile Include="ITargetable.cs" />
     <Compile Include="Menu\Game3.cs" />
     <Compile Include="Menu\Game2.cs" />
     <Compile Include="GameObjectComponents\FloatingText.cs" />
