@@ -13,14 +13,17 @@ namespace SpaceJellyMONO
     {
         public GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
-        public Texture2D exitButton;
+        public Texture2D exitButton,rbutton,lbutton;
         VideoPlayer player, player2;
         Video video, video2,video3,video4,video5;
-        public bool returnToMenu = false;
-        Color color;
-        Rectangle rectangle;
+        public bool PLAYGAME = false;
+        Color color,lcolor,rcolor;
+        Rectangle rectangle,lrec,rrec;
         List<Video> lista;
-        //Texture2D videoTexture = null;
+        private MouseState lastMouseState = new MouseState();
+        private MouseState lastMouseState2 = new MouseState();
+        private MouseState lastMouseState3 = new MouseState();
+        Texture2D videoTexture = null;
 
         int i = 0;
 
@@ -39,6 +42,8 @@ namespace SpaceJellyMONO
         protected override void Initialize()
         {
             rectangle = new Rectangle(1720, 880, 200, 100);
+            lrec = new Rectangle(100, 400, 200, 400);
+            rrec = new Rectangle(1620, 400, 200, 400);
             color = Color.White;
             base.Initialize();
         }
@@ -53,8 +58,10 @@ namespace SpaceJellyMONO
             video3 = Content.Load<Video>("t2");
             video4 = Content.Load<Video>("t4");
             video5 = Content.Load<Video>("t1");
+            rbutton = Content.Load<Texture2D>("rbutton");
+            lbutton = Content.Load<Texture2D>("lbutton");
             lista.Add(video);lista.Add(video2);lista.Add(video3);lista.Add(video4);lista.Add(video5);
-            exitButton = Content.Load<Texture2D>("exitButton");
+            exitButton = Content.Load<Texture2D>("SKIP");
         }
         protected override void Update(GameTime gameTime)
         {
@@ -67,9 +74,10 @@ namespace SpaceJellyMONO
             if (mouseState.X > rectangle.X && mouseState.X < rectangle.X + rectangle.Width
             && mouseState.Y > rectangle.Y && mouseState.Y < rectangle.Y + rectangle.Height)
             {
-                if (mouseState.LeftButton == ButtonState.Pressed)
+                if (mouseState.LeftButton == ButtonState.Pressed && lastMouseState.LeftButton == ButtonState.Released)
                 {
-                    returnToMenu = true;
+                    PLAYGAME = true;
+                    player.Stop();
                     Exit();
                 }
                 else
@@ -81,35 +89,65 @@ namespace SpaceJellyMONO
             {
                 color = Color.White;
             }
+            lastMouseState = mouseState;
+
+            MouseState mouseState2 = Mouse.GetState();
+            if (mouseState2.X > lrec.X && mouseState2.X < lrec.X + lrec.Width
+            && mouseState2.Y > lrec.Y && mouseState2.Y < lrec.Y + lrec.Height)
+            {
+                if (mouseState2.LeftButton == ButtonState.Pressed && lastMouseState2.LeftButton == ButtonState.Released)
+                {
+                    i--;
+                    if (i == -1) i = 4;
+                }
+                else
+                {
+                    lcolor = Color.Teal;
+                }
+
+            }
+            else
+            {
+                lcolor = Color.White;
+            }
+            lastMouseState2 = mouseState2;
+
+            MouseState mouseState3 = Mouse.GetState();
+            if (mouseState.X > rrec.X && mouseState.X < rrec.X + rrec.Width
+            && mouseState.Y > rrec.Y && mouseState.Y < rrec.Y + rrec.Height)
+            {
+                if (mouseState3.LeftButton == ButtonState.Pressed && lastMouseState3.LeftButton == ButtonState.Released)
+                {
+                   
+                    i++;
+                    if (i == 5) i = 0;
+                }
+                else
+                {
+                    rcolor = Color.Teal;
+                }
+            }
+            else
+            {
+                rcolor = Color.White;
+            }
+            lastMouseState3 = mouseState3;
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            Debug.WriteLine(i);
             GraphicsDevice.Clear(Color.Black);
-            base.Draw(gameTime);
             if (player.State == MediaState.Stopped)
             {
-                player.Play(video4);
+                player.Play(lista[i]);
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+
             {
-                if (i <= 4)
-                {
-                    player.Play(lista[i]);
-                    i++;
-                    
-                }
-                else
-                {
-                    player.Play(lista[0]);
-                    i = 0;
-                }
+                player.Play(lista[i]);
             }
 
 
-            Texture2D videoTexture = null;
 
             if (player.State != MediaState.Stopped)
             {
@@ -119,10 +157,14 @@ namespace SpaceJellyMONO
             if (videoTexture != null)
             {
                 spriteBatch.Begin();
-                spriteBatch.Draw(videoTexture, new Rectangle(500, 400, 1000, 480), Color.White);
+                spriteBatch.Draw(videoTexture, new Rectangle(200, 200, 1520, 680), Color.White);
                 spriteBatch.Draw(exitButton, rectangle, color);
+                spriteBatch.Draw(lbutton, lrec , lcolor);
+                spriteBatch.Draw(rbutton, rrec, rcolor);
                 spriteBatch.End();
             }
+
+            base.Draw(gameTime);
 
         }
     }

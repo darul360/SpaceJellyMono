@@ -139,5 +139,10 @@ namespace SpaceJellyMONO
             }
         }
         public Vector3 CameraLookAt { get { return cameraLookAt; } }
+
+        public void setCameraSpeed (float speed)
+        {
+            cameraSpeed = speed;
+        }
     }
 }

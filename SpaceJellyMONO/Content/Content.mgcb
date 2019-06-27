@@ -297,6 +297,30 @@
 /processorParam:TextureFormat=DxtCompressed
 /build:kopalniaFBX.FBX
 
+#begin lbutton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:lbutton.png
+
+#begin lost.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:lost.jpg
+
 #begin mainmenu.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -400,6 +424,18 @@
 /processorParam:TextureFormat=Color
 /build:playButton.jpg
 
+#begin rbutton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rbutton.png
+
 #begin Red.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -423,6 +459,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:SelectionCircleAlpha.png
+
+#begin SKIP.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SKIP.png
 
 #begin spawn.FBX
 /importer:FbxImporter
@@ -553,6 +601,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:WAVEWARNING.png
+
+#begin won.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:won.jpg
 
 #begin yellowChangePlatform.FBX
 /importer:FbxImporter

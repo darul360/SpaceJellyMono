@@ -12,8 +12,6 @@ namespace SpaceJellyMONO
         Texture2D checkerboardTexture;
         private VertexPositionTexture[] verticies;
         private bool isFirstPointSelected = false;
-        private bool isLastPointSelected = false;
-        private bool reclicked = false;
         Vector3 startPoint = new Vector3(0, 0, 0);
         Vector3 endPoint = new Vector3(0, 0, 0);
         private MouseState lastMouseState = new MouseState();
@@ -261,9 +259,10 @@ namespace SpaceJellyMONO
         {
             base.Draw(gameTime);
 
+            game.GraphicsDevice.BlendState = BlendState.Additive;
             if(drawRectangle)
                 DrawRect(startPoint, endPoint);
-            Game.GraphicsDevice.BlendState = BlendState.Opaque;
+            game.GraphicsDevice.BlendState = BlendState.Opaque;
         }
     }
 }

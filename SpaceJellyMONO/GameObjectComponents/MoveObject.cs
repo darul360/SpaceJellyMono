@@ -58,13 +58,6 @@ namespace SpaceJellyMONO
             {
                 if (Vector2.Distance(new Vector2(transform.Translation.X, transform.Translation.Z), route[i]) <= 0.05f && i < route.Count-1)
                     {
-                        float elapsed2 = deltatime / 1000;
-                        timer2 -= elapsed2;
-                        if (timer2 < 0)
-                        {
-                            unlockCells();
-                            timer2 = TIMER2;
-                        }
                     i++;
                     }
     
@@ -79,24 +72,6 @@ namespace SpaceJellyMONO
             }
         }
 
-
-        public void unlockCells()
-        {
-            for (int i = 0; i < gameObject.mainClass.gridW; i++)
-            {
-                for (int j = 0; j < gameObject.mainClass.gridH; j++)
-                {
-                    for (int k = 0; k < gameObject.mainClass.gameObjectsRepository.getRepo().Count; k++)
-                    {
-                        if (!PathCollidersRepository.cylinders[i, j].Intersect(gameObject.mainClass.gameObjectsRepository.getRepo()[k].collider))
-                        {
-                            gameObject.mainClass.findPath.unblockCell(i, j);
-                        }
-                    }
-                }
-            }
-        }
-
         public void CheckCollisions(float deltatime)
         {
             float elapsed = deltatime;
@@ -108,15 +83,30 @@ namespace SpaceJellyMONO
                     if (ProcessCollisions(temp))
                     {
 
-                        if (((gameObject.GetType() == typeof(Warrior) && temp.GetType() != typeof(Jelly)) || gameObject.GetType() == typeof(Enemy)) && gameObject.GetType() != temp.GetType())
+                        if ((gameObject.GetType() == typeof(Warrior) && temp.GetType() == typeof(Enemy)) ||
+                            (gameObject.GetType() == typeof(Enemy) && temp.GameTag == "warrior") ||
+                            (gameObject.GetType() == typeof(Enemy) && temp.GameTag == "baza") ||
+                            (gameObject.GetType() == typeof(Enemy) && temp.GameTag == "worker") ||
+                            (gameObject.GetType() == typeof(Warrior) && temp.GameTag == "bazaenemy") ||
+                            (gameObject.GetType() == typeof(Warrior) && temp.GameTag == "spawn") &&
+                            gameObject.GameTag != temp.GameTag)
                         {
                             gameObject.isFighting = true;
                             if (timer < 0)
                             {
-                                temp.TakeDmg(gameObject.GetDmg());
-
-                                //Debug.WriteLine(temp.GetHp());
-                                timer = TIMER;
+                                if (gameObject.GetType() == typeof(Warrior) && temp.GameTag == "bazaenemy")
+                                {
+                                    if (gameObject.mainClass.spawn.GetHp() <= 0)
+                                    {
+                                        temp.TakeDmg(gameObject.GetDmg());
+                                        timer = TIMER;
+                                    }
+                                }
+                                else
+                                {
+                                    temp.TakeDmg(gameObject.GetDmg());
+                                    timer = TIMER;
+                                }
                             }
                         }
                         else
