@@ -11,7 +11,7 @@ namespace SpaceJellyMONO.UnitsFolder
 {
     class Spawn : Unit
     {
-        float hp = 8;
+        float hp = 80;
         float dmg = 0;
         //healthBar
         Texture2D healthTexture;

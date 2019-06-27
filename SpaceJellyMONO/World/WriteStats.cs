@@ -15,7 +15,7 @@ namespace SpaceJellyMONO.World
         public int waterCounter = 0;
         private SpriteBatch spriteBatch;
         Texture2D texture,texture2,texture3;
-        float timer = 45;
+        public float timer = 45;
         const float TIMER =45;
         public WriteStats(Game1 game)
         {

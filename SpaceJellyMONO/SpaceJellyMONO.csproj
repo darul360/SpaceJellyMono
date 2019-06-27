@@ -65,6 +65,7 @@
     <Compile Include="ResourcesGathering\WaterGathering.cs" />
     <Compile Include="SelectionCircle.cs" />
     <Compile Include="SpawnEnemies.cs" />
+    <Compile Include="SpawnEnemies2.cs" />
     <Compile Include="UnitsFolder\Enemy.cs" />
     <Compile Include="UnitsFolder\Jelly.cs" />
     <Compile Include="UnitsFolder\Spawn.cs" />

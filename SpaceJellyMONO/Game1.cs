@@ -55,7 +55,7 @@ namespace SpaceJellyMONO
         public WarriorsRepository warriorsRepository = new WarriorsRepository();
         public GameObject baza,wall;
         private Spawn baseEnemy;
-        bool destroyed = false;
+        public bool destroyed = false;
 
         internal Spawn BaseEnemy { get => baseEnemy; set => baseEnemy = value; }
 
@@ -124,7 +124,8 @@ namespace SpaceJellyMONO
             floatingText = new FloatingText(this, platform.transform, "");
             //Components.Add(floatingText);
             Components.Add(new SpawnEnemies(this));
-          //  Components.Add(new MoveLocalEnemyToWarrior(this));
+            Components.Add(new SpawnEnemies2(this));
+            //  Components.Add(new MoveLocalEnemyToWarrior(this));
             base.Initialize();
         }
 
@@ -240,6 +241,7 @@ namespace SpaceJellyMONO
                 {
                     BaseEnemy.setHP(8000);
                     destroyed = true;
+                    writeStats.timer = 45;
                 }
             }
             KeyboardState currentState = Keyboard.GetState();
@@ -279,37 +281,6 @@ namespace SpaceJellyMONO
         {
             GraphicsDevice.Clear(new Color(28, 44, 68));
             base.Draw(gameTime);
-            if (switcher)
-            {
-                
-                if (player.State == MediaState.Stopped)
-                {
-                    player.Play(video);
-                }
-                if (Keyboard.GetState().IsKeyDown(Keys.Space))
-                {
-                    player.Play(video2);
-                }
-
-                Texture2D videoTexture = null;
-
-                if (player.State != MediaState.Stopped)
-                {
-                    videoTexture = player.GetTexture();
-                }
-
-                if (videoTexture != null )
-                {
-                    spriteBatch.Begin();
-                    spriteBatch.Draw(videoTexture, new Rectangle(50, 200, 400, 250), Color.White);
-                    spriteBatch.End();
-                }
-            }
-            else
-            {
-                player.Stop();
-                player2.Stop();
-            }
             
         }
     }
