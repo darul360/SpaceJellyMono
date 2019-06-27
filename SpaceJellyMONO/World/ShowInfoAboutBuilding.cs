@@ -14,7 +14,7 @@ namespace SpaceJellyMONO.World
 {
     public class ShowInfoAboutBuilding
     {
-        Texture2D texture,texture2,texture3,texture4;
+        Texture2D texture,texture2,texture3,texture4,texture5,texture6;
         Game1 game1;
         SpriteBatch spriteBatch;
 
@@ -26,7 +26,8 @@ namespace SpaceJellyMONO.World
             texture2 = game1.Content.Load<Texture2D>("platformWARNING");
             texture3 = game1.Content.Load<Texture2D>("mineWARNING");
             texture4 = game1.Content.Load<Texture2D>("waterpumpWARNING");
-           
+            texture5 = game1.Content.Load<Texture2D>("ENEMYBAZAWARNING");
+            texture6 = game1.Content.Load<Texture2D>("SPAWNWARNING");
 
         }
 
@@ -35,7 +36,7 @@ namespace SpaceJellyMONO.World
         {
             
             Vector3 clickPos = game1.clickCooridantes.FindWhereClicked();
-            GameObject temp = null,temp2 = null,temp3=null,temp4=null;
+            GameObject temp = null,temp2 = null,temp3=null,temp4=null,temp5 = null,temp6 = null;
             foreach (GameObject go in game1.gameObjectsRepository.getRepo())
             {
                 if (go.GameTag == "baza")
@@ -54,6 +55,15 @@ namespace SpaceJellyMONO.World
                 {
                     temp4 = go;
                 }
+                if (go.GameTag == "bazaenemy")
+                {
+                    temp5 = go;
+                }
+                if (go.GameTag == "spawn")
+                {
+                    temp6 = go;
+                }
+
             }
 
             if (temp != null)
@@ -61,28 +71,42 @@ namespace SpaceJellyMONO.World
                 if (Vector3.Distance(clickPos, temp.transform.translation) < 2.0f)
                 {
                     spriteBatch.Begin();
-                    spriteBatch.Draw(texture, new Rectangle((int)clickPos.X, (int)clickPos.Z, 400, 250), Color.White);
+                    spriteBatch.Draw(texture, new Rectangle(0, 100, 400, 250), Color.White);
                     spriteBatch.End();
                     // player.Stop();
                 }
-                if (Vector3.Distance(clickPos, temp2.transform.translation) < 1.0f)
+                if (Vector3.Distance(clickPos, temp2.transform.translation) < 2.0f)
                 {
                     spriteBatch.Begin();
-                    spriteBatch.Draw(texture2, new Rectangle((int)clickPos.X, (int)clickPos.Z, 400, 250), Color.White);
+                    spriteBatch.Draw(texture2, new Rectangle(0, 100, 400, 250), Color.White);
                     spriteBatch.End();
                 }
                 if (temp3 != null)
-                    if (Vector3.Distance(clickPos, temp3.transform.translation) < 1.0f)
+                    if (Vector3.Distance(clickPos, temp3.transform.translation) < 2.0f)
                     {
                         spriteBatch.Begin();
-                        spriteBatch.Draw(texture3, new Rectangle((int)clickPos.X, (int)clickPos.Z, 400, 250), Color.White);
+                        spriteBatch.Draw(texture3, new Rectangle(0, 100, 400, 250), Color.White);
                         spriteBatch.End();
                     }
                 if (temp4 != null)
-                    if (Vector3.Distance(clickPos, temp4.transform.translation) < 1.0f)
+                    if (Vector3.Distance(clickPos, temp4.transform.translation) < 2.0f)
                     {
                         spriteBatch.Begin();
-                        spriteBatch.Draw(texture4, new Rectangle((int)clickPos.X, (int)clickPos.Z, 400, 250), Color.White);
+                        spriteBatch.Draw(texture4, new Rectangle(0, 100, 400, 250), Color.White);
+                        spriteBatch.End();
+                    }
+                if (temp5 != null)
+                    if (Vector3.Distance(clickPos, temp5.transform.translation) < 2.0f)
+                    {
+                        spriteBatch.Begin();
+                        spriteBatch.Draw(texture5, new Rectangle(0, 100, 400, 250), Color.White);
+                        spriteBatch.End();
+                    }
+                if (temp6 != null)
+                    if (Vector3.Distance(clickPos, temp6.transform.translation) < 2.0f)
+                    {
+                        spriteBatch.Begin();
+                        spriteBatch.Draw(texture6, new Rectangle(0, 100, 400, 250), Color.White);
                         spriteBatch.End();
                     }
             }

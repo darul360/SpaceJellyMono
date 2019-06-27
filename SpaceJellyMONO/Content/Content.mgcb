@@ -191,6 +191,18 @@
 /processorParam:TextureFormat=Color
 /build:downUI.jpg
 
+#begin ENEMYBAZAWARNING.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ENEMYBAZAWARNING.png
+
 #begin exit.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -490,6 +502,18 @@
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:spawn.FBX
+
+#begin SPAWNWARNING.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SPAWNWARNING.png
 
 #begin t1.wmv
 /importer:WmvImporter
