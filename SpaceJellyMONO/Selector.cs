@@ -107,16 +107,16 @@ namespace SpaceJellyMONO
         }
         private void DeselectAll()
         {
-            //game.selectedObjectsRepository.ClearAll();
+            game.selectedObjectsRepository.ClearAll();
             
-            foreach (Unit selectableUnit in game.selectedObjectsRepository.getRepo())
-            {
-                if (!selectableUnit.isMoving)
-                {
-                        selectableUnit.IsSelected = false;
-                        game.selectedObjectsRepository.RemoveFromRepo(selectableUnit);
-                }
-            }
+            //foreach (Unit selectableUnit in game.selectedObjectsRepository.getRepo())
+            //{
+            //    if (!selectableUnit.isMoving)
+            //    {
+            //            selectableUnit.IsSelected = false;
+            //            game.selectedObjectsRepository.RemoveFromRepo(selectableUnit);
+            //    }
+            //}
             
         }
         private Vector3 FindWhereClicked()
