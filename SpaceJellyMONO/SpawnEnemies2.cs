@@ -13,8 +13,8 @@ namespace SpaceJellyMONO
     {
 
         Game1 game1;
-        float timer = 5;
-        const float TIMER = 5;
+        float timer = 45;
+        const float TIMER = 45;
         List<Vector2> tempNodes;
 
         int i;
@@ -39,15 +39,9 @@ namespace SpaceJellyMONO
                         game1.scene.AddSceneObject("zarlokG" + i, go1);
                         game1.scene.SceneObjects["zarlokG" + i].StartAnimationClip("1", 20, true);
                         i++;
-
-                        go2 = new Enemy("zarlok", game1, new Vector3(48, 0, 46), 0f, 3.14f, 0f, 0.02f, true, "enemy", 0.5f * 0.9f);
-                        game1.scene.AddSceneObject("zarlokG" + i, go2);
-                        game1.scene.SceneObjects["zarlokG" + i].StartAnimationClip("1", 20, true);
-                        i++;
                         start = true;
                         timer = TIMER;
                         game1.enemiesRepository.AddToRepo(go1);
-                        game1.enemiesRepository.AddToRepo(go2);
                     }
             }
             base.Draw(gameTime);
@@ -64,9 +58,6 @@ namespace SpaceJellyMONO
                     go1.targetX = (int)tempNodes[0].X;
                     go1.targetY = (int)tempNodes[0].Y;
                     go1.isMoving = true;
-                    go2.targetX = (int)tempNodes[1].X;
-                    go2.targetY = (int)tempNodes[1].Y;
-                    go2.isMoving = true;
                     start = false;
                 }
             }

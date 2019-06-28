@@ -79,7 +79,7 @@ namespace SpaceJellyMONO
             findPath = new FindPath(gridW, gridH);
             resourcesStatistics = new ResourcesStatistics(this);
             graphics.GraphicsProfile = GraphicsProfile.HiDef;  // ZMIENIĆ JAK COŚ  to do directx!!!
-
+            graphics.IsFullScreen = true;
         }
 
         protected override void Initialize()

@@ -32,23 +32,23 @@ namespace SpaceJellyMONO.World
             timer -= elapsed;
             if (timer < 0) { timer = TIMER; }
             spriteBatch.Begin();
-            spriteBatch.Draw(texture2, new Rectangle(0, 870, 1920, 150), Color.White);
+            spriteBatch.Draw(texture2, new Rectangle(0, 930, 1920, 150), Color.White);
             spriteBatch.Draw(texture3, new Rectangle(0, 0, 300, 100), Color.White);
             if(timer >10)
             spriteBatch.DrawString(font,  timer.ToString().Substring(0,2), new Vector2(220, 25), Color.White);
             if(timer < 10)
                 spriteBatch.DrawString(font, timer.ToString().Substring(0, 1), new Vector2(220, 25), Color.White);
-            spriteBatch.DrawString(font, game.resourcesStatistics.waterStats.ToString(), new Vector2(1640, 915), Color.Black);
-            spriteBatch.DrawString(font,  game.resourcesStatistics.bluePowderStats.ToString(), new Vector2(1230, 915), Color.Black);
-            spriteBatch.DrawString(font,  game.resourcesStatistics.yellowPowderStats.ToString(), new Vector2(1450, 915), Color.Black);
+            spriteBatch.DrawString(font, game.resourcesStatistics.waterStats.ToString(), new Vector2(1640, 975), Color.Black);
+            spriteBatch.DrawString(font,  game.resourcesStatistics.bluePowderStats.ToString(), new Vector2(1230, 975), Color.Black);
+            spriteBatch.DrawString(font,  game.resourcesStatistics.yellowPowderStats.ToString(), new Vector2(1450, 975), Color.Black);
 
             game.resourcesStatistics.Refresh();
-            spriteBatch.DrawString(font, game.resourcesStatistics.workers.ToString(), new Vector2(870,915), Color.Black);
-            spriteBatch.DrawString(font, game.resourcesStatistics.warriors.ToString(), new Vector2(330, 915), Color.Black);
+            spriteBatch.DrawString(font, game.resourcesStatistics.workers.ToString(), new Vector2(870,975), Color.Black);
+            spriteBatch.DrawString(font, game.resourcesStatistics.warriors.ToString(), new Vector2(330, 975), Color.Black);
             //spriteBatch.DrawString(font, game.resourcesStatistics.enemies.ToString(), new Vector2(1560, 915), Color.RosyBrown);
 
-            spriteBatch.DrawString(font, game.resourcesStatistics.selectedWorkers.ToString(), new Vector2(960, 915), Color.Red);
-            spriteBatch.DrawString(font, game.resourcesStatistics.selectedWarriors.ToString(), new Vector2(420, 915), Color.Red);
+            spriteBatch.DrawString(font, game.resourcesStatistics.selectedWorkers.ToString(), new Vector2(960, 975), Color.Red);
+            spriteBatch.DrawString(font, game.resourcesStatistics.selectedWarriors.ToString(), new Vector2(420, 975), Color.Red);
             spriteBatch.End();
                
         }

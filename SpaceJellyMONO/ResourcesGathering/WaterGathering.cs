@@ -14,7 +14,7 @@ namespace SpaceJellyMONO.ResourcesGathering
         float timer = 10;         
         const float TIMER = 10;
         int numberOfWaterPumps = 0;
-        FloatingText floatingText;
+        //FloatingText floatingText;
         List<GameObject> waterPumps = new List<GameObject>();
         public WaterGathering(Game1 game) : base(game)
         {

@@ -36,7 +36,8 @@ namespace SpaceJellyMONO
             graphics.PreferredBackBufferWidth = 1920;
             IsMouseVisible = true;
             lista = new List<Video>();
-            
+            graphics.IsFullScreen = true;
+
         }
 
         protected override void Initialize()
