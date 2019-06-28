@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using SpaceJellyMONO.GameObjectComponents;
 
 
 namespace SpaceJellyMONO.ResourcesGathering
@@ -14,6 +15,8 @@ namespace SpaceJellyMONO.ResourcesGathering
         float timer = 10;
         const float TIMER = 10;
         int numberOfWaterPumps = 0;
+        List<GameObject> powderMines = new List<GameObject>();
+
         public BluePowderGathering(Game1 game) : base(game)
         {
             this.game = game;
@@ -21,12 +24,15 @@ namespace SpaceJellyMONO.ResourcesGathering
 
         private int countWaterPumps()
         {
-            int counter = 0;
+            powderMines.Clear();
             foreach (GameObject go in game.gameObjectsRepository.getRepo())
             {
-                if (go.GameTag == "mine") counter++;
+                if (go.GameTag == "mine")
+                {
+                    powderMines.Add(go);
+                }
             }
-            return counter;
+            return powderMines.Count;
         }
 
         public override void Update(GameTime gameTime)
@@ -38,6 +44,8 @@ namespace SpaceJellyMONO.ResourcesGathering
                 numberOfWaterPumps = countWaterPumps();
                 if (numberOfWaterPumps != 0)
                 {
+                    foreach (GameObject mine in powderMines)
+                        game.renderEngine.FloatingTextRenderer.Add(new FloatingText(Vector3.Zero, mine.WorldTransform, "+3", Color.Blue));
                     game.resourcesStatistics.bluePowderStats += 3 * numberOfWaterPumps;
                 }
                 timer = TIMER;   //Reset Timer

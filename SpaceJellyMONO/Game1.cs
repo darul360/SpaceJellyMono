@@ -124,7 +124,6 @@ namespace SpaceJellyMONO
             player = new VideoPlayer();
             video2 = Content.Load<Video>("building2");
             player2 = new VideoPlayer();
-            floatingText = new FloatingText(this, platform.transform, "");
             //Components.Add(floatingText);
             Components.Add(new SpawnEnemies(this));
             Components.Add(new SpawnEnemies2(this));

@@ -15,7 +15,7 @@ namespace SpaceJellyMONO.ResourcesGathering
         const float TIMER = 10;
         int numberOfWaterPumps = 0;
         FloatingText floatingText;
-        GameObject temp = null;
+        List<GameObject> waterPumps = new List<GameObject>();
         public WaterGathering(Game1 game) : base(game)
         {
             this.game = game;
@@ -23,16 +23,13 @@ namespace SpaceJellyMONO.ResourcesGathering
 
         private int countWaterPumps()
         {
-            int counter = 0;
+            waterPumps.Clear();
             foreach(GameObject go in game.gameObjectsRepository.getRepo())
             {
                 if (go.GameTag == "waterpump")
-                {
-                    counter++;
-                    temp = go;
-                }
+                    waterPumps.Add(go);
             }
-            return counter;
+            return waterPumps.Count;
         }
 
         public override void Update(GameTime gameTime)
@@ -45,17 +42,13 @@ namespace SpaceJellyMONO.ResourcesGathering
                 numberOfWaterPumps = countWaterPumps();
                 if (numberOfWaterPumps != 0)
                 {
-                    game.floatingText.transform = temp.transform;
-                    game.floatingText.tekst = "+3";
+                    foreach(GameObject waterPump in waterPumps)
+                        game.renderEngine.FloatingTextRenderer.Add(new FloatingText(Vector3.Zero, waterPump.WorldTransform, "+3", Color.Aqua));
                     game.resourcesStatistics.waterStats += 3 * numberOfWaterPumps;
                 }
                 timer = TIMER;   //Reset Timer
                 
             }
-            if (timer < 8)
-                game.floatingText.tekst = "";
-
-
         }
     }
 }

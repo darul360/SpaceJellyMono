@@ -14,19 +14,20 @@ namespace SpaceJellyMONO
     public class RenderEngine : DrawableGameComponent
     {
         private Camera camera;
+        public Scene SceneToRender { get => ((Game1)Game).scene; }
+
+        //Scene renderers
         private SMRenderer shadowMapRenderer;
+
+        //Sprite renderers
         private SpriteBatch spriteBatch;
+        private FloatingTextRenderer floatingTextRenderer;
+
+        public FloatingTextRenderer FloatingTextRenderer { get => floatingTextRenderer; }
+
+        //HUD renderers
         public WriteStats writeStats;
         private ShowInfoAboutBuilding showInfoAbout;
-        private FloatingText floatingText;
-
-        public Scene SceneToRender
-        {
-            get
-            {
-                return ((Game1)Game).scene;
-            }
-        }
         
         public RenderEngine(Game1 game, Camera camera) : base(game)
         {
@@ -35,6 +36,7 @@ namespace SpaceJellyMONO
             shadowMapRenderer = new SMRenderer(Game, 4096, 3112);
             writeStats = new WriteStats(game);
             showInfoAbout = new ShowInfoAboutBuilding(game);
+            floatingTextRenderer = new FloatingTextRenderer(game, spriteBatch, camera);
         }
         public override void Draw(GameTime gameTime)
         {
@@ -84,6 +86,8 @@ namespace SpaceJellyMONO
                     spriteBatch.Draw(unit.HealthBarTexture, unit.HealthBar, Color.White);
                 }
             }
+
+            floatingTextRenderer.Draw(gameTime);
             spriteBatch.End();
         }
         private void RenderHUD(GameTime gameTime)
@@ -112,6 +116,8 @@ namespace SpaceJellyMONO
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            floatingTextRenderer.Update(gameTime);
         }
 
     }

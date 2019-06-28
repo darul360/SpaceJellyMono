@@ -8,34 +8,49 @@ using System.Threading.Tasks;
 
 namespace SpaceJellyMONO.GameObjectComponents
 {
-    public class FloatingText : DrawableGameComponent
+    public class FloatingText
     {
-        private SpriteFont font;
-        private SpriteBatch spriteBatch;
-        Game1 game;
-        Vector2 position;
-        public Transform transform;
-        public String tekst;
+        private Vector3 position;
+        private Matrix sourceWorldTransform;
 
-        public FloatingText(Game1 game, Transform transform, String tekst) : base(game)
+        private string content;
+        private Color textColor;
+
+        private TimeSpan duration = TimeSpan.FromSeconds(2);
+        private TimeSpan currentTime = TimeSpan.Zero;
+        private float velocity = 0.0000001f; //text velocity per tick
+        private float screenOffsetX = 0f;
+        private float screenOffsetY = 0f;
+
+        public FloatingText(Vector3 position, Matrix sourceWorldTransform, string content, Color textColor)
         {
-            this.game = game;
-            font = game.Content.Load<SpriteFont>("WaterCounter");
-            spriteBatch = new SpriteBatch(game.GraphicsDevice);
-            this.transform = transform;
-            this.tekst = tekst;
+            this.position = position;
+            this.sourceWorldTransform = sourceWorldTransform;
+
+            this.content = content;
+            this.textColor = textColor;
+
+            OutOfTime = false;
         }
 
-        public override void Draw(GameTime gameTime)
-        {
-            base.Draw(gameTime);
-            spriteBatch.Begin();
-            Vector3 tmp = game.GraphicsDevice.Viewport.Project(Vector3.Zero, game.camera.Projection, game.camera.View, Matrix.CreateTranslation(transform.translation));
-            position.X = (int)tmp.X - 100;
-            position.Y = (int)tmp.Y - 100;
-            spriteBatch.DrawString(font, tekst, position, Color.Blue);
-            spriteBatch.End();
+        public Vector3 Position { get => position;}
+        public Matrix SourceWorldTransform { get => sourceWorldTransform;}
+        public string Content { get => content;}
+        public Color TextColor { get => textColor;}
+        public float ScreenOffsetX { get => screenOffsetX;}
+        public float ScreenOffsetY { get => screenOffsetY;}
+        public bool OutOfTime { get; private set; }
 
+        public void UpdateTime(TimeSpan elapsedGameTime)
+        {
+            currentTime += elapsedGameTime;
+            if (currentTime >= duration)
+                OutOfTime = true;
+            else
+            {
+                float offset = velocity * currentTime.Ticks;
+                screenOffsetY -= offset;
+            }
         }
     }
 }

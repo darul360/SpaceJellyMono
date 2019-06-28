@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using SpaceJellyMONO.GameObjectComponents;
 
 
 namespace SpaceJellyMONO.ResourcesGathering
@@ -74,10 +75,16 @@ namespace SpaceJellyMONO.ResourcesGathering
                 if (timer < 0)
                 {
                     if (t.Item1.GameTag == "bluePowder")
+                    {
+                        game1.renderEngine.FloatingTextRenderer.Add(new FloatingText(Vector3.Zero, t.Item1.WorldTransform, "+10", Color.Blue));
                         game1.resourcesStatistics.bluePowderStats += 10;
+                    }
 
                     if (t.Item1.GameTag == "yellowPowder")
+                    {
+                        game1.renderEngine.FloatingTextRenderer.Add(new FloatingText(Vector3.Zero, t.Item1.WorldTransform, "+10", Color.Yellow));
                         game1.resourcesStatistics.yellowPowderStats += 10;
+                    }
 
                     t.Item2.isGameObjectMovable = true;
                     gameObject = t.Item1;
