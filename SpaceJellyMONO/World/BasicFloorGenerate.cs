@@ -51,7 +51,7 @@ namespace SpaceJellyMONO
             {
                 for(int j = 0; j < fHeight; j++)
                 {
-					PathCollidersRepository.cylinders[i, j] = new CirclePath(null, 0.5f, new Vector3(i, 0, j));
+					PathCollidersRepository.cylinders[i, j] = new CirclePath(null, 0.5f, new Vector3(-100+i, 0, -100+j));
                     foreach(VertexPositionNormalTexture vertex in FloorTile(i, j, fWidth, fHeight))
                     {
                         vertexPositionNormalTexture.Add(vertex);

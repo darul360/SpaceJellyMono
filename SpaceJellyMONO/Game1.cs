@@ -74,8 +74,8 @@ namespace SpaceJellyMONO
             gameObjectsRepository = new GameObjectsRepository();
             powderSourcesRepository = new PowderSourcesRepository();
             selectedObjectsRepository = new SelectedObjectsRepository();
-            gridW = 100;
-            gridH = 100;
+            gridW = 200;
+            gridH = 200;
             findPath = new FindPath(gridW, gridH);
             resourcesStatistics = new ResourcesStatistics(this);
             graphics.GraphicsProfile = GraphicsProfile.HiDef;  // ZMIENIĆ JAK COŚ  to do directx!!!
