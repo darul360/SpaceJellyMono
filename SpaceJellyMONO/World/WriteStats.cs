@@ -49,6 +49,8 @@ namespace SpaceJellyMONO.World
 
             spriteBatch.DrawString(font, game.resourcesStatistics.selectedWorkers.ToString(), new Vector2(960, 975), Color.Red);
             spriteBatch.DrawString(font, game.resourcesStatistics.selectedWarriors.ToString(), new Vector2(420, 975), Color.Red);
+            spriteBatch.DrawString(font, "TAB - MAP(locate enemy bases there)", new Vector2(1020, 0), Color.Red);
+
             spriteBatch.End();
                
         }
