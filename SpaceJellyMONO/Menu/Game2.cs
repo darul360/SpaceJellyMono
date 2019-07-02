@@ -25,7 +25,7 @@ namespace SpaceJellyMONO
             graphics.PreferredBackBufferHeight = 1020;
             graphics.PreferredBackBufferWidth = 1920;
             IsMouseVisible = true;
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
 
         }
 
