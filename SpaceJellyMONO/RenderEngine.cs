@@ -41,11 +41,10 @@ namespace SpaceJellyMONO
             showInfoAbout = new ShowInfoAboutBuilding(game);
             floatingTextRenderer = new FloatingTextRenderer(game, spriteBatch, camera);
             postProcessing = new PostProcessing(game);
-            renderTarget2D = new RenderTarget2D(game.GraphicsDevice, 1920, 1020);
+            renderTarget2D = new RenderTarget2D(game.GraphicsDevice, game.GraphicsDevice.Viewport.Width, game.GraphicsDevice.Viewport.Height);
         }
         public override void Draw(GameTime gameTime)
         {
-            Game.GraphicsDevice.SetRenderTarget(renderTarget2D);
             Vector3 lightsPosition = camera.Position;
             lightsPosition.Y -= 5f;
             Vector3 lightsLookAt = camera.CameraLookAt;
@@ -54,6 +53,8 @@ namespace SpaceJellyMONO
             shadowMapRenderer.LightsViewMatrix = Matrix.CreateLookAt(lightsPosition, lightsLookAt, Vector3.Up);
 
             shadowMapRenderer.RenderShadowMap(SceneToRender);
+
+            Game.GraphicsDevice.SetRenderTarget(renderTarget2D);
 
             if (SceneToRender.Floor != null)
             {
@@ -69,8 +70,8 @@ namespace SpaceJellyMONO
             RenderSprites(gameTime);
             RenderHUD(gameTime);
             Game.GraphicsDevice.SetRenderTarget(null);
-            postProcessing.ScreenTexture = (Texture2D)renderTarget2D;
-            postProcessing.RenderPostProcessing();
+
+            postProcessing.RenderPostProcessing((Texture2D)renderTarget2D);
             //RenderCursor();
         }
 
