@@ -143,6 +143,12 @@
 /processorParam:TextureFormat=Compressed
 /build:constructionplant2.FBX
 
+#begin custom_effects/BlackAndWhite.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:custom_effects/BlackAndWhite.fx
+
 #begin custom_effects/Projection.fx
 /importer:EffectImporter
 /processor:EffectProcessor

@@ -16,9 +16,12 @@ namespace SpaceJellyMONO
         private Camera camera;
         public Scene SceneToRender { get => ((Game1)Game).scene; }
 
+        private RenderTarget2D renderTarget2D;
+
         //Scene renderers
         private SMRenderer shadowMapRenderer;
 
+        private PostProcessing postProcessing;
         //Sprite renderers
         private SpriteBatch spriteBatch;
         private FloatingTextRenderer floatingTextRenderer;
@@ -37,9 +40,12 @@ namespace SpaceJellyMONO
             writeStats = new WriteStats(game);
             showInfoAbout = new ShowInfoAboutBuilding(game);
             floatingTextRenderer = new FloatingTextRenderer(game, spriteBatch, camera);
+            postProcessing = new PostProcessing(game);
+            renderTarget2D = new RenderTarget2D(game.GraphicsDevice, 1920, 1020);
         }
         public override void Draw(GameTime gameTime)
         {
+            Game.GraphicsDevice.SetRenderTarget(renderTarget2D);
             Vector3 lightsPosition = camera.Position;
             lightsPosition.Y -= 5f;
             Vector3 lightsLookAt = camera.CameraLookAt;
@@ -62,6 +68,9 @@ namespace SpaceJellyMONO
             RenderScene(gameTime);
             RenderSprites(gameTime);
             RenderHUD(gameTime);
+            Game.GraphicsDevice.SetRenderTarget(null);
+            postProcessing.ScreenTexture = (Texture2D)renderTarget2D;
+            postProcessing.RenderPostProcessing();
             //RenderCursor();
         }
 
@@ -90,6 +99,8 @@ namespace SpaceJellyMONO
             floatingTextRenderer.Draw(gameTime);
             spriteBatch.End();
         }
+
+
         private void RenderHUD(GameTime gameTime)
         {
             writeStats.Draw(gameTime);
