@@ -178,7 +178,7 @@ namespace SpaceJellyMONO
             mainClass.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 
             //base.Draw(gameTime);
-            foreach (ModelMesh modelMesh in model.Meshes)
+                foreach (ModelMesh modelMesh in model.Meshes)
             {
                 foreach (Effect effect in modelMesh.Effects)
                 {
@@ -254,8 +254,8 @@ namespace SpaceJellyMONO
 		public void Draw(Effect effect)
         {
             mainClass.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-
-            foreach (ModelMesh mesh in model.Meshes)
+            if (gameTag != "baza")
+                foreach (ModelMesh mesh in model.Meshes)
             {
                 Effect currentEffect = null;
                 foreach (ModelMeshPart meshPart in mesh.MeshParts)

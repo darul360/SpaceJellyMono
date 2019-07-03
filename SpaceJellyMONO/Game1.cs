@@ -57,6 +57,8 @@ namespace SpaceJellyMONO
         private Spawn baseEnemy;
         public bool destroyed = false;
         public RenderEngine renderEngine;
+        private Effect refEffect;
+        Texture2D skyboxTexture;
 
         internal Spawn BaseEnemy { get => baseEnemy; set => baseEnemy = value; }
 
@@ -128,6 +130,8 @@ namespace SpaceJellyMONO
             Components.Add(new SpawnEnemies(this));
             Components.Add(new SpawnEnemies2(this));
             //  Components.Add(new MoveLocalEnemyToWarrior(this));
+            refEffect = Content.Load<Effect>("custom_effects/Reflection");
+            skyboxTexture = Content.Load<Texture2D>("PancakeTexture");
             base.Initialize();
         }
 
@@ -282,6 +286,21 @@ namespace SpaceJellyMONO
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(new Color(28, 44, 68));
+            foreach (ModelMesh mesh in baza.model.Meshes)
+            {
+                foreach (ModelMeshPart part in mesh.MeshParts)
+                {
+                    part.Effect = refEffect;
+                    refEffect.Parameters["World"].SetValue(baza.transform.World() * mesh.ParentBone.Transform);
+                    refEffect.Parameters["View"].SetValue(camera.View);
+                    refEffect.Parameters["Projection"].SetValue(camera.Projection);
+                    refEffect.Parameters["SkyboxTexture"].SetValue(skyboxTexture);
+                    refEffect.Parameters["CameraPosition"].SetValue(camera.Position);
+                    refEffect.Parameters["WorldInverseTranspose"].SetValue(
+                                            Matrix.Transpose(Matrix.Invert(Matrix.Identity * mesh.ParentBone.Transform)));
+                }
+                mesh.Draw();
+            }
             base.Draw(gameTime);
             
         }
