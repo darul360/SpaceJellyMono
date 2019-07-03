@@ -12,26 +12,7 @@ namespace SpaceJellyMONO
         [STAThread]
         static void Main()
         {
-            using (var game = new Game2()) // main menu
-            {
-                game.Run();
-                if (game.tutorial)
-                {
-                    tutorial = true;
-                }
-            }
-
-            if(tutorial)
-            using (var game = new Game3())
-            {
-                    game.Run();
-                    if (game.PLAYGAME)
-                    {
-                        play = true;
-                        tutorial = false;
-                    }
-            }
-            if (play)
+           
                using (var game = new Game1())
                      game.Run();
         }

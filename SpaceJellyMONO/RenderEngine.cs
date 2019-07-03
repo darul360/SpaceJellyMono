@@ -41,7 +41,7 @@ namespace SpaceJellyMONO
             showInfoAbout = new ShowInfoAboutBuilding(game);
             floatingTextRenderer = new FloatingTextRenderer(game, spriteBatch, camera);
             postProcessing = new PostProcessing(game);
-            renderTarget2D = new RenderTarget2D(game.GraphicsDevice, game.GraphicsDevice.Viewport.Width, game.GraphicsDevice.Viewport.Height);
+            renderTarget2D = new RenderTarget2D(GraphicsDevice, 1920, 1080);
         }
         public override void Draw(GameTime gameTime)
         {
@@ -71,7 +71,7 @@ namespace SpaceJellyMONO
             RenderHUD(gameTime);
             Game.GraphicsDevice.SetRenderTarget(null);
 
-            postProcessing.RenderPostProcessing((Texture2D)renderTarget2D);
+            postProcessing.RenderPostProcessing(renderTarget2D);
             //RenderCursor();
         }
 

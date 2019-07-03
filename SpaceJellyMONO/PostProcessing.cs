@@ -24,12 +24,9 @@ namespace SpaceJellyMONO
 
         public void RenderPostProcessing(Texture2D screenTexture)
         {
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,
-            SamplerState.LinearClamp, DepthStencilState.Default,
-            RasterizerState.CullNone, postProcessingEffect);
-
-            spriteBatch.Draw(screenTexture, new Rectangle(0, 0, game.GraphicsDevice.Viewport.Width, game.GraphicsDevice.Viewport.Height), Color.White);
-
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            postProcessingEffect.CurrentTechnique.Passes[0].Apply();
+            spriteBatch.Draw(screenTexture, new Vector2(0, 0), Color.White);
             spriteBatch.End();
         }
     }
