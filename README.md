@@ -1,3 +1,7 @@
-# SpaceJellyMono
+# Features
 
-https://www.draw.io/?state=%7B%22ids%22:%5B%2218Zmn56TFGe6JlWnlQpyXUC7Y2qjYwp35%22%5D,%22action%22:%22open%22,%22userId%22:%22103700978805317156053%22%7D#G18Zmn56TFGe6JlWnlQpyXUC7Y2qjYwp35
+Space Jelly game. It is a computer game made with XNA Framework powered by Microsoft. Game genre is Real Time Strategy combined with Area control.
+
+
+![Test Image 1](1.png)")
+![Test Image 2](2.png)")
